@@ -1,0 +1,169 @@
+{
+  "contractName": "Upgrader",
+  "abi": [
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "upgrade",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "pragma solidity ^0.5.0;\r\n\r\n\r\ncontract Upgrader {\r\n\r\n    function upgrade () external;\r\n\r\n\r\n}",
+  "sourcePath": "D:\\Workspace\\bndestoken\\Back-Blockchain-Upgrade\\contracts\\appGovernanceUpgrade\\Upgrader.sol",
+  "ast": {
+    "absolutePath": "/D/Workspace/bndestoken/Back-Blockchain-Upgrade/contracts/appGovernanceUpgrade/Upgrader.sol",
+    "exportedSymbols": {
+      "Upgrader": [
+        2363
+      ]
+    },
+    "id": 2364,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 2359,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:12"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": false,
+        "id": 2363,
+        "linearizedBaseContracts": [
+          2363
+        ],
+        "name": "Upgrader",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": null,
+            "id": 2362,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "upgrade",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2360,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "73:2:12"
+            },
+            "returnParameters": {
+              "id": 2361,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "84:0:12"
+            },
+            "scope": 2363,
+            "src": "56:29:12",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 2364,
+        "src": "29:63:12"
+      }
+    ],
+    "src": "0:92:12"
+  },
+  "legacyAST": {
+    "absolutePath": "/D/Workspace/bndestoken/Back-Blockchain-Upgrade/contracts/appGovernanceUpgrade/Upgrader.sol",
+    "exportedSymbols": {
+      "Upgrader": [
+        2363
+      ]
+    },
+    "id": 2364,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 2359,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:12"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": false,
+        "id": 2363,
+        "linearizedBaseContracts": [
+          2363
+        ],
+        "name": "Upgrader",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": null,
+            "id": 2362,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "upgrade",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2360,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "73:2:12"
+            },
+            "returnParameters": {
+              "id": 2361,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "84:0:12"
+            },
+            "scope": 2363,
+            "src": "56:29:12",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 2364,
+        "src": "29:63:12"
+      }
+    ],
+    "src": "0:92:12"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.0+commit.1d4f565a.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.0.5",
+  "updatedAt": "2020-01-27T18:43:07.007Z",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}

@@ -5,8 +5,7 @@
       "inputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "constructor",
-      "signature": "constructor"
+      "type": "constructor"
     },
     {
       "constant": true,
@@ -20,28 +19,27 @@
       ],
       "payable": false,
       "stateMutability": "pure",
-      "type": "function",
-      "signature": "0x054c1a75"
+      "type": "function"
     }
   ],
-  "bytecode": "0x6080604052348015600f57600080fd5b5060a18061001e6000396000f3fe608060405260043610603f576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063054c1a75146044575b600080fd5b348015604f57600080fd5b506056606c565b6040518082815260200191505060405180910390f35b6000600190509056fea165627a7a72305820ed9135972a510e772444834a62ae014d6fabda072f19b21b40b621a8df731c7f0029",
-  "deployedBytecode": "0x608060405260043610603f576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063054c1a75146044575b600080fd5b348015604f57600080fd5b506056606c565b6040518082815260200191505060405180910390f35b6000600190509056fea165627a7a72305820ed9135972a510e772444834a62ae014d6fabda072f19b21b40b621a8df731c7f0029",
+  "bytecode": "0x6080604052348015600f57600080fd5b5060a18061001e6000396000f3fe608060405260043610603f576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063054c1a75146044575b600080fd5b348015604f57600080fd5b506056606c565b6040518082815260200191505060405180910390f35b6000600190509056fea165627a7a723058207c235cfe378391b820d80a90bf999b21e4d43e342e0c5649ff443eb0dcf128a10029",
+  "deployedBytecode": "0x608060405260043610603f576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063054c1a75146044575b600080fd5b348015604f57600080fd5b506056606c565b6040518082815260200191505060405180910390f35b6000600190509056fea165627a7a723058207c235cfe378391b820d80a90bf999b21e4d43e342e0c5649ff443eb0dcf128a10029",
   "sourceMap": "70:144:1:-;;;101:30;8:9:-1;5:2;;;30:1;27;20:12;5:2;101:30:1;70:144;;;;;;",
   "deployedSourceMap": "70:144:1:-;;;;;;;;;;;;;;;;;;;;;;;;139:70;;8:9:-1;5:2;;;30:1;27;20:12;5:2;139:70:1;;;;;;;;;;;;;;;;;;;;;;;;176:4;200:1;193:8;;139:70;:::o",
   "source": "pragma solidity ^0.5.0;\r\n\r\n//import \"./UpdatableHandleable.sol\";\r\n\r\n\r\ncontract HelloWorld {\r\n\r\n\r\n    constructor () public {\r\n    }\r\n\r\n    function get1() pure public returns (uint) {\r\n        return 1;\r\n    }\r\n\r\n}",
-  "sourcePath": "D:/Workspace/bndestoken/Back-Blockchain-Upgrade/contracts/HelloWorld.sol",
+  "sourcePath": "D:/Workspace/bndestoken-captacao/Back-Blockchain/contracts/HelloWorld.sol",
   "ast": {
-    "absolutePath": "/D/Workspace/bndestoken/Back-Blockchain-Upgrade/contracts/HelloWorld.sol",
+    "absolutePath": "/D/Workspace/bndestoken-captacao/Back-Blockchain/contracts/HelloWorld.sol",
     "exportedSymbols": {
       "HelloWorld": [
-        147
+        151
       ]
     },
-    "id": 148,
+    "id": 152,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 134,
+        "id": 138,
         "literals": [
           "solidity",
           "^",
@@ -57,40 +55,40 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 147,
+        "id": 151,
         "linearizedBaseContracts": [
-          147
+          151
         ],
         "name": "HelloWorld",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
-              "id": 137,
+              "id": 141,
               "nodeType": "Block",
               "src": "123:8:1",
               "statements": []
             },
             "documentation": null,
-            "id": 138,
+            "id": 142,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
             "name": "",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 135,
+              "id": 139,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "113:2:1"
             },
             "returnParameters": {
-              "id": 136,
+              "id": 140,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "123:0:1"
             },
-            "scope": 147,
+            "scope": 151,
             "src": "101:30:1",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -98,7 +96,7 @@
           },
           {
             "body": {
-              "id": 145,
+              "id": 149,
               "nodeType": "Block",
               "src": "182:27:1",
               "statements": [
@@ -106,7 +104,7 @@
                   "expression": {
                     "argumentTypes": null,
                     "hexValue": "31",
-                    "id": 143,
+                    "id": 147,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": true,
@@ -121,36 +119,36 @@
                     },
                     "value": "1"
                   },
-                  "functionReturnParameters": 142,
-                  "id": 144,
+                  "functionReturnParameters": 146,
+                  "id": 148,
                   "nodeType": "Return",
                   "src": "193:8:1"
                 }
               ]
             },
             "documentation": null,
-            "id": 146,
+            "id": 150,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "get1",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 139,
+              "id": 143,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "152:2:1"
             },
             "returnParameters": {
-              "id": 142,
+              "id": 146,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 141,
+                  "id": 145,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 146,
+                  "scope": 150,
                   "src": "176:4:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -159,7 +157,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 140,
+                    "id": 144,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
                     "src": "176:4:1",
@@ -174,31 +172,31 @@
               ],
               "src": "175:6:1"
             },
-            "scope": 147,
+            "scope": 151,
             "src": "139:70:1",
             "stateMutability": "pure",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 148,
+        "scope": 152,
         "src": "70:144:1"
       }
     ],
     "src": "0:214:1"
   },
   "legacyAST": {
-    "absolutePath": "/D/Workspace/bndestoken/Back-Blockchain-Upgrade/contracts/HelloWorld.sol",
+    "absolutePath": "/D/Workspace/bndestoken-captacao/Back-Blockchain/contracts/HelloWorld.sol",
     "exportedSymbols": {
       "HelloWorld": [
-        147
+        151
       ]
     },
-    "id": 148,
+    "id": 152,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 134,
+        "id": 138,
         "literals": [
           "solidity",
           "^",
@@ -214,40 +212,40 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 147,
+        "id": 151,
         "linearizedBaseContracts": [
-          147
+          151
         ],
         "name": "HelloWorld",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
-              "id": 137,
+              "id": 141,
               "nodeType": "Block",
               "src": "123:8:1",
               "statements": []
             },
             "documentation": null,
-            "id": 138,
+            "id": 142,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
             "name": "",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 135,
+              "id": 139,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "113:2:1"
             },
             "returnParameters": {
-              "id": 136,
+              "id": 140,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "123:0:1"
             },
-            "scope": 147,
+            "scope": 151,
             "src": "101:30:1",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -255,7 +253,7 @@
           },
           {
             "body": {
-              "id": 145,
+              "id": 149,
               "nodeType": "Block",
               "src": "182:27:1",
               "statements": [
@@ -263,7 +261,7 @@
                   "expression": {
                     "argumentTypes": null,
                     "hexValue": "31",
-                    "id": 143,
+                    "id": 147,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": true,
@@ -278,36 +276,36 @@
                     },
                     "value": "1"
                   },
-                  "functionReturnParameters": 142,
-                  "id": 144,
+                  "functionReturnParameters": 146,
+                  "id": 148,
                   "nodeType": "Return",
                   "src": "193:8:1"
                 }
               ]
             },
             "documentation": null,
-            "id": 146,
+            "id": 150,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "get1",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 139,
+              "id": 143,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "152:2:1"
             },
             "returnParameters": {
-              "id": 142,
+              "id": 146,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 141,
+                  "id": 145,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 146,
+                  "scope": 150,
                   "src": "176:4:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -316,7 +314,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 140,
+                    "id": 144,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
                     "src": "176:4:1",
@@ -331,14 +329,14 @@
               ],
               "src": "175:6:1"
             },
-            "scope": 147,
+            "scope": 151,
             "src": "139:70:1",
             "stateMutability": "pure",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 148,
+        "scope": 152,
         "src": "70:144:1"
       }
     ],
@@ -348,16 +346,9 @@
     "name": "solc",
     "version": "0.5.0+commit.1d4f565a.Emscripten.clang"
   },
-  "networks": {
-    "5777": {
-      "events": {},
-      "links": {},
-      "address": "0xFEC65D6B6630D7232EB9e07951a219E99E4a9474",
-      "transactionHash": "0xcc572bfca9ef553cc8b3f705169086a7db6f3ea02300cb2f2d8a972ebfaceb92"
-    }
-  },
+  "networks": {},
   "schemaVersion": "3.0.5",
-  "updatedAt": "2019-10-01T16:26:34.527Z",
+  "updatedAt": "2020-01-28T21:04:01.064Z",
   "devdoc": {
     "methods": {}
   },

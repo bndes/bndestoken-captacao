@@ -5,8 +5,8 @@ import "./UpgraderInfo.sol";
 
 contract Updatable is Pausable {
 
-    UpgraderInfo private upgraderInfo;
-    bool private _dataAvailable;
+    UpgraderInfo public upgraderInfo;
+    bool public _dataAvailable;
 
 
     constructor (address newAddr) public {

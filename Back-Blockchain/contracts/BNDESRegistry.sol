@@ -10,14 +10,14 @@ import "./LegalEntityMapping.sol";
 contract BNDESRegistry is Updatable, IdRegistry {
 
 
-    LegalEntityMapping private legalEntityMapping;
+    LegalEntityMapping public legalEntityMapping;
 
-    address bndesReserveAccountAddress;
-    address responsibleForRegistryValidation;
-    address responsibleForDisbursement;
-    address responsibleForSettlement;
-    address redemptionAddress;
-    address tokenAddress;
+    address public bndesReserveAccountAddress;
+    address public responsibleForRegistryValidation;
+    address public responsibleForDisbursement;
+    address public responsibleForSettlement;
+    address public redemptionAddress;
+    address public tokenAddress;
 
 
     event AccountRegistration(address addr, uint cnpj, uint idFinancialSupportAgreement, string idProofHash);

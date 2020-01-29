@@ -26,9 +26,9 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "pragma solidity ^0.5.0;\r\n\r\ncontract IdRegistry  {\r\n\r\n    function getId(address addr) external view returns (uint);\r\n\r\n}\r\n",
-  "sourcePath": "D:\\Workspace\\bndestoken\\Back-Blockchain-Upgrade\\contracts\\appGovernanceUpgrade\\IdRegistry.sol",
+  "sourcePath": "D:\\Workspace\\bndestoken-captacao\\Back-Blockchain\\contracts\\appGovernanceUpgrade\\IdRegistry.sol",
   "ast": {
-    "absolutePath": "/D/Workspace/bndestoken/Back-Blockchain-Upgrade/contracts/appGovernanceUpgrade/IdRegistry.sol",
+    "absolutePath": "/D/Workspace/bndestoken-captacao/Back-Blockchain/contracts/appGovernanceUpgrade/IdRegistry.sol",
     "exportedSymbols": {
       "IdRegistry": [
         1769
@@ -151,7 +151,7 @@
     "src": "0:122:7"
   },
   "legacyAST": {
-    "absolutePath": "/D/Workspace/bndestoken/Back-Blockchain-Upgrade/contracts/appGovernanceUpgrade/IdRegistry.sol",
+    "absolutePath": "/D/Workspace/bndestoken-captacao/Back-Blockchain/contracts/appGovernanceUpgrade/IdRegistry.sol",
     "exportedSymbols": {
       "IdRegistry": [
         1769
@@ -279,7 +279,7 @@
   },
   "networks": {},
   "schemaVersion": "3.0.5",
-  "updatedAt": "2020-01-27T18:43:06.988Z",
+  "updatedAt": "2020-01-28T21:25:38.179Z",
   "devdoc": {
     "methods": {}
   },

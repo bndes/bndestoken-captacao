@@ -16,9 +16,9 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "pragma solidity ^0.5.0;\r\n\r\n\r\ncontract Upgrader {\r\n\r\n    function upgrade () external;\r\n\r\n\r\n}",
-  "sourcePath": "D:\\Workspace\\bndestoken\\Back-Blockchain-Upgrade\\contracts\\appGovernanceUpgrade\\Upgrader.sol",
+  "sourcePath": "D:\\Workspace\\bndestoken-captacao\\Back-Blockchain\\contracts\\appGovernanceUpgrade\\Upgrader.sol",
   "ast": {
-    "absolutePath": "/D/Workspace/bndestoken/Back-Blockchain-Upgrade/contracts/appGovernanceUpgrade/Upgrader.sol",
+    "absolutePath": "/D/Workspace/bndestoken-captacao/Back-Blockchain/contracts/appGovernanceUpgrade/Upgrader.sol",
     "exportedSymbols": {
       "Upgrader": [
         2363
@@ -86,7 +86,7 @@
     "src": "0:92:12"
   },
   "legacyAST": {
-    "absolutePath": "/D/Workspace/bndestoken/Back-Blockchain-Upgrade/contracts/appGovernanceUpgrade/Upgrader.sol",
+    "absolutePath": "/D/Workspace/bndestoken-captacao/Back-Blockchain/contracts/appGovernanceUpgrade/Upgrader.sol",
     "exportedSymbols": {
       "Upgrader": [
         2363
@@ -159,7 +159,7 @@
   },
   "networks": {},
   "schemaVersion": "3.0.5",
-  "updatedAt": "2020-01-27T18:43:07.007Z",
+  "updatedAt": "2020-01-28T21:25:38.196Z",
   "devdoc": {
     "methods": {}
   },

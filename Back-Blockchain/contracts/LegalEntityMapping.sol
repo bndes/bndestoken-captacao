@@ -36,7 +36,7 @@ contract LegalEntityMapping is UpdatableHandleable {
     Role roleEnum; //Not used. Defined to create the enum type
 
 
-    Storage storageContract;
+    Storage public storageContract;
 
     constructor (address upgraderInfo, address storageContractAddr) UpdatableHandleable (upgraderInfo) public {
         storageContract = Storage(storageContractAddr);

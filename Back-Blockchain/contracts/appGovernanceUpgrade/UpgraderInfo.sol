@@ -5,9 +5,9 @@ import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 //O owner desse contrato é o contrato de Governanca
 contract UpgraderInfo is Ownable() {
 
-    address private allowedUpgraderAddr;
+    address public allowedUpgraderAddr;
 
-    address private _adminAddr;
+    address public _adminAddr;
 
     event AllowedUpgraderChanged(address indexed previousAddr, address indexed newAddr);
     event AdminChanged(address indexed previousAddr, address indexed newAddr);

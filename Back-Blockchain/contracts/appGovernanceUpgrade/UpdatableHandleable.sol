@@ -4,7 +4,7 @@ import "./Updatable.sol";
 
 contract UpdatableHandleable is Updatable {
 
-    mapping(address => bool) private handlerAddrPermission;
+    mapping(address => bool) public handlerAddrPermission;
 
     constructor (address upgraderInfo) Updatable(upgraderInfo)  public {
     }

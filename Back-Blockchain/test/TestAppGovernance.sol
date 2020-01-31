@@ -4,8 +4,6 @@ pragma solidity >=0.4.25 <0.6.0;
 import "truffle/Assert.sol";
 import "truffle/DeployedAddresses.sol";
 
-import "../contracts/HelloWorld.sol";
-
 import "../contracts/appUpgraders/PreUpgrader1.sol";
 import "../contracts/appUpgraders/PreUpgrader2.sol";
 import "../contracts/appGovernanceUpgrade/Governance.sol";
@@ -17,11 +15,6 @@ contract TestAppGovernance {
   PreUpgrader1 public preUpgrader1;
   PreUpgrader2 public preUpgrader2;
 
-
-  function testHelloWorld() public {
-    HelloWorld hw = new HelloWorld();
-    Assert.equal(hw.get1(), 1, "False");
-  }
 
   function testSetupPreUpgrader1() public {
     uint[] memory governanceMembersId;

@@ -9,7 +9,8 @@ contract PreUpgrader1 {
 
     //owner and admin must be different
     constructor(address ownerOfGovernanceAddr, address adminOfNewContractsAddr, uint[] memory governanceMembersId, address resposibleForAssigningGovernanceMembers) public {
-
+//TODO: ajustar
+/*
         Governance governance = new Governance(adminOfNewContractsAddr, governanceMembersId, resposibleForAssigningGovernanceMembers);
         governance.addPauser(ownerOfGovernanceAddr);
         if (ownerOfGovernanceAddr!=adminOfNewContractsAddr) {
@@ -18,7 +19,7 @@ contract PreUpgrader1 {
         governance.renouncePauser();
         governance.transferOwnership(ownerOfGovernanceAddr);
         _governanceAddr = address(governance);
-
+*/
     }
 
     function governanceAddr() public view returns (address) {

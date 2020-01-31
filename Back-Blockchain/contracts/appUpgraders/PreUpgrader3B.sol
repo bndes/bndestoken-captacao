@@ -36,7 +36,7 @@ contract PreUpgrader3B is Upgrader {
     }
 
     function upgrade () external onlyGovernance {
-
+/*
         //These variables were created after by preUpgrader3A
         _legalEntityMappingAddr = preUpgrader3A.legalEntityMappingAddr();
         _bndesRegistryAddr = preUpgrader3A.bndesRegistryAddr();
@@ -53,7 +53,7 @@ contract PreUpgrader3B is Upgrader {
 
         Resolver resolver = Resolver(_resolverAddr);
         resolver.changeContract("BNDESRegistry", _bndesRegistryAddr);
-        
+ */       
     }
 
     function governanceAddr() public view returns (address) {

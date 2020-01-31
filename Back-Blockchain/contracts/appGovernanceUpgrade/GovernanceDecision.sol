@@ -9,9 +9,7 @@ contract GovernanceDecision is Ownable() {
 
 	using SafeMath for uint256;
 
-	uint public changeNumber;
-
-	IdRegistry private idRegistry;
+	IdRegistry public idRegistry;
 
 	enum UpgraderStatus {
 		Voting,
@@ -22,13 +20,14 @@ contract GovernanceDecision is Ownable() {
 
 	UpgraderStatus public status;
 
+	bytes32 _hashChangeMotivation;
 
 	/** Voting mechanism related */
-	uint256 private percentage;
+	uint256 public percentage;
 	mapping(uint => bool) public voting;
-	mapping(uint => bool) private voterRegistered;
-	uint256 private numOfVoters = 0;
-	uint256 private numOfAgreements = 0;
+	mapping(uint => bool) public voterRegistered;
+	uint256 public numOfVoters = 0;
+	uint256 public numOfAgreements = 0;
 
 	modifier onlyInVotingState {
 		require(status == UpgraderStatus.Voting, "Decision not in the voting state!");
@@ -38,14 +37,14 @@ contract GovernanceDecision is Ownable() {
 //If idRegistryAddr changes, the old contract will be still able to answer id Queries (unless it is destroyed).
 //If the answer of the old version of the contract is not ok, the decision contract should be cancelled.
 
-	constructor (uint[] memory _votersId, uint256 _percentage, address idRegistryAddr, uint256 _changeNumber) public {
+	constructor (bytes32 hashChangeMotivation, uint[] memory votersId, 
+		uint256 percentage, address idRegistryAddr) public {
 
-		_addVoters(_votersId);
-		_setPercentage(_percentage);
+		_hashChangeMotivation = hashChangeMotivation;
+		_addVoters(votersId);
+		_setPercentage(percentage);
 
 		idRegistry = IdRegistry(idRegistryAddr);
-
-		changeNumber = _changeNumber;
 
 		// Mark the contract as voting.
 		status = UpgraderStatus.Voting;
@@ -120,7 +119,4 @@ contract GovernanceDecision is Ownable() {
 		}
 	}
 
-	function getChangeNumber () public view returns(uint256) {
-		return changeNumber;
-	}
 }

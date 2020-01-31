@@ -32,7 +32,7 @@ contract PreUpgrader2 is Upgrader {
     }
 
     function upgrade () external onlyGovernance {
-
+/*
         Governance governance = Governance(_governanceAddr);
         UpgraderInfo ui = UpgraderInfo(governance.upgraderInfoAddr());
 
@@ -55,6 +55,7 @@ contract PreUpgrader2 is Upgrader {
             storageContract.addPauser(ui.adminAddr());
         }
         storageContract.renouncePauser();
+*/
     }
 
     function governanceAddr() public view returns (address) {

@@ -33,7 +33,7 @@ contract PreUpgrader3A is Upgrader {
     }
 
     function upgrade () external onlyGovernance {
-
+/*
         Governance governance = Governance (_governanceAddr);
         address upgraderInfoAddr = governance.upgraderInfoAddr();
         UpgraderInfo ui = UpgraderInfo(upgraderInfoAddr);
@@ -55,7 +55,7 @@ contract PreUpgrader3A is Upgrader {
             bndesRegistry.addPauser(ui.adminAddr());
         }
         bndesRegistry.renouncePauser();
-
+*/
     }
 
     function governanceAddr() public view returns (address) {

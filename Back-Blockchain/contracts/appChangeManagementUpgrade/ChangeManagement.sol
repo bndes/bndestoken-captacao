@@ -51,7 +51,11 @@ contract ChangeManagement is Pausable, Ownable() {
     event ChangeExecuted(uint changeNumber);
     event ChangeDisapproved(uint changeNumber);
     event ChangeCancelled(uint changeNumber);
-    
+    event SetGovernance(address addr);
+
+    function createNewChange (bytes32 hashChangeMotivation, address[] memory upgraderContractsAddr) public onlyOwner {
+          createNewChange(hashChangeMotivation, upgraderContractsAddr, address(0));
+    }
 
     function createNewChange (bytes32 hashChangeMotivation, address[] memory upgraderContractsAddr,
             address decisionContractAddr) public onlyOwner {
@@ -131,8 +135,6 @@ contract ChangeManagement is Pausable, Ownable() {
 
         governingChanges[changeNumber].changeState = ChangeState.CANCELED;
 
-        //Importante: nao cancelar no contrato de decisão
-
         emit ChangeCancelled(changeNumber);
     }
 
@@ -185,7 +187,10 @@ contract ChangeManagement is Pausable, Ownable() {
     }
 
     function setGovernanceAddress(address governanceAddress) public onlyOwner {
+
         _governanceAddress = governanceAddress;
+        emit SetGovernance(governanceAddress);
+
     }
 
     //This function should not be called alone. In order to change the admin, it is necessary to change the pausables.

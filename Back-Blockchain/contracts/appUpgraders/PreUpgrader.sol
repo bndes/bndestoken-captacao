@@ -2,18 +2,13 @@ pragma solidity ^0.5.0;
 
 import "../appChangeManagementUpgrade/Upgrader.sol";
 import "../appChangeManagementUpgrade/ChangeManagement.sol";
-import "../appChangeManagementUpgrade/Storage.sol";
 import "../appChangeManagementUpgrade/Resolver.sol";
-
-import {PreUpgrader as LastUpgrader} from '../appUpgraders/PreUpgrader.sol';
-import "../LegalEntityMapping.sol";
+import "../appChangeManagementUpgrade/Storage.sol";
 import "../BNDESRegistry.sol";
 
 
-contract Upgrader1 is Upgrader {
+contract PreUpgrader is Upgrader {
 
-    LastUpgrader lastUpgrader;
-    
     address public changeManagementAddr;
     ChangeManagement public changeManagementInstance;
     Resolver public resolverInstance;
@@ -21,33 +16,31 @@ contract Upgrader1 is Upgrader {
     LegalEntityMapping public legalEntityMappingInstance;
     BNDESRegistry public bndesRegistryInstance;
 
-    constructor (address lastUpgraderAddr) public {
-       
-        lastUpgrader = LastUpgrader(lastUpgraderAddr);
-        changeManagementInstance = ChangeManagement(lastUpgrader.getChangeManagementAddr());
-        resolverInstance = Resolver(lastUpgrader.getResolverAddr());
-        storageContractInstance = Storage(lastUpgrader.getStorageContractAddr());
-        legalEntityMappingInstance = LegalEntityMapping(lastUpgrader.getLegalEntityMappingAddr());
-        bndesRegistryInstance = BNDESRegistry(lastUpgrader.getBNDESRegistryAddr());
+
+    constructor(address _changeManagementAddr, address _resolverAddr, address _storageContractAddr,
+            address _legalEntityMappingAddr, address _bndesRegistryAddr) public {
+        
+        changeManagementAddr = _changeManagementAddr;
+        changeManagementInstance = ChangeManagement(_changeManagementAddr);
+        resolverInstance = Resolver(_resolverAddr);
+        storageContractInstance = Storage(_storageContractAddr);
+        legalEntityMappingInstance = LegalEntityMapping(_legalEntityMappingAddr);
+        bndesRegistryInstance = BNDESRegistry(_bndesRegistryAddr);
     }
 
+
     modifier onlyChangeManagement() {
-        require(msg.sender==changeManagementAddr, "Upgrader 1 - This function can only be executed by the ChangeManagement");
+        require(msg.sender==changeManagementAddr, "PreUpgrader - This function can only be executed by the ChangeManagement");
         _;
     }
 
     function upgrade () external onlyChangeManagement {
 
-        //Change data in storage
-        address ownerOfCMAddr = changeManagementInstance.owner();
+        storageContractInstance.addHandler(address(legalEntityMappingInstance));
+        legalEntityMappingInstance.addHandler(address(bndesRegistryInstance));
+        resolverInstance.changeContract("BNDESRegistry", address(bndesRegistryInstance));
 
-        legalEntityMappingInstance.addHandler(address(this));
-
-        legalEntityMappingInstance.setId(ownerOfCMAddr, 666);
-
-        legalEntityMappingInstance.removeHandler(address(this));
     }
-
 
     function getChangeManagementAddr() public view returns (address) {
         return changeManagementAddr;

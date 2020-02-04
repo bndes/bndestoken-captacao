@@ -1,7 +1,7 @@
 pragma solidity ^0.5.0;
 
-import "./appGovernanceUpgrade/Storage.sol";
-import "./appGovernanceUpgrade/UpdatableHandleable.sol";
+import "./appChangeManagementUpgrade/Storage.sol";
+import "./appChangeManagementUpgrade/UpdatableHandleable.sol";
 
 /*
     struct LegalEntityInfo {

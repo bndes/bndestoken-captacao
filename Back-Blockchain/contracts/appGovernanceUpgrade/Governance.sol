@@ -3,11 +3,14 @@ pragma solidity ^0.5.0;
 import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 import "openzeppelin-solidity/contracts/lifecycle/Pausable.sol";
 
-import "./ChangeManagement.sol";
+import "../appCommonUpgrade/IdRegistry.sol";
+
+import "../appChangeManagementUpgrade/ChangeManagement.sol";
+import "../appChangeManagementUpgrade/UpgraderInfo.sol";
+import "../appChangeManagementUpgrade/Upgrader.sol";
+
 import "./GovernanceDecision.sol";
-import "./UpgraderInfo.sol";
-import "./Upgrader.sol";
-import "./IdRegistry.sol";
+
 
 contract Governance is Pausable, Ownable() {
 
@@ -20,7 +23,7 @@ contract Governance is Pausable, Ownable() {
     event NewGovernanceMemberAdded(uint memberId);
     event GovernanceMemberRemoved(uint memberId);
 
-    constructor (uint[] memory initialGovernanceMembersId, 
+    constructor (uint[] memory initialGovernanceMembersId,
         address resposibleForAssigningGovernanceMembers,
         address changeManagementAddr) public {
         governanceMembersId = initialGovernanceMembersId;

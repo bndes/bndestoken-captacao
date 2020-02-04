@@ -1,68 +1,24 @@
 {
   "contractName": "PreUpgrader1",
-  "abi": [
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "ownerOfGovernanceAddr",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "adminOfNewContractsAddr",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256[]",
-          "name": "governanceMembersId",
-          "type": "uint256[]"
-        },
-        {
-          "internalType": "address",
-          "name": "resposibleForAssigningGovernanceMembers",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "constructor"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "governanceAddr",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    }
-  ],
-  "metadata": "{\"compiler\":{\"version\":\"0.5.12+commit.7709ece9\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"ownerOfGovernanceAddr\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"adminOfNewContractsAddr\",\"type\":\"address\"},{\"internalType\":\"uint256[]\",\"name\":\"governanceMembersId\",\"type\":\"uint256[]\"},{\"internalType\":\"address\",\"name\":\"resposibleForAssigningGovernanceMembers\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"constant\":true,\"inputs\":[],\"name\":\"governanceAddr\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/D/workspace/bndestoken-captacao/Back-Blockchain/contracts/appUpgraders/PreUpgrader1.sol\":\"PreUpgrader1\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/D/workspace/bndestoken-captacao/Back-Blockchain/contracts/appGovernanceUpgrade/ChangeManagement.sol\":{\"keccak256\":\"0x981827ec5572751bafdf1148d54fd2ec3ccd7a784966ebf83c5d2dbb8bbd1cea\",\"urls\":[\"bzz-raw://0a6ce5ff85547b700775b9868cc7822f911e7ef8f6209f9854285c71e5a8b798\",\"dweb:/ipfs/QmaXi7Dr37Y5ZogTsp6ac8c1KDfveSSix95TcRXWP8b6tU\"]},\"/D/workspace/bndestoken-captacao/Back-Blockchain/contracts/appGovernanceUpgrade/Governance.sol\":{\"keccak256\":\"0x51adb15b0cb917ae06c9aec0c38a9644f07cbfb5a26e4518cc916ac0fdeac086\",\"urls\":[\"bzz-raw://5640f5124eda6c37a2c366b9338cabfb4a3c7e7ab32fec60a5ff72c92c1b1c5f\",\"dweb:/ipfs/QmTp91Uz56MSikLtQ7Yqat2mv32YnvEtto81W5BURqaxiZ\"]},\"/D/workspace/bndestoken-captacao/Back-Blockchain/contracts/appGovernanceUpgrade/GovernanceDecision.sol\":{\"keccak256\":\"0xaf0fd76d8c2ad2daa5c5b70d166459644264a17d14a3b8e9034a42de5c87ab9b\",\"urls\":[\"bzz-raw://c74f6cf9384304bc194fbaf5561bfd3d1d70e550d1d1b08692625b43cbdd2b31\",\"dweb:/ipfs/QmeT56FfGcY8hUF9ES6ed6mqN1s2oriEUrHXZqRmQoNxdJ\"]},\"/D/workspace/bndestoken-captacao/Back-Blockchain/contracts/appGovernanceUpgrade/IdRegistry.sol\":{\"keccak256\":\"0x0fa73a1f2a019e53f0e2fd0f7e4e3812e310fe872a3d49047fd883b65597146a\",\"urls\":[\"bzz-raw://f824c2632042406f13e0e4c579f678b111c37bfd315402772c44e0b1f5707584\",\"dweb:/ipfs/Qmf5BL7ovDCgerfn9xxAYAHYfY3wUQHNLr994CedNhCaD6\"]},\"/D/workspace/bndestoken-captacao/Back-Blockchain/contracts/appGovernanceUpgrade/Upgrader.sol\":{\"keccak256\":\"0x497c68f2b38c4ada4285c0aa34fb6810f99547e3ae2434927c513577f965b3c5\",\"urls\":[\"bzz-raw://8616ac1aa55e90e4758004d61b746e0c6b5d635699d554416af248b7af1e83bc\",\"dweb:/ipfs/QmaGhma6bAdBMrqukzcE4ussSqFg4c2QF8HnwQrTNuqHoQ\"]},\"/D/workspace/bndestoken-captacao/Back-Blockchain/contracts/appGovernanceUpgrade/UpgraderInfo.sol\":{\"keccak256\":\"0x136764eb1e8405024dd83c200c51eaec7d8974c758cf598c47bdbdafc8b2c05d\",\"urls\":[\"bzz-raw://826460f316136b034d3142a1a3864d9383dd487e3a270b3c9857b096403b8aad\",\"dweb:/ipfs/QmTS8f9ot4pPNHTDFD8RSmDvmJ6T8sQn8af1BnA5K7SEeE\"]},\"/D/workspace/bndestoken-captacao/Back-Blockchain/contracts/appUpgraders/PreUpgrader1.sol\":{\"keccak256\":\"0x18f2bc09205ec498d44a6bd6d7abd4756933e2f3f536e66e661f1c0dd579709f\",\"urls\":[\"bzz-raw://e8ea68a2e302cd535264132a67d7ba80158523b843adcc10883bc97cfe1d67dc\",\"dweb:/ipfs/QmdqcN32rBUgTapopyMicn7B1tKKH1pt8A6kRmUZKCpekd\"]},\"openzeppelin-solidity/contracts/access/Roles.sol\":{\"keccak256\":\"0x659ba0f9a3392cd50a8a5fafaf5dfd8c6a0878f6a4613bceff4e90dceddcd865\",\"urls\":[\"bzz-raw://4ca6617349a9b36fd82e9442a8e445ce9021a174e4399d1457ddc894ee3f5df3\",\"dweb:/ipfs/QmcmyB4cNazZ1sw963Afaijt67M9bDgwmGXCgQajGTD4tm\"]},\"openzeppelin-solidity/contracts/access/roles/PauserRole.sol\":{\"keccak256\":\"0x6506133e295a7199df2ac5dfc52853d9d767f68450b6d0193e9d8056b164ce86\",\"urls\":[\"bzz-raw://9c03592a9e6b1377e401b74eccf175a250232b5a341347d3fc5cb50e9bc86ba2\",\"dweb:/ipfs/QmYAr1yXT89hNUMJ37aiBpD9HtYfBDqmueVCzphRuuU7oZ\"]},\"openzeppelin-solidity/contracts/lifecycle/Pausable.sol\":{\"keccak256\":\"0x3b0ed31deeba7e3c6cfbbe8092a6b427084ee390800a06acdea5c17c8185d606\",\"urls\":[\"bzz-raw://bbdbf9d3754fcdcc85aec0432fabcec914317b1c2081b43753442ed53853a34a\",\"dweb:/ipfs/QmVHWQBn5xQkQEHhyGNEeS5gjjALZEk5ZfcjFt7kL6MoLy\"]},\"openzeppelin-solidity/contracts/math/SafeMath.sol\":{\"keccak256\":\"0x965012d27b4262d7a41f5028cbb30c51ebd9ecd4be8fb30380aaa7a3c64fbc8b\",\"urls\":[\"bzz-raw://1eb493553b27efd46c231a836a83ce50d215639feb97b4aac9f301d0fd034ff5\",\"dweb:/ipfs/QmbMdvSXcqGKxeeYvzF3VrWpoHQyVzMXBhzhAokF2Gdymv\"]},\"openzeppelin-solidity/contracts/ownership/Ownable.sol\":{\"keccak256\":\"0x980de387a1a020a498f53d00f89fecebb12c949a17e8f160093c0303ede2b786\",\"urls\":[\"bzz-raw://f07a2c393caa85f62f0aaa461e3edd50aa59371d4209778ba0558d7f8b4b856c\",\"dweb:/ipfs/QmeN3ZiYGSjCnQFeYaJNgoXjF9eDue1g3e9pqManRkeBtV\"]}},\"version\":1}",
-  "bytecode": "0x608060405234801561001057600080fd5b506040516101d03803806101d08339818101604052608081101561003357600080fd5b8101908080519060200190929190805190602001909291908051604051939291908464010000000082111561006757600080fd5b8382019150602082018581111561007d57600080fd5b825186602082028301116401000000008211171561009a57600080fd5b8083526020830192505050908051906020019060200280838360005b838110156100d15780820151818401526020810190506100b6565b50505050905001604052602001805190602001909291905050505050505060d3806100fd6000396000f3fe6080604052348015600f57600080fd5b506004361060285760003560e01c8063133349bc14602d575b600080fd5b60336075565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b60008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1690509056fea265627a7a72315820cb7fa716583059a020bbce26259674d194b43577d5ef6a0e57dfc8aa97ca045964736f6c634300050c0032",
-  "deployedBytecode": "0x6080604052348015600f57600080fd5b506004361060285760003560e01c8063133349bc14602d575b600080fd5b60336075565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b60008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1690509056fea265627a7a72315820cb7fa716583059a020bbce26259674d194b43577d5ef6a0e57dfc8aa97ca045964736f6c634300050c0032",
-  "sourceMap": "81:894:15:-;;;193:672;8:9:-1;5:2;;;30:1;27;20:12;5:2;193:672:15;;;;;;;;;;;;;;;13:3:-1;8;5:12;2:2;;;30:1;27;20:12;2:2;193:672:15;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;19:11:-1;14:3;11:20;8:2;;;44:1;41;34:12;8:2;71:11;66:3;62:21;55:28;;123:4;118:3;114:14;159:9;141:16;138:31;135:2;;;182:1;179;172:12;135:2;219:3;213:10;331:9;325:2;311:12;307:21;289:16;285:44;282:59;261:11;247:12;244:29;233:116;230:2;;;362:1;359;352:12;230:2;385:12;380:3;373:25;421:4;416:3;412:14;405:21;;0:433;;193:672:15;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;193:672:15;;;;;;;;;;;;;;;;;;;;;;;;;;81:894;;;;;;",
-  "deployedSourceMap": "81:894:15:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;81:894:15;;;;;;;;;;;;;;;;;;;873:97;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;920:7;947:15;;;;;;;;;;;940:22;;873:97;:::o",
-  "source": "pragma solidity ^0.5.0;\r\n\r\nimport \"../appGovernanceUpgrade/Governance.sol\";\r\n\r\n\r\ncontract PreUpgrader1 {\r\n\r\n    address private _governanceAddr;\r\n\r\n    //owner and admin must be different\r\n    constructor(address ownerOfGovernanceAddr, address adminOfNewContractsAddr, uint[] memory governanceMembersId, address resposibleForAssigningGovernanceMembers) public {\r\n//TODO: ajustar\r\n/*\r\n        Governance governance = new Governance(adminOfNewContractsAddr, governanceMembersId, resposibleForAssigningGovernanceMembers);\r\n        governance.addPauser(ownerOfGovernanceAddr);\r\n        if (ownerOfGovernanceAddr!=adminOfNewContractsAddr) {\r\n            governance.addPauser(adminOfNewContractsAddr);\r\n        }\r\n        governance.renouncePauser();\r\n        governance.transferOwnership(ownerOfGovernanceAddr);\r\n        _governanceAddr = address(governance);\r\n*/\r\n    }\r\n\r\n    function governanceAddr() public view returns (address) {\r\n        return _governanceAddr;\r\n    }\r\n\r\n}",
-  "sourcePath": "D:\\workspace\\bndestoken-captacao\\Back-Blockchain\\contracts\\appUpgraders\\PreUpgrader1.sol",
+  "abi": [],
+  "bytecode": "0x6080604052348015600f57600080fd5b50603580601d6000396000f3fe6080604052600080fdfea165627a7a7230582015076efa99201611a6b5a141f790f6f74bb2569e55dfa3ddc3f36d366be27d1b0029",
+  "deployedBytecode": "0x6080604052600080fdfea165627a7a7230582015076efa99201611a6b5a141f790f6f74bb2569e55dfa3ddc3f36d366be27d1b0029",
+  "sourceMap": "81:885:16:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;81:885:16;;;;;;;",
+  "deployedSourceMap": "81:885:16:-;;;;;",
+  "source": "pragma solidity ^0.5.0;\r\n\r\nimport \"../appGovernanceUpgrade/Governance.sol\";\r\n\r\n\r\ncontract PreUpgrader1 {\r\n\r\n    address private _governanceAddr;\r\n/*\r\n\r\n    //owner and admin must be different\r\n    constructor(address ownerOfGovernanceAddr, address adminOfNewContractsAddr, uint[] memory governanceMembersId, address resposibleForAssigningGovernanceMembers) public {\r\n\r\n        Governance governance = new Governance(adminOfNewContractsAddr, governanceMembersId, resposibleForAssigningGovernanceMembers);\r\n        governance.addPauser(ownerOfGovernanceAddr);\r\n        if (ownerOfGovernanceAddr!=adminOfNewContractsAddr) {\r\n            governance.addPauser(adminOfNewContractsAddr);\r\n        }\r\n        governance.renouncePauser();\r\n        governance.transferOwnership(ownerOfGovernanceAddr);\r\n        _governanceAddr = address(governance);\r\n    }\r\n*/\r\n\r\n/*\r\n    function governanceAddr() public view returns (address) {\r\n        return _governanceAddr;\r\n    }\r\n*/\r\n}",
+  "sourcePath": "D:\\Workspace\\bndestoken-captacao\\Back-Blockchain\\contracts\\appUpgraders\\PreUpgrader1.sol",
   "ast": {
-    "absolutePath": "/D/workspace/bndestoken-captacao/Back-Blockchain/contracts/appUpgraders/PreUpgrader1.sol",
+    "absolutePath": "/D/Workspace/bndestoken-captacao/Back-Blockchain/contracts/appUpgraders/PreUpgrader1.sol",
     "exportedSymbols": {
       "PreUpgrader1": [
-        2632
+        2799
       ]
     },
-    "id": 2633,
+    "id": 2800,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 2607,
+        "id": 2795,
         "literals": [
           "solidity",
           "^",
@@ -70,16 +26,16 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:23:15"
+        "src": "0:23:16"
       },
       {
-        "absolutePath": "/D/workspace/bndestoken-captacao/Back-Blockchain/contracts/appGovernanceUpgrade/Governance.sol",
+        "absolutePath": "/D/Workspace/bndestoken-captacao/Back-Blockchain/contracts/appGovernanceUpgrade/Governance.sol",
         "file": "../appGovernanceUpgrade/Governance.sol",
-        "id": 2608,
+        "id": 2796,
         "nodeType": "ImportDirective",
-        "scope": 2633,
-        "sourceUnit": 1656,
-        "src": "27:48:15",
+        "scope": 2800,
+        "sourceUnit": 1683,
+        "src": "27:48:16",
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -89,20 +45,20 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 2632,
+        "id": 2799,
         "linearizedBaseContracts": [
-          2632
+          2799
         ],
         "name": "PreUpgrader1",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 2610,
+            "id": 2798,
             "name": "_governanceAddr",
             "nodeType": "VariableDeclaration",
-            "scope": 2632,
-            "src": "112:31:15",
+            "scope": 2799,
+            "src": "112:31:16",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -110,10 +66,10 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 2609,
+              "id": 2797,
               "name": "address",
               "nodeType": "ElementaryTypeName",
-              "src": "112:7:15",
+              "src": "112:7:16",
               "stateMutability": "nonpayable",
               "typeDescriptions": {
                 "typeIdentifier": "t_address",
@@ -122,256 +78,26 @@
             },
             "value": null,
             "visibility": "private"
-          },
-          {
-            "body": {
-              "id": 2622,
-              "nodeType": "Block",
-              "src": "360:505:15",
-              "statements": []
-            },
-            "documentation": null,
-            "id": 2623,
-            "implemented": true,
-            "kind": "constructor",
-            "modifiers": [],
-            "name": "",
-            "nodeType": "FunctionDefinition",
-            "parameters": {
-              "id": 2620,
-              "nodeType": "ParameterList",
-              "parameters": [
-                {
-                  "constant": false,
-                  "id": 2612,
-                  "name": "ownerOfGovernanceAddr",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 2623,
-                  "src": "205:29:15",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_address",
-                    "typeString": "address"
-                  },
-                  "typeName": {
-                    "id": 2611,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "205:7:15",
-                    "stateMutability": "nonpayable",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_address",
-                      "typeString": "address"
-                    }
-                  },
-                  "value": null,
-                  "visibility": "internal"
-                },
-                {
-                  "constant": false,
-                  "id": 2614,
-                  "name": "adminOfNewContractsAddr",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 2623,
-                  "src": "236:31:15",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_address",
-                    "typeString": "address"
-                  },
-                  "typeName": {
-                    "id": 2613,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "236:7:15",
-                    "stateMutability": "nonpayable",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_address",
-                      "typeString": "address"
-                    }
-                  },
-                  "value": null,
-                  "visibility": "internal"
-                },
-                {
-                  "constant": false,
-                  "id": 2617,
-                  "name": "governanceMembersId",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 2623,
-                  "src": "269:33:15",
-                  "stateVariable": false,
-                  "storageLocation": "memory",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_array$_t_uint256_$dyn_memory_ptr",
-                    "typeString": "uint256[]"
-                  },
-                  "typeName": {
-                    "baseType": {
-                      "id": 2615,
-                      "name": "uint",
-                      "nodeType": "ElementaryTypeName",
-                      "src": "269:4:15",
-                      "typeDescriptions": {
-                        "typeIdentifier": "t_uint256",
-                        "typeString": "uint256"
-                      }
-                    },
-                    "id": 2616,
-                    "length": null,
-                    "nodeType": "ArrayTypeName",
-                    "src": "269:6:15",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
-                      "typeString": "uint256[]"
-                    }
-                  },
-                  "value": null,
-                  "visibility": "internal"
-                },
-                {
-                  "constant": false,
-                  "id": 2619,
-                  "name": "resposibleForAssigningGovernanceMembers",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 2623,
-                  "src": "304:47:15",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_address",
-                    "typeString": "address"
-                  },
-                  "typeName": {
-                    "id": 2618,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "304:7:15",
-                    "stateMutability": "nonpayable",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_address",
-                      "typeString": "address"
-                    }
-                  },
-                  "value": null,
-                  "visibility": "internal"
-                }
-              ],
-              "src": "204:148:15"
-            },
-            "returnParameters": {
-              "id": 2621,
-              "nodeType": "ParameterList",
-              "parameters": [],
-              "src": "360:0:15"
-            },
-            "scope": 2632,
-            "src": "193:672:15",
-            "stateMutability": "nonpayable",
-            "superFunction": null,
-            "visibility": "public"
-          },
-          {
-            "body": {
-              "id": 2630,
-              "nodeType": "Block",
-              "src": "929:41:15",
-              "statements": [
-                {
-                  "expression": {
-                    "argumentTypes": null,
-                    "id": 2628,
-                    "name": "_governanceAddr",
-                    "nodeType": "Identifier",
-                    "overloadedDeclarations": [],
-                    "referencedDeclaration": 2610,
-                    "src": "947:15:15",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_address",
-                      "typeString": "address"
-                    }
-                  },
-                  "functionReturnParameters": 2627,
-                  "id": 2629,
-                  "nodeType": "Return",
-                  "src": "940:22:15"
-                }
-              ]
-            },
-            "documentation": null,
-            "id": 2631,
-            "implemented": true,
-            "kind": "function",
-            "modifiers": [],
-            "name": "governanceAddr",
-            "nodeType": "FunctionDefinition",
-            "parameters": {
-              "id": 2624,
-              "nodeType": "ParameterList",
-              "parameters": [],
-              "src": "896:2:15"
-            },
-            "returnParameters": {
-              "id": 2627,
-              "nodeType": "ParameterList",
-              "parameters": [
-                {
-                  "constant": false,
-                  "id": 2626,
-                  "name": "",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 2631,
-                  "src": "920:7:15",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_address",
-                    "typeString": "address"
-                  },
-                  "typeName": {
-                    "id": 2625,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "920:7:15",
-                    "stateMutability": "nonpayable",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_address",
-                      "typeString": "address"
-                    }
-                  },
-                  "value": null,
-                  "visibility": "internal"
-                }
-              ],
-              "src": "919:9:15"
-            },
-            "scope": 2632,
-            "src": "873:97:15",
-            "stateMutability": "view",
-            "superFunction": null,
-            "visibility": "public"
           }
         ],
-        "scope": 2633,
-        "src": "81:894:15"
+        "scope": 2800,
+        "src": "81:885:16"
       }
     ],
-    "src": "0:975:15"
+    "src": "0:966:16"
   },
   "legacyAST": {
-    "absolutePath": "/D/workspace/bndestoken-captacao/Back-Blockchain/contracts/appUpgraders/PreUpgrader1.sol",
+    "absolutePath": "/D/Workspace/bndestoken-captacao/Back-Blockchain/contracts/appUpgraders/PreUpgrader1.sol",
     "exportedSymbols": {
       "PreUpgrader1": [
-        2632
+        2799
       ]
     },
-    "id": 2633,
+    "id": 2800,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 2607,
+        "id": 2795,
         "literals": [
           "solidity",
           "^",
@@ -379,16 +105,16 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:23:15"
+        "src": "0:23:16"
       },
       {
-        "absolutePath": "/D/workspace/bndestoken-captacao/Back-Blockchain/contracts/appGovernanceUpgrade/Governance.sol",
+        "absolutePath": "/D/Workspace/bndestoken-captacao/Back-Blockchain/contracts/appGovernanceUpgrade/Governance.sol",
         "file": "../appGovernanceUpgrade/Governance.sol",
-        "id": 2608,
+        "id": 2796,
         "nodeType": "ImportDirective",
-        "scope": 2633,
-        "sourceUnit": 1656,
-        "src": "27:48:15",
+        "scope": 2800,
+        "sourceUnit": 1683,
+        "src": "27:48:16",
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -398,20 +124,20 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 2632,
+        "id": 2799,
         "linearizedBaseContracts": [
-          2632
+          2799
         ],
         "name": "PreUpgrader1",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 2610,
+            "id": 2798,
             "name": "_governanceAddr",
             "nodeType": "VariableDeclaration",
-            "scope": 2632,
-            "src": "112:31:15",
+            "scope": 2799,
+            "src": "112:31:16",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -419,10 +145,10 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 2609,
+              "id": 2797,
               "name": "address",
               "nodeType": "ElementaryTypeName",
-              "src": "112:7:15",
+              "src": "112:7:16",
               "stateMutability": "nonpayable",
               "typeDescriptions": {
                 "typeIdentifier": "t_address",
@@ -431,251 +157,21 @@
             },
             "value": null,
             "visibility": "private"
-          },
-          {
-            "body": {
-              "id": 2622,
-              "nodeType": "Block",
-              "src": "360:505:15",
-              "statements": []
-            },
-            "documentation": null,
-            "id": 2623,
-            "implemented": true,
-            "kind": "constructor",
-            "modifiers": [],
-            "name": "",
-            "nodeType": "FunctionDefinition",
-            "parameters": {
-              "id": 2620,
-              "nodeType": "ParameterList",
-              "parameters": [
-                {
-                  "constant": false,
-                  "id": 2612,
-                  "name": "ownerOfGovernanceAddr",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 2623,
-                  "src": "205:29:15",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_address",
-                    "typeString": "address"
-                  },
-                  "typeName": {
-                    "id": 2611,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "205:7:15",
-                    "stateMutability": "nonpayable",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_address",
-                      "typeString": "address"
-                    }
-                  },
-                  "value": null,
-                  "visibility": "internal"
-                },
-                {
-                  "constant": false,
-                  "id": 2614,
-                  "name": "adminOfNewContractsAddr",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 2623,
-                  "src": "236:31:15",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_address",
-                    "typeString": "address"
-                  },
-                  "typeName": {
-                    "id": 2613,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "236:7:15",
-                    "stateMutability": "nonpayable",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_address",
-                      "typeString": "address"
-                    }
-                  },
-                  "value": null,
-                  "visibility": "internal"
-                },
-                {
-                  "constant": false,
-                  "id": 2617,
-                  "name": "governanceMembersId",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 2623,
-                  "src": "269:33:15",
-                  "stateVariable": false,
-                  "storageLocation": "memory",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_array$_t_uint256_$dyn_memory_ptr",
-                    "typeString": "uint256[]"
-                  },
-                  "typeName": {
-                    "baseType": {
-                      "id": 2615,
-                      "name": "uint",
-                      "nodeType": "ElementaryTypeName",
-                      "src": "269:4:15",
-                      "typeDescriptions": {
-                        "typeIdentifier": "t_uint256",
-                        "typeString": "uint256"
-                      }
-                    },
-                    "id": 2616,
-                    "length": null,
-                    "nodeType": "ArrayTypeName",
-                    "src": "269:6:15",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
-                      "typeString": "uint256[]"
-                    }
-                  },
-                  "value": null,
-                  "visibility": "internal"
-                },
-                {
-                  "constant": false,
-                  "id": 2619,
-                  "name": "resposibleForAssigningGovernanceMembers",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 2623,
-                  "src": "304:47:15",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_address",
-                    "typeString": "address"
-                  },
-                  "typeName": {
-                    "id": 2618,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "304:7:15",
-                    "stateMutability": "nonpayable",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_address",
-                      "typeString": "address"
-                    }
-                  },
-                  "value": null,
-                  "visibility": "internal"
-                }
-              ],
-              "src": "204:148:15"
-            },
-            "returnParameters": {
-              "id": 2621,
-              "nodeType": "ParameterList",
-              "parameters": [],
-              "src": "360:0:15"
-            },
-            "scope": 2632,
-            "src": "193:672:15",
-            "stateMutability": "nonpayable",
-            "superFunction": null,
-            "visibility": "public"
-          },
-          {
-            "body": {
-              "id": 2630,
-              "nodeType": "Block",
-              "src": "929:41:15",
-              "statements": [
-                {
-                  "expression": {
-                    "argumentTypes": null,
-                    "id": 2628,
-                    "name": "_governanceAddr",
-                    "nodeType": "Identifier",
-                    "overloadedDeclarations": [],
-                    "referencedDeclaration": 2610,
-                    "src": "947:15:15",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_address",
-                      "typeString": "address"
-                    }
-                  },
-                  "functionReturnParameters": 2627,
-                  "id": 2629,
-                  "nodeType": "Return",
-                  "src": "940:22:15"
-                }
-              ]
-            },
-            "documentation": null,
-            "id": 2631,
-            "implemented": true,
-            "kind": "function",
-            "modifiers": [],
-            "name": "governanceAddr",
-            "nodeType": "FunctionDefinition",
-            "parameters": {
-              "id": 2624,
-              "nodeType": "ParameterList",
-              "parameters": [],
-              "src": "896:2:15"
-            },
-            "returnParameters": {
-              "id": 2627,
-              "nodeType": "ParameterList",
-              "parameters": [
-                {
-                  "constant": false,
-                  "id": 2626,
-                  "name": "",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 2631,
-                  "src": "920:7:15",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_address",
-                    "typeString": "address"
-                  },
-                  "typeName": {
-                    "id": 2625,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "920:7:15",
-                    "stateMutability": "nonpayable",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_address",
-                      "typeString": "address"
-                    }
-                  },
-                  "value": null,
-                  "visibility": "internal"
-                }
-              ],
-              "src": "919:9:15"
-            },
-            "scope": 2632,
-            "src": "873:97:15",
-            "stateMutability": "view",
-            "superFunction": null,
-            "visibility": "public"
           }
         ],
-        "scope": 2633,
-        "src": "81:894:15"
+        "scope": 2800,
+        "src": "81:885:16"
       }
     ],
-    "src": "0:975:15"
+    "src": "0:966:16"
   },
   "compiler": {
     "name": "solc",
-    "version": "0.5.12+commit.7709ece9.Emscripten.clang"
+    "version": "0.5.0+commit.1d4f565a.Emscripten.clang"
   },
   "networks": {},
-  "schemaVersion": "3.0.20",
-  "updatedAt": "2020-01-31T18:10:32.396Z",
+  "schemaVersion": "3.0.5",
+  "updatedAt": "2020-02-03T19:53:57.459Z",
   "devdoc": {
     "methods": {}
   },

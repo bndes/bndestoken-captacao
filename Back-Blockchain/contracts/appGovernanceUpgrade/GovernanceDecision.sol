@@ -2,7 +2,7 @@ pragma solidity ^0.5.0;
 
 import "openzeppelin-solidity/contracts/math/SafeMath.sol";
 import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
-import "./IdRegistry.sol";
+import "../appCommonUpgrade/IdRegistry.sol";
 
 
 contract GovernanceDecision is Ownable() {
@@ -38,11 +38,11 @@ contract GovernanceDecision is Ownable() {
 //If the answer of the old version of the contract is not ok, the decision contract should be cancelled.
 
 	constructor (bytes32 hashChangeMotivation, uint[] memory votersId, 
-		uint256 percentage, address idRegistryAddr) public {
+		uint256 _percentage, address idRegistryAddr) public {
 
 		_hashChangeMotivation = hashChangeMotivation;
 		_addVoters(votersId);
-		_setPercentage(percentage);
+		_setPercentage(_percentage);
 
 		idRegistry = IdRegistry(idRegistryAddr);
 

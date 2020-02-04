@@ -2,12 +2,12 @@ pragma solidity ^0.5.0;
 
 import "openzeppelin-solidity/contracts/lifecycle/Pausable.sol";
 
-import "./appGovernanceUpgrade/IdRegistry.sol";
-import "./appGovernanceUpgrade/Updatable.sol";
+import "./appCommonUpgrade/IdRegistry.sol";
+import "./appChangeManagementUpgrade/Updatable.sol";
 
 import "./LegalEntityMapping.sol";
 
-contract BNDESRegistry is Updatable, IdRegistry {
+contract BNDESRegistry is Updatable {
 
 
     LegalEntityMapping public legalEntityMapping;

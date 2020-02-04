@@ -7,8 +7,7 @@ contract Resolver is Updatable {
     mapping (string => address) nameToAddress;
     mapping (string => address[]) nameToPreviousAddresses;
 
-    //todo: metodo para acessar essa estrutura?
-    address[] private allValidContracts;
+    address[] public allValidContracts;
 
     constructor (address upgraderInfoAddr) Updatable (upgraderInfoAddr) public {
     }

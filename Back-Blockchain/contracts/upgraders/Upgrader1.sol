@@ -6,8 +6,8 @@ import "../appChangeManagementUpgrade/Storage.sol";
 import "../appChangeManagementUpgrade/Resolver.sol";
 
 import {PreUpgrader as LastUpgrader} from '../appUpgraders/PreUpgrader.sol';
-import "../LegalEntityMapping.sol";
-import "../BNDESRegistry.sol";
+import "../appTestUpgrade/LegalEntityMapping.sol";
+import "../appTestUpgrade/BNDESRegistry.sol";
 
 
 contract Upgrader1 is Upgrader {

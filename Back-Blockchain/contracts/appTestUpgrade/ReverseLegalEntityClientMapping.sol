@@ -1,7 +1,7 @@
 pragma solidity ^0.5.0;
 
-import "./appChangeManagementUpgrade/Storage.sol";
-import "./appChangeManagementUpgrade/UpdatableHandleable.sol";
+import "../appChangeManagementUpgrade/Storage.sol";
+import "../appChangeManagementUpgrade/UpdatableHandleable.sol";
 
 /*
     Links Legal Entity to Ethereum address.

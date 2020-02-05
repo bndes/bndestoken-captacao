@@ -37,4 +37,11 @@ contract UpdatableHandleable is Updatable {
 		return true;
 	}
 
+
+	///TESTE******************
+    function setHANDTESTE() public onlyHandler {
+
+    }
+
+
 }

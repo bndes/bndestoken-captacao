@@ -4,7 +4,7 @@ import "../appChangeManagementUpgrade/Upgrader.sol";
 import "../appChangeManagementUpgrade/ChangeManagement.sol";
 import "../appChangeManagementUpgrade/Resolver.sol";
 import "../appChangeManagementUpgrade/Storage.sol";
-import "../BNDESRegistry.sol";
+import "../appTestUpgrade/BNDESRegistry.sol";
 
 
 contract PreUpgrader is Upgrader {

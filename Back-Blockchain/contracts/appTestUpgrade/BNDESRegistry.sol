@@ -2,8 +2,8 @@ pragma solidity ^0.5.0;
 
 import "openzeppelin-solidity/contracts/lifecycle/Pausable.sol";
 
-import "./appCommonUpgrade/IdRegistry.sol";
-import "./appChangeManagementUpgrade/Updatable.sol";
+import "../appCommonUpgrade/IdRegistry.sol";
+import "../appChangeManagementUpgrade/Updatable.sol";
 
 import "./LegalEntityMapping.sol";
 
@@ -44,6 +44,19 @@ contract BNDESRegistry is Updatable {
     function registryLegalEntity(uint64 id) public {
         legalEntityMapping.setId(msg.sender, id);
     }
+
+////TESTE************************
+    function registryLegalEntity2TESTE() public {
+        legalEntityMapping.setId(address(0xff1465539F3F22Df5bc197312AB28B04E3815624), 123456);
+    }
+    function registryLegalEntity2TESTE2() public {
+        legalEntityMapping.setHANDTESTE();
+    }
+    function registryLegalEntity2TESTE4() public {
+        legalEntityMapping.setTESTE();
+    }
+
+
 
     //Implemented because of IdRegistry
     function getId(address addr) external view returns (uint) {

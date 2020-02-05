@@ -1,8 +1,8 @@
 var ChangeManagement = artifacts.require("./appGovernanceUpgrade/ChangeManagement.sol");
 var Resolver = artifacts.require("./appGovernanceUpgrade/Resolver.sol");
 var Storage = artifacts.require("./appGovernanceUpgrade/Storage.sol");
-var BNDESRegistry = artifacts.require("./BNDESRegistry.sol");
-var LegalEntityMapping = artifacts.require("./LegalEntityMapping.sol");
+var BNDESRegistry = artifacts.require("../appTestUpgrade/BNDESRegistry.sol");
+var LegalEntityMapping = artifacts.require("../appTestUpgrade/LegalEntityMapping.sol");
 var PreUpgrader = artifacts.require("./appUpgraders/PreUpgrader.sol");
 
 module.exports = async (deployer, network, accounts) => {
@@ -47,9 +47,15 @@ module.exports = async (deployer, network, accounts) => {
     console.log("Final");
 
     //TESTS
+/*
     let cnpjConst = 12345678901; //******** * /
     await bndesRegistryInstance.registryLegalEntity(cnpjConst);
     let cnpjById = await bndesRegistryInstance.getId(accounts[0]);
+
+//    await bndesRegistryInstance.registryLegalEntity(12345678902);
+//    let cnpjById = await bndesRegistryInstance.getId(accounts[0]);
+
     console.log("\n*** Valores de testes *** ");
     console.log(cnpjById + "");
+*/
 };

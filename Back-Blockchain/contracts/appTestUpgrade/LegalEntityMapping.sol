@@ -1,7 +1,7 @@
 pragma solidity ^0.5.0;
 
-import "./appChangeManagementUpgrade/Storage.sol";
-import "./appChangeManagementUpgrade/UpdatableHandleable.sol";
+import "../appChangeManagementUpgrade/Storage.sol";
+import "../appChangeManagementUpgrade/UpdatableHandleable.sol";
 
 /*
     struct LegalEntityInfo {
@@ -41,6 +41,14 @@ contract LegalEntityMapping is UpdatableHandleable {
     constructor (address upgraderInfo, address storageContractAddr) UpdatableHandleable (upgraderInfo) public {
         storageContract = Storage(storageContractAddr);
     }
+
+
+    //TESTE**************************
+    function setTESTE() public onlyHandler {
+
+    }
+   
+
 
 //Id
     function getId(address addrLegalEntity) view public returns (uint) {

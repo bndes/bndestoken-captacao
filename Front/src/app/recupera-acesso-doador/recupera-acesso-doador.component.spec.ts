@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RecuperaAcessoFornecedorComponent } from './recupera-acesso-fornecedor.component';
+import { RecuperaAcessoDoadorComponent } from './recupera-acesso-doador.component';
 
 describe('RecuperaAcessoForncedorComponent', () => {
-  let component: RecuperaAcessoFornecedorComponent;
-  let fixture: ComponentFixture<RecuperaAcessoFornecedorComponent>;
+  let component: RecuperaAcessoDoadorComponent;
+  let fixture: ComponentFixture<RecuperaAcessoDoadorComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RecuperaAcessoFornecedorComponent ]
+      declarations: [ RecuperaAcessoDoadorComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RecuperaAcessoFornecedorComponent);
+    fixture = TestBed.createComponent(RecuperaAcessoDoadorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -20,7 +20,6 @@ export class AssociaContaClienteComponent implements OnInit {
   cliente: Cliente;
   subcreditoSelecionado: number;
   hashdeclaracao: string;
-  salic: string;
 
   contaEstaValida: string;
   selectedAccount: any;
@@ -193,17 +192,6 @@ export class AssociaContaClienteComponent implements OnInit {
       return
     }
 
-    if (this.salic==undefined || this.salic==null) {
-      let s = "O SALIC é um Campo Obrigatório";
-      this.bnAlertsService.criarAlerta("error", "Erro", s, 2)
-      return
-    }
-    else if (!Utils.isValidSalic(this.salic)) {
-      let s = "O SALIC está preenchido com valor inválido";
-      this.bnAlertsService.criarAlerta("error", "Erro", s, 2)
-      return;  
-  }    
-
     if (this.hashdeclaracao==undefined || this.hashdeclaracao==null) {
       let s = "O Hash da declaração é um Campo Obrigatório";
       this.bnAlertsService.criarAlerta("error", "Erro", s, 2)
@@ -229,7 +217,7 @@ export class AssociaContaClienteComponent implements OnInit {
 
         else {
 
-          this.web3Service.cadastra(parseInt(self.cliente.cnpj), self.subcreditoSelecionado, Number(self.salic), self.hashdeclaracao,
+          this.web3Service.cadastra(parseInt(self.cliente.cnpj), self.subcreditoSelecionado, self.hashdeclaracao,
 
             (txHash) => {
   

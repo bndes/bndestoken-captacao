@@ -10,15 +10,15 @@ import { ValidacaoCadastroComponent } from './validacao-cadastro/validacao-cadas
 
 /* Cliente */
 import { AssociaContaClienteComponent } from './associa-conta-cliente/associa-conta-cliente.component';
-import { LiquidarDoacaoComponent } from './liquidar-doacao/liquidar-doacao.component';
+import { ConfirmaDoacaoComponent } from './confirma-doacao/confirma-doacao.component';
 import { RecuperaAcessoClienteComponent } from './recupera-acesso-cliente/recupera-acesso-cliente.component';
 import { ResgateComponent } from './resgate/resgate.component';
 
 
-/* Fornecedor */
-import { AssociaContaFornecedorComponent } from './associa-conta-fornecedor/associa-conta-fornecedor.component';
+/* Doador */
+import { AssociaContaDoadorComponent } from './associa-conta-doador/associa-conta-doador.component';
 import { RegistraDoacaoComponent } from './registra-doacao/registra-doacao.component';
-import { RecuperaAcessoFornecedorComponent } from './recupera-acesso-fornecedor/recupera-acesso-fornecedor.component';
+import { RecuperaAcessoDoadorComponent } from './recupera-acesso-doador/recupera-acesso-doador.component';
 
 /* Sociedade */
 import { DashboardIdEmpresaComponent } from './dashboard-id-empresa/dashboard-id-empresa.component';
@@ -30,16 +30,16 @@ const routes: Routes = [
   { path: 'cliente', component: HomeComponent },
   { path: 'doador', component: HomeComponent },
   { path: 'sociedade', component: HomeComponent },
-  { path: 'bndes/liquidar-doacao', component: LiquidarDoacaoComponent },
+  { path: 'bndes/confirma-doacao', component:ConfirmaDoacaoComponent },
   { path: 'bndes/liberacao', component: LiberacaoComponent },
   { path: 'bndes/val-cadastro', component: ValidacaoCadastroComponent},
   { path: 'bndes/liquidar/:solicitacaoResgateId', component: LiquidacaoResgateComponent},
   { path: 'cliente/associa-conta-cliente', component: AssociaContaClienteComponent },
   { path: 'cliente/recupera-acesso-cliente', component: RecuperaAcessoClienteComponent},
-  { path: 'doador/associa-conta-fornecedor', component: AssociaContaFornecedorComponent},
+  { path: 'doador/associa-conta-doador', component: AssociaContaDoadorComponent},
   { path: 'doador/registra-doacao', component: RegistraDoacaoComponent},  
   { path: 'cliente/resgate', component: ResgateComponent },
-  { path: 'doador/recupera-acesso-fornecedor', component: RecuperaAcessoFornecedorComponent},
+  { path: 'doador/recupera-acesso-doador', component: RecuperaAcessoDoadorComponent},
   { path: 'sociedade/dash-empresas', component: DashboardIdEmpresaComponent },
   { path: 'sociedade/dash-doacao', component: DashboardDoacaoComponent },
   { path: 'sociedade/dash-transf', component: DashboardTransferenciasComponent },

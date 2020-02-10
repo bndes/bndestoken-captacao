@@ -148,16 +148,16 @@ export class ResgateComponent implements OnInit {
 
     let self = this;
 
-    let bFornecedor = await this.web3Service.isFornecedorSync(this.resgate.contaBlockchainOrigem);
-    if (!bFornecedor) {
-      let s = "O resgate deve ser realizado para a conta de um fornecedor.";
+    let bCliente = await this.web3Service.isClienteSync(this.resgate.contaBlockchainOrigem);
+    if (!bCliente) {
+      let s = "O resgate deve ser realizado para a conta de um cliente.";
       this.bnAlertsService.criarAlerta("error", "Erro", s, 5);
       return;
     }
 
     let bValidadaOrigem = await this.web3Service.isContaValidadaSync(this.resgate.contaBlockchainOrigem);
     if (!bValidadaOrigem) {
-      let s = "Conta do fornecedor não validada";
+      let s = "Conta do cliente não validada";
       this.bnAlertsService.criarAlerta("error", "Erro", s, 5);
       return;
     }

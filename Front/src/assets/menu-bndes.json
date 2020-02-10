@@ -11,7 +11,7 @@
 			"subitem": [
 				{
 					"titulo": "Confirmar Recebimento de Doação",
-					"url": "/bndes/liquidar-doacao",
+					"url": "/bndes/confirma-doacao",
 					"separador": false
 				},
 				{

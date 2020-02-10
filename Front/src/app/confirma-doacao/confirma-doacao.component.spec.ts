@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LiquidarDoacaoComponent } from './liquidar-doacao.component';
+import { ConfirmaDoacaoComponent } from './confirma-doacao.component';
 
-describe('LiquidarDoacaoComponent', () => {
-  let component: LiquidarDoacaoComponent;
-  let fixture: ComponentFixture<LiquidarDoacaoComponent>;
+describe('ConfirmaDoacaoComponent', () => {
+  let component: ConfirmaDoacaoComponent;
+  let fixture: ComponentFixture<ConfirmaDoacaoComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LiquidarDoacaoComponent ]
+      declarations: [ ConfirmaDoacaoComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LiquidarDoacaoComponent);
+    fixture = TestBed.createComponent(ConfirmaDoacaoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

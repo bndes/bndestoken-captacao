@@ -29,6 +29,9 @@ export class Web3Service {
     private eventoTransferencia: any;
     private eventoResgate: any;
     private eventoLiquidacaoResgate: any;
+    private eventoRegistroDoacao: any;
+    private eventoRecebimentoDoacao: any;
+
 
     private addressOwner: string;
 
@@ -111,8 +114,10 @@ export class Web3Service {
         this.bndesRegistrySmartContract = this.web3.eth.contract(this.ABIBndesRegistry).at(this.addrContratoBNDESRegistry);
 
         console.log("INICIALIZOU O WEB3 - bndesTokenContract abaixo");
-        console.log("BNDESToken=" + this.bndesTokenSmartContract);
-        console.log("BNDESRegistry=" + this.bndesRegistrySmartContract);
+        console.log("BNDESToken=");
+        console.log(this.bndesTokenSmartContract);        
+        console.log("BNDESRegistry=");
+        console.log(this.bndesRegistrySmartContract);
 
         let self = this;
 
@@ -187,6 +192,16 @@ export class Web3Service {
         this.eventoLiquidacaoResgate.watch(callback);
     }
 
+    registraEventosRegistrarDoacao(callback) {
+        this.eventoRegistroDoacao = this.bndesTokenSmartContract.DonationBooked({}, { fromBlock: 0, toBlock: 'latest' });
+        this.eventoRegistroDoacao.watch(callback);
+    }
+    registraEventosRecebimentoDoacao(callback) {
+        this.eventoRecebimentoDoacao = this.bndesTokenSmartContract.DonationConfirmed({}, { fromBlock: 0, toBlock: 'latest' });
+        this.eventoRecebimentoDoacao.watch(callback);
+    }
+
+
     registraWatcherEventosLocal(txHashProcurado, callback) {
         let self = this;
         console.info("Callback ", callback);
@@ -229,17 +244,17 @@ export class Web3Service {
     }
 
 
-    async cadastra(cnpj: number, idSubcredito: number, salic: number, hashdeclaracao: string,
+    async cadastra(cnpj: number, idSubcredito: number, hashdeclaracao: string,
         fSuccess: any, fError: any) {
 
         let contaBlockchain = await this.getCurrentAccountSync();    
 
         console.log("Web3Service - Cadastra")
-        console.log("CNPJ: " + cnpj + ", Contrato: " + idSubcredito + ",salic: "+ salic + 
+        console.log("CNPJ: " + cnpj + ", Contrato: " + idSubcredito + 
             ", hashdeclaracao: " + hashdeclaracao
             )
 
-        this.bndesTokenSmartContract.registryLegalEntity(cnpj, idSubcredito, salic, 
+        this.bndesTokenSmartContract.registryLegalEntity(cnpj, idSubcredito, 
             hashdeclaracao, 
             { from: contaBlockchain, gas: 500000 },
             (error, result) => {
@@ -289,6 +304,27 @@ export class Web3Service {
             });
     }
 
+    getContaBlockchainFromDoador(cnpj:string, fSuccess: any, fError: any) {
+        return this.bndesRegistrySmartContract.getContaBlockchainFromDoador(cnpj,
+            (error, result) => {
+                if (error) fError(error);
+                else fSuccess(result);
+            });
+    }
+
+    getContaBlockchainFromDoadorSync(cnpj:string) {
+        let self = this;
+
+        return new Promise (function(resolve) {
+            self.getContaBlockchainFromDoador(cnpj, function(result) {
+                resolve(result);
+            }, function(reject) {
+                console.log("ERRO isChangeAccountEnabledSync");
+                reject(false);
+            });
+        })
+    }    
+
     isChangeAccountEnabled(addr: string, fSuccess: any, fError: any): number {
         return this.bndesRegistrySmartContract.isChangeAccountEnabled(addr,
             (error, result) => {
@@ -313,6 +349,8 @@ export class Web3Service {
 
     getPJInfo(addr: string, fSuccess: any, fError: any): number {
         let self = this;
+        console.log("getPJInfo com addr=" + addr);
+        console.log("bndesRegistrySmartContract=" + this.bndesRegistrySmartContract);
         return this.bndesRegistrySmartContract.getLegalEntityInfo(addr,
             (error, result) => {
                 if (error) fError(error);
@@ -353,6 +391,10 @@ export class Web3Service {
     }
 
     inicializaQtdDecimais() {
+        this.decimais = 2;
+
+        //TODO: recuperar da blockchain 
+        /*
         let self = this;
         this.bndesTokenSmartContract.decimals(
             (error, result) => {
@@ -367,6 +409,7 @@ export class Web3Service {
                 }
                     
             }); 
+            */
     }
 
     converteDecimalParaInteiro( _x : number ): number {
@@ -402,6 +445,31 @@ export class Web3Service {
         this.transfer(target, transferAmount, fSuccess, fError);
     }
 
+
+    async registrarDoacao(amount: number, fSuccess: any, fError: any) {
+
+        let contaSelecionada = await this.getCurrentAccountSync();    
+        
+        console.log("conta selecionada=" + contaSelecionada);
+        console.log("Web3Service - RegistraDoacao");
+        amount = this.converteDecimalParaInteiro(amount);     
+
+        //TODO: NOGUEIRA!!!
+        
+    }
+
+    async receberDoacao(cnpj: string, amount: number, fSuccess: any, fError: any) {
+
+        let contaSelecionada = await this.getCurrentAccountSync();    
+        
+        console.log("conta selecionada=" + contaSelecionada);
+        console.log("Web3Service - ReceberDoacao");
+        amount = this.converteDecimalParaInteiro(amount);     
+
+        //TODO: NOGUEIRA!!!
+        
+    }    
+
     async resgata(transferAmount: number, fSuccess: any, fError: any) {
 
         let contaSelecionada = await this.getCurrentAccountSync();    
@@ -430,17 +498,16 @@ export class Web3Service {
             });
     }
 
-    async trocaAssociacaoDeConta(cnpj: number, idSubcredito: number, salic: number, hashdeclaracao: string,
+    async trocaAssociacaoDeConta(cnpj: number, idSubcredito: number, hashdeclaracao: string,
         fSuccess: any, fError: any) {
 
         console.log("Web3Service - Troca Associacao")
         console.log("CNPJ: " + cnpj + ", Contrato: " + idSubcredito + ", cnpj: " + cnpj)
-        console.log("salic= " + salic);
         console.log("hash= " + hashdeclaracao);
 
         let contaBlockchain = await this.getCurrentAccountSync();    
 
-        this.bndesTokenSmartContract.changeAccountLegalEntity(cnpj, idSubcredito, salic, hashdeclaracao, 
+        this.bndesTokenSmartContract.changeAccountLegalEntity(cnpj, idSubcredito, hashdeclaracao, 
             { from: contaBlockchain, gas: 500000 },
             (error, result) => {
                 if (error) fError(error);
@@ -476,10 +543,8 @@ export class Web3Service {
         })
     }
         
-
-
-    isFornecedor(address: string, fSuccess: any, fError: any): boolean {
-        return this.bndesRegistrySmartContract.isSupplier(address,
+    isDoador(address: string, fSuccess: any, fError: any): boolean {
+        return this.bndesRegistrySmartContract.isDonor(address,
             (error, result) => {
                 if (error) fError(error);
                 else fSuccess(result);
@@ -487,19 +552,20 @@ export class Web3Service {
     }
 
 
-    isFornecedorSync(address: string) {
+    isDoadorSync(address: string) {
         let self = this;
 
         return new Promise (function(resolve) {
-            self.isFornecedor(address, function(result) {
+            self.isDoador(address, function(result) {
                 resolve(result);
             }, function(reject) {
-                console.log("ERRO IS FORNECEDOR SYNC");
+                console.log("ERRO IS DONOR SYNC");
                 reject(false);
             });
         })
     }
-        
+    
+
     isResponsibleForSettlement(address: string, fSuccess: any, fError: any): boolean {
         return this.bndesRegistrySmartContract.isResponsibleForSettlement(address,
             (error, result) => {
@@ -663,10 +729,16 @@ export class Web3Service {
 
     getEstadoContaAsString(address: string, fSuccess: any, fError: any): string {
         let self = this;
+        console.log("getEstadoContaAsString no web3:" + address);
         return this.bndesRegistrySmartContract.getAccountState(address, 
         (error, result) => {
-            if(error) fError(error);
+            if(error) {
+                console.log("Mensagem de erro ao chamar BNDESRegistry:");
+                console.log(error);                
+                fError(error);
+            }
             else {
+                console.log("Sucesso ao recuperar valor - getAccountState no web3:" + result);
                 let str = self.getEstadoContaAsStringByCodigo (result);
                 fSuccess(str);
             }   
@@ -684,10 +756,9 @@ export class Web3Service {
         pjInfo  = {};
         pjInfo.cnpj = result[0].c[0];
         pjInfo.idSubcredito = result[1].c[0];
-        pjInfo.salic = result[2].c[0];
-        pjInfo.hashDeclaracao = result[3];
-        pjInfo.status = result[4].c[0];
-        pjInfo.address = result[5];
+        pjInfo.hashDeclaracao = result[2];
+        pjInfo.status = result[3].c[0];
+        pjInfo.address = result[4];
 
         pjInfo.statusAsString = this.getEstadoContaAsStringByCodigo(pjInfo.status);
 

@@ -22,7 +22,6 @@ export class RecuperaAcessoClienteComponent implements OnInit {
   selectedAccount: any;
   maskCnpj: any;
   hashdeclaracao: string;
-  salic: string;
 
 
   constructor(private pessoaJuridicaService: PessoaJuridicaService, protected bnAlertsService: BnAlertsService,
@@ -46,7 +45,7 @@ export class RecuperaAcessoClienteComponent implements OnInit {
     this.numeroSubcreditoSelecionado = undefined;
     this.contaBlockchainAssociada = undefined;    
     this.hashdeclaracao = "";
-    this.salic = undefined;
+
   }
 
   changeCnpj() {
@@ -226,16 +225,6 @@ export class RecuperaAcessoClienteComponent implements OnInit {
       this.bnAlertsService.criarAlerta("error", "Erro", s, 5);
       return;
     }
-    if (this.salic==undefined || this.salic==null) {
-      let s = "O SALIC é um Campo Obrigatório";
-      this.bnAlertsService.criarAlerta("error", "Erro", s, 2)
-      return;
-    }
-    else if (!Utils.isValidSalic(this.salic)) {
-        let s = "O SALIC está preenchido com valor inválido";
-        this.bnAlertsService.criarAlerta("error", "Erro", s, 2)
-        return;  
-    }    
 
     if (this.hashdeclaracao==undefined || this.hashdeclaracao==null) {
       let s = "O Hash da declaração é um Campo Obrigatório";
@@ -267,7 +256,7 @@ export class RecuperaAcessoClienteComponent implements OnInit {
 
 
     self.web3Service.trocaAssociacaoDeConta(parseInt(self.cliente.cnpj), 
-       self.numeroSubcreditoSelecionado, Number(this.salic), this.hashdeclaracao,
+       self.numeroSubcreditoSelecionado, this.hashdeclaracao,
     
         (txHash) => {
 

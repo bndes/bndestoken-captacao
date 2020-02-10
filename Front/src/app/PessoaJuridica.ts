@@ -3,7 +3,6 @@ export class PessoaJuridica {
   razaoSocial: string;
   cnpj: string;
   idSubcredito: string;
-  salic: string;
   dadosBancarios: {
     banco: number;
     agencia: number;

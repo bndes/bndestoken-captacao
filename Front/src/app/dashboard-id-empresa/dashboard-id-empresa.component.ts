@@ -107,7 +107,6 @@ export class DashboardIdEmpresaComponent implements OnInit {
                     cnpj: eventoCadastro.args.cnpj,
                     razaoSocial: "",
                     contaBlockchain: eventoCadastro.args.addr,
-                    salic: eventoCadastro.args.salic,
                     hashID: eventoCadastro.transactionHash,
                     uniqueIdentifier: eventoCadastro.transactionHash,
                     dataHora: null,
@@ -149,7 +148,6 @@ export class DashboardIdEmpresaComponent implements OnInit {
                     cnpj: eventoTroca.args.cnpj,
                     razaoSocial: "",
                     contaBlockchain: eventoTroca.args.oldAddr,
-                    salic: eventoTroca.args.salic,
                     hashID: eventoTroca.transactionHash,
                     uniqueIdentifier: eventoTroca.transactionHash + "Old",
                     dataHora: null,
@@ -168,7 +166,6 @@ export class DashboardIdEmpresaComponent implements OnInit {
                     cnpj: eventoTroca.args.cnpj,
                     razaoSocial: "",
                     contaBlockchain: eventoTroca.args.newAddr,
-                    salic: eventoTroca.args.salic,
                     hashID: eventoTroca.transactionHash,
                     uniqueIdentifier: eventoTroca.transactionHash + "New",                    
                     dataHora: null,
@@ -205,7 +202,6 @@ export class DashboardIdEmpresaComponent implements OnInit {
                     cnpj: event.args.cnpj,
                     razaoSocial: "",
                     contaBlockchain: event.args.addr,
-                    salic: event.args.salic,
                     hashID: event.transactionHash,
                     uniqueIdentifier: event.transactionHash,
                     dataHora: null,
@@ -244,7 +240,6 @@ export class DashboardIdEmpresaComponent implements OnInit {
                     cnpj: event.args.cnpj,
                     razaoSocial: "",
                     contaBlockchain: event.args.addr,
-                    salic: event.args.salic,
                     hashID: event.transactionHash,
                     uniqueIdentifier: event.transactionHash,                    
                     dataHora: null,
@@ -304,7 +299,6 @@ export class DashboardIdEmpresaComponent implements OnInit {
                 transacaoPJ.contaBlockchain = "";
             });
 
-        if (transacaoPJ.salic=="0") transacaoPJ.salic="-";
         if (transacaoPJ.nomeConta=="0") transacaoPJ.nomeConta="-";
 
     }

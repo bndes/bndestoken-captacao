@@ -27,10 +27,6 @@
               <i [hidden]="reverse" class="fa fa-caret-down"></i>
               <i [hidden]="!reverse" class="fa fa-caret-up"></i>
             </th>
-          <th [class.active]="order === 'salic'" (click)="setOrder('salic')">SALIC
-            <i [hidden]="reverse" class="fa fa-caret-down"></i>
-            <i [hidden]="!reverse" class="fa fa-caret-up"></i>
-          </th>            
           <th>HashDeclaração</th>
           <th [class.active]="order === 'dataHora'" (click)="setOrder('dataHora')">Data/Hora
             <i [hidden]="reverse" class="fa fa-caret-down"></i>
@@ -53,7 +49,6 @@
           <td>{{transacaoPJ.razaoSocial}}</td>
           <td>{{transacaoPJ.cnpj | cnpjMask}}</td>
           <td>{{transacaoPJ.nomeConta}}</td>
-          <td>{{transacaoPJ.salic}}</td>
           <td class="tooltipCaixa"><a target="_blank" href="https://github.com/bndes/bndestoken/tree/master/Docs-Declaracao/{{transacaoPJ.cnpj}}-{{transacaoPJ.hashDeclaracao}}.pdf">
             {{transacaoPJ.hashDeclaracao | hashMask}}
           </a><span class="tooltiptext" style="width: 520px;" *ngIf="transacaoPJ.hashDeclaracao">{{transacaoPJ.hashDeclaracao}}</span></td>

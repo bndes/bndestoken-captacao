@@ -1,3 +1,73 @@
-<p>
-  registra-doacao works!
-</p>
+<div class="form-group" *ngIf="selectedAccount">
+
+  <div *ngIf="doacao">
+
+    <div class="form-group">
+      <h2>Registrar Intenção de Doação</h2>
+    </div>
+
+    <div class="conteudo">
+
+      <div class="row">
+        <div class="form-group col-md-12 col-sm-12">
+          <h5>Dados Cadastrais:</h5>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group col-md-5 col-sm-5">
+          <label>Conta Blockchain:</label>
+          <input type="text" class="form-control form-control-sm" [ngModel]="doacao.contaBlockchainOrigem" readonly disabled size="45">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group col-md-4 col-sm-4">
+          <label>CNPJ:</label>
+          <input type="text" class="form-control form-control-sm" [ngModel]="doacao.cnpjOrigem | cnpjMask" 
+           readonly disabled size="14" />
+        </div>
+
+        <div class="form-group col-md-4 col-sm-4">
+          <label>Razão Social:</label>
+          <input type="text" class="form-control form-control-sm" [ngModel]="doacao.razaoSocialOrigem" readonly disabled/>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="conteudo">
+
+      <div class="row">
+        <div class="form-group col-md-12 col-sm-12">
+          <h5>Dados da Doação:</h5>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group col-md-4 col-sm-4">
+          <app-input-validation errorMessage="Campo Obrigatório">
+            <label class="required">Valor a doar (em Reais):</label>
+            <input currencyMask [options]="{ prefix: 'R$ '}" [(ngModel)]="doacao.valor" class="form-control form-control-sm" required/>
+          </app-input-validation>
+        </div>
+
+        <div class="form-group col-md-4 col-sm-4">
+          <label>Equivalente em BNDESToken:</label>
+          <input currencyMask [(ngModel)]="doacao.valor" class="form-control form-control-sm" readonly
+            disabled />
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="form-group">
+    <button class="btn btn-success btn-cabecalho" (click)="registrarDoacao()" [disabled]="doacao.valor === undefined || doacao.valor <= 0"
+      type="button" placement="bottom" ngbTooltip="Resgatar">
+      <i class="fa fa-floppy-o" aria-hidden="true"></i> Registrar
+    </button>
+  </div>
+
+</div>
+<app-metamsg *ngIf="!selectedAccount"></app-metamsg>

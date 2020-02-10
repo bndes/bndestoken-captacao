@@ -11,7 +11,7 @@
 			"subitem": [
 				{
 					"titulo": "Associar Conta",
-					"url": "/doador/associa-conta-fornecedor",
+					"url": "/doador/associa-conta-doador",
 					"separador": false
 				},
 				{
@@ -21,7 +21,7 @@
 				},
 				{
 					"titulo": "Trocar conta",
-					"url": "/doador/recupera-acesso-fornecedor",
+					"url": "/doador/recupera-acesso-doador",
 					"separador": false
 				}
 			]

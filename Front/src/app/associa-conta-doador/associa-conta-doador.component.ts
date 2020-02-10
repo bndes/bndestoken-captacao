@@ -2,19 +2,19 @@ import { Component, OnInit, NgZone, ChangeDetectorRef } from '@angular/core'
 import { Router, ActivatedRoute } from '@angular/router'
 import { BnAlertsService } from 'bndes-ux4'
 
-import { Fornecedor } from '../fornecedor/Fornecedor'
+import { Doador } from './Doador'
 import { PessoaJuridicaService } from '../pessoa-juridica.service'
-import { Web3Service } from './../Web3Service'
+import { Web3Service } from '../Web3Service'
 import { Utils } from '../shared/utils';
 
 @Component({
-  selector: 'app-associa-conta-fornecedor',
-  templateUrl: './associa-conta-fornecedor.component.html',
-  styleUrls: ['./associa-conta-fornecedor.component.css']
+  selector: 'app-associa-conta-doador',
+  templateUrl: './associa-conta-doador.component.html',
+  styleUrls: ['./associa-conta-doador.component.css']
 })
-export class AssociaContaFornecedorComponent implements OnInit {
+export class AssociaContaDoadorComponent implements OnInit {
 
-  fornecedor: Fornecedor
+  doador: Doador
 
   hashdeclaracao: string;
 
@@ -34,7 +34,7 @@ export class AssociaContaFornecedorComponent implements OnInit {
     }
 
   ngOnInit() {
-    this.fornecedor = new Fornecedor()
+    this.doador = new Doador()
      this.maskCnpj = Utils.getMaskCnpj(); 
     this.inicializaDadosDerivadosPessoaJuridica();
     this.recuperaContaSelecionada();
@@ -42,17 +42,17 @@ export class AssociaContaFornecedorComponent implements OnInit {
 
 
   inicializaDadosDerivadosPessoaJuridica() {
-    this.fornecedor.cnpj = ""
-    this.fornecedor.dadosCadastrais = undefined
+    this.doador.cnpj = ""
+    this.doador.dadosCadastrais = undefined
   }
 
   changeCnpj() { 
-    this.fornecedor.cnpj = Utils.removeSpecialCharacters(this.fornecedor.cnpjWithMask);
-    let cnpj = this.fornecedor.cnpj;
+    this.doador.cnpj = Utils.removeSpecialCharacters(this.doador.cnpjWithMask);
+    let cnpj = this.doador.cnpj;
 
     if ( cnpj.length == 14 ) {
-      console.log (" Buscando o CNPJ do fornecedor (14 digitos fornecidos)...  " + cnpj)
-      this.recuperaFornecedorPorCNPJ(cnpj);
+      console.log (" Buscando o CNPJ do doador (14 digitos fornecidos)...  " + cnpj)
+      this.recuperaDoadorPorCNPJ(cnpj);
     }   
     else {
       this.inicializaDadosDerivadosPessoaJuridica();
@@ -61,7 +61,7 @@ export class AssociaContaFornecedorComponent implements OnInit {
 
 
   cancelar() {
-    this.fornecedor = new Fornecedor();
+    this.doador = new Doador();
     this.inicializaDadosDerivadosPessoaJuridica();    
   }
 
@@ -101,8 +101,8 @@ export class AssociaContaFornecedorComponent implements OnInit {
     }
   }
 
-  recuperaFornecedorPorCNPJ(cnpj) {
-    console.log("RECUPERA Fornecedor com CNPJ =" + cnpj)
+  recuperaDoadorPorCNPJ(cnpj) {
+    console.log("RECUPERA Doador com CNPJ =" + cnpj)
 
     this.pessoaJuridicaService.recuperaEmpresaPorCnpj(cnpj).subscribe(
       empresa => {
@@ -110,7 +110,7 @@ export class AssociaContaFornecedorComponent implements OnInit {
           console.log("empresa encontrada - ")
           console.log(empresa)
 
-          this.fornecedor.dadosCadastrais = empresa["dadosCadastrais"];
+          this.doador.dadosCadastrais = empresa["dadosCadastrais"];
 
         }
         else {
@@ -127,7 +127,7 @@ export class AssociaContaFornecedorComponent implements OnInit {
       })
   }
 
-  associaContaFornecedor() {
+  associaContaDoador() {
 
     let self = this
 
@@ -159,14 +159,14 @@ export class AssociaContaFornecedorComponent implements OnInit {
 
         else {
 
-          this.web3Service.cadastra(parseInt(this.fornecedor.cnpj), 0, 0, this.hashdeclaracao,
+          this.web3Service.cadastra(parseInt(this.doador.cnpj), 0, this.hashdeclaracao,
 
           (txHash) => {
  
            Utils.criarAlertasAvisoConfirmacao( txHash, 
                                                self.web3Service, 
                                                self.bnAlertsService, 
-                                               "Associação do cnpj " + self.fornecedor.cnpj + "  enviada. Aguarde a confirmação.", 
+                                               "Associação do cnpj " + self.doador.cnpj + "  enviada. Aguarde a confirmação.", 
                                                "A associação de conta foi confirmada na blockchain.", 
                                                self.zone)    
             self.router.navigate(['sociedade/dash-empresas']);
@@ -174,7 +174,7 @@ export class AssociaContaFornecedorComponent implements OnInit {
          ,(error) => {
            Utils.criarAlertaErro( self.bnAlertsService, 
                                   "Erro ao associar na blockchain.", 
-                                  error )  
+                                  error )
           });
           Utils.criarAlertaAcaoUsuario( self.bnAlertsService, 
                                       "Confirme a operação no metamask e aguarde a confirmação da associação da conta." )         

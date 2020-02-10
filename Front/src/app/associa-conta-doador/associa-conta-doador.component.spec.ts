@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ExtratoContaComponent } from './extrato-conta.component';
+import { AssociaContaDoadorComponent } from './associa-conta-doador.component';
 
-describe('ExtratoContaComponent', () => {
-  let component: ExtratoContaComponent;
-  let fixture: ComponentFixture<ExtratoContaComponent>;
+describe('AssociaContaDoadorComponent', () => {
+  let component: AssociaContaDoadorComponent;
+  let fixture: ComponentFixture<AssociaContaDoadorComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ExtratoContaComponent ]
+      declarations: [ AssociaContaDoadorComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ExtratoContaComponent);
+    fixture = TestBed.createComponent(AssociaContaDoadorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

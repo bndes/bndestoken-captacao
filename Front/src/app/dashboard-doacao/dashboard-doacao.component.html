@@ -1,3 +1,66 @@
-<p>
-  dashboard-doacao works!
-</p>
+<div class="form-group" *ngIf="selectedAccount">
+  <div class="title-loading">
+  <h2 class="page-header">Dashboard Doações</h2>
+  <app-bn-loading class="loading" *ngIf="estadoLista === 'undefined'"></app-bn-loading>
+</div>
+
+<div *ngIf="estadoLista === 'vazia'">
+  <p>Não foi encontrado nenhuma Doação na Blockchain!</p>
+</div>
+
+<div *ngIf="estadoLista === 'cheia'">
+  <input class="form-control barra-filtro" type="text" name="search" [(ngModel)]="filter" placeholder="Filtro">
+
+  <div class="table-responsive-md">
+    <table class="table table-striped table-bordered table-sm">
+      <thead>
+        <tr *ngIf="listaTransacoesPJ.length > 0">
+          <th [class.active]="order === 'razaoSocial'" (click)="setOrder('razaoSocial')">Razão Social
+            <i [hidden]="reverse" class="fa fa-caret-down"></i>
+            <i [hidden]="!reverse" class="fa fa-caret-up"></i>
+          </th>
+          <th class="cnpj-table-cell" [class.active]="order === 'cnpj'" (click)="setOrder('cnpj')">CNPJ
+            <i [hidden]="reverse" class="fa fa-caret-down"></i>
+            <i [hidden]="!reverse" class="fa fa-caret-up"></i>
+          </th>
+          <th [class.active]="order === 'valor'" (click)="setOrder('valor')" scope="col">Valor em Reais
+            <i [hidden]="reverse" class="fa fa-caret-down"></i>
+            <i [hidden]="!reverse" class="fa fa-caret-up"></i>
+          </th>
+          <th [class.active]="order === 'dataHora'" (click)="setOrder('dataHora')">Data/Hora
+            <i [hidden]="reverse" class="fa fa-caret-down"></i>
+            <i [hidden]="!reverse" class="fa fa-caret-up"></i>
+          </th>
+          <th [class.active]="order === 'tipo'" (click)="setOrder('tipo')" scope="col">Tipo
+            <i [hidden]="reverse" class="fa fa-caret-down"></i>
+            <i [hidden]="!reverse" class="fa fa-caret-up"></i>
+          </th>
+          <th>Link Etherscan</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let transacao of listaDoacoes | orderBy: order: reverse: 'caseInsensitive':customComparator | filter:filter | paginate: { itemsPerPage: 10, currentPage: p } ; let i = index">
+          <td>{{transacao.razaoSocial}}</td>
+          <td>{{transacao.cnpj | cnpjMask}}</td>
+          <td>{{transacao.valor | currency:'BND':'symbol':'1.2-2':'pt' }}</td>
+          <td>{{transacao.dataHora | date: 'dd/MM/yyyy hh:mm a' }}</td>
+          <td>{{transacao.tipo}}</td>
+          <td class="text-center">
+            <a target="_blank" href="https://{{blockchainNetworkPrefix}}etherscan.io/tx/{{transacao.hashID}}">
+              <i class="fa fa-link" aria-hidden="true"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="text-center">
+    <pagination-controls (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Próximo" class="paginacao"></pagination-controls>
+  </div>
+</div>
+
+</div>
+<app-metamsg *ngIf="!selectedAccount"></app-metamsg>
+

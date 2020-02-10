@@ -15,7 +15,6 @@
           <th>Razão Social</th>
           <th>CNPJ</th>
           <th>Contrato Financeiro</th>
-          <th>SALIC</th>          
           <th>Conta Blockchain</th>
           <th>Status</th>
           <th>HashDeclaração</th>
@@ -27,7 +26,6 @@
           <td>{{pj.razaoSocial}}</td>
           <td>{{pj.cnpj | cnpjMask}}</td>
           <td>{{pj.idSubcredito}}</td>
-          <td>{{pj.salic}}</td>
           <td><input name="pj.contaBlockchain" (keyup)="recuperaClientePorContaBlockchain(pj.contaBlockchain)" [(ngModel)]="pj.contaBlockchain" class="form-control"></td>     
           <td>{{pj.status}}</td>
           <td><input name="hashDeclaracaoDigitado" [(ngModel)]="hashDeclaracaoDigitado" maxlength="64" class="form-control"></td>

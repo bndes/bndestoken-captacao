@@ -3,19 +3,19 @@ import { Router } from '@angular/router';
 
 import { BnAlertsService } from 'bndes-ux4';
 
-import { Fornecedor } from '../fornecedor/Fornecedor';
+import { Doador } from './Doador'
 import { PessoaJuridicaService } from '../pessoa-juridica.service';
-import { Web3Service } from './../Web3Service';
+import { Web3Service } from '../Web3Service';
 import { Utils } from '../shared/utils';
 
 @Component({
-  selector: 'app-recupera-conta-fornecedor',
-  templateUrl: './recupera-acesso-fornecedor.component.html',
-  styleUrls: ['./recupera-acesso-fornecedor.component.css']
+  selector: 'app-recupera-conta-doador',
+  templateUrl: './recupera-acesso-doador.component.html',
+  styleUrls: ['./recupera-acesso-doador.component.css']
 })
-export class RecuperaAcessoFornecedorComponent implements OnInit {
+export class RecuperaAcessoDoadorComponent implements OnInit {
 
-  fornecedor: Fornecedor;
+  doador: Doador;
   contaBlockchainAssociada: string
   contaEstaValida: boolean;
   selectedAccount: any;
@@ -34,13 +34,13 @@ export class RecuperaAcessoFornecedorComponent implements OnInit {
 
   ngOnInit() {
     this.maskCnpj = Utils.getMaskCnpj(); 
-    this.fornecedor = new Fornecedor();
+    this.doador = new Doador();
     this.inicializaDadosTroca();
   }
 
   inicializaDadosTroca() {
-    this.fornecedor.cnpj = "";
-    this.fornecedor.dadosCadastrais = undefined;
+    this.doador.cnpj = "";
+    this.doador.dadosCadastrais = undefined;
     this.hashdeclaracao = "";    
   }
 
@@ -49,12 +49,12 @@ export class RecuperaAcessoFornecedorComponent implements OnInit {
 
     console.log("Entrou no changelog");
     
-    this.fornecedor.cnpj = Utils.removeSpecialCharacters(this.fornecedor.cnpjWithMask);
-    let cnpj = this.fornecedor.cnpj;
+    this.doador.cnpj = Utils.removeSpecialCharacters(this.doador.cnpjWithMask);
+    let cnpj = this.doador.cnpj;
 
     if ( cnpj.length == 14 ) { 
       console.log (" Buscando o CNPJ do cliente (14 digitos fornecidos)...  " + cnpj)
-      this.recuperaFornecedorPorCNPJ(cnpj);
+      this.recuperaDoadorPorCNPJ(cnpj);
     } 
     else {
       this.inicializaDadosTroca();
@@ -64,7 +64,7 @@ export class RecuperaAcessoFornecedorComponent implements OnInit {
 
 
   cancelar() {
-    this.fornecedor = new Fornecedor();    
+    this.doador = new Doador();    
     this.inicializaDadosTroca();
   }
 
@@ -106,8 +106,8 @@ export class RecuperaAcessoFornecedorComponent implements OnInit {
 
   }
 
-  recuperaFornecedorPorCNPJ(cnpj) {
-    console.log("RECUPERA FORNECEDOR com CNPJ = " + cnpj);
+  recuperaDoadorPorCNPJ(cnpj) {
+    console.log("Recupera Doador com CNPJ = " + cnpj);
 
     this.pessoaJuridicaService.recuperaEmpresaPorCnpj(cnpj).subscribe(
       empresa => {
@@ -115,8 +115,8 @@ export class RecuperaAcessoFornecedorComponent implements OnInit {
           console.log("Empresa encontrada - ");
           console.log(empresa);
 
-          this.fornecedor.dadosCadastrais = empresa["dadosCadastrais"];
-          this.recuperaContaBlockchainFornecedor();
+          this.doador.dadosCadastrais = empresa["dadosCadastrais"];
+          this.recuperaContaBlockchainDoador();
 
         }
         else {
@@ -135,13 +135,13 @@ export class RecuperaAcessoFornecedorComponent implements OnInit {
   }
 
 
-  recuperaContaBlockchainFornecedor() {
+  recuperaContaBlockchainDoador() {
 
     let self = this;
 
-    this.web3Service.getContaBlockchain(this.fornecedor.cnpj, 0,
+    this.web3Service.getContaBlockchain(this.doador.cnpj, 0,
       function (result) {
-        console.log("Conta blockchain associada a " + self.fornecedor.cnpj +  " é " + result);
+        console.log("Conta blockchain associada a " + self.doador.cnpj +  " é " + result);
         self.contaBlockchainAssociada = result;
         self.ref.detectChanges();
       },
@@ -164,9 +164,9 @@ export class RecuperaAcessoFornecedorComponent implements OnInit {
       return;
     }
 
-    let bFornc = await this.web3Service.isFornecedorSync(this.contaBlockchainAssociada);
+    let bFornc = await this.web3Service.isDoadorSync(this.contaBlockchainAssociada);
     if (!bFornc) {
-      let s = "Conta não é de um fornecedor";
+      let s = "Conta não é de um doador";
       this.bnAlertsService.criarAlerta("error", "Erro", s, 5);
       return;
     }
@@ -199,14 +199,14 @@ export class RecuperaAcessoFornecedorComponent implements OnInit {
     } 
 
 
-    this.web3Service.trocaAssociacaoDeConta(parseInt(this.fornecedor.cnpj), 0, 0,this.hashdeclaracao,
+    this.web3Service.trocaAssociacaoDeConta(parseInt(this.doador.cnpj), 0, this.hashdeclaracao,
     
          (txHash) => {
 
           Utils.criarAlertasAvisoConfirmacao( txHash, 
                                               self.web3Service, 
                                               self.bnAlertsService, 
-                                              "Troca de conta do cnpj " + self.fornecedor.cnpj + "  enviada. Aguarde a confirmação.", 
+                                              "Troca de conta do cnpj " + self.doador.cnpj + "  enviada. Aguarde a confirmação.", 
                                               "A troca foi confirmada na blockchain.", 
                                               self.zone) 
           self.router.navigate(['sociedade/dash-empresas']);

@@ -17,27 +17,26 @@ import { NgxPaginationModule } from 'ngx-pagination'
 import { CurrencyMaskModule } from "ng2-currency-mask";
 import { CurrencyMaskConfig, CURRENCY_MASK_CONFIG } from "ng2-currency-mask/src/currency-mask.config";
 import { TextMaskModule } from 'angular2-text-mask';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { BlocoAnimadoComponent } from './shared/bloco-animado/bloco-animado.component';
 
 /* BNDES */
-import { LiquidarDoacaoComponent } from './liquidar-doacao/liquidar-doacao.component';
+import { ConfirmaDoacaoComponent } from './confirma-doacao/confirma-doacao.component';
 import { LiberacaoComponent } from './liberacao/liberacao.component';
 import { LiquidacaoResgateComponent } from './liquidacao-resgate/liquidacao-resgate.component';
 
 /* Cliente */
 import { AssociaContaClienteComponent } from './associa-conta-cliente/associa-conta-cliente.component';
 import { RecuperaAcessoClienteComponent } from './recupera-acesso-cliente/recupera-acesso-cliente.component';
-import { TransferenciaComponent } from './transferencia/transferencia.component';
+import { ResgateComponent } from './resgate/resgate.component';
 
 /* Doador */
 import { RegistraDoacaoComponent } from './registra-doacao/registra-doacao.component'
-import { ResgateComponent } from './resgate/resgate.component';
-import { AssociaContaFornecedorComponent } from './associa-conta-fornecedor/associa-conta-fornecedor.component';
-import { RecuperaAcessoFornecedorComponent } from './recupera-acesso-fornecedor/recupera-acesso-fornecedor.component';
+import { AssociaContaDoadorComponent } from './associa-conta-doador/associa-conta-doador.component';
+import { RecuperaAcessoDoadorComponent } from './recupera-acesso-doador/recupera-acesso-doador.component';
 
 /* Sociedade */
 import { DashboardIdEmpresaComponent } from './dashboard-id-empresa/dashboard-id-empresa.component';
@@ -62,7 +61,6 @@ import { CnpjPipe } from './pipes/cnpj.pipe'
 import { HashPipe } from './pipes/hash.pipe'
 import { registerLocaleData } from '@angular/common';
 import localePT from '@angular/common/locales/pt';
-import { ExtratoContaComponent } from './registro-saldo-contas/extrato-conta/extrato-conta.component';
 
 import { FileUploadModule } from 'ng2-file-upload';
 import { ValidacaoCadastroComponent } from './validacao-cadastro/validacao-cadastro.component';
@@ -97,24 +95,22 @@ export const optionsMaskCurrencyBND: CurrencyMaskConfig = {
     DashboardTransferenciasComponent,
     HomeComponent,
     LiquidacaoResgateComponent,
-    TransferenciaComponent,
     AssociaContaClienteComponent,
     RecuperaAcessoClienteComponent,
     ResgateComponent,
     HomeComponent,
-    AssociaContaFornecedorComponent,
-    RecuperaAcessoFornecedorComponent,
+    AssociaContaDoadorComponent,
+    RecuperaAcessoDoadorComponent,
     BlocoAnimadoComponent,
     MetamsgComponent,
     AssinadorComponent,
     InputValidationComponent,
     CnpjPipe,
     HashPipe,
-    ExtratoContaComponent,
     ValidacaoCadastroComponent,
-    LiquidarDoacaoComponent,
     DashboardDoacaoComponent,
     RegistraDoacaoComponent,
+    ConfirmaDoacaoComponent,
   ],
   imports: [
     BrowserModule,

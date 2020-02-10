@@ -37,7 +37,6 @@ export class ValidacaoCadastroComponent implements OnInit {
       cnpj: "",
       razaoSocial: "",
       idSubcredito: "",
-      salic: "",
       contaBlockchain: "",
       hashDeclaracao: "",
       dadosBancarios: undefined,
@@ -61,7 +60,6 @@ export class ValidacaoCadastroComponent implements OnInit {
               console.log(result);
               self.pj.cnpj = result.cnpj;
               self.pj.idSubcredito = result.idSubcredito;
-              self.pj.salic = result.salic;
               self.pj.hashDeclaracao = result.hashDeclaracao;
               self.pj.status = self.web3Service.getEstadoContaAsStringByCodigo(result.status);
 
@@ -225,7 +223,6 @@ export class ValidacaoCadastroComponent implements OnInit {
     self.pj.cnpj = "";
     self.pj.razaoSocial = "";
     self.pj.idSubcredito = "";
-    self.pj.salic = "";
     self.pj.status = "";
     self.pj.hashDeclaracao = "";
     self.hashDeclaracaoDigitado = "";

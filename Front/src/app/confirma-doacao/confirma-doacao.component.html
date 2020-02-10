@@ -1,0 +1,75 @@
+<div class="form-group" *ngIf="selectedAccount">
+
+  <div class="form-group">
+    <h2>Confirma Recebimento de Doação</h2>
+  </div>
+
+  <div class="conteudo" >
+    <div class="row">
+      <div class="form-group col-md-12 col-sm-12">
+        <h5>Dados do Doador:</h5>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-md-4 col-sm-4">
+        <label>CNPJ do Doador:</label>
+        <input  #cnpj name="cnpjWithMask"  [(ngModel)]="doacao.cnpjWithMask" class="form-control form-control-sm" (input)="changeCnpj()"
+        [textMask]="{mask: maskCnpj}" required/>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-md-6 col-sm-6" *ngIf="doacao.cnpjWithMask">
+        <label>Razão Social:</label>
+        <input name="razaoSocial" class="form-control form-control-sm" [ngModel]="doacao.dadosCadastrais.razaoSocial" readonly disabled/>
+      </div>
+
+      <div class="form-group col-md-4 col-sm-4" *ngIf="doacao.cnpjWithMask">
+        <label>Saldo:</label>
+        <input currencyMask type="text" class="form-control form-control-sm" [ngModel]="doacao.saldo" readonly disabled/>
+      </div>
+    </div>
+
+
+  </div>
+
+  <div class="conteudo">
+
+    <div class="row">
+      <div class="form-group col-md-12 col-sm-12">
+        <h5>Dados da Doação:</h5>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-md-4 col-sm-4">
+        <app-input-validation errorMessage="Campo Obrigatório">
+          <label class="required">Valor da doação a confirmar (em Reais):</label>
+          <input currencyMask [options]="{ prefix: 'R$ '}" [(ngModel)]="doacao.valor" class="form-control form-control-sm" required/>
+        </app-input-validation>
+      </div>
+
+      <div class="form-group col-md-4 col-sm-4">
+        <label>Equivalente em BNDESToken:</label>
+        <input currencyMask [(ngModel)]="doacao.valor" class="form-control form-control-sm" readonly
+          disabled />
+      </div>
+    </div>
+
+  </div>
+
+  <div class="form-group">
+    <button type="button" class="btn btn-success btn-cabecalho" placement="bottom" ngbTooltip="Salvar" (click)="receberDoacao()">
+      <i class="fa fa-floppy-o" aria-hidden="true"></i> Enviar
+    </button> 
+
+    <button type="button" class="btn btn-success btn-cabecalho" placement="bottom" ngbTooltip="cancelar" (click)="cancelar()">
+      Cancelar
+    </button>
+
+  </div>
+
+
+</div>
+<app-metamsg *ngIf="!selectedAccount"></app-metamsg>

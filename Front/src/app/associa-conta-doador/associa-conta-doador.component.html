@@ -13,20 +13,20 @@
 
       <div class="row">
         <div class="form-group col-md-4 col-sm-4">
-          <label>CNPJ do Fornecedor:</label>
-          <input  #cnpj name="cnpjWithMask"  [(ngModel)]="fornecedor.cnpjWithMask" class="form-control form-control-sm" (input)="changeCnpj()"
+          <label>CNPJ do Doador:</label>
+          <input  #cnpj name="cnpjWithMask"  [(ngModel)]="doador.cnpjWithMask" class="form-control form-control-sm" (input)="changeCnpj()"
           [textMask]="{mask: maskCnpj}" required/>
         </div>
 
-        <div class="form-group col-md-6 col-sm-6" *ngIf="fornecedor.dadosCadastrais">
+        <div class="form-group col-md-6 col-sm-6" *ngIf="doador.dadosCadastrais">
           <label>Razão Social:</label>
-          <input name="razaoSocial" class="form-control form-control-sm" [ngModel]="fornecedor.dadosCadastrais.razaoSocial" readonly disabled/>
+          <input name="razaoSocial" class="form-control form-control-sm" [ngModel]="doador.dadosCadastrais.razaoSocial" readonly disabled/>
         </div>
 
       </div>
     </div>
 
-    <div class="conteudo form-group" *ngIf="fornecedor.dadosCadastrais">
+    <div class="conteudo form-group" *ngIf="doador.dadosCadastrais">
 
       <div class="row">
         <div class="form-group col-md-12 col-sm-12">
@@ -59,8 +59,8 @@
 
     
 
-    <div class="form-group" *ngIf="fornecedor.dadosCadastrais">
-      <button type="button" class="btn btn-success btn-cabecalho" placement="bottom" ngbTooltip="Salvar" (click)="associaContaFornecedor()">
+    <div class="form-group" *ngIf="doador.dadosCadastrais">
+      <button type="button" class="btn btn-success btn-cabecalho" placement="bottom" ngbTooltip="Salvar" (click)="associaContaDoador()">
         <i class="fa fa-floppy-o" aria-hidden="true"></i> Enviar
       </button> 
 

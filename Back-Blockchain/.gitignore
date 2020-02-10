@@ -5,3 +5,4 @@
 
 #Temporary solution: to allow json built truffle files to upload and make dockerhub build work
 /contracts/build
+/build/contracts

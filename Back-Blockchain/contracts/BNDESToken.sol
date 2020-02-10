@@ -35,7 +35,7 @@ contract BNDESToken {
     }
     
     /* Donor books a donation */
-    function bookDonation(uint256 amount) public whenNotPaused {
+    function bookDonation(uint256 amount) public whenNotPaused onlyValidatedDonor {
         address account = msg.sender;
         bookedTotalSupply = bookedTotalSupply.add(amount);
         bookedBalances[account] = bookedBalances[account].add(amount);
@@ -60,7 +60,7 @@ contract BNDESToken {
     }
     
     /* Client request a redemption */
-    function requestRedemption(uint256 amount) public whenNotPaused onlyClient {
+    function requestRedemption(uint256 amount) public whenNotPaused onlyValidatedClient {
         _transfer(msg.sender, registry.getResponsibleForSettlement(), amount);
         emit RedemptionRequested(msg.sender, amount);
     }
@@ -133,8 +133,12 @@ contract BNDESToken {
         require(registry.isResponsibleForSettlement(msg.sender));
         _;
     }
-    modifier onlyClient() {
-        require(registry.isClient(msg.sender));
+    modifier onlyValidatedClient() {
+        require(registry.isValidatedClient(msg.sender));
+        _;
+    }
+    modifier onlyValidatedDonor() {
+        require(isValidatedDonor(msg.sender));
         _;
     }
     modifier onlyOwner() {

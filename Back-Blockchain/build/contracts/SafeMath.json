@@ -1,12 +1,13 @@
 {
   "contractName": "SafeMath",
   "abi": [],
-  "bytecode": "0x604c602c600b82828239805160001a60731460008114601c57601e565bfe5b5030600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea165627a7a72305820b3dcbdb8ac3bb1ab845332133e07d27a9240b0379be8cc4a896cee3067465c050029",
-  "deployedBytecode": "0x73000000000000000000000000000000000000000030146080604052600080fdfea165627a7a72305820b3dcbdb8ac3bb1ab845332133e07d27a9240b0379be8cc4a896cee3067465c050029",
-  "sourceMap": "29:4848:3:-;;132:2:-1;166:7;155:9;146:7;137:37;252:7;246:14;243:1;238:23;232:4;229:33;270:1;265:20;;;;222:63;;265:20;274:9;222:63;;298:9;295:1;288:20;328:4;319:7;311:22;352:7;343;336:24",
+  "metadata": "{\"compiler\":{\"version\":\"0.5.16+commit.9c3226ce\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/D/git.repo/bndestoken-captacao/Back-Blockchain/contracts/SafeMath.sol\":\"SafeMath\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/D/git.repo/bndestoken-captacao/Back-Blockchain/contracts/SafeMath.sol\":{\"keccak256\":\"0x89f5e7e3b0ced13c0b4087c6bdd7fbc633e5586493693acc21352809262bab7e\",\"urls\":[\"bzz-raw://6c3fd299dffbb5f9d456bdee0177c1f8c2d88c66220cdda5701699fb32768bc0\",\"dweb:/ipfs/QmVXap3pxSwrhcpBNpvUMh297sLdWoNRDVTWfJgCymbXoH\"]}},\"version\":1}",
+  "bytecode": "0x60556023600b82828239805160001a607314601657fe5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea265627a7a723158202ba5ba948cdc32aba8e2dc7194f5d86546c86f632e1a4eee65f771f811c9aa1964736f6c63430005100032",
+  "deployedBytecode": "0x73000000000000000000000000000000000000000030146080604052600080fdfea265627a7a723158202ba5ba948cdc32aba8e2dc7194f5d86546c86f632e1a4eee65f771f811c9aa1964736f6c63430005100032",
+  "sourceMap": "29:4848:3:-;;132:2:-1;166:7;155:9;146:7;137:37;255:7;249:14;246:1;241:23;235:4;232:33;222:2;;269:9;222:2;293:9;290:1;283:20;323:4;314:7;306:22;347:7;338;331:24",
   "deployedSourceMap": "29:4848:3:-;;;;;;;;",
   "source": "pragma solidity ^0.5.0;\r\n\r\n\r\nlibrary SafeMath {\r\n    /**\r\n     * @dev Returns the addition of two unsigned integers, reverting on\r\n     * overflow.\r\n     *\r\n     * Counterpart to Solidity's `+` operator.\r\n     *\r\n     * Requirements:\r\n     * - Addition cannot overflow.\r\n     */\r\n    function add(uint256 a, uint256 b) internal pure returns (uint256) {\r\n        uint256 c = a + b;\r\n        require(c >= a, \"SafeMath: addition overflow\");\r\n\r\n        return c;\r\n    }\r\n\r\n    /**\r\n     * @dev Returns the subtraction of two unsigned integers, reverting on\r\n     * overflow (when the result is negative).\r\n     *\r\n     * Counterpart to Solidity's `-` operator.\r\n     *\r\n     * Requirements:\r\n     * - Subtraction cannot overflow.\r\n     */\r\n    function sub(uint256 a, uint256 b) internal pure returns (uint256) {\r\n        return sub(a, b, \"SafeMath: subtraction overflow\");\r\n    }\r\n\r\n    /**\r\n     * @dev Returns the subtraction of two unsigned integers, reverting with custom message on\r\n     * overflow (when the result is negative).\r\n     *\r\n     * Counterpart to Solidity's `-` operator.\r\n     *\r\n     * Requirements:\r\n     * - Subtraction cannot overflow.\r\n     *\r\n     * _Available since v2.4.0._\r\n     */\r\n    function sub(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {\r\n        require(b <= a, errorMessage);\r\n        uint256 c = a - b;\r\n\r\n        return c;\r\n    }\r\n\r\n    /**\r\n     * @dev Returns the multiplication of two unsigned integers, reverting on\r\n     * overflow.\r\n     *\r\n     * Counterpart to Solidity's `*` operator.\r\n     *\r\n     * Requirements:\r\n     * - Multiplication cannot overflow.\r\n     */\r\n    function mul(uint256 a, uint256 b) internal pure returns (uint256) {\r\n        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the\r\n        // benefit is lost if 'b' is also tested.\r\n        // See: https://github.com/OpenZeppelin/openzeppelin-contracts/pull/522\r\n        if (a == 0) {\r\n            return 0;\r\n        }\r\n\r\n        uint256 c = a * b;\r\n        require(c / a == b, \"SafeMath: multiplication overflow\");\r\n\r\n        return c;\r\n    }\r\n\r\n    /**\r\n     * @dev Returns the integer division of two unsigned integers. Reverts on\r\n     * division by zero. The result is rounded towards zero.\r\n     *\r\n     * Counterpart to Solidity's `/` operator. Note: this function uses a\r\n     * `revert` opcode (which leaves remaining gas untouched) while Solidity\r\n     * uses an invalid opcode to revert (consuming all remaining gas).\r\n     *\r\n     * Requirements:\r\n     * - The divisor cannot be zero.\r\n     */\r\n    function div(uint256 a, uint256 b) internal pure returns (uint256) {\r\n        return div(a, b, \"SafeMath: division by zero\");\r\n    }\r\n\r\n    /**\r\n     * @dev Returns the integer division of two unsigned integers. Reverts with custom message on\r\n     * division by zero. The result is rounded towards zero.\r\n     *\r\n     * Counterpart to Solidity's `/` operator. Note: this function uses a\r\n     * `revert` opcode (which leaves remaining gas untouched) while Solidity\r\n     * uses an invalid opcode to revert (consuming all remaining gas).\r\n     *\r\n     * Requirements:\r\n     * - The divisor cannot be zero.\r\n     *\r\n     * _Available since v2.4.0._\r\n     */\r\n    function div(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {\r\n        // Solidity only automatically asserts when dividing by 0\r\n        require(b > 0, errorMessage);\r\n        uint256 c = a / b;\r\n        // assert(a == b * c + a % b); // There is no case in which this doesn't hold\r\n\r\n        return c;\r\n    }\r\n\r\n    /**\r\n     * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),\r\n     * Reverts when dividing by zero.\r\n     *\r\n     * Counterpart to Solidity's `%` operator. This function uses a `revert`\r\n     * opcode (which leaves remaining gas untouched) while Solidity uses an\r\n     * invalid opcode to revert (consuming all remaining gas).\r\n     *\r\n     * Requirements:\r\n     * - The divisor cannot be zero.\r\n     */\r\n    function mod(uint256 a, uint256 b) internal pure returns (uint256) {\r\n        return mod(a, b, \"SafeMath: modulo by zero\");\r\n    }\r\n\r\n    /**\r\n     * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),\r\n     * Reverts with custom message when dividing by zero.\r\n     *\r\n     * Counterpart to Solidity's `%` operator. This function uses a `revert`\r\n     * opcode (which leaves remaining gas untouched) while Solidity uses an\r\n     * invalid opcode to revert (consuming all remaining gas).\r\n     *\r\n     * Requirements:\r\n     * - The divisor cannot be zero.\r\n     *\r\n     * _Available since v2.4.0._\r\n     */\r\n    function mod(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {\r\n        require(b != 0, errorMessage);\r\n        return a % b;\r\n    }\r\n}",
-  "sourcePath": "D:/git.repo/bndestoken-captacao/Back-Blockchain/contracts/SafeMath.sol",
+  "sourcePath": "D:\\git.repo\\bndestoken-captacao\\Back-Blockchain\\contracts\\SafeMath.sol",
   "ast": {
     "absolutePath": "/D/git.repo/bndestoken-captacao/Back-Blockchain/contracts/SafeMath.sol",
     "exportedSymbols": {
@@ -260,7 +261,7 @@
                 }
               ]
             },
-            "documentation": "@dev Returns the addition of two unsigned integers, reverting on\r\noverflow.\r\n\n     * Counterpart to Solidity's `+` operator.\r\n\n     * Requirements:\r\n- Addition cannot overflow.\r",
+            "documentation": "@dev Returns the addition of two unsigned integers, reverting on\noverflow.\n\n     * Counterpart to Solidity's `+` operator.\n\n     * Requirements:\n- Addition cannot overflow.",
             "id": 1980,
             "implemented": true,
             "kind": "function",
@@ -470,7 +471,7 @@
                 }
               ]
             },
-            "documentation": "@dev Returns the subtraction of two unsigned integers, reverting on\r\noverflow (when the result is negative).\r\n\n     * Counterpart to Solidity's `-` operator.\r\n\n     * Requirements:\r\n- Subtraction cannot overflow.\r",
+            "documentation": "@dev Returns the subtraction of two unsigned integers, reverting on\noverflow (when the result is negative).\n\n     * Counterpart to Solidity's `-` operator.\n\n     * Requirements:\n- Subtraction cannot overflow.",
             "id": 1996,
             "implemented": true,
             "kind": "function",
@@ -789,7 +790,7 @@
                 }
               ]
             },
-            "documentation": "@dev Returns the subtraction of two unsigned integers, reverting with custom message on\r\noverflow (when the result is negative).\r\n\n     * Counterpart to Solidity's `-` operator.\r\n\n     * Requirements:\r\n- Subtraction cannot overflow.\r\n\n     * _Available since v2.4.0._\r",
+            "documentation": "@dev Returns the subtraction of two unsigned integers, reverting with custom message on\noverflow (when the result is negative).\n\n     * Counterpart to Solidity's `-` operator.\n\n     * Requirements:\n- Subtraction cannot overflow.\n\n     * _Available since v2.4.0._",
             "id": 2023,
             "implemented": true,
             "kind": "function",
@@ -1258,7 +1259,7 @@
                 }
               ]
             },
-            "documentation": "@dev Returns the multiplication of two unsigned integers, reverting on\r\noverflow.\r\n\n     * Counterpart to Solidity's `*` operator.\r\n\n     * Requirements:\r\n- Multiplication cannot overflow.\r",
+            "documentation": "@dev Returns the multiplication of two unsigned integers, reverting on\noverflow.\n\n     * Counterpart to Solidity's `*` operator.\n\n     * Requirements:\n- Multiplication cannot overflow.",
             "id": 2057,
             "implemented": true,
             "kind": "function",
@@ -1468,7 +1469,7 @@
                 }
               ]
             },
-            "documentation": "@dev Returns the integer division of two unsigned integers. Reverts on\r\ndivision by zero. The result is rounded towards zero.\r\n\n     * Counterpart to Solidity's `/` operator. Note: this function uses a\r\n`revert` opcode (which leaves remaining gas untouched) while Solidity\r\nuses an invalid opcode to revert (consuming all remaining gas).\r\n\n     * Requirements:\r\n- The divisor cannot be zero.\r",
+            "documentation": "@dev Returns the integer division of two unsigned integers. Reverts on\ndivision by zero. The result is rounded towards zero.\n\n     * Counterpart to Solidity's `/` operator. Note: this function uses a\n`revert` opcode (which leaves remaining gas untouched) while Solidity\nuses an invalid opcode to revert (consuming all remaining gas).\n\n     * Requirements:\n- The divisor cannot be zero.",
             "id": 2073,
             "implemented": true,
             "kind": "function",
@@ -1792,7 +1793,7 @@
                 }
               ]
             },
-            "documentation": "@dev Returns the integer division of two unsigned integers. Reverts with custom message on\r\ndivision by zero. The result is rounded towards zero.\r\n\n     * Counterpart to Solidity's `/` operator. Note: this function uses a\r\n`revert` opcode (which leaves remaining gas untouched) while Solidity\r\nuses an invalid opcode to revert (consuming all remaining gas).\r\n\n     * Requirements:\r\n- The divisor cannot be zero.\r\n\n     * _Available since v2.4.0._\r",
+            "documentation": "@dev Returns the integer division of two unsigned integers. Reverts with custom message on\ndivision by zero. The result is rounded towards zero.\n\n     * Counterpart to Solidity's `/` operator. Note: this function uses a\n`revert` opcode (which leaves remaining gas untouched) while Solidity\nuses an invalid opcode to revert (consuming all remaining gas).\n\n     * Requirements:\n- The divisor cannot be zero.\n\n     * _Available since v2.4.0._",
             "id": 2100,
             "implemented": true,
             "kind": "function",
@@ -2028,7 +2029,7 @@
                 }
               ]
             },
-            "documentation": "@dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),\r\nReverts when dividing by zero.\r\n\n     * Counterpart to Solidity's `%` operator. This function uses a `revert`\r\nopcode (which leaves remaining gas untouched) while Solidity uses an\r\ninvalid opcode to revert (consuming all remaining gas).\r\n\n     * Requirements:\r\n- The divisor cannot be zero.\r",
+            "documentation": "@dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),\nReverts when dividing by zero.\n\n     * Counterpart to Solidity's `%` operator. This function uses a `revert`\nopcode (which leaves remaining gas untouched) while Solidity uses an\ninvalid opcode to revert (consuming all remaining gas).\n\n     * Requirements:\n- The divisor cannot be zero.",
             "id": 2116,
             "implemented": true,
             "kind": "function",
@@ -2303,7 +2304,7 @@
                 }
               ]
             },
-            "documentation": "@dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),\r\nReverts with custom message when dividing by zero.\r\n\n     * Counterpart to Solidity's `%` operator. This function uses a `revert`\r\nopcode (which leaves remaining gas untouched) while Solidity uses an\r\ninvalid opcode to revert (consuming all remaining gas).\r\n\n     * Requirements:\r\n- The divisor cannot be zero.\r\n\n     * _Available since v2.4.0._\r",
+            "documentation": "@dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),\nReverts with custom message when dividing by zero.\n\n     * Counterpart to Solidity's `%` operator. This function uses a `revert`\nopcode (which leaves remaining gas untouched) while Solidity uses an\ninvalid opcode to revert (consuming all remaining gas).\n\n     * Requirements:\n- The divisor cannot be zero.\n\n     * _Available since v2.4.0._",
             "id": 2139,
             "implemented": true,
             "kind": "function",
@@ -2694,7 +2695,7 @@
                 }
               ]
             },
-            "documentation": "@dev Returns the addition of two unsigned integers, reverting on\r\noverflow.\r\n\n     * Counterpart to Solidity's `+` operator.\r\n\n     * Requirements:\r\n- Addition cannot overflow.\r",
+            "documentation": "@dev Returns the addition of two unsigned integers, reverting on\noverflow.\n\n     * Counterpart to Solidity's `+` operator.\n\n     * Requirements:\n- Addition cannot overflow.",
             "id": 1980,
             "implemented": true,
             "kind": "function",
@@ -2904,7 +2905,7 @@
                 }
               ]
             },
-            "documentation": "@dev Returns the subtraction of two unsigned integers, reverting on\r\noverflow (when the result is negative).\r\n\n     * Counterpart to Solidity's `-` operator.\r\n\n     * Requirements:\r\n- Subtraction cannot overflow.\r",
+            "documentation": "@dev Returns the subtraction of two unsigned integers, reverting on\noverflow (when the result is negative).\n\n     * Counterpart to Solidity's `-` operator.\n\n     * Requirements:\n- Subtraction cannot overflow.",
             "id": 1996,
             "implemented": true,
             "kind": "function",
@@ -3223,7 +3224,7 @@
                 }
               ]
             },
-            "documentation": "@dev Returns the subtraction of two unsigned integers, reverting with custom message on\r\noverflow (when the result is negative).\r\n\n     * Counterpart to Solidity's `-` operator.\r\n\n     * Requirements:\r\n- Subtraction cannot overflow.\r\n\n     * _Available since v2.4.0._\r",
+            "documentation": "@dev Returns the subtraction of two unsigned integers, reverting with custom message on\noverflow (when the result is negative).\n\n     * Counterpart to Solidity's `-` operator.\n\n     * Requirements:\n- Subtraction cannot overflow.\n\n     * _Available since v2.4.0._",
             "id": 2023,
             "implemented": true,
             "kind": "function",
@@ -3692,7 +3693,7 @@
                 }
               ]
             },
-            "documentation": "@dev Returns the multiplication of two unsigned integers, reverting on\r\noverflow.\r\n\n     * Counterpart to Solidity's `*` operator.\r\n\n     * Requirements:\r\n- Multiplication cannot overflow.\r",
+            "documentation": "@dev Returns the multiplication of two unsigned integers, reverting on\noverflow.\n\n     * Counterpart to Solidity's `*` operator.\n\n     * Requirements:\n- Multiplication cannot overflow.",
             "id": 2057,
             "implemented": true,
             "kind": "function",
@@ -3902,7 +3903,7 @@
                 }
               ]
             },
-            "documentation": "@dev Returns the integer division of two unsigned integers. Reverts on\r\ndivision by zero. The result is rounded towards zero.\r\n\n     * Counterpart to Solidity's `/` operator. Note: this function uses a\r\n`revert` opcode (which leaves remaining gas untouched) while Solidity\r\nuses an invalid opcode to revert (consuming all remaining gas).\r\n\n     * Requirements:\r\n- The divisor cannot be zero.\r",
+            "documentation": "@dev Returns the integer division of two unsigned integers. Reverts on\ndivision by zero. The result is rounded towards zero.\n\n     * Counterpart to Solidity's `/` operator. Note: this function uses a\n`revert` opcode (which leaves remaining gas untouched) while Solidity\nuses an invalid opcode to revert (consuming all remaining gas).\n\n     * Requirements:\n- The divisor cannot be zero.",
             "id": 2073,
             "implemented": true,
             "kind": "function",
@@ -4226,7 +4227,7 @@
                 }
               ]
             },
-            "documentation": "@dev Returns the integer division of two unsigned integers. Reverts with custom message on\r\ndivision by zero. The result is rounded towards zero.\r\n\n     * Counterpart to Solidity's `/` operator. Note: this function uses a\r\n`revert` opcode (which leaves remaining gas untouched) while Solidity\r\nuses an invalid opcode to revert (consuming all remaining gas).\r\n\n     * Requirements:\r\n- The divisor cannot be zero.\r\n\n     * _Available since v2.4.0._\r",
+            "documentation": "@dev Returns the integer division of two unsigned integers. Reverts with custom message on\ndivision by zero. The result is rounded towards zero.\n\n     * Counterpart to Solidity's `/` operator. Note: this function uses a\n`revert` opcode (which leaves remaining gas untouched) while Solidity\nuses an invalid opcode to revert (consuming all remaining gas).\n\n     * Requirements:\n- The divisor cannot be zero.\n\n     * _Available since v2.4.0._",
             "id": 2100,
             "implemented": true,
             "kind": "function",
@@ -4462,7 +4463,7 @@
                 }
               ]
             },
-            "documentation": "@dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),\r\nReverts when dividing by zero.\r\n\n     * Counterpart to Solidity's `%` operator. This function uses a `revert`\r\nopcode (which leaves remaining gas untouched) while Solidity uses an\r\ninvalid opcode to revert (consuming all remaining gas).\r\n\n     * Requirements:\r\n- The divisor cannot be zero.\r",
+            "documentation": "@dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),\nReverts when dividing by zero.\n\n     * Counterpart to Solidity's `%` operator. This function uses a `revert`\nopcode (which leaves remaining gas untouched) while Solidity uses an\ninvalid opcode to revert (consuming all remaining gas).\n\n     * Requirements:\n- The divisor cannot be zero.",
             "id": 2116,
             "implemented": true,
             "kind": "function",
@@ -4737,7 +4738,7 @@
                 }
               ]
             },
-            "documentation": "@dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),\r\nReverts with custom message when dividing by zero.\r\n\n     * Counterpart to Solidity's `%` operator. This function uses a `revert`\r\nopcode (which leaves remaining gas untouched) while Solidity uses an\r\ninvalid opcode to revert (consuming all remaining gas).\r\n\n     * Requirements:\r\n- The divisor cannot be zero.\r\n\n     * _Available since v2.4.0._\r",
+            "documentation": "@dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),\nReverts with custom message when dividing by zero.\n\n     * Counterpart to Solidity's `%` operator. This function uses a `revert`\nopcode (which leaves remaining gas untouched) while Solidity uses an\ninvalid opcode to revert (consuming all remaining gas).\n\n     * Requirements:\n- The divisor cannot be zero.\n\n     * _Available since v2.4.0._",
             "id": 2139,
             "implemented": true,
             "kind": "function",
@@ -4877,11 +4878,11 @@
   },
   "compiler": {
     "name": "solc",
-    "version": "0.5.0+commit.1d4f565a.Emscripten.clang"
+    "version": "0.5.16+commit.9c3226ce.Emscripten.clang"
   },
   "networks": {},
-  "schemaVersion": "3.0.2",
-  "updatedAt": "2020-02-10T15:53:37.159Z",
+  "schemaVersion": "3.0.23",
+  "updatedAt": "2020-02-10T17:36:06.259Z",
   "devdoc": {
     "methods": {}
   },

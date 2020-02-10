@@ -12,11 +12,13 @@
       "inputs": [
         {
           "indexed": true,
+          "internalType": "address",
           "name": "previousOwner",
           "type": "address"
         },
         {
           "indexed": true,
+          "internalType": "address",
           "name": "newOwner",
           "type": "address"
         }
@@ -30,6 +32,7 @@
       "name": "owner",
       "outputs": [
         {
+          "internalType": "address",
           "name": "",
           "type": "address"
         }
@@ -44,6 +47,7 @@
       "name": "isOwner",
       "outputs": [
         {
+          "internalType": "bool",
           "name": "",
           "type": "bool"
         }
@@ -65,6 +69,7 @@
       "constant": false,
       "inputs": [
         {
+          "internalType": "address",
           "name": "newOwner",
           "type": "address"
         }
@@ -76,6 +81,7 @@
       "type": "function"
     }
   ],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.16+commit.9c3226ce\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[],\"name\":\"isOwner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{\"constructor\":{\"details\":\"Initializes the contract setting the deployer as the initial owner.\"},\"isOwner()\":{\"details\":\"Returns true if the caller is the current owner.\"},\"owner()\":{\"details\":\"Returns the address of the current owner.\"},\"renounceOwnership()\":{\"details\":\"Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner.      * NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.\"},\"transferOwnership(address)\":{\"details\":\"Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.\"}}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/D/git.repo/bndestoken-captacao/Back-Blockchain/contracts/BNDESRegistry.sol\":\"Ownable\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/D/git.repo/bndestoken-captacao/Back-Blockchain/contracts/BNDESRegistry.sol\":{\"keccak256\":\"0x71cba4d343a1c203f570ab19ea1169ee1efd1c28813f81a8ae6f650c62c65257\",\"urls\":[\"bzz-raw://d7dbcddd099355491f9e40be0b59b0340bd88bb344aed48f6e5fb62f7f6cfebd\",\"dweb:/ipfs/QmYz9Gqq67FmFTF6W2qXZWnES4spkfK78oDHj9ACiDXr58\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "sourceMap": "",
@@ -263,7 +269,7 @@
                     "name": "this",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 2168,
+                    "referencedDeclaration": 2169,
                     "src": "537:4:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_contract$_Context_$26",
@@ -735,7 +741,7 @@
                 }
               ]
             },
-            "documentation": "@dev Initializes the contract setting the deployer as the initial owner.\r",
+            "documentation": "@dev Initializes the contract setting the deployer as the initial owner.",
             "id": 56,
             "implemented": true,
             "kind": "constructor",
@@ -787,7 +793,7 @@
                 }
               ]
             },
-            "documentation": "@dev Returns the address of the current owner.\r",
+            "documentation": "@dev Returns the address of the current owner.",
             "id": 64,
             "implemented": true,
             "kind": "function",
@@ -949,7 +955,7 @@
                 }
               ]
             },
-            "documentation": "@dev Throws if called by any account other than the owner.\r",
+            "documentation": "@dev Throws if called by any account other than the owner.",
             "id": 74,
             "name": "onlyOwner",
             "nodeType": "ModifierDefinition",
@@ -1038,7 +1044,7 @@
                 }
               ]
             },
-            "documentation": "@dev Returns true if the caller is the current owner.\r",
+            "documentation": "@dev Returns true if the caller is the current owner.",
             "id": 85,
             "implemented": true,
             "kind": "function",
@@ -1301,7 +1307,7 @@
                 }
               ]
             },
-            "documentation": "@dev Leaves the contract without owner. It will not be possible to call\r\n`onlyOwner` functions anymore. Can only be called by the current owner.\r\n\n     * NOTE: Renouncing ownership will leave the contract without an owner,\r\nthereby removing any functionality that is only available to the owner.\r",
+            "documentation": "@dev Leaves the contract without owner. It will not be possible to call\n`onlyOwner` functions anymore. Can only be called by the current owner.\n\n     * NOTE: Renouncing ownership will leave the contract without an owner,\nthereby removing any functionality that is only available to the owner.",
             "id": 104,
             "implemented": true,
             "kind": "function",
@@ -1408,7 +1414,7 @@
                 }
               ]
             },
-            "documentation": "@dev Transfers ownership of the contract to a new account (`newOwner`).\r\nCan only be called by the current owner.\r",
+            "documentation": "@dev Transfers ownership of the contract to a new account (`newOwner`).\nCan only be called by the current owner.",
             "id": 116,
             "implemented": true,
             "kind": "function",
@@ -1760,7 +1766,7 @@
                 }
               ]
             },
-            "documentation": "@dev Transfers ownership of the contract to a new account (`newOwner`).\r",
+            "documentation": "@dev Transfers ownership of the contract to a new account (`newOwner`).",
             "id": 140,
             "implemented": true,
             "kind": "function",
@@ -2914,7 +2920,7 @@
                 }
               ]
             },
-            "documentation": "@dev Throws if called by any account other than the token address.\r",
+            "documentation": "@dev Throws if called by any account other than the token address.",
             "id": 233,
             "name": "onlyTokenAddress",
             "nodeType": "ModifierDefinition",
@@ -4399,7 +4405,7 @@
                 }
               ]
             },
-            "documentation": "Link blockchain address with CNPJ - It can be a cliente or a donor\r\nThe link still needs to be validated by BNDES\r\nThis method can only be called by BNDESToken contract because BNDESToken can pause.\r\n@param cnpj Brazilian identifier to legal entities\r\n@param idFinancialSupportAgreement contract number of financial contract with BNDES. It assumes 0 if it is a donor.\r\n@param addr the address to be associated with the legal entity.\r\n@param idProofHash The legal entities have to send BNDES a PDF where it assumes as responsible for an Ethereum account. \r\n                  This PDF is signed with eCNPJ and send to BNDES. \r",
+            "documentation": "Link blockchain address with CNPJ - It can be a cliente or a donor\nThe link still needs to be validated by BNDES\nThis method can only be called by BNDESToken contract because BNDESToken can pause.\n@param cnpj Brazilian identifier to legal entities\n@param idFinancialSupportAgreement contract number of financial contract with BNDES. It assumes 0 if it is a donor.\n@param addr the address to be associated with the legal entity.\n@param idProofHash The legal entities have to send BNDES a PDF where it assumes as responsible for an Ethereum account. \n                  This PDF is signed with eCNPJ and send to BNDES. ",
             "id": 351,
             "implemented": true,
             "kind": "function",
@@ -6032,7 +6038,7 @@
                 }
               ]
             },
-            "documentation": "Changes the original link between CNPJ and Ethereum account. \r\nThe new link still needs to be validated by BNDES.\r\nThis method can only be called by BNDESToken contract because BNDESToken can pause and because there are \r\nadditional instructions there.\r\n@param cnpj Brazilian identifier to legal entities\r\n@param idFinancialSupportAgreement contract number of financial contract with BNDES. It assumes 0 if it is a donor.\r\n@param newAddr the new address to be associated with the legal entity\r\n@param idProofHash The legal entities have to send BNDES a PDF where it assumes as responsible for an Ethereum account. \r\n                  This PDF is signed with eCNPJ and send to BNDES. \r",
+            "documentation": "Changes the original link between CNPJ and Ethereum account. \nThe new link still needs to be validated by BNDES.\nThis method can only be called by BNDESToken contract because BNDESToken can pause and because there are \nadditional instructions there.\n@param cnpj Brazilian identifier to legal entities\n@param idFinancialSupportAgreement contract number of financial contract with BNDES. It assumes 0 if it is a donor.\n@param newAddr the new address to be associated with the legal entity\n@param idProofHash The legal entities have to send BNDES a PDF where it assumes as responsible for an Ethereum account. \n                  This PDF is signed with eCNPJ and send to BNDES. ",
             "id": 462,
             "implemented": true,
             "kind": "function",
@@ -7101,7 +7107,7 @@
                 }
               ]
             },
-            "documentation": "Validates the initial registry of a legal entity or the change of its registry\r\n@param addr Ethereum address that needs to be validated\r\n@param idProofHash The legal entities have to send BNDES a PDF where it assumes as responsible for an Ethereum account. \r\n                  This PDF is signed with eCNPJ and send to BNDES. \r",
+            "documentation": "Validates the initial registry of a legal entity or the change of its registry\n@param addr Ethereum address that needs to be validated\n@param idProofHash The legal entities have to send BNDES a PDF where it assumes as responsible for an Ethereum account. \n                  This PDF is signed with eCNPJ and send to BNDES. ",
             "id": 529,
             "implemented": true,
             "kind": "function",
@@ -7729,7 +7735,7 @@
                 }
               ]
             },
-            "documentation": "Invalidates the initial registry of a legal entity or the change of its registry\r\nThe invalidation can be called at any time in the lifecycle of the address (not only when it is WAITING_VALIDATION)\r\n@param addr Ethereum address that needs to be validated\r",
+            "documentation": "Invalidates the initial registry of a legal entity or the change of its registry\nThe invalidation can be called at any time in the lifecycle of the address (not only when it is WAITING_VALIDATION)\n@param addr Ethereum address that needs to be validated",
             "id": 571,
             "implemented": true,
             "kind": "function",
@@ -7836,7 +7842,7 @@
                 }
               ]
             },
-            "documentation": "By default, the owner is also the Responsible for Settlement. \r\nThe owner can assign other address to be the Responsible for Settlement. \r\n@param rs Ethereum address to be assigned as Responsible for Settlement.\r",
+            "documentation": "By default, the owner is also the Responsible for Settlement. \nThe owner can assign other address to be the Responsible for Settlement. \n@param rs Ethereum address to be assigned as Responsible for Settlement.",
             "id": 583,
             "implemented": true,
             "kind": "function",
@@ -7963,7 +7969,7 @@
                 }
               ]
             },
-            "documentation": "By default, the owner is also the Responsible for Donation Confirmation. \r\nThe owner can assign other address to be the Responsible for Donation Confirmation. \r\n@param rs Ethereum address to be assigned as Responsible for Donation Confirmation.\r",
+            "documentation": "By default, the owner is also the Responsible for Donation Confirmation. \nThe owner can assign other address to be the Responsible for Donation Confirmation. \n@param rs Ethereum address to be assigned as Responsible for Donation Confirmation.",
             "id": 595,
             "implemented": true,
             "kind": "function",
@@ -8090,7 +8096,7 @@
                 }
               ]
             },
-            "documentation": "By default, the owner is also the Responsible for Validation. \r\nThe owner can assign other address to be the Responsible for Validation. \r\n@param rs Ethereum address to be assigned as Responsible for Validation.\r",
+            "documentation": "By default, the owner is also the Responsible for Validation. \nThe owner can assign other address to be the Responsible for Validation. \n@param rs Ethereum address to be assigned as Responsible for Validation.",
             "id": 607,
             "implemented": true,
             "kind": "function",
@@ -8217,7 +8223,7 @@
                 }
               ]
             },
-            "documentation": "By default, the owner is also the Responsible for Disbursment. \r\nThe owner can assign other address to be the Responsible for Disbursment. \r\n@param rs Ethereum address to be assigned as Responsible for Disbursment.\r",
+            "documentation": "By default, the owner is also the Responsible for Disbursment. \nThe owner can assign other address to be the Responsible for Disbursment. \n@param rs Ethereum address to be assigned as Responsible for Disbursment.",
             "id": 619,
             "implemented": true,
             "kind": "function",
@@ -8344,7 +8350,7 @@
                 }
               ]
             },
-            "documentation": "The donor reedems the BNDESToken by transfering the tokens to a specific address, \r\ncalled Redemption address. \r\nBy default, the redemption address is the address of the owner. \r\nThe owner can change the redemption address using this function. \r\n@param rs new Redemption address\r",
+            "documentation": "The donor reedems the BNDESToken by transfering the tokens to a specific address, \ncalled Redemption address. \nBy default, the redemption address is the address of the owner. \nThe owner can change the redemption address using this function. \n@param rs new Redemption address",
             "id": 631,
             "implemented": true,
             "kind": "function",
@@ -8471,7 +8477,7 @@
                 }
               ]
             },
-            "documentation": "@param rs Ethereum address to be assigned to the token address.\r",
+            "documentation": "@param rs Ethereum address to be assigned to the token address.",
             "id": 643,
             "implemented": true,
             "kind": "function",
@@ -8761,7 +8767,7 @@
                 }
               ]
             },
-            "documentation": "Enable the legal entity to change the account\r\n@param rs account that can be changed.\r",
+            "documentation": "Enable the legal entity to change the account\n@param rs account that can be changed.",
             "id": 663,
             "implemented": true,
             "kind": "function",
@@ -16081,7 +16087,7 @@
                     "name": "this",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 2168,
+                    "referencedDeclaration": 2169,
                     "src": "537:4:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_contract$_Context_$26",
@@ -16553,7 +16559,7 @@
                 }
               ]
             },
-            "documentation": "@dev Initializes the contract setting the deployer as the initial owner.\r",
+            "documentation": "@dev Initializes the contract setting the deployer as the initial owner.",
             "id": 56,
             "implemented": true,
             "kind": "constructor",
@@ -16605,7 +16611,7 @@
                 }
               ]
             },
-            "documentation": "@dev Returns the address of the current owner.\r",
+            "documentation": "@dev Returns the address of the current owner.",
             "id": 64,
             "implemented": true,
             "kind": "function",
@@ -16767,7 +16773,7 @@
                 }
               ]
             },
-            "documentation": "@dev Throws if called by any account other than the owner.\r",
+            "documentation": "@dev Throws if called by any account other than the owner.",
             "id": 74,
             "name": "onlyOwner",
             "nodeType": "ModifierDefinition",
@@ -16856,7 +16862,7 @@
                 }
               ]
             },
-            "documentation": "@dev Returns true if the caller is the current owner.\r",
+            "documentation": "@dev Returns true if the caller is the current owner.",
             "id": 85,
             "implemented": true,
             "kind": "function",
@@ -17119,7 +17125,7 @@
                 }
               ]
             },
-            "documentation": "@dev Leaves the contract without owner. It will not be possible to call\r\n`onlyOwner` functions anymore. Can only be called by the current owner.\r\n\n     * NOTE: Renouncing ownership will leave the contract without an owner,\r\nthereby removing any functionality that is only available to the owner.\r",
+            "documentation": "@dev Leaves the contract without owner. It will not be possible to call\n`onlyOwner` functions anymore. Can only be called by the current owner.\n\n     * NOTE: Renouncing ownership will leave the contract without an owner,\nthereby removing any functionality that is only available to the owner.",
             "id": 104,
             "implemented": true,
             "kind": "function",
@@ -17226,7 +17232,7 @@
                 }
               ]
             },
-            "documentation": "@dev Transfers ownership of the contract to a new account (`newOwner`).\r\nCan only be called by the current owner.\r",
+            "documentation": "@dev Transfers ownership of the contract to a new account (`newOwner`).\nCan only be called by the current owner.",
             "id": 116,
             "implemented": true,
             "kind": "function",
@@ -17578,7 +17584,7 @@
                 }
               ]
             },
-            "documentation": "@dev Transfers ownership of the contract to a new account (`newOwner`).\r",
+            "documentation": "@dev Transfers ownership of the contract to a new account (`newOwner`).",
             "id": 140,
             "implemented": true,
             "kind": "function",
@@ -18732,7 +18738,7 @@
                 }
               ]
             },
-            "documentation": "@dev Throws if called by any account other than the token address.\r",
+            "documentation": "@dev Throws if called by any account other than the token address.",
             "id": 233,
             "name": "onlyTokenAddress",
             "nodeType": "ModifierDefinition",
@@ -20217,7 +20223,7 @@
                 }
               ]
             },
-            "documentation": "Link blockchain address with CNPJ - It can be a cliente or a donor\r\nThe link still needs to be validated by BNDES\r\nThis method can only be called by BNDESToken contract because BNDESToken can pause.\r\n@param cnpj Brazilian identifier to legal entities\r\n@param idFinancialSupportAgreement contract number of financial contract with BNDES. It assumes 0 if it is a donor.\r\n@param addr the address to be associated with the legal entity.\r\n@param idProofHash The legal entities have to send BNDES a PDF where it assumes as responsible for an Ethereum account. \r\n                  This PDF is signed with eCNPJ and send to BNDES. \r",
+            "documentation": "Link blockchain address with CNPJ - It can be a cliente or a donor\nThe link still needs to be validated by BNDES\nThis method can only be called by BNDESToken contract because BNDESToken can pause.\n@param cnpj Brazilian identifier to legal entities\n@param idFinancialSupportAgreement contract number of financial contract with BNDES. It assumes 0 if it is a donor.\n@param addr the address to be associated with the legal entity.\n@param idProofHash The legal entities have to send BNDES a PDF where it assumes as responsible for an Ethereum account. \n                  This PDF is signed with eCNPJ and send to BNDES. ",
             "id": 351,
             "implemented": true,
             "kind": "function",
@@ -21850,7 +21856,7 @@
                 }
               ]
             },
-            "documentation": "Changes the original link between CNPJ and Ethereum account. \r\nThe new link still needs to be validated by BNDES.\r\nThis method can only be called by BNDESToken contract because BNDESToken can pause and because there are \r\nadditional instructions there.\r\n@param cnpj Brazilian identifier to legal entities\r\n@param idFinancialSupportAgreement contract number of financial contract with BNDES. It assumes 0 if it is a donor.\r\n@param newAddr the new address to be associated with the legal entity\r\n@param idProofHash The legal entities have to send BNDES a PDF where it assumes as responsible for an Ethereum account. \r\n                  This PDF is signed with eCNPJ and send to BNDES. \r",
+            "documentation": "Changes the original link between CNPJ and Ethereum account. \nThe new link still needs to be validated by BNDES.\nThis method can only be called by BNDESToken contract because BNDESToken can pause and because there are \nadditional instructions there.\n@param cnpj Brazilian identifier to legal entities\n@param idFinancialSupportAgreement contract number of financial contract with BNDES. It assumes 0 if it is a donor.\n@param newAddr the new address to be associated with the legal entity\n@param idProofHash The legal entities have to send BNDES a PDF where it assumes as responsible for an Ethereum account. \n                  This PDF is signed with eCNPJ and send to BNDES. ",
             "id": 462,
             "implemented": true,
             "kind": "function",
@@ -22919,7 +22925,7 @@
                 }
               ]
             },
-            "documentation": "Validates the initial registry of a legal entity or the change of its registry\r\n@param addr Ethereum address that needs to be validated\r\n@param idProofHash The legal entities have to send BNDES a PDF where it assumes as responsible for an Ethereum account. \r\n                  This PDF is signed with eCNPJ and send to BNDES. \r",
+            "documentation": "Validates the initial registry of a legal entity or the change of its registry\n@param addr Ethereum address that needs to be validated\n@param idProofHash The legal entities have to send BNDES a PDF where it assumes as responsible for an Ethereum account. \n                  This PDF is signed with eCNPJ and send to BNDES. ",
             "id": 529,
             "implemented": true,
             "kind": "function",
@@ -23547,7 +23553,7 @@
                 }
               ]
             },
-            "documentation": "Invalidates the initial registry of a legal entity or the change of its registry\r\nThe invalidation can be called at any time in the lifecycle of the address (not only when it is WAITING_VALIDATION)\r\n@param addr Ethereum address that needs to be validated\r",
+            "documentation": "Invalidates the initial registry of a legal entity or the change of its registry\nThe invalidation can be called at any time in the lifecycle of the address (not only when it is WAITING_VALIDATION)\n@param addr Ethereum address that needs to be validated",
             "id": 571,
             "implemented": true,
             "kind": "function",
@@ -23654,7 +23660,7 @@
                 }
               ]
             },
-            "documentation": "By default, the owner is also the Responsible for Settlement. \r\nThe owner can assign other address to be the Responsible for Settlement. \r\n@param rs Ethereum address to be assigned as Responsible for Settlement.\r",
+            "documentation": "By default, the owner is also the Responsible for Settlement. \nThe owner can assign other address to be the Responsible for Settlement. \n@param rs Ethereum address to be assigned as Responsible for Settlement.",
             "id": 583,
             "implemented": true,
             "kind": "function",
@@ -23781,7 +23787,7 @@
                 }
               ]
             },
-            "documentation": "By default, the owner is also the Responsible for Donation Confirmation. \r\nThe owner can assign other address to be the Responsible for Donation Confirmation. \r\n@param rs Ethereum address to be assigned as Responsible for Donation Confirmation.\r",
+            "documentation": "By default, the owner is also the Responsible for Donation Confirmation. \nThe owner can assign other address to be the Responsible for Donation Confirmation. \n@param rs Ethereum address to be assigned as Responsible for Donation Confirmation.",
             "id": 595,
             "implemented": true,
             "kind": "function",
@@ -23908,7 +23914,7 @@
                 }
               ]
             },
-            "documentation": "By default, the owner is also the Responsible for Validation. \r\nThe owner can assign other address to be the Responsible for Validation. \r\n@param rs Ethereum address to be assigned as Responsible for Validation.\r",
+            "documentation": "By default, the owner is also the Responsible for Validation. \nThe owner can assign other address to be the Responsible for Validation. \n@param rs Ethereum address to be assigned as Responsible for Validation.",
             "id": 607,
             "implemented": true,
             "kind": "function",
@@ -24035,7 +24041,7 @@
                 }
               ]
             },
-            "documentation": "By default, the owner is also the Responsible for Disbursment. \r\nThe owner can assign other address to be the Responsible for Disbursment. \r\n@param rs Ethereum address to be assigned as Responsible for Disbursment.\r",
+            "documentation": "By default, the owner is also the Responsible for Disbursment. \nThe owner can assign other address to be the Responsible for Disbursment. \n@param rs Ethereum address to be assigned as Responsible for Disbursment.",
             "id": 619,
             "implemented": true,
             "kind": "function",
@@ -24162,7 +24168,7 @@
                 }
               ]
             },
-            "documentation": "The donor reedems the BNDESToken by transfering the tokens to a specific address, \r\ncalled Redemption address. \r\nBy default, the redemption address is the address of the owner. \r\nThe owner can change the redemption address using this function. \r\n@param rs new Redemption address\r",
+            "documentation": "The donor reedems the BNDESToken by transfering the tokens to a specific address, \ncalled Redemption address. \nBy default, the redemption address is the address of the owner. \nThe owner can change the redemption address using this function. \n@param rs new Redemption address",
             "id": 631,
             "implemented": true,
             "kind": "function",
@@ -24289,7 +24295,7 @@
                 }
               ]
             },
-            "documentation": "@param rs Ethereum address to be assigned to the token address.\r",
+            "documentation": "@param rs Ethereum address to be assigned to the token address.",
             "id": 643,
             "implemented": true,
             "kind": "function",
@@ -24579,7 +24585,7 @@
                 }
               ]
             },
-            "documentation": "Enable the legal entity to change the account\r\n@param rs account that can be changed.\r",
+            "documentation": "Enable the legal entity to change the account\n@param rs account that can be changed.",
             "id": 663,
             "implemented": true,
             "kind": "function",
@@ -31720,27 +31726,27 @@
   },
   "compiler": {
     "name": "solc",
-    "version": "0.5.0+commit.1d4f565a.Emscripten.clang"
+    "version": "0.5.16+commit.9c3226ce.Emscripten.clang"
   },
   "networks": {},
-  "schemaVersion": "3.0.2",
-  "updatedAt": "2020-02-10T15:53:37.160Z",
+  "schemaVersion": "3.0.23",
+  "updatedAt": "2020-02-10T17:36:06.228Z",
   "devdoc": {
     "methods": {
       "constructor": {
-        "details": "Initializes the contract setting the deployer as the initial owner.\r"
+        "details": "Initializes the contract setting the deployer as the initial owner."
       },
       "isOwner()": {
-        "details": "Returns true if the caller is the current owner.\r"
+        "details": "Returns true if the caller is the current owner."
       },
       "owner()": {
-        "details": "Returns the address of the current owner.\r"
+        "details": "Returns the address of the current owner."
       },
       "renounceOwnership()": {
-        "details": "Leaves the contract without owner. It will not be possible to call\r `onlyOwner` functions anymore. Can only be called by the current owner.\r      * NOTE: Renouncing ownership will leave the contract without an owner,\r thereby removing any functionality that is only available to the owner.\r"
+        "details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner.      * NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner."
       },
       "transferOwnership(address)": {
-        "details": "Transfers ownership of the contract to a new account (`newOwner`).\r Can only be called by the current owner.\r"
+        "details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
       }
     }
   },

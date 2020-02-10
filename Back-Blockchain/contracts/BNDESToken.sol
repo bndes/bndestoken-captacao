@@ -18,14 +18,14 @@ contract BNDESToken {
     uint8 private decimals;
     
     /* Higher level events */
-    event DonationBooked(address, uint256);
-    event DonationConfirmed(address, uint256);
-    event Disbursement(address, uint256);
-    event RedemptionRequested(address, uint256);
-    event Redeemed(address, uint256);
+    event DonationBooked(address donor, uint256 amount);
+    event DonationConfirmed(address donor, uint256 amount);
+    event Disbursement(address client, uint256 amount);
+    event RedemptionRequested(address client, uint256 amount);
+    event Redeemed(address client, uint256 amount);
     
     /* Lower level event (close to the ERC20) */
-    event Transfer(address, address, uint256);    
+    event Transfer(address from, address to, uint256 amount);    
     
     BNDESRegistry registry;
     

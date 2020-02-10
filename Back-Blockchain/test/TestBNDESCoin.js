@@ -58,31 +58,6 @@ contract('BNDESToken', function (accounts) {
 
   });     
 
-   it("should create a CLIENT BNDESToken registration", async () => {
-
-    let idProofHash = "35c3ad1f0a2e1c105effb946a06ddc53abcee2b92ffb97043325818290f0e99f"
-    await bndesTokenInstance.registryLegalEntity( cnpjCliente, subCreditoCliente, idProofHash, { from: clienteAddr } );    
-    let cnpjReturned = await bndesRegistryInstance.getCNPJ(clienteAddr);
-    assert.equal(cnpjReturned, cnpjCliente, "The retrieved CNPJ should be " + cnpjCliente );    
-
-  });   
-
-   it("should check BNDESRegistry CLIENT validation", async () => {
-
-    let validatedClient = await bndesRegistryInstance.isValidatedClient( clienteAddr );
-    assert.equal(validatedClient, false, "The CLIENT should NOT be valid " + clienteAddr );    
-
-  });  
-
-   it("should validate a CLIENT BNDESRegistry registration", async () => {
-
-    let idProofHash = "35c3ad1f0a2e1c105effb946a06ddc53abcee2b92ffb97043325818290f0e99f"
-    await bndesRegistryInstance.validateRegistryLegalEntity( clienteAddr, idProofHash );    
-    let validatedClient = await bndesRegistryInstance.isValidatedClient( clienteAddr );
-    assert.equal(validatedClient, true, "The CLIENT should be valid " + clienteAddr );    
-
-  });  
-
   it("should create a DONOR BNDESToken registration", async () => {
 
     let idProofHash = "e96c7ffef33869246069ebcb32bc72a59fb488c4893c9eb9b3306de7ba74f6d8"
@@ -105,6 +80,32 @@ contract('BNDESToken', function (accounts) {
     await bndesRegistryInstance.validateRegistryLegalEntity( donorAddr, idProofHash );    
     let validatedDonor = await bndesRegistryInstance.isValidatedDonor( donorAddr );
     assert.equal(validatedDonor, true, "The DONOR should be valid " + donorAddr );    
+
+  });  
+
+  
+   it("should create a CLIENT BNDESToken registration", async () => {
+
+    let idProofHash = "35c3ad1f0a2e1c105effb946a06ddc53abcee2b92ffb97043325818290f0e99f"
+    await bndesTokenInstance.registryLegalEntity( cnpjCliente, subCreditoCliente, idProofHash, { from: clienteAddr } );    
+    let cnpjReturned = await bndesRegistryInstance.getCNPJ(clienteAddr);
+    assert.equal(cnpjReturned, cnpjCliente, "The retrieved CNPJ should be " + cnpjCliente );    
+
+  });   
+
+   it("should check BNDESRegistry CLIENT validation", async () => {
+
+    let validatedClient = await bndesRegistryInstance.isValidatedClient( clienteAddr );
+    assert.equal(validatedClient, false, "The CLIENT should NOT be valid " + clienteAddr );    
+
+  });  
+
+   it("should validate a CLIENT BNDESRegistry registration", async () => {
+
+    let idProofHash = "35c3ad1f0a2e1c105effb946a06ddc53abcee2b92ffb97043325818290f0e99f"
+    await bndesRegistryInstance.validateRegistryLegalEntity( clienteAddr, idProofHash );    
+    let validatedClient = await bndesRegistryInstance.isValidatedClient( clienteAddr );
+    assert.equal(validatedClient, true, "The CLIENT should be valid " + clienteAddr );    
 
   });  
 

@@ -1,3 +1,4 @@
+/*
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import WebSign from 'websign-client'
@@ -55,3 +56,5 @@ export class AssinadorComponent implements OnInit {
   }
 
 }
+
+*/

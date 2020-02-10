@@ -15,7 +15,7 @@ contract BNDESToken {
     /* The current amount of BNDESTokens minted  */
     uint256 public confirmedTotalSupply;
     /* Number of decimals stored in balance's mappings */
-    uint8 private decimals;
+    uint8 public decimals;
     
     /* Higher level events */
     event DonationBooked(address donor, uint256 amount);
@@ -112,6 +112,22 @@ contract BNDESToken {
             _transfer(oldAddr, newAddr, confirmedBalances[oldAddr]);
         }
     }
+
+    function confirmedBalanceOf(address client) public view returns (uint256) {
+        return confirmedBalances[client];
+    }    
+
+    function bookedBalanceOf(address donor) public view returns (uint256) {
+        return bookedBalances[donor];
+    }        
+
+    function getBookedTotalSupply() public view returns (uint256) {
+        return bookedTotalSupply;
+    }        
+
+    function getConfirmedTotalSupply() public view returns (uint256) {
+        return confirmedTotalSupply;
+    } 
     
     function getDecimals() public view returns (uint8) {
         return decimals;

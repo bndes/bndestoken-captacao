@@ -109,6 +109,15 @@ contract('BNDESToken', function (accounts) {
 
   });  
 
+  it("should book a donation", async () => {
+    
+    let amount = 10000;
+    await bndesTokenInstance.bookDonation( amount , { from: donorAddr } );        
+    let amountReturned = await bndesTokenInstance.bookedBalanceOf(donorAddr);
+    assert.equal(amountReturned, amount, "The DONOR should have a booked balance of " + amount + " but found " + amountReturned);    
+    
+  });  
+
   /*
   it("should run a BNDESToken simple transaction", async () => {
     

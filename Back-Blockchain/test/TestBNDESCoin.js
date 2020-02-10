@@ -128,6 +128,25 @@ contract('BNDESToken', function (accounts) {
         
   });  
 
+  it("should make a BNDESToken disbursement", async () => {
+
+    await bndesTokenInstance.makeDisbursement( clienteAddr, amountBooked );            
+    let bndesBalance  = await bndesTokenInstance.confirmedBalanceOf( bndesAddr   );
+    let clientBalance = await bndesTokenInstance.confirmedBalanceOf( clienteAddr );
+    assert.equal(bndesBalance, 0,             "The BNDES should have a zero balance.");
+    assert.equal(clientBalance, amountBooked, "The CLIENT should have received a " + amountBooked );        
+        
+  });  
+
+  it("should request a BNDESToken redemption", async () => {
+
+    await bndesTokenInstance.requestRedemption( amountBooked, { from: clienteAddr } );
+    let bndesBalance  = await bndesTokenInstance.confirmedBalanceOf( bndesAddr   );
+    let clientBalance = await bndesTokenInstance.confirmedBalanceOf( clienteAddr );
+    assert.equal(clientBalance, 0,             "The CLIENT gives back its tokens and should have a zero balance.");
+    assert.equal(bndesBalance, amountBooked,   "The BNDES should have received a " + amountBooked );       
+        
+  });  
   /*
   it("should run a BNDESToken simple transaction", async () => {
     

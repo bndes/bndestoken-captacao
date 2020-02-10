@@ -80,7 +80,7 @@ contract BNDESToken {
     }
     
     /* BNDES transfers confirmedBalances from a sender to a receiver */
-    function _transfer(address sender, address recipient, uint256 amount) internal onlyOwner {
+    function _transfer(address sender, address recipient, uint256 amount) internal {
         require(sender != address(0), "transfer from the zero address");
         require(recipient != address(0), "transfer to the zero address");
 

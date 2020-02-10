@@ -4,4 +4,4 @@
 /node_modules
 
 #Temporary solution: to allow json built truffle files to upload and make dockerhub build work
-#/build
+/contracts/build

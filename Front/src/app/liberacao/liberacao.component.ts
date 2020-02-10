@@ -185,7 +185,7 @@ export class LiberacaoComponent implements OnInit {
         console.log("CNPJ " + self.liberacao.cnpj + " tem conta blockchain " + result);
         self.liberacao.contaBlockchainCNPJ = result;
 
-        self.web3Service.getBalanceOf(self.liberacao.contaBlockchainCNPJ,
+        self.web3Service.getConfirmedBalanceOf(self.liberacao.contaBlockchainCNPJ,
             function (result) {
               console.log("Saldo do endereco " + self.liberacao.contaBlockchainCNPJ + " eh " + result);
               self.liberacao.saldoCNPJ = result;

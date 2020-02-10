@@ -22,7 +22,7 @@ contract BNDESToken {
     event DonationConfirmed(address donor, uint256 amount);
     event Disbursement(address client, uint256 amount);
     event RedemptionRequested(address client, uint256 amount);
-    event Redeemed(address client, uint256 amount);
+    event RedemptionSettlement(address client, uint256 amount);
     
     /* Lower level event (close to the ERC20) */
     event Transfer(address from, address to, uint256 amount);    
@@ -65,13 +65,13 @@ contract BNDESToken {
         emit RedemptionRequested(msg.sender, amount);
     }
     
-    /* BNDES redeems to the Client */
-    function redeem (address to, uint256 amount) public whenNotPaused onlyResponsibleForSettlement returns (bool) {
+    /* BNDES settles the client's redemption */
+    function redemptionSettlement (address to, uint256 amount) public whenNotPaused onlyResponsibleForSettlement returns (bool) {
         address account = registry.getResponsibleForSettlement();
         require(account != address(0), "burn from the zero address");
         confirmedBalances[account] = confirmedBalances[account].sub(amount, "burn amount exceeds balance");
         confirmedTotalSupply = confirmedTotalSupply.sub(amount);
-        emit Redeemed(to, amount);
+        emit RedemptionSettlement(to, amount);
         return true;
     }
     

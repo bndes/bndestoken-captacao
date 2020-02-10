@@ -138,7 +138,7 @@ contract BNDESToken {
         _;
     }
     modifier onlyValidatedDonor() {
-        require(isValidatedDonor(msg.sender));
+        require(registry.isValidatedDonor(msg.sender));
         _;
     }
     modifier onlyOwner() {

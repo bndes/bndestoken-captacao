@@ -305,7 +305,7 @@ export class Web3Service {
     }
 
     getContaBlockchainFromDoador(cnpj:string, fSuccess: any, fError: any) {
-        return this.bndesRegistrySmartContract.getContaBlockchainFromDoador(cnpj,
+        return this.bndesRegistrySmartContract.getBlockchainAccountOfDonor(cnpj,
             (error, result) => {
                 if (error) fError(error);
                 else fSuccess(result);
@@ -391,12 +391,12 @@ export class Web3Service {
     }
 
     inicializaQtdDecimais() {
-        this.decimais = 2;
-
-        //TODO: recuperar da blockchain 
-        /*
         let self = this;
-        this.bndesTokenSmartContract.decimals(
+
+        console.log( "**** Decimais : ");  
+        console.log(this.bndesTokenSmartContract);          
+
+        this.bndesTokenSmartContract.getDecimals(
             (error, result) => {
                 if (error) { 
                     console.log( "Decimais error: " +  error);  
@@ -404,12 +404,12 @@ export class Web3Service {
                 } 
                 else {
                     console.log ( "Decimais result: " +  result );
-                    console.log ( "Decimais .c[0]: " +  result.c[0] );
-                    self.decimais = result.c[0] ;
+                    //console.log ( "Decimais .c[0]: " +  result.c[0] );
+                    //self.decimais = result.c[0] ;
+                    self.decimais = result;
                 }
                     
             }); 
-            */
     }
 
     converteDecimalParaInteiro( _x : number ): number {
@@ -450,11 +450,17 @@ export class Web3Service {
 
         let contaSelecionada = await this.getCurrentAccountSync();    
         
+        console.log("Registra doacao");
         console.log("conta selecionada=" + contaSelecionada);
-        console.log("Web3Service - RegistraDoacao");
+        
         amount = this.converteDecimalParaInteiro(amount);     
+        console.log("Amount=" + amount);
 
-        //TODO: NOGUEIRA!!!
+        this.bndesTokenSmartContract.bookDonation(amount, { from: contaSelecionada, gas: 500000 },
+            (error, result) => {
+                if (error) fError(error);
+                else fSuccess(result);
+            });        
         
     }
 
@@ -464,11 +470,17 @@ export class Web3Service {
         
         console.log("conta selecionada=" + contaSelecionada);
         console.log("Web3Service - ReceberDoacao");
-        amount = this.converteDecimalParaInteiro(amount);     
-
-        //TODO: NOGUEIRA!!!
+        amount = this.converteDecimalParaInteiro(amount); 
         
-    }    
+        let contaBlockchain = this.getContaBlockchainFromDoadorSync(cnpj);
+        
+        this.bndesTokenSmartContract.confirmDonation(contaBlockchain, amount, { from: contaSelecionada, gas: 500000 },
+            (error, result) => {
+                if (error) fError(error);
+                else fSuccess(result);
+            });  
+        
+    } 
 
     async resgata(transferAmount: number, fSuccess: any, fError: any) {
 

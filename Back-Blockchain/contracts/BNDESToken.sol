@@ -3,13 +3,6 @@ pragma solidity ^0.5.0;
 //import './SafeMath.sol';
 import './BNDESRegistry.sol';
 
-/**
-TODO:
-- criar o papel de confirmacao da doacao (diferente do desembolso)
-- adicionar o metodo da suzana -> recebe cnpj e retorna address. Nogueira, preciso desse método aqui no smart contract: getContaBlockchainFromDoador(cnpj)
-- peer review
- */
-
 contract BNDESToken {
     using SafeMath for uint256;
     
@@ -42,7 +35,7 @@ contract BNDESToken {
     }
     
     /* Donor books a donation */
-    function bookDonation(uint256 amount) public whenNotPaused {
+    function bookDonation(uint256 amount) public whenNotPaused onlyValidatedDonor {
         address account = msg.sender;
         bookedTotalSupply = bookedTotalSupply.add(amount);
         bookedBalances[account] = bookedBalances[account].add(amount);
@@ -50,7 +43,7 @@ contract BNDESToken {
     }
     
     /* BNDES confirms the donor's donation */
-    function confirmDonation(address account, uint256 amount) public whenNotPaused onlyBNDES_confirmDonation {
+    function confirmDonation(address account, uint256 amount) public whenNotPaused onlyResponsibleForDonationConfirmation {
         bookedTotalSupply = bookedTotalSupply.sub(amount);
         confirmedTotalSupply = confirmedTotalSupply.add(amount);
         
@@ -61,19 +54,19 @@ contract BNDESToken {
     }
     
     /* BNDES disbursement - transfer donations to a client */
-    function makeDisbursement(address client, uint256 amount) public whenNotPaused onlyBNDES_allocateDonation {
+    function makeDisbursement(address client, uint256 amount) public whenNotPaused onlyResponsibleForDisbursement {
         _transfer(registry.getResponsibleForDisbursement(), client, amount);
         emit Disbursement(client, amount);
     }
     
     /* Client request a redemption */
-    function requestRedemption(uint256 amount) public whenNotPaused onlyClient {
+    function requestRedemption(uint256 amount) public whenNotPaused onlyValidatedClient {
         _transfer(msg.sender, registry.getResponsibleForSettlement(), amount);
         emit RedemptionRequested(msg.sender, amount);
     }
     
     /* BNDES redeems to the Client */
-    function redeem (address to, uint256 amount) public whenNotPaused onlyBNDES_redeem returns (bool) {
+    function redeem (address to, uint256 amount) public whenNotPaused onlyResponsibleForSettlement returns (bool) {
         address account = registry.getResponsibleForSettlement();
         require(account != address(0), "burn from the zero address");
         confirmedBalances[account] = confirmedBalances[account].sub(amount, "burn amount exceeds balance");
@@ -128,20 +121,24 @@ contract BNDESToken {
         // FIXME: remove it when the import Pausable is available 
         _;
     }    
-    modifier onlyBNDES_confirmDonation() {
+    modifier onlyResponsibleForDonationConfirmation() {
+        require(registry.isResponsibleForDonationConfirmation(msg.sender));        
+        _;
+    }
+    modifier onlyResponsibleForDisbursement() {
         require(registry.isResponsibleForDisbursement(msg.sender));
         _;
     }
-    modifier onlyBNDES_allocateDonation() {
-        require(registry.isResponsibleForDisbursement(msg.sender));
-        _;
-    }
-    modifier onlyBNDES_redeem() {
+    modifier onlyResponsibleForSettlement() {
         require(registry.isResponsibleForSettlement(msg.sender));
         _;
     }
-    modifier onlyClient() {
-        require(registry.isClient(msg.sender));
+    modifier onlyValidatedClient() {
+        require(registry.isValidatedClient(msg.sender));
+        _;
+    }
+    modifier onlyValidatedDonor() {
+        require(registry.isValidatedDonor(msg.sender));
         _;
     }
     modifier onlyOwner() {

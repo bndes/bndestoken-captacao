@@ -18,11 +18,11 @@ contract BNDESToken {
     uint8 public decimals;
     
     /* Higher level events */
-    event DonationBooked(address donor, uint256 amount);
-    event DonationConfirmed(address donor, uint256 amount);
-    event Disbursement(address client, uint256 amount);
-    event RedemptionRequested(address client, uint256 amount);
-    event RedemptionSettlement(address client, uint256 amount);
+    event DonationBooked      (uint64 cnpj, uint256 amount);
+    event DonationConfirmed   (uint64 cnpj, uint256 amount);
+    event Disbursement        (uint64 cnpj, uint256 amount);
+    event RedemptionRequested (uint64 cnpj, uint256 amount);
+    event RedemptionSettlement(uint64 cnpj, uint256 amount);
     
     /* Lower level event (close to the ERC20) */
     event Transfer(address from, address to, uint256 amount);    
@@ -39,7 +39,8 @@ contract BNDESToken {
         address account = msg.sender;
         bookedTotalSupply = bookedTotalSupply.add(amount);
         bookedBalances[account] = bookedBalances[account].add(amount);
-        emit DonationBooked(account, amount);
+        uint64 cnpj = registry.getCNPJ(account);
+        emit DonationBooked(cnpj, amount);
     }
     
     /* BNDES confirms the donor's donation */
@@ -49,20 +50,22 @@ contract BNDESToken {
         
         bookedBalances[account] = bookedBalances[account].sub(amount);
         confirmedBalances[registry.getResponsibleForDisbursement()] = confirmedBalances[registry.getResponsibleForDisbursement()].add(amount);
-        
-        emit DonationConfirmed(account, amount);
+        uint64 cnpj = registry.getCNPJ(account);
+        emit DonationConfirmed(cnpj, amount);
     }
     
     /* BNDES disbursement - transfer donations to a client */
     function makeDisbursement(address client, uint256 amount) public whenNotPaused onlyResponsibleForDisbursement {
         _transfer(registry.getResponsibleForDisbursement(), client, amount);
-        emit Disbursement(client, amount);
+        uint64 cnpj = registry.getCNPJ(client);
+        emit Disbursement(cnpj, amount);
     }
     
     /* Client request a redemption */
     function requestRedemption(uint256 amount) public whenNotPaused onlyValidatedClient {
         _transfer(msg.sender, registry.getResponsibleForSettlement(), amount);
-        emit RedemptionRequested(msg.sender, amount);
+        uint64 cnpj = registry.getCNPJ(msg.sender);
+        emit RedemptionRequested(cnpj, amount);
     }
     
     /* BNDES settles the client's redemption */
@@ -71,7 +74,8 @@ contract BNDESToken {
         require(account != address(0), "burn from the zero address");
         confirmedBalances[account] = confirmedBalances[account].sub(amount, "burn amount exceeds balance");
         confirmedTotalSupply = confirmedTotalSupply.sub(amount);
-        emit RedemptionSettlement(to, amount);
+        uint64 cnpj = registry.getCNPJ(to);
+        emit RedemptionSettlement(cnpj, amount);
         return true;
     }
     

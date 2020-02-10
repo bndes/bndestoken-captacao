@@ -4,6 +4,7 @@ var expectThrow     = require('./helper.js');
 var coin;
 var cnpjCliente = 2222;
 var cnpjDonor = 3333;
+var amountBooked = 10000;
 var subCreditoCliente = 12345670001;
 var subcredito2 = 12345670002;
 var subcreditoFornecedor = 0;
@@ -109,13 +110,22 @@ contract('BNDESToken', function (accounts) {
 
   });  
 
-  it("should book a donation", async () => {
+  it("should book a BNDESToken donation", async () => {    
     
-    let amount = 10000;
-    await bndesTokenInstance.bookDonation( amount , { from: donorAddr } );        
+    await bndesTokenInstance.bookDonation( amountBooked , { from: donorAddr } );        
     let amountReturned = await bndesTokenInstance.bookedBalanceOf(donorAddr);
-    assert.equal(amountReturned, amount, "The DONOR should have a booked balance of " + amount + " but found " + amountReturned);    
+    assert.equal(amountReturned, amountBooked, "The DONOR should have a booked balance of " + amountBooked + " but found " + amountReturned);    
     
+  });  
+
+  it("should confirm a BNDESToken donation", async () => {
+    
+    await bndesTokenInstance.confirmDonation( donorAddr, amountBooked );        
+    let amountReturned = await bndesTokenInstance.bookedBalanceOf(donorAddr);
+    let amountConfirmed = await bndesTokenInstance.confirmedBalanceOf(bndesAddr);
+    assert.equal(amountReturned, 0, "The BNDES should have confirmed a donation of " + amountBooked );        
+    assert.equal(amountConfirmed, amountBooked, "The BNDES should have confirmed a donation of " + amountBooked );        
+        
   });  
 
   /*

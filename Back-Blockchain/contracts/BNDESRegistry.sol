@@ -98,6 +98,7 @@ contract BNDESRegistry is Ownable() {
 
     address responsibleForSettlement;
     address responsibleForRegistryValidation;
+    address responsibleForDonationConfirmation;
     address responsibleForDisbursement;
     address redemptionAddress;
     address tokenAddress;
@@ -150,6 +151,7 @@ contract BNDESRegistry is Ownable() {
         responsibleForRegistryValidation = msg.sender;
         responsibleForDisbursement = msg.sender;
         redemptionAddress = msg.sender;
+        responsibleForDonationConfirmation = msg.sender;
     }
 
 
@@ -201,7 +203,7 @@ contract BNDESRegistry is Ownable() {
     */
     function changeAccountLegalEntity(uint64 cnpj, uint64 idFinancialSupportAgreement, 
         address newAddr, string memory idProofHash) onlyTokenAddress public {
-      /*
+
         address oldAddr = getBlockchainAccount(cnpj, idFinancialSupportAgreement);
     
         // Tem que haver um endereço associado a esse cnpj/subcrédito
@@ -229,7 +231,7 @@ contract BNDESRegistry is Ownable() {
         cnpjFSAddr[cnpj][idFinancialSupportAgreement] = newAddr;
 
         emit AccountChange(oldAddr, newAddr, cnpj, idFinancialSupportAgreement, idProofHash); 
-*/
+
     }
 
    /**
@@ -239,7 +241,7 @@ contract BNDESRegistry is Ownable() {
     *                   This PDF is signed with eCNPJ and send to BNDES. 
     */
     function validateRegistryLegalEntity(address addr, string memory idProofHash) public {
-/*
+
         require(isResponsibleForRegistryValidation(msg.sender), "Somente o responsável pela validação pode validar contas");
 
         require(legalEntitiesInfo[addr].state == BlockchainAccountState.WAITING_VALIDATION, "A conta precisa estar no estado Aguardando Validação");
@@ -250,7 +252,6 @@ contract BNDESRegistry is Ownable() {
 
         emit AccountValidation(addr, legalEntitiesInfo[addr].cnpj, 
             legalEntitiesInfo[addr].idFinancialSupportAgreement);
-*/            
     }
 
    /**
@@ -259,7 +260,7 @@ contract BNDESRegistry is Ownable() {
     * @param addr Ethereum address that needs to be validated
     */
     function invalidateRegistryLegalEntity(address addr) public {
-/*
+
         require(isResponsibleForRegistryValidation(msg.sender), "Somente o responsável pela validação pode invalidar contas");
 
         require(!isReservedAccount(addr), "Não é possível invalidar conta reservada");
@@ -268,7 +269,6 @@ contract BNDESRegistry is Ownable() {
         
         emit AccountInvalidation(addr, legalEntitiesInfo[addr].cnpj, 
             legalEntitiesInfo[addr].idFinancialSupportAgreement);
-*/            
     }
 
 
@@ -280,6 +280,15 @@ contract BNDESRegistry is Ownable() {
     function setResponsibleForSettlement(address rs) onlyOwner public {
         responsibleForSettlement = rs;
     }
+
+   /**
+    * By default, the owner is also the Responsible for Donation Confirmation. 
+    * The owner can assign other address to be the Responsible for Donation Confirmation. 
+    * @param rs Ethereum address to be assigned as Responsible for Donation Confirmation.
+    */
+    function setResponsibleForDonationConfirmation(address rs) onlyOwner public {
+        responsibleForDonationConfirmation = rs;
+    }    
 
    /**
     * By default, the owner is also the Responsible for Validation. 
@@ -339,6 +348,9 @@ contract BNDESRegistry is Ownable() {
     function isResponsibleForRegistryValidation(address addr) view public returns (bool) {
         return (addr == responsibleForRegistryValidation);
     }
+    function isResponsibleForDonationConfirmation(address addr) view public returns (bool) {
+        return (addr == responsibleForDonationConfirmation);
+    }    
     function isResponsibleForDisbursement(address addr) view public returns (bool) {
         return (addr == responsibleForDisbursement);
     }
@@ -348,7 +360,7 @@ contract BNDESRegistry is Ownable() {
 
     function isReservedAccount(address addr) view public returns (bool) {
 
-        if (isOwner(addr) || isResponsibleForSettlement(addr)
+        if (isOwner(addr) || isResponsibleForSettlement(addr) 
                            || isResponsibleForRegistryValidation(addr)
                            || isResponsibleForDisbursement(addr)
                            || isRedemptionAddress(addr) ) {
@@ -418,6 +430,9 @@ contract BNDESRegistry is Ownable() {
     function getResponsibleForDisbursement() view public returns (address) {
         return responsibleForDisbursement;
     }
+    function getResponsibleForDonationConfirmation() view public returns (address) {
+        return responsibleForDonationConfirmation;
+    }    
     function getRedemptionAddress() view public returns (address) {
         return redemptionAddress;
     }

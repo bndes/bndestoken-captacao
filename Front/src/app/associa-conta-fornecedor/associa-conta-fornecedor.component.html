@@ -1,0 +1,75 @@
+<div class="form-group" *ngIf="selectedAccount">
+
+    <div class="form-group">
+      <h2>Associar Conta Blockchain ao e-CNPJ</h2>
+    </div>
+
+    <div class="conteudo form-group" >
+      <div class="row">
+        <div class="form-group col-md-12 col-sm-12">
+          <h6>Dados Cadastrais:</h6>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group col-md-4 col-sm-4">
+          <label>CNPJ do Fornecedor:</label>
+          <input  #cnpj name="cnpjWithMask"  [(ngModel)]="fornecedor.cnpjWithMask" class="form-control form-control-sm" (input)="changeCnpj()"
+          [textMask]="{mask: maskCnpj}" required/>
+        </div>
+
+        <div class="form-group col-md-6 col-sm-6" *ngIf="fornecedor.dadosCadastrais">
+          <label>Razão Social:</label>
+          <input name="razaoSocial" class="form-control form-control-sm" [ngModel]="fornecedor.dadosCadastrais.razaoSocial" readonly disabled/>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="conteudo form-group" *ngIf="fornecedor.dadosCadastrais">
+
+      <div class="row">
+        <div class="form-group col-md-12 col-sm-12">
+          <h6>Associação de contas:</h6>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group col-md-5 col-sm-5">
+          <label>Conta Blockchain Selecionada:</label>
+          <input name="contaBlockchain" class="form-control form-control-sm" type="text" [ngModel]="selectedAccount" readonly
+            disabled size="45">
+            <div class="msg-conta-invalida" >
+              {{contaEstaValida}}
+            </div>
+        </div>
+
+      </div>
+
+      <div class="row">
+          <div class="form-group col-md-6 col-sm-6 ">
+              <label>Hash da Declaração:<a target="_blank" href="https://github.com/bndes/bndestoken/tree/master/Docs-Declaracao/Modelo">
+                (baixar Modelo da Declaração)
+              </a></label>
+              <input  name="hashdeclaracao" [(ngModel)]="hashdeclaracao" maxlength="64" class="form-control form-control-sm" required/>
+        </div>          
+      </div>
+
+    </div>
+
+    
+
+    <div class="form-group" *ngIf="fornecedor.dadosCadastrais">
+      <button type="button" class="btn btn-success btn-cabecalho" placement="bottom" ngbTooltip="Salvar" (click)="associaContaFornecedor()">
+        <i class="fa fa-floppy-o" aria-hidden="true"></i> Enviar
+      </button> 
+
+      <button type="button" class="btn btn-success btn-cabecalho" placement="bottom" ngbTooltip="cancelar" (click)="cancelar()">
+        Cancelar
+      </button>
+
+    </div>
+
+  
+</div>
+<app-metamsg *ngIf="!selectedAccount"></app-metamsg>

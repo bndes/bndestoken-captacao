@@ -4,7 +4,7 @@ import "../appChangeManagementUpgrade/Upgrader.sol";
 import "../appChangeManagementUpgrade/ChangeManagement.sol";
 import "../appChangeManagementUpgrade/Resolver.sol";
 import "../appChangeManagementUpgrade/Storage.sol";
-import "../appTestUpgrade/BNDESRegistry.sol";
+import "../appTestUpgrade/BNDESRegistryApp.sol";
 
 
 contract PreUpgrader is Upgrader {
@@ -14,7 +14,7 @@ contract PreUpgrader is Upgrader {
     Resolver public resolverInstance;
     Storage public storageContractInstance;
     LegalEntityMapping public legalEntityMappingInstance;
-    BNDESRegistry public bndesRegistryInstance;
+    BNDESRegistryApp public bndesRegistryInstance;
 
 
     constructor(address _changeManagementAddr, address _resolverAddr, address _storageContractAddr,
@@ -25,7 +25,7 @@ contract PreUpgrader is Upgrader {
         resolverInstance = Resolver(_resolverAddr);
         storageContractInstance = Storage(_storageContractAddr);
         legalEntityMappingInstance = LegalEntityMapping(_legalEntityMappingAddr);
-        bndesRegistryInstance = BNDESRegistry(_bndesRegistryAddr);
+        bndesRegistryInstance = BNDESRegistryApp(_bndesRegistryAddr);
     }
 
 

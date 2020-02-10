@@ -31,14 +31,14 @@
     "absolutePath": "/D/Workspace/bndestoken-captacao/Back-Blockchain/contracts/appCommonUpgrade/IdRegistry.sol",
     "exportedSymbols": {
       "IdRegistry": [
-        1435
+        3287
       ]
     },
-    "id": 1436,
+    "id": 3288,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1427,
+        "id": 3279,
         "literals": [
           "solidity",
           "^",
@@ -46,7 +46,7 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:23:8"
+        "src": "0:23:11"
       },
       {
         "baseContracts": [],
@@ -54,9 +54,9 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 1435,
+        "id": 3287,
         "linearizedBaseContracts": [
-          1435
+          3287
         ],
         "name": "IdRegistry",
         "nodeType": "ContractDefinition",
@@ -64,23 +64,23 @@
           {
             "body": null,
             "documentation": null,
-            "id": 1434,
+            "id": 3286,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "getId",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1430,
+              "id": 3282,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1429,
+                  "id": 3281,
                   "name": "addr",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1434,
-                  "src": "72:12:8",
+                  "scope": 3286,
+                  "src": "72:12:11",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -88,10 +88,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1428,
+                    "id": 3280,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "72:7:8",
+                    "src": "72:7:11",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -102,19 +102,19 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "71:14:8"
+              "src": "71:14:11"
             },
             "returnParameters": {
-              "id": 1433,
+              "id": 3285,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1432,
+                  "id": 3284,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1434,
-                  "src": "109:4:8",
+                  "scope": 3286,
+                  "src": "109:4:11",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -122,10 +122,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1431,
+                    "id": 3283,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "109:4:8",
+                    "src": "109:4:11",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -135,33 +135,33 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "108:6:8"
+              "src": "108:6:11"
             },
-            "scope": 1435,
-            "src": "57:58:8",
+            "scope": 3287,
+            "src": "57:58:11",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 1436,
-        "src": "27:93:8"
+        "scope": 3288,
+        "src": "27:93:11"
       }
     ],
-    "src": "0:122:8"
+    "src": "0:122:11"
   },
   "legacyAST": {
     "absolutePath": "/D/Workspace/bndestoken-captacao/Back-Blockchain/contracts/appCommonUpgrade/IdRegistry.sol",
     "exportedSymbols": {
       "IdRegistry": [
-        1435
+        3287
       ]
     },
-    "id": 1436,
+    "id": 3288,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1427,
+        "id": 3279,
         "literals": [
           "solidity",
           "^",
@@ -169,7 +169,7 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:23:8"
+        "src": "0:23:11"
       },
       {
         "baseContracts": [],
@@ -177,9 +177,9 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 1435,
+        "id": 3287,
         "linearizedBaseContracts": [
-          1435
+          3287
         ],
         "name": "IdRegistry",
         "nodeType": "ContractDefinition",
@@ -187,23 +187,23 @@
           {
             "body": null,
             "documentation": null,
-            "id": 1434,
+            "id": 3286,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "getId",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1430,
+              "id": 3282,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1429,
+                  "id": 3281,
                   "name": "addr",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1434,
-                  "src": "72:12:8",
+                  "scope": 3286,
+                  "src": "72:12:11",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -211,10 +211,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1428,
+                    "id": 3280,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "72:7:8",
+                    "src": "72:7:11",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -225,19 +225,19 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "71:14:8"
+              "src": "71:14:11"
             },
             "returnParameters": {
-              "id": 1433,
+              "id": 3285,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1432,
+                  "id": 3284,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1434,
-                  "src": "109:4:8",
+                  "scope": 3286,
+                  "src": "109:4:11",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -245,10 +245,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1431,
+                    "id": 3283,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "109:4:8",
+                    "src": "109:4:11",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -258,20 +258,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "108:6:8"
+              "src": "108:6:11"
             },
-            "scope": 1435,
-            "src": "57:58:8",
+            "scope": 3287,
+            "src": "57:58:11",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 1436,
-        "src": "27:93:8"
+        "scope": 3288,
+        "src": "27:93:11"
       }
     ],
-    "src": "0:122:8"
+    "src": "0:122:11"
   },
   "compiler": {
     "name": "solc",
@@ -279,7 +279,7 @@
   },
   "networks": {},
   "schemaVersion": "3.0.5",
-  "updatedAt": "2020-02-05T13:56:29.006Z",
+  "updatedAt": "2020-02-10T15:16:17.686Z",
   "devdoc": {
     "methods": {}
   },

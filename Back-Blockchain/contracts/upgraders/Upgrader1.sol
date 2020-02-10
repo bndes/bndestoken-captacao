@@ -7,7 +7,7 @@ import "../appChangeManagementUpgrade/Resolver.sol";
 
 import {PreUpgrader as LastUpgrader} from '../appUpgraders/PreUpgrader.sol';
 import "../appTestUpgrade/LegalEntityMapping.sol";
-import "../appTestUpgrade/BNDESRegistry.sol";
+import "../appTestUpgrade/BNDESRegistryApp.sol";
 
 
 contract Upgrader1 is Upgrader {
@@ -19,7 +19,7 @@ contract Upgrader1 is Upgrader {
     Resolver public resolverInstance;
     Storage public storageContractInstance;
     LegalEntityMapping public legalEntityMappingInstance;
-    BNDESRegistry public bndesRegistryInstance;
+    BNDESRegistryApp public bndesRegistryInstance;
 
     constructor (address lastUpgraderAddr) public {
        
@@ -28,7 +28,7 @@ contract Upgrader1 is Upgrader {
         resolverInstance = Resolver(lastUpgrader.getResolverAddr());
         storageContractInstance = Storage(lastUpgrader.getStorageContractAddr());
         legalEntityMappingInstance = LegalEntityMapping(lastUpgrader.getLegalEntityMappingAddr());
-        bndesRegistryInstance = BNDESRegistry(lastUpgrader.getBNDESRegistryAddr());
+        bndesRegistryInstance = BNDESRegistryApp(lastUpgrader.getBNDESRegistryAddr());
     }
 
     modifier onlyChangeManagement() {

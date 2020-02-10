@@ -21,14 +21,14 @@
     "absolutePath": "/D/Workspace/bndestoken-captacao/Back-Blockchain/contracts/appChangeManagementUpgrade/Upgrader.sol",
     "exportedSymbols": {
       "Upgrader": [
-        1305
+        3157
       ]
     },
-    "id": 1306,
+    "id": 3158,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1301,
+        "id": 3153,
         "literals": [
           "solidity",
           "^",
@@ -36,7 +36,7 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:23:6"
+        "src": "0:23:9"
       },
       {
         "baseContracts": [],
@@ -44,9 +44,9 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 1305,
+        "id": 3157,
         "linearizedBaseContracts": [
-          1305
+          3157
         ],
         "name": "Upgrader",
         "nodeType": "ContractDefinition",
@@ -54,49 +54,49 @@
           {
             "body": null,
             "documentation": null,
-            "id": 1304,
+            "id": 3156,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "upgrade",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1302,
+              "id": 3154,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "73:2:6"
+              "src": "73:2:9"
             },
             "returnParameters": {
-              "id": 1303,
+              "id": 3155,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "84:0:6"
+              "src": "84:0:9"
             },
-            "scope": 1305,
-            "src": "56:29:6",
+            "scope": 3157,
+            "src": "56:29:9",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 1306,
-        "src": "29:63:6"
+        "scope": 3158,
+        "src": "29:63:9"
       }
     ],
-    "src": "0:92:6"
+    "src": "0:92:9"
   },
   "legacyAST": {
     "absolutePath": "/D/Workspace/bndestoken-captacao/Back-Blockchain/contracts/appChangeManagementUpgrade/Upgrader.sol",
     "exportedSymbols": {
       "Upgrader": [
-        1305
+        3157
       ]
     },
-    "id": 1306,
+    "id": 3158,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1301,
+        "id": 3153,
         "literals": [
           "solidity",
           "^",
@@ -104,7 +104,7 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:23:6"
+        "src": "0:23:9"
       },
       {
         "baseContracts": [],
@@ -112,9 +112,9 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 1305,
+        "id": 3157,
         "linearizedBaseContracts": [
-          1305
+          3157
         ],
         "name": "Upgrader",
         "nodeType": "ContractDefinition",
@@ -122,36 +122,36 @@
           {
             "body": null,
             "documentation": null,
-            "id": 1304,
+            "id": 3156,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "upgrade",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1302,
+              "id": 3154,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "73:2:6"
+              "src": "73:2:9"
             },
             "returnParameters": {
-              "id": 1303,
+              "id": 3155,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "84:0:6"
+              "src": "84:0:9"
             },
-            "scope": 1305,
-            "src": "56:29:6",
+            "scope": 3157,
+            "src": "56:29:9",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 1306,
-        "src": "29:63:6"
+        "scope": 3158,
+        "src": "29:63:9"
       }
     ],
-    "src": "0:92:6"
+    "src": "0:92:9"
   },
   "compiler": {
     "name": "solc",
@@ -159,7 +159,7 @@
   },
   "networks": {},
   "schemaVersion": "3.0.5",
-  "updatedAt": "2020-02-05T13:56:29.004Z",
+  "updatedAt": "2020-02-10T15:16:17.659Z",
   "devdoc": {
     "methods": {}
   },

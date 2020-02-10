@@ -104,7 +104,7 @@ export class ConfirmaDoacaoComponent implements OnInit {
       let contaBlockchainDoador = await this.web3Service.getContaBlockchainFromDoadorSync(this.doacao.cnpj);
       console.log("contaBlockchainDoador=" + contaBlockchainDoador);
       
-      this.web3Service.getBalanceOf(contaBlockchainDoador+"",
+      this.web3Service.getBookedBalanceOf(contaBlockchainDoador+"",
   
         function (result) {
           console.log("Saldo do endereco " + cnpj + " eh " + result);
@@ -121,6 +121,15 @@ export class ConfirmaDoacaoComponent implements OnInit {
     async receberDoacao() {
 
       let self = this;
+
+
+      let bRD = await this.web3Service.isResponsibleForDonationConfirmationSync(this.selectedAccount);    
+      if (!bRD) 
+      {
+        let s = "Conta selecionada no Metamask não pode executar a Confirmação.";
+          this.bnAlertsService.criarAlerta("error", "Erro", s, 5);
+          return;
+      } 
 
       let contaBlockchainDoador = await this.web3Service.getContaBlockchainFromDoadorSync(this.doacao.cnpj);
       console.log("contaBlockchainDoador=" + contaBlockchainDoador);

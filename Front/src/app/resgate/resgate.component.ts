@@ -130,7 +130,7 @@ export class ResgateComponent implements OnInit {
 
     let self = this;
 
-    this.web3Service.getBalanceOf(contaBlockchain,
+    this.web3Service.getConfirmedBalanceOf(contaBlockchain,
       function (result) {
         console.log("Saldo do endereco " + contaBlockchain + " eh " + result);
         self.resgate.saldoOrigem = result;

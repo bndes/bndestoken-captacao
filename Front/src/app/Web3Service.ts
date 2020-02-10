@@ -176,19 +176,15 @@ export class Web3Service {
         this.eventoCadastro.watch(callback);
     }
     registraEventosLiberacao(callback) {
-        this.eventoLiberacao = this.bndesTokenSmartContract.BNDESTokenDisbursement({}, { fromBlock: 0, toBlock: 'latest' });
+        this.eventoLiberacao = this.bndesTokenSmartContract.Disbursement({}, { fromBlock: 0, toBlock: 'latest' });
         this.eventoLiberacao.watch(callback);
     }
-    registraEventosTransferencia(callback) {
-        this.eventoTransferencia = this.bndesTokenSmartContract.BNDESTokenTransfer({}, { fromBlock: 0, toBlock: 'latest' });
-        this.eventoTransferencia.watch(callback);
-    }
     registraEventosResgate(callback) {
-        this.eventoResgate = this.bndesTokenSmartContract.BNDESTokenRedemption({}, { fromBlock: 0, toBlock: 'latest' });
+        this.eventoResgate = this.bndesTokenSmartContract.RedemptionRequested({}, { fromBlock: 0, toBlock: 'latest' });
         this.eventoResgate.watch(callback);
     }
     registraEventosLiquidacaoResgate(callback) {
-        this.eventoLiquidacaoResgate = this.bndesTokenSmartContract.BNDESTokenRedemptionSettlement({}, { fromBlock: 0, toBlock: 'latest' });
+        this.eventoLiquidacaoResgate = this.bndesTokenSmartContract.Redeemed({}, { fromBlock: 0, toBlock: 'latest' });
         this.eventoLiquidacaoResgate.watch(callback);
     }
 
@@ -285,10 +281,22 @@ export class Web3Service {
             });
     }
 
-    getBalanceOf(address: string, fSuccess: any, fError: any): number {
+    getBookedBalanceOf(address: string, fSuccess: any, fError: any): number {
         console.log("vai recuperar o balanceOf de " + address);
         let self = this;
-        return this.bndesTokenSmartContract.balanceOf(address,
+        return this.bndesTokenSmartContract.bookedBalanceOf(address,
+            (error, valorSaldoCNPJ) => {
+                if (error) fError(error);
+                else fSuccess( self.converteInteiroParaDecimal( parseInt ( valorSaldoCNPJ ) ) );
+            });
+
+    }
+
+
+    getConfirmedBalanceOf(address: string, fSuccess: any, fError: any): number {
+        console.log("vai recuperar o balanceOf de " + address);
+        let self = this;
+        return this.bndesTokenSmartContract.confirmedBalanceOf(address,
             (error, valorSaldoCNPJ) => {
                 if (error) fError(error);
                 else fSuccess( self.converteInteiroParaDecimal( parseInt ( valorSaldoCNPJ ) ) );
@@ -319,7 +327,7 @@ export class Web3Service {
             self.getContaBlockchainFromDoador(cnpj, function(result) {
                 resolve(result);
             }, function(reject) {
-                console.log("ERRO isChangeAccountEnabledSync");
+                console.log("ERRO getContaBlockchainFromDoadorSync");
                 reject(false);
             });
         })
@@ -419,7 +427,7 @@ export class Web3Service {
     converteInteiroParaDecimal( _x: number ): number {    
         return ( _x / ( 10 ** this.decimais ) ) ;
     }
-
+/*
     async transfer(target: string, transferAmount: number, fSuccess: any, fError: any) {
 
         let contaSelecionada = await this.getCurrentAccountSync();    
@@ -438,11 +446,20 @@ export class Web3Service {
             });
 
     }
-
-    liberacao(target: string, transferAmount: number, fSuccess: any, fError: any): void {
+*/
+    async liberacao(target: string, transferAmount: number, fSuccess: any, fError: any) {
         console.log("Web3Service - Liberacao")
 
-        this.transfer(target, transferAmount, fSuccess, fError);
+        let contaSelecionada = await this.getCurrentAccountSync();        
+        transferAmount = this.converteDecimalParaInteiro(transferAmount);     
+        console.log('TransferAmount(after)=' + transferAmount);
+
+        this.bndesTokenSmartContract.makeDisbursement(target, transferAmount, { from: contaSelecionada, gas: 500000 },
+            (error, result) => {
+                if (error) fError(error);
+                else fSuccess(result);
+            });        
+
     }
 
 
@@ -490,7 +507,7 @@ export class Web3Service {
         console.log("Web3Service - Redeem");
         transferAmount = this.converteDecimalParaInteiro(transferAmount);     
 
-        this.bndesTokenSmartContract.redeem(transferAmount, { from: contaSelecionada, gas: 500000 },
+        this.bndesTokenSmartContract.requestRedemption(transferAmount, { from: contaSelecionada, gas: 500000 },
             (error, result) => {
                 if (error) fError(error);
                 else fSuccess(result);
@@ -503,7 +520,7 @@ export class Web3Service {
         console.log("HashComprovante - " + hashComprovante)
         console.log("isOk - " + isOk)
 
-        this.bndesTokenSmartContract.notifyRedemptionSettlement(hashResgate, hashComprovante, 
+        this.bndesTokenSmartContract.redemptionSettlement(hashResgate, hashComprovante, 
             (error, result) => {
                 if (error) fError(error);
                 else fSuccess(result);
@@ -598,6 +615,29 @@ export class Web3Service {
             });
         })
     }
+
+    isResponsibleForDonationConfirmation(address: string, fSuccess: any, fError: any): boolean {
+        return this.bndesRegistrySmartContract.isResponsibleForDonationConfirmation(address,
+            (error, result) => {
+                if (error) fError(error);
+                else fSuccess(result);
+            });
+    }
+
+    isResponsibleForDonationConfirmationSync(address: string) {
+        let self = this;
+
+        return new Promise (function(resolve) {
+            self.isResponsibleForDonationConfirmation(address, function(result) {
+                resolve(result);
+            }, function(reject) {
+                console.log("ERRO IS responsible for Donation Confirmation  SYNC");
+                reject(false);
+            });
+        })
+    }
+
+    
 
     isResponsibleForRegistryValidation(address: string, fSuccess: any, fError: any): boolean {
 

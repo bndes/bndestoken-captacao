@@ -14,7 +14,7 @@
   <div class="table-responsive-md">
     <table class="table table-striped table-bordered table-sm">
       <thead>
-        <tr *ngIf="listaTransacoesPJ.length > 0">
+        <tr *ngIf="listaDoacoes.length > 0">
           <th [class.active]="order === 'razaoSocial'" (click)="setOrder('razaoSocial')">Razão Social
             <i [hidden]="reverse" class="fa fa-caret-down"></i>
             <i [hidden]="!reverse" class="fa fa-caret-up"></i>

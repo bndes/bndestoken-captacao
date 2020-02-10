@@ -163,9 +163,6 @@ export class DashboardTransferenciasComponent implements OnInit {
     // EVENTOS LIBERAÇÃO
     this.registrarExibicaoEventosLiberacao()
 
-    // EVENTOS TRANSFERÊNCIA
-    this.registrarExibicaoEventosTransferencia()
-
     // EVENTOS RESGATE
     this.registrarExibicaoEventosResgate()
 
@@ -270,89 +267,6 @@ export class DashboardTransferenciasComponent implements OnInit {
     });
   }
 
-  registrarExibicaoEventosTransferencia() {
-    let self = this
-
-    this.web3Service.registraEventosTransferencia(function (error, event) {
-      if (!error) {
-        let transferencia: DashboardTransferencia;
-        let eventoTransferencia = event
-
-        self.pessoaJuridicaService.recuperaEmpresaPorCnpj(eventoTransferencia.args.fromCnpj).subscribe(
-          (data) => {
-
-            let fromRazaoSocial = "Erro: Não encontrado";
-            if (data && data.dadosCadastrais) {
-              fromRazaoSocial = data.dadosCadastrais.razaoSocial;
-            }
-
-            let idContrato = eventoTransferencia.args.fromIdFinancialSupportAgreement;
-
-            self.pessoaJuridicaService.recuperaEmpresaPorCnpj(eventoTransferencia.args.toCnpj).subscribe(
-              data => {
-                
-                let toRazaoSocial = "Erro: Não encontrado";
-                if (data && data.dadosCadastrais) {
-                  toRazaoSocial = data.dadosCadastrais.razaoSocial;
-                }
-
-                transferencia = {
-                  deRazaoSocial: fromRazaoSocial,
-                  deCnpj: eventoTransferencia.args.fromCnpj,
-                  deConta: idContrato,
-                  paraRazaoSocial: toRazaoSocial,
-                  paraCnpj: eventoTransferencia.args.toCnpj,
-                  paraConta: "-",
-                  valor: self.web3Service.converteInteiroParaDecimal(parseInt(eventoTransferencia.args.value)),
-                  tipo: "Ordem de Pagamento",
-                  hashID: eventoTransferencia.transactionHash,
-                  dataHora: null
-                };
-
-                // Colocar dentro da zona do Angular para ter a atualização de forma correta
-                self.zone.run(() => {
-                  self.includeIfNotExists(transferencia);              
-                  self.estadoLista = "cheia"
-                })
-
-                self.contadorTransferencia++;
-                self.volumeTransferencia += self.web3Service.converteInteiroParaDecimal(parseInt(eventoTransferencia.args.value));
-
-                self.pieChartData.dataTable[2][1] = self.contadorTransferencia;
-                self.barChartData.dataTable[2][1] = self.volumeTransferencia;
-
-                self.atualizaGrafico();
-
-                console.log("inseriu transf " + transferencia.hashID);
-                console.log("contador transf " + self.contadorTransferencia);
-                console.log("volume transf " + self.volumeTransferencia);
-
-                self.web3Service.getBlockTimestamp(eventoTransferencia.blockHash,
-                  function (error, result) {
-                    if (!error) {
-                      transferencia.dataHora = new Date(result.timestamp * 1000);
-                      self.ref.detectChanges();
-                    }
-                    else {
-                      console.log("Erro ao recuperar data e hora do bloco");
-                      console.error(error);
-                    }
-                  });
-
-                  self.isActive = new Array(self.listaTransferencias.length).fill(false)
-              },
-              error => {
-                console.log("Erro ao recuperar a empresa por cnpj do evento transferencia")
-              })
-          })
-      }
-      else {
-        console.log("Erro no registro de eventos transferência");
-        console.log(error);
-      }
-
-    });
-  }
 
   registrarExibicaoEventosResgate() {
     let self = this

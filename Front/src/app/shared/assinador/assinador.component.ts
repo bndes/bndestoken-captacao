@@ -1,6 +1,7 @@
+
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-import WebSign from 'websign-client'
+//import WebSign from 'websign-client'
 
 @Component({
   selector: 'app-assinador',
@@ -23,7 +24,7 @@ export class AssinadorComponent implements OnInit {
   ngOnInit() {
     var self = this
 
-    this.webSign = new WebSign()
+    /*this.webSign = new WebSign()
     this.webSign.on('service-unavailable', function (err) {
       console.log("Erro")
       self.possuiAssinador = false
@@ -31,12 +32,12 @@ export class AssinadorComponent implements OnInit {
     this.webSign.on('service-available', function (err) {
       console.log("Conectado")
       self.possuiAssinador = true
-    })
+    })*/
   }
 
   executarAssinador() {
     console.log("Chamando Assinador")
-
+/*
     this.webSign.sign(this.msgDeclaracao)
 
     this.webSign.on('signed-data', data => {
@@ -52,6 +53,8 @@ export class AssinadorComponent implements OnInit {
     })
 
     this.checkAssinador = true
+    */
   }
 
 }
+

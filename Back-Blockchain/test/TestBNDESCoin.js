@@ -12,13 +12,13 @@ var amountBooked            = 10000;
 var subCreditoCliente       = 12345670001;
 var subCreditoAnotherClient = 12345670002;
 
-var bndesAddr         = accounts[0];
-var clientAddr        = accounts[1];
-var donorAddr         = accounts[2];
-var anotherDonorAddr  = accounts[3];
-var anotherClientAddr = accounts[4];
-
 contract('BNDESToken', function (accounts) {
+
+  var bndesAddr         = accounts[0];
+  var clientAddr        = accounts[1];
+  var donorAddr         = accounts[2];
+  var anotherDonorAddr  = accounts[3];
+  var anotherClientAddr = accounts[4];
   
   it("[SETUP] should create a BNDESRegistry instance and run a simple call", async () => {
 

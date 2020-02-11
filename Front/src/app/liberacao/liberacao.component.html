@@ -18,6 +18,11 @@
           <label>Conta Blockchain do BNDES:</label>
           <input type="text" class="form-control form-control-sm" [ngModel]="selectedAccount" readonly disabled size="45">
         </div>
+        <div class="form-group col-md-4 col-sm-4">
+          <label>Saldo total de BNDESToken:</label>
+          <input currencyMask type="text" class="form-control form-control-sm" [ngModel]="liberacao.saldoBNDESToken" readonly disabled/>
+        </div>
+
       </div>
     </div>
 
@@ -60,7 +65,7 @@
         </div>
 
         <div class="form-group col-md-4 col-sm-4">
-          <label>Saldo atual de BNDESToken do subcrédito:</label>
+          <label>Saldo atual de BNDESToken no contrato:</label>
           <input currencyMask type="text" class="form-control form-control-sm" [ngModel]="liberacao.saldoCNPJ" readonly disabled/>
         </div>
       </div>

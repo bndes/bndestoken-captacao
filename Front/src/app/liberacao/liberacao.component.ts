@@ -43,6 +43,7 @@ export class LiberacaoComponent implements OnInit {
     this.liberacao = new Liberacao();
     this.ultimoCNPJ = "";
     this.inicializaLiberacao();
+    this.recuperaSaldoBNDESToken();
   }
 
   inicializaLiberacao() {
@@ -64,10 +65,29 @@ export class LiberacaoComponent implements OnInit {
 
     this.selectedAccount = newSelectedAccount;
     console.log("selectedAccount=" + this.selectedAccount);
+    self.recuperaSaldoBNDESToken();
     
   }
 
 }  
+
+async recuperaSaldoBNDESToken() {
+
+  let self = this;
+
+  this.web3Service.getConfirmedBalanceOf(this.selectedAccount+"",
+
+    function (result) {
+      console.log("Saldo eh " + result);
+      self.liberacao.saldoBNDESToken = result;
+      self.ref.detectChanges();
+    },
+    function (error) {
+      console.log("Erro ao ler o saldo do BNDES ");
+      console.log(error);
+      self.liberacao.saldoBNDESToken = 0;
+    });
+}
 
   recuperaInformacoesDerivadasCNPJ() {
     this.liberacao.cnpj = Utils.removeSpecialCharacters(this.liberacao.cnpjWithMask);

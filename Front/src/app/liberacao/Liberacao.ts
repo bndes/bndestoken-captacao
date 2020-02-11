@@ -8,6 +8,7 @@ export class Liberacao {
   valor: number;
   saldoCNPJ: number;
   contaBlockchainCNPJ: string;
+  saldoBNDESToken: number;
   hashID: string;
 }
 

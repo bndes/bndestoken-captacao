@@ -207,7 +207,7 @@ export class DashboardTransferenciasComponent implements OnInit {
               paraRazaoSocial: "Erro: Não encontrado",
               paraCnpj: eventoLiberacao.args.cnpj,
               paraConta: eventoLiberacao.args.idFinancialSupportAgreement,
-              valor: self.web3Service.converteInteiroParaDecimal(parseInt(eventoLiberacao.args.value)),
+              valor: self.web3Service.converteInteiroParaDecimal(parseInt(eventoLiberacao.args.amount)),
               tipo: "Liberação",
               hashID: eventoLiberacao.transactionHash,
               dataHora: null
@@ -224,7 +224,7 @@ export class DashboardTransferenciasComponent implements OnInit {
             });
 
             self.contadorLiberacao++;
-            self.volumeLiberacao += self.web3Service.converteInteiroParaDecimal(parseInt(eventoLiberacao.args.value));
+            self.volumeLiberacao += self.web3Service.converteInteiroParaDecimal(parseInt(eventoLiberacao.args.amount));
 
             self.pieChartData.dataTable[1][1] = self.contadorLiberacao;
             self.barChartData.dataTable[1][1] = self.volumeLiberacao;
@@ -286,7 +286,7 @@ export class DashboardTransferenciasComponent implements OnInit {
               paraRazaoSocial: self.razaoSocialBNDES,
               paraCnpj: "BNDES",
               paraConta: "-",
-              valor: self.web3Service.converteInteiroParaDecimal(parseInt(eventoResgate.args.value)),
+              valor: self.web3Service.converteInteiroParaDecimal(parseInt(eventoResgate.args.amount)),
               tipo: "Solicitação de Resgate",
               hashID: eventoResgate.transactionHash,
               dataHora: null
@@ -303,7 +303,7 @@ export class DashboardTransferenciasComponent implements OnInit {
             });
 
             self.contadorResgate++;
-            self.volumeResgate += self.web3Service.converteInteiroParaDecimal(parseInt(eventoResgate.args.value));
+            self.volumeResgate += self.web3Service.converteInteiroParaDecimal(parseInt(eventoResgate.args.amount));
 
             self.pieChartData.dataTable[3][1] = self.contadorResgate;
             self.barChartData.dataTable[3][1] = self.volumeResgate;

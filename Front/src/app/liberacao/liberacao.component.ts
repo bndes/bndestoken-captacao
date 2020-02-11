@@ -215,7 +215,7 @@ export class LiberacaoComponent implements OnInit {
 
     let self = this;
 
-    let bRD = await this.web3Service.isResponsibleForDisbursementSync(this.selectedAccount);    
+    let bRD = await this.web3Service.isResponsibleForDisbursementSync();    
     if (!bRD) 
     {
       let s = "Conta selecionada no Metamask não pode executar Liberação.";
@@ -224,7 +224,7 @@ export class LiberacaoComponent implements OnInit {
     }
     else if (!this.liberacao.contaBlockchainCNPJ) {
 
-      let s = "O Subcrédito Operacional deve possuir uma Conta Blockchain Associada.";
+      let s = "Não encontrada uma conta blockchain associada.";
       this.bnAlertsService.criarAlerta("error", "Erro", s, 5);
       console.log(s);
     }

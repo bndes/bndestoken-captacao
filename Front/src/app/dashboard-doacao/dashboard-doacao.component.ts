@@ -98,7 +98,7 @@ export class DashboardDoacaoComponent implements OnInit {
             transacao = {
                 cnpj: event.args.cnpj,
                 razaoSocial: "",
-                valor: self.web3Service.converteInteiroParaDecimal(parseInt(event.args.value)),
+                valor: self.web3Service.converteInteiroParaDecimal(parseInt(event.args.amount)),
                 dataHora: null,
                 tipo: "Registro Doacao",
                 hashID: event.transactionHash,
@@ -136,7 +136,7 @@ export class DashboardDoacaoComponent implements OnInit {
             transacao = {
                 cnpj: event.args.cnpj,
                 razaoSocial: "",
-                valor: self.web3Service.converteInteiroParaDecimal(parseInt(event.args.value)),
+                valor: self.web3Service.converteInteiroParaDecimal(parseInt(event.args.amount)),
                 dataHora: null,
                 tipo: "Receber Doacao",
                 hashID: event.transactionHash,
@@ -176,12 +176,12 @@ customComparator(itemA, itemB) {
     return itemB - itemA;
 }
 
-recuperaInfoDerivadaPorCnpj(self, transacaoPJ) {
-    self.pessoaJuridicaService.recuperaEmpresaPorCnpj(transacaoPJ.cnpj).subscribe(
+recuperaInfoDerivadaPorCnpj(self, pj) {
+    self.pessoaJuridicaService.recuperaEmpresaPorCnpj(pj.cnpj).subscribe(
         data => {
-            transacaoPJ.razaoSocial = "Erro: Não encontrado";
+            pj.razaoSocial = "Erro: Não encontrado";
             if (data && data.dadosCadastrais) {
-                transacaoPJ.razaoSocial = data.dadosCadastrais.razaoSocial;
+                pj.razaoSocial = data.dadosCadastrais.razaoSocial;
               }
               
             // Colocar dentro da zona do Angular para ter a atualização de forma correta
@@ -193,11 +193,11 @@ recuperaInfoDerivadaPorCnpj(self, transacaoPJ) {
         },
         error => {
             console.log("Erro ao buscar dados da empresa");
-            transacaoPJ.razaoSocial = "";
-            transacaoPJ.contaBlockchain = "";
+            pj.razaoSocial = "";
+            pj.contaBlockchain = "";
         });
 
-    if (transacaoPJ.nomeConta=="0") transacaoPJ.nomeConta="-";
+    if (pj.nomeConta=="0") pj.nomeConta="-";
 
 }
 

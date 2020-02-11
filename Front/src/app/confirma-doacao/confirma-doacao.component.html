@@ -20,7 +20,7 @@
     </div>
 
     <div class="row">
-      <div class="form-group col-md-6 col-sm-6" *ngIf="doacao.cnpjWithMask">
+      <div class="form-group col-md-6 col-sm-6" *ngIf="doacao.dadosCadastrais">
         <label>Razão Social:</label>
         <input name="razaoSocial" class="form-control form-control-sm" [ngModel]="doacao.dadosCadastrais.razaoSocial" readonly disabled/>
       </div>

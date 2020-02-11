@@ -9,7 +9,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { BndesUx4 } from 'bndes-ux4';
 import { Ng2GoogleChartsModule } from 'ng2-google-charts';
-import { AgmCoreModule } from '@agm/core';
 
 import { OrderModule, OrderPipe } from 'ngx-order-pipe';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
@@ -126,9 +125,6 @@ export const optionsMaskCurrencyBND: CurrencyMaskConfig = {
     CurrencyMaskModule,
     TextMaskModule,
     FileUploadModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDd4uKzd3YK-8dxfGjGlgpzMASpAd-Ngtg'
-    }),
     NgbModule.forRoot()
   ],
   providers: [PessoaJuridicaService, Web3Service, ConstantesService, GoogleMapsService, UploadService,

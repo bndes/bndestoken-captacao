@@ -282,7 +282,7 @@ export class DashboardTransferenciasComponent implements OnInit {
             resgate = {
               deRazaoSocial: "Erro: Não encontrado",
               deCnpj: eventoResgate.args.cnpj,
-              deConta: "-",
+              deConta: eventoResgate.args.idFinancialSupportAgreement,
               paraRazaoSocial: self.razaoSocialBNDES,
               paraCnpj: "BNDES",
               paraConta: "-",

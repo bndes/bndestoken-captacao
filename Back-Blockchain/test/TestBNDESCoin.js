@@ -162,7 +162,7 @@ contract('BNDESToken', function (accounts) {
     assert.equal(clientBalance, amountBooked, "The CLIENT should have received a " + amountBooked );        
         
   });  
-
+/*
   it("[FLOW - BASIC] should request a BNDESToken redemption", async () => {
 
     await bndesTokenInstance.requestRedemption( amountBooked, { from: clientAddr } );
@@ -182,7 +182,7 @@ contract('BNDESToken', function (accounts) {
     assert.equal(bndesBalance , 0,  "The BNDES should have received a " + amountBooked );       
         
   });  
-
+*/
   it("[FLOW - COMPLETE] should run the entire flow of BNDESToken with 3 donations from 2 donors for 2 clients", async () => {    
     
     let donationTenFromDonor           = 10;
@@ -200,13 +200,14 @@ contract('BNDESToken', function (accounts) {
     let disbursementTwo = donationFiveFromDonor;
     await bndesTokenInstance.makeDisbursement( clientAddr, disbursementOne );
     await bndesTokenInstance.makeDisbursement( anotherClientAddr, disbursementTwo );
+    /*
     await bndesTokenInstance.requestRedemption( disbursementOne, { from: clientAddr } );
     await bndesTokenInstance.requestRedemption( disbursementTwo, { from: anotherClientAddr } );
     await bndesTokenInstance.redemptionSettlement( clientAddr, disbursementOne );
     await bndesTokenInstance.redemptionSettlement( anotherClientAddr, disbursementTwo );
     let finalSupply = await bndesTokenInstance.getConfirmedTotalSupply.call();
     assert.equal(finalSupply, 0, "The total booked donated should be " + 0 + " but found " + finalSupply);    
-    
+    */
   });    
 
   /*

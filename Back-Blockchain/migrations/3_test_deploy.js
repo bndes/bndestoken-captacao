@@ -67,10 +67,17 @@ module.exports = async (deployer, network, accounts) => {
 		let disbursementTwo = donationFiveFromDonor;
 		await bndesTokenInstance.makeDisbursement( clientAddr, disbursementOne );
 		await bndesTokenInstance.makeDisbursement( anotherClientAddr, disbursementTwo );
-		await bndesTokenInstance.requestRedemption( disbursementOne, { from: clientAddr } );
-		await bndesTokenInstance.requestRedemption( disbursementTwo, { from: anotherClientAddr } );
-		await bndesTokenInstance.redemptionSettlement( clientAddr, disbursementOne );
-		await bndesTokenInstance.redemptionSettlement( anotherClientAddr, disbursementTwo );
+		
+		await bndesTokenInstance.redeem ( disbursementOne, { from: clientAddr } );
+		await bndesTokenInstance.redeem ( disbursementTwo, { from: anotherClientAddr } );
+
+		//await bndesTokenInstance.notifyRedemptionSettlement( redemptionTransactionHash, receiptHash);
+		
+		//await bndesTokenInstance.requestRedemption( disbursementOne, { from: clientAddr } );
+		//await bndesTokenInstance.requestRedemption( disbursementTwo, { from: anotherClientAddr } );
+		//await bndesTokenInstance.redemptionSettlement( clientAddr, disbursementOne );
+		//await bndesTokenInstance.redemptionSettlement( anotherClientAddr, disbursementTwo );
+
 		let finalSupply = await bndesTokenInstance.getConfirmedTotalSupply.call();
 
 	}

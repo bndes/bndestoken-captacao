@@ -100,7 +100,7 @@ export class DashboardDoacaoComponent implements OnInit {
                 razaoSocial: "",
                 valor: self.web3Service.converteInteiroParaDecimal(parseInt(event.args.amount)),
                 dataHora: null,
-                tipo: "Registro Doacao",
+                tipo: "Intenção Registrada",
                 hashID: event.transactionHash,
                 uniqueIdentifier: event.transactionHash
             }
@@ -138,7 +138,7 @@ export class DashboardDoacaoComponent implements OnInit {
                 razaoSocial: "",
                 valor: self.web3Service.converteInteiroParaDecimal(parseInt(event.args.amount)),
                 dataHora: null,
-                tipo: "Receber Doacao",
+                tipo: "Doação Confirmada",
                 hashID: event.transactionHash,
                 uniqueIdentifier: event.transactionHash
             }

@@ -1,12 +1,14 @@
 var BNDESToken      = artifacts.require("./BNDESToken.sol");
 var BNDESRegistry   = artifacts.require("./BNDESRegistry.sol");
 var expectThrow     = require('./helper.js');
-var coin;
+
 var cnpjClient              = 1111;
 var cnpjAnotherClient       = 2222;
 var cnpjDonor               = 3333;
 var cnpjAnotherDonor        = 4444;
+
 var amountBooked            = 10000;
+
 var subCreditoCliente       = 12345670001;
 var subCreditoAnotherClient = 12345670002;
 
@@ -17,7 +19,6 @@ contract('BNDESToken', function (accounts) {
   var donorAddr         = accounts[2];
   var anotherDonorAddr  = accounts[3];
   var anotherClientAddr = accounts[4];
-
   
   it("[SETUP] should create a BNDESRegistry instance and run a simple call", async () => {
 

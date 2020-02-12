@@ -13,6 +13,7 @@
   "author": "valm <vanessa@bndes.gov.br>",
   "license": "ISC",
   "dependencies": {
+    "@openzeppelin/contracts": "^2.5.0",
     "openzeppelin-solidity": "2.1.3"
   }
 }

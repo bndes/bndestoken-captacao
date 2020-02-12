@@ -22,8 +22,8 @@ contract BNDESToken is Pausable {
     /* Higher level events */
     event DonationBooked      (uint64 cnpj, uint256 amount);
     event DonationConfirmed   (uint64 cnpj, uint256 amount);
-    event Disbursement        (uint64 cnpj, uint256 amount);
-    event RedemptionRequested (uint64 cnpj, uint256 amount);
+    event Disbursement        (uint64 cnpj, uint256 amount, uint64 idFinancialSupportAgreementct);
+    event RedemptionRequested (uint64 cnpj, uint256 amount, uint64 idFinancialSupportAgreementct);
     event RedemptionSettlement(uint64 cnpj, uint256 amount);
     
     /* Lower level event (close to the ERC20) */
@@ -60,25 +60,27 @@ contract BNDESToken is Pausable {
     function makeDisbursement(address client, uint256 amount) public whenNotPaused onlyResponsibleForDisbursement {
         _transfer(registry.getResponsibleForDisbursement(), client, amount);
         uint64 cnpj = registry.getCNPJ(client);
-        emit Disbursement(cnpj, amount);
+        uint64 idLegalFinancialAgreement = registry.getIdLegalFinancialAgreement(client);
+        emit Disbursement(cnpj, amount, idLegalFinancialAgreement);
     }
     
     /* Client request a redemption */
     function requestRedemption(uint256 amount) public whenNotPaused onlyValidatedClient {
-        _transfer(msg.sender, registry.getResponsibleForSettlement(), amount);
-        uint64 cnpj = registry.getCNPJ(msg.sender);
-        emit RedemptionRequested(cnpj, amount);
+        address clientAddress = msg.sender;
+        _transfer(clientAddress, registry.getResponsibleForSettlement(), amount);
+        uint64 cnpj = registry.getCNPJ(clientAddress);
+        uint64 idLegalFinancialAgreement = registry.getIdLegalFinancialAgreement(clientAddress);
+        emit RedemptionRequested(cnpj, amount, idLegalFinancialAgreement);
     }
     
     /* BNDES settles the client's redemption */
-    function redemptionSettlement (address to, uint256 amount) public whenNotPaused onlyResponsibleForSettlement returns (bool) {
+    function redemptionSettlement (address to, uint256 amount) public whenNotPaused onlyResponsibleForSettlement {
         address account = registry.getResponsibleForSettlement();
         require(account != address(0), "burn from the zero address");
         confirmedBalances[account] = confirmedBalances[account].sub(amount, "burn amount exceeds balance");
         confirmedTotalSupply = confirmedTotalSupply.sub(amount);
         uint64 cnpj = registry.getCNPJ(to);
         emit RedemptionSettlement(cnpj, amount);
-        return true;
     }
     
     /* BNDES transfers confirmedBalances from a sender to a receiver */

@@ -1,5 +1,5 @@
-var BNDESRegistry = artifacts.require("./BNDESRegistry.sol");
-var BNDESToken = artifacts.require("./BNDESToken.sol");
+const BNDESRegistry = artifacts.require("./BNDESRegistry.sol");
+const BNDESToken = artifacts.require("./BNDESToken.sol");
 
 module.exports = async (deployer, network, accounts) => {
 
@@ -14,21 +14,21 @@ module.exports = async (deployer, network, accounts) => {
 		console.log(" ");		
 
 		bndesRegistryInstance = await BNDESRegistry.deployed();
-		bndesTokenInstance = await BNDESToken.deployed();
+		bndesTokenInstance    = await BNDESToken.deployed();
 
-		var cnpjClient        = 08829974000194; //ICMBIO
-		var cnpjAnotherClient = 03659166000102; //IBAMA
-		var cnpjDonor         = 33000167000101; //PETROBRAS
-		var cnpjAnotherDonor  = 60701190000104; //ITAU
+		const cnpjClient        = 08829974000194; //ICMBIO
+		const cnpjAnotherClient = 03659166000102; //IBAMA
+		const cnpjDonor         = 33000167000101; //PETROBRAS
+		const cnpjAnotherDonor  = 60701190000104; //ITAU
 
-		var subCreditoCliente       = 12345670001;
-		var subCreditoAnotherClient = 12345670002;
+		const subCreditoCliente       = 12345670001;
+		const subCreditoAnotherClient = 12345670002;
 
-		var bndesAddr         = accounts[0];
-		var clientAddr        = accounts[1];
-		var donorAddr         = accounts[2];
-		var anotherDonorAddr  = accounts[3];
-		var anotherClientAddr = accounts[4];
+		const bndesAddr         = accounts[0];
+		const clientAddr        = accounts[1];
+		const donorAddr         = accounts[2];
+		const anotherDonorAddr  = accounts[3];
+		const anotherClientAddr = accounts[4];
 
 		let idProofHash = "e96c7ffef33869246069ebcb32bc72a59fb488c4893c9eb9b3306de7ba74f6d8"
 		await bndesTokenInstance.registryLegalEntity( cnpjDonor, 0, idProofHash, { from: donorAddr } );    

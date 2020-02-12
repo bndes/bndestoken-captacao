@@ -25,13 +25,8 @@ export class Web3Service {
     private eventoBNDESToken: any;
     private eventoBNDESRegistry: any;
     private eventoCadastro: any;
-    private eventoLiberacao: any;
-    private eventoTransferencia: any;
-    private eventoResgate: any;
-    private eventoLiquidacaoResgate: any;
-    private eventoRegistroDoacao: any;
-    private eventoRecebimentoDoacao: any;
-
+    private eventoTransacao: any;
+    private eventoDoacao: any;
 
     private addressOwner: string;
 
@@ -176,27 +171,27 @@ export class Web3Service {
         this.eventoCadastro.watch(callback);
     }
     registraEventosLiberacao(callback) {
-        this.eventoLiberacao = this.bndesTokenSmartContract.Disbursement({}, { fromBlock: 0, toBlock: 'latest' });
-        this.eventoLiberacao.watch(callback);
+        this.eventoTransacao = this.bndesTokenSmartContract.Disbursement({}, { fromBlock: 0, toBlock: 'latest' });
+        this.eventoTransacao.watch(callback);
     }
     registraEventosResgate(callback) {
-        this.eventoResgate = this.bndesTokenSmartContract.RedemptionRequested({}, { fromBlock: 0, toBlock: 'latest' });
-        this.eventoResgate.watch(callback);
+        this.eventoTransacao = this.bndesTokenSmartContract.RedemptionRequested({}, { fromBlock: 0, toBlock: 'latest' });
+        this.eventoTransacao.watch(callback);
     }
     registraEventosLiquidacaoResgate(callback) {
-        this.eventoLiquidacaoResgate = this.bndesTokenSmartContract.Redeemed({}, { fromBlock: 0, toBlock: 'latest' });
-        this.eventoLiquidacaoResgate.watch(callback);
+        this.eventoTransacao = this.bndesTokenSmartContract.Redeemed({}, { fromBlock: 0, toBlock: 'latest' });
+        this.eventoTransacao.watch(callback);
     }
 
     registraEventosRegistrarDoacao(callback) {
         console.log("web3-registraEventosRegistrarDoacao");
-        this.eventoRegistroDoacao = this.bndesTokenSmartContract.DonationBooked({}, { fromBlock: 0, toBlock: 'latest' });
-        this.eventoRegistroDoacao.watch(callback);
+        this.eventoDoacao = this.bndesTokenSmartContract.DonationBooked({}, { fromBlock: 0, toBlock: 'latest' });
+        this.eventoDoacao.watch(callback);
     }
     registraEventosRecebimentoDoacao(callback) {
         console.log("web3-registraEventosRecebimentoDoacao");        
-        this.eventoRecebimentoDoacao = this.bndesTokenSmartContract.DonationConfirmed({}, { fromBlock: 0, toBlock: 'latest' });
-        this.eventoRecebimentoDoacao.watch(callback);
+        this.eventoDoacao = this.bndesTokenSmartContract.DonationConfirmed({}, { fromBlock: 0, toBlock: 'latest' });
+        this.eventoDoacao.watch(callback);
     }
 
 

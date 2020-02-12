@@ -78,7 +78,7 @@ export class LiquidacaoResgateComponent implements OnInit {
         if (self.liquidacaoResgate.hashResgate == eventoResgate.transactionHash) {
 
           self.liquidacaoResgate.cnpj = eventoResgate.args.cnpj;
-          self.liquidacaoResgate.valorResgate = self.web3Service.converteInteiroParaDecimal(parseInt(eventoResgate.args.value)),
+          self.liquidacaoResgate.valorResgate = self.web3Service.converteInteiroParaDecimal(parseInt(eventoResgate.args.amount)),
       
           self.web3Service.getBlockTimestamp(eventoResgate.blockHash,
             function (error, result) {

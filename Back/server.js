@@ -1,7 +1,7 @@
 // Set up
 var express = require('express');
 var app = express();                               // create our app w/ express
-var mongoose = require('mongoose');                     // mongoose for mongodb
+//var mongoose = require('mongoose');                     // mongoose for mongodb
 var bodyParser = require('body-parser');    // pull information from HTML POST (express4)
 var methodOverride = require('method-override'); // simulate DELETE and PUT (express4)
 var cors = require('cors');
@@ -11,7 +11,7 @@ var sql = require("mssql");
 
 
 // Configuration
-mongoose.connect(config.infra.addr_bd);
+//mongoose.connect(config.infra.addr_bd);
 
 app.use(bodyParser.urlencoded({ 'extended': 'true' }));            // parse application/x-www-form-urlencoded
 app.use(bodyParser.json());                                     // parse application/json
@@ -27,10 +27,10 @@ app.use(function (req, res, next) {
 	next();
 });
 
-Promise.promisifyAll(mongoose); // key part - promisification
+//Promise.promisifyAll(mongoose); // key part - promisification
 
 
-var PessoasJuridicas = mongoose.model('Pessoasjuridicas', {
+/*var PessoasJuridicas = mongoose.model('Pessoasjuridicas', {
 
 	cnpj: String,
 	dadosCadastrais: {
@@ -41,7 +41,7 @@ var PessoasJuridicas = mongoose.model('Pessoasjuridicas', {
 		numero: Number,
 	}],
 });
-
+*/
 
 // Rotas
 /*

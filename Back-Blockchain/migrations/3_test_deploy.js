@@ -3,7 +3,7 @@ const BNDESToken = artifacts.require("./BNDESToken.sol");
 
 module.exports = async (deployer, network, accounts) => {
 
-	let populateTheBlockchain = false; //ATTENTION: keep it FALSE when you commit
+	let populateTheBlockchain = true; //ATTENTION: keep it FALSE when you commit
 
 	if ( populateTheBlockchain ) {
 
@@ -21,8 +21,8 @@ module.exports = async (deployer, network, accounts) => {
 		const cnpjDonor         = 33000167000101; //PETROBRAS
 		const cnpjAnotherDonor  = 60701190000104; //ITAU
 
-		const subCreditoCliente       = 12345670001;
-		const subCreditoAnotherClient = 12345670002;
+		const subCreditoCliente       = 12345678;
+		const subCreditoAnotherClient = 12345670;
 
 		const bndesAddr         = accounts[0];
 		const clientAddr        = accounts[1];

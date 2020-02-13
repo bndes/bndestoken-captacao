@@ -14,12 +14,13 @@ var subCreditoAnotherClient = 12345670002;
 
 contract('BNDESToken', function (accounts) {
 
-  var bndesAddr         = accounts[0];
-  var clientAddr        = accounts[1];
-  var donorAddr         = accounts[2];
-  var anotherDonorAddr  = accounts[3];
-  var anotherClientAddr = accounts[4];
-  var changeClientAddr  = accounts[5];
+  var bndesAddr                = accounts[0];
+  var clientAddr               = accounts[1];
+  var donorAddr                = accounts[2];
+  var anotherDonorAddr         = accounts[3];
+  var anotherClientAddr        = accounts[4];
+  var changeClientAddr         = accounts[5];
+  var changeDonorAddr  = accounts[6];
   
   it("[SETUP] should create a BNDESRegistry instance and run a simple call", async () => {
 
@@ -229,8 +230,23 @@ contract('BNDESToken', function (accounts) {
     let cnpjReturned = await bndesRegistryInstance.getCNPJ(changeClientAddr);
     assert.equal(cnpjReturned, cnpjClient, "The retrieved CNPJ should be " + cnpjClient );    
 
-  });    
+  });
 
+   it("[REGISTRY] should enable and change BNDESRegistry DONOR address and keep its sum of donations", async () => {
+
+    let donationOne = 1;
+    let donationTwo = 2;    
+    let idProofHash = "b227cbb8356f83e06292f1a4951728ef446bf190507bd0b42a9fb85ce59a32e3";
+    await bndesTokenInstance.bookDonation( donationOne , { from: donorAddr } );    
+    await bndesRegistryInstance.enableChangeAccount( donorAddr );        
+    await bndesTokenInstance.changeAccountLegalEntity( cnpjDonor, 0, idProofHash, { from: changeDonorAddr } );    
+    await bndesRegistryInstance.validateRegistryLegalEntity( changeDonorAddr, idProofHash );    
+    await bndesTokenInstance.bookDonation( donationTwo , { from: changeDonorAddr } );
+    await bndesTokenInstance.confirmDonation( changeDonorAddr, (donationOne + donationTwo) );  
+
+  });  
+
+  
   /*
   it("should run a BNDESToken simple transaction", async () => {
     

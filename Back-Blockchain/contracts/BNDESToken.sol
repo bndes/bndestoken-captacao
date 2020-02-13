@@ -24,11 +24,10 @@ contract BNDESToken is Pausable {
     event DonationConfirmed   (uint64 cnpj, uint256 amount);
     event Disbursement        (uint64 cnpj, uint256 amount, uint64 idFinancialSupportAgreement);
     event RedemptionRequested (uint64 cnpj, uint256 amount, uint64 idFinancialSupportAgreement);
-    //event RedemptionSettlement(uint64 cnpj, uint256 amount);
     event RedemptionSettlement(string redemptionTransactionHash, string  receiptHash);
     
-    /* Lower level event (close to the ERC20) */
-    event Transfer(address from, address to, uint256 amount);    
+    event TransferBookedBalance(address from, address to, uint256 amount);    
+    event TransferConfirmedBalance(address from, address to, uint256 amount);    
     
     BNDESRegistry registry;
     
@@ -59,31 +58,11 @@ contract BNDESToken is Pausable {
     
     /* BNDES disbursement - transfer donations to a client */
     function makeDisbursement(address client, uint256 amount) public whenNotPaused onlyResponsibleForDisbursement {
-        _transfer(registry.getResponsibleForDisbursement(), client, amount);
+        transferConfirmed(registry.getResponsibleForDisbursement(), client, amount);
         uint64 cnpj = registry.getCNPJ(client);
         uint64 idLegalFinancialAgreement = registry.getIdLegalFinancialAgreement(client);
         emit Disbursement(cnpj, amount, idLegalFinancialAgreement);
     }
-    
-    /* Client request a redemption * /
-    function requestRedemption(uint256 amount) public whenNotPaused onlyValidatedClient {
-        address clientAddress = msg.sender;
-        _transfer(clientAddress, registry.getResponsibleForSettlement(), amount);
-        uint64 cnpj = registry.getCNPJ(clientAddress);
-        uint64 idLegalFinancialAgreement = registry.getIdLegalFinancialAgreement(clientAddress);
-        emit RedemptionRequested(cnpj, amount, idLegalFinancialAgreement);
-    }
-    
-    /* BNDES settles the client's redemption * /
-    function redemptionSettlement (address to, uint256 amount) public whenNotPaused onlyResponsibleForSettlement {
-        address account = registry.getResponsibleForSettlement();
-        require(account != address(0), "burn from the zero address");
-        confirmedBalances[account] = confirmedBalances[account].sub(amount, "burn amount exceeds balance");
-        confirmedTotalSupply = confirmedTotalSupply.sub(amount);
-        uint64 cnpj = registry.getCNPJ(to);
-        emit RedemptionSettlement(cnpj, amount);
-    }
-    /**/
 
    /**
     * When redeeming, the supplier indicated to the Resposible for Settlement that he wants to receive 
@@ -112,15 +91,25 @@ contract BNDESToken is Pausable {
         require (registry.isValidHash(receiptHash), "O hash do recibo é inválido");
         emit RedemptionSettlement(redemptionTransactionHash, receiptHash);
     }    
-    
-    /* BNDES transfers confirmedBalances from a sender to a receiver */
-    function _transfer(address sender, address recipient, uint256 amount) internal {
-        require(sender != address(0), "transfer from the zero address");
-        require(recipient != address(0), "transfer to the zero address");
 
-        confirmedBalances[sender] = confirmedBalances[sender].sub(amount, "transfer amount exceeds balance");
+    /* BNDES transfers bookedBalances from a sender to a receiver */
+    function transferBooked(address sender, address recipient, uint256 amount) internal {
+        require(sender    != address(0), "booked transfer from the zero address");
+        require(recipient != address(0), "booked transfer to the zero address");
+
+        bookedBalances[sender]    = bookedBalances[sender].sub(amount, "booked transfer amount exceeds balance");
+        bookedBalances[recipient] = bookedBalances[recipient].add(amount);
+        emit TransferBookedBalance(sender, recipient, amount);
+    }
+
+    /* BNDES transfers confirmedBalances from a sender to a receiver */
+    function transferConfirmed(address sender, address recipient, uint256 amount) internal {
+        require(sender != address(0), "confirmed transfer from the zero address");
+        require(recipient != address(0), "confirmed transfer to the zero address");
+
+        confirmedBalances[sender]    = confirmedBalances[sender].sub(amount, "confirmed transfer amount exceeds balance");
         confirmedBalances[recipient] = confirmedBalances[recipient].add(amount);
-        emit Transfer(sender, recipient, amount);
+        emit TransferConfirmedBalance(sender, recipient, amount);
     }
     
     function registryLegalEntity(uint64 cnpj, uint64 idFinancialSupportAgreement, string memory idProofHash) 
@@ -146,9 +135,12 @@ contract BNDESToken is Pausable {
         registry.changeAccountLegalEntity(cnpj, idFinancialSupportAgreement, msg.sender, idProofHash);
 
         // Se há saldo no enderecoAntigo, precisa transferir
-        if (confirmedBalances[oldAddr] > 0) {
-            _transfer(oldAddr, newAddr, confirmedBalances[oldAddr]);
+        if (bookedBalances[oldAddr] > 0) {
+            transferBooked(oldAddr, newAddr, bookedBalances[oldAddr]);
         }
+        if (confirmedBalances[oldAddr] > 0) {
+            transferConfirmed(oldAddr, newAddr, confirmedBalances[oldAddr]);
+        }        
     }
 
     function confirmedBalanceOf(address client) public view returns (uint256) {

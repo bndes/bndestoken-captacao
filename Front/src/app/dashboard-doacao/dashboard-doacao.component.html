@@ -43,7 +43,7 @@
         <tr *ngFor="let transacao of listaDoacoes | orderBy: order: reverse: 'caseInsensitive':customComparator | filter:filter | paginate: { itemsPerPage: 10, currentPage: p } ; let i = index">
           <td>{{transacao.razaoSocial}}</td>
           <td>{{transacao.cnpj | cnpjMask}}</td>
-          <td>{{transacao.valor | currency:'BND':'symbol':'1.2-2':'pt' }}</td>
+          <td>{{transacao.valor | currency:"BRL":"symbol" }}</td>   
           <td>{{transacao.dataHora | date: 'dd/MM/yyyy hh:mm a' }}</td>
           <td>{{transacao.tipo}}</td>
           <td class="text-center">

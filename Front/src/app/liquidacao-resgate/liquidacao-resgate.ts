@@ -10,6 +10,6 @@ export class LiquidacaoResgate {
   hashComprovacao: string;
   hashID: string;
   isLiquidado: boolean;
-
+  isSelectedAccountResponsibleForSettlement: boolean;
 
 }

@@ -102,7 +102,6 @@ export class DashboardIdEmpresaComponent implements OnInit {
                 console.log("Evento Cadastro");
                 console.log(eventoCadastro);
 
-                     
                 transacaoPJ = {
                     cnpj: eventoCadastro.args.cnpj,
                     razaoSocial: "",
@@ -112,8 +111,10 @@ export class DashboardIdEmpresaComponent implements OnInit {
                     dataHora: null,
                     hashDeclaracao: eventoCadastro.args.idProofHash,
                     nomeConta: eventoCadastro.args.idFinancialSupportAgreement,
-                    status: "Conta Cadastrada"
+                    status: "Conta Cadastrada",
+                    perfil: ""
                 }
+
 
                 self.includeIfNotExists(transacaoPJ);
                 self.recuperaInfoDerivadaPorCnpj(self, transacaoPJ);
@@ -153,7 +154,8 @@ export class DashboardIdEmpresaComponent implements OnInit {
                     dataHora: null,
                     hashDeclaracao: eventoTroca.args.idProofHash,
                     nomeConta: eventoTroca.args.idFinancialSupportAgreement,
-                    status: "Conta Inativada por Troca"
+                    status: "Conta Inativada por Troca",
+                    perfil: ""
                 };
 
                 self.includeIfNotExists(transacaoPJContaInativada);
@@ -171,7 +173,8 @@ export class DashboardIdEmpresaComponent implements OnInit {
                     dataHora: null,
                     hashDeclaracao: eventoTroca.args.idProofHash,
                     nomeConta: eventoTroca.args.idFinancialSupportAgreement,
-                    status: "Conta Associada por Troca"
+                    status: "Conta Associada por Troca",
+                    perfil: ""
                 };
 
                 //TODO: nao precisa chamar novamente
@@ -207,7 +210,8 @@ export class DashboardIdEmpresaComponent implements OnInit {
                     dataHora: null,
                     hashDeclaracao: "",
                     nomeConta: event.args.idFinancialSupportAgreement,
-                    status: "Conta Validada"
+                    status: "Conta Validada",
+                    perfil: ""
                 }
                 self.includeIfNotExists(transacaoPJ);
                 self.recuperaInfoDerivadaPorCnpj(self, transacaoPJ);
@@ -245,7 +249,8 @@ export class DashboardIdEmpresaComponent implements OnInit {
                     dataHora: null,
                     hashDeclaracao: "",
                     nomeConta: event.args.idFinancialSupportAgreement,
-                    status: "Conta Invalidada por Validador"
+                    status: "Conta Invalidada por Validador",
+                    perfil: ""
                 }
                 self.includeIfNotExists(transacaoPJ);
                 self.recuperaInfoDerivadaPorCnpj(self, transacaoPJ);                
@@ -299,7 +304,14 @@ export class DashboardIdEmpresaComponent implements OnInit {
                 transacaoPJ.contaBlockchain = "";
             });
 
-        if (transacaoPJ.nomeConta=="0") transacaoPJ.nomeConta="-";
+        if (transacaoPJ.nomeConta != "0") {
+            transacaoPJ.perfil="Cliente";            
+        }
+        else {
+            transacaoPJ.nomeConta="-";
+            transacaoPJ.perfil="Doador";
+        }
+
 
     }
 

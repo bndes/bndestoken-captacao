@@ -179,7 +179,7 @@ export class Web3Service {
         this.eventoTransacao.watch(callback);
     }
     registraEventosLiquidacaoResgate(callback) {
-        this.eventoTransacao = this.bndesTokenSmartContract.Redeemed({}, { fromBlock: 0, toBlock: 'latest' });
+        this.eventoTransacao = this.bndesTokenSmartContract.RedemptionSettlement({}, { fromBlock: 0, toBlock: 'latest' });
         this.eventoTransacao.watch(callback);
     }
 
@@ -477,7 +477,7 @@ export class Web3Service {
         console.log("Web3Service - Redeem");
         transferAmount = this.converteDecimalParaInteiro(transferAmount);     
 
-        this.bndesTokenSmartContract.requestRedemption(transferAmount, { from: contaSelecionada, gas: 500000 },
+        this.bndesTokenSmartContract.redeem(transferAmount, { from: contaSelecionada, gas: 500000 },
             (error, result) => {
                 if (error) fError(error);
                 else fSuccess(result);
@@ -490,7 +490,7 @@ export class Web3Service {
         console.log("HashComprovante - " + hashComprovante)
         console.log("isOk - " + isOk)
 
-        this.bndesTokenSmartContract.redemptionSettlement(hashResgate, hashComprovante, 
+        this.bndesTokenSmartContract.notifyRedemptionSettlement(hashResgate, hashComprovante, 
             (error, result) => {
                 if (error) fError(error);
                 else fSuccess(result);

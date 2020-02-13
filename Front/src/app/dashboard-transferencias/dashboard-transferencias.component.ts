@@ -141,12 +141,12 @@ export class DashboardTransferenciasComponent implements OnInit {
         let barDataTable = this.barChart.wrapper.getDataTable();
 
         pieDataTable.setValue(0, 1, this.contadorLiberacao)
-        pieDataTable.setValue(1, 1, this.contadorTransferencia)
-        pieDataTable.setValue(2, 1, this.contadorResgate)
+        //pieDataTable.setValue(1, 1, this.contadorTransferencia)
+        pieDataTable.setValue(1, 1, this.contadorResgate)
 
         barDataTable.setValue(0, 1, this.volumeLiberacao)
         //barDataTable.setValue(1, 1, this.volumeTransferencia)
-        barDataTable.setValue(2, 1, this.volumeResgate)
+        barDataTable.setValue(1, 1, this.volumeResgate)
 
         this.pieChart.redraw();
         this.barChart.redraw();

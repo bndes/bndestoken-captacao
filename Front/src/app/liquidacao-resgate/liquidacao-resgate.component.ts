@@ -62,7 +62,7 @@ export class LiquidacaoResgateComponent implements OnInit {
 
       this.selectedAccount = newSelectedAccount;
       console.log("selectedAccount=" + this.selectedAccount);
-
+      this.atualizaIsResponsibleForSettlement()
     }
   }  
 
@@ -119,8 +119,9 @@ export class LiquidacaoResgateComponent implements OnInit {
 
       if (!error) {   
 
-          console.log("Encontrou algum dado")
+          console.log("Encontrou algum dado ao recuperar status liquidacao resgate")
           console.log(event)
+          console.log(self.liquidacaoResgate.hashResgate)          
 
           if (self.liquidacaoResgate.hashResgate == event.args.redemptionTransactionHash) { //resgate jah foi liquidado
 
@@ -151,6 +152,14 @@ export class LiquidacaoResgateComponent implements OnInit {
     })
   }
 
+  async atualizaIsResponsibleForSettlement() {
+
+    this.liquidacaoResgate.isSelectedAccountResponsibleForSettlement = false;    
+    let bRS = await this.web3Service.isResponsibleForSettlementSync(this.selectedAccount);
+    if(bRS) {
+      this.liquidacaoResgate.isSelectedAccountResponsibleForSettlement = true;
+    }
+  }
 
   async liquidar() {
     

@@ -8,4 +8,5 @@ export class DashboardPessoaJuridica {
   uniqueIdentifier: string;
   hashDeclaracao: string;
   dataHora: Date;
+  perfil: string;
 }

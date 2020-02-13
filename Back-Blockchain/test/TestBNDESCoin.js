@@ -19,6 +19,7 @@ contract('BNDESToken', function (accounts) {
   var donorAddr         = accounts[2];
   var anotherDonorAddr  = accounts[3];
   var anotherClientAddr = accounts[4];
+  var changeClientAddr  = accounts[5];
   
   it("[SETUP] should create a BNDESRegistry instance and run a simple call", async () => {
 
@@ -162,27 +163,20 @@ contract('BNDESToken', function (accounts) {
     assert.equal(clientBalance, amountBooked, "The CLIENT should have received a " + amountBooked );        
         
   });  
-/*
-  it("[FLOW - BASIC] should request a BNDESToken redemption", async () => {
 
-    await bndesTokenInstance.requestRedemption( amountBooked, { from: clientAddr } );
-    let bndesBalance  = await bndesTokenInstance.confirmedBalanceOf( bndesAddr   );
-    let clientBalance = await bndesTokenInstance.confirmedBalanceOf( clientAddr );
-    assert.equal(clientBalance, 0,             "The CLIENT gives back its tokens and should have a zero balance.");
-    assert.equal(bndesBalance, amountBooked,   "The BNDES should have received a " + amountBooked );       
+  it("[FLOW - BASIC] should request a BNDESToken redemption and settle it", async () => {
+    let disbOneOK = await bndesTokenInstance.redeem( amountBooked, { from: clientAddr } );
+    if ( disbOneOK ) {
+      let hashOneForClient = "c0158aa06cdca979a42065b343d0d1c91fdf15e78ed5533324ab5e5f29d95b56";
+      let hashTwoForClient = "6d9b3ee0014141b751ed927dcc86eee200a521a48e56d986efd9e2df277ad21f";
+      await bndesTokenInstance.notifyRedemptionSettlement( hashOneForClient, hashTwoForClient );
+    }
+    else {
+      assert.fail('Redeem of disbursement for CLIENT has failed!');
+    }    
         
   });  
-  
-  it("[FLOW - BASIC] should settle a BNDESToken redemption", async () => {
-
-    await bndesTokenInstance.redemptionSettlement( clientAddr, amountBooked );
-    let bndesBalance  = await bndesTokenInstance.confirmedBalanceOf( bndesAddr   );
-    let clientBalance = await bndesTokenInstance.confirmedBalanceOf( clientAddr );
-    assert.equal(clientBalance, 0,  "The CLIENT gives back its tokens and should have a zero balance.");
-    assert.equal(bndesBalance , 0,  "The BNDES should have received a " + amountBooked );       
-        
-  });  
-*/
+ 
   it("[FLOW - COMPLETE] should run the entire flow of BNDESToken with 3 donations from 2 donors for 2 clients", async () => {    
     
     let donationTenFromDonor           = 10;
@@ -200,14 +194,41 @@ contract('BNDESToken', function (accounts) {
     let disbursementTwo = donationFiveFromDonor;
     await bndesTokenInstance.makeDisbursement( clientAddr, disbursementOne );
     await bndesTokenInstance.makeDisbursement( anotherClientAddr, disbursementTwo );
-    /*
-    await bndesTokenInstance.requestRedemption( disbursementOne, { from: clientAddr } );
-    await bndesTokenInstance.requestRedemption( disbursementTwo, { from: anotherClientAddr } );
-    await bndesTokenInstance.redemptionSettlement( clientAddr, disbursementOne );
-    await bndesTokenInstance.redemptionSettlement( anotherClientAddr, disbursementTwo );
-    let finalSupply = await bndesTokenInstance.getConfirmedTotalSupply.call();
-    assert.equal(finalSupply, 0, "The total booked donated should be " + 0 + " but found " + finalSupply);    
-    */
+
+    let disbOneOK = await bndesTokenInstance.redeem( disbursementOne, { from: clientAddr } );
+    if ( disbOneOK ) {
+      let hashOneForClient = "c0158aa06cdca979a42065b343d0d1c91fdf15e78ed5533324ab5e5f29d95b56";
+      let hashTwoForClient = "6d9b3ee0014141b751ed927dcc86eee200a521a48e56d986efd9e2df277ad21f";
+      await bndesTokenInstance.notifyRedemptionSettlement( hashOneForClient, hashTwoForClient );
+    }
+    else {
+      assert.fail('Redeem of disbursement for CLIENT has failed!');
+    }
+    let disbTwoOK = await bndesTokenInstance.redeem( disbursementTwo, { from: anotherClientAddr } );
+    if ( disbTwoOK ) {
+      let hashOneForAnotherClient = "389de4a1ced8f1fc1b055672704aab962d7315b6272a988ba65e960fe51bd606";
+      let hashTwoForAnotherClient = "9cae52dc9cd276161f55ccb96e363762c24ad908f293ec0e2d736467f6334823";
+      await bndesTokenInstance.notifyRedemptionSettlement( hashOneForAnotherClient, hashTwoForAnotherClient );
+    }
+    else {
+      assert.fail('Redeem of disbursement for another CLIENT has failed!');
+    }
+
+    let finalBookedSupply = await bndesTokenInstance.getBookedTotalSupply.call();
+    assert.equal(finalBookedSupply, 0, "The total booked donated should be " + 0 + " but found " + finalBookedSupply);
+    let finalConfirmedSupply = await bndesTokenInstance.getConfirmedTotalSupply.call();
+    assert.equal(finalConfirmedSupply, 0, "The total confirmed donated should be " + 0 + " but found " + finalConfirmedSupply);
+    
+  });    
+
+   it("[REGISTRY] should enable and change BNDESRegistry CLIENT address", async () => {
+
+    await bndesRegistryInstance.enableChangeAccount( clientAddr );    
+    let idProofHash = "35c3ad1f0a2e1c105effb946a06ddc53abcee2b92ffb97043325818290f0e99f";
+    await bndesTokenInstance.changeAccountLegalEntity( cnpjClient, subCreditoCliente, idProofHash, { from: changeClientAddr } );    
+    let cnpjReturned = await bndesRegistryInstance.getCNPJ(changeClientAddr);
+    assert.equal(cnpjReturned, cnpjClient, "The retrieved CNPJ should be " + cnpjClient );    
+
   });    
 
   /*

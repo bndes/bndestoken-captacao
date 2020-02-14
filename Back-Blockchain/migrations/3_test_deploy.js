@@ -3,7 +3,7 @@ const BNDESToken = artifacts.require("./BNDESToken.sol");
 
 module.exports = async (deployer, network, accounts) => {
 
-	let populateTheBlockchain = true; //ATTENTION: keep it FALSE when you commit
+	let populateTheBlockchain = false; //ATTENTION: keep it FALSE when you commit
 
 	if ( populateTheBlockchain ) {
 

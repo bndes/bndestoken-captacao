@@ -11,6 +11,7 @@ export class Web3Service {
     private addrContratoBNDESRegistry: string = '';
     private addrContratoBNDESToken: string = '';    
     private blockchainNetwork: string = '';
+    private ethereum: any;
     private web3Instance: any;                  // Current instance of web3
 
     private bndesTokenSmartContract: any;
@@ -97,6 +98,9 @@ export class Web3Service {
     private intializeWeb3(): void {
 
         if (typeof window['web3'] !== 'undefined') {
+            this.ethereum =  window['ethereum'];
+            console.log("ethereum=");
+            console.log(this.ethereum);
             this.web3 = new this.Web3(window['web3'].currentProvider);
             console.log("Conectado com noh");
     
@@ -125,6 +129,9 @@ export class Web3Service {
 
 }
 
+    conectar () {
+        this.ethereum.enable();
+    }
 
     get web3(): any {
         if (!this.web3Instance) {

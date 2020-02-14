@@ -1,10 +1,31 @@
-<div *ngIf = "contractAddr">
-{{blockchainNetworkAsString}} - {{contractAddr}}
-</div>
-	<div class="container">
-  		<div class="row">
+<div class="container">
+
+    <div class="form-group" *ngIf="!selectedAccount">
+		<button (click)="conectar()" type="button" class="btn btn-success btn-cabecalho" placement="bottom" ngbTooltip="Conectar com Metamask">
+		  <i class="fa fa-floppy-o" aria-hidden="true"></i> Conectar com Metamask
+		</button>
+    </div>
+
+	<div *ngIf = "selectedAccount">
+		Conectado com Metamask
+	</div>
+	
+
+	<div *ngIf = "contractAddr">
+	Rede em uso pelo sistema: {{blockchainNetworkAsString}}
+	</div>
+
+	<div *ngIf = "contractAddr">
+	Endereço BNDESToken: {{contractAddr}}
+	</div>
+
+
+	<div class="row">
     		<div class="col-sm-12 text-center"> 
   				<img class="img-responsive" src='../assets/img/logo-bndescoin.png'>
   			</div>
-		</div>
 	</div>
+
+</div>
+
+  

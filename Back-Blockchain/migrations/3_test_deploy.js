@@ -3,7 +3,7 @@ const BNDESToken = artifacts.require("./BNDESToken.sol");
 
 module.exports = async (deployer, network, accounts) => {
 
-	let populateTheBlockchain = false; //ATTENTION: keep it FALSE when you commit
+	let populateTheBlockchain = true; //ATTENTION: keep it FALSE when you commit
 
 	if ( populateTheBlockchain ) {
 
@@ -16,13 +16,34 @@ module.exports = async (deployer, network, accounts) => {
 		bndesRegistryInstance = await BNDESRegistry.deployed();
 		bndesTokenInstance    = await BNDESToken.deployed();
 
-		const cnpjClient        = 08829974000194; //ICMBIO
-		const cnpjAnotherClient = 03659166000102; //IBAMA
-		const cnpjDonor         = 33000167000101; //PETROBRAS
-		const cnpjAnotherDonor  = 60701190000104; //ITAU
+		const donors = [	33000167000101,   // PETROLEO BRASILEIRO SA PETROBRAS
+							60701190000104,   // ITAU UNIBANCO SA
+							71673990000177,   // NATURA COSMETICOS SA
+							45997418000153,   // COCA COLA INDUSTRIAS LTDA
+							61068276000104    // UNILEVER BRASIL LTDA
+						];
 
-		const subCreditoCliente       = 12345670001;
-		const subCreditoAnotherClient = 12345670002;
+		const cnpjDonor         = donors[0];
+		const cnpjAnotherDonor  = donors[1];
+
+		const clients = [	09351359000188,   // FUNDAÇÃO AMAZONAS SUSTENTÁVEL  FAZ  
+							07339438000148,   // INSTITUTO DE CONSERVACAO E DESENVOLVIMENTO SUSTENTAVEL
+							00580567000184,   // INSTITUTO MANEJO E CERTICACAO FLOREST AGRICIMAFLORA
+							40390569000125,   // FUNDACAO BRASILEIRA PARA O DESENVOLVIMENTO SUSTENTAVEL
+							01641000000133    // FUNDACAO BANCO DO BRASIL
+						];
+		const cnpjClient        = clients[0]; 
+		const cnpjAnotherClient = clients[1]; 
+
+		const subCreditos = [	16201771,   // FUNDAÇÃO AMAZONAS SUSTENTÁVEL  FAZ  
+								17207661,   // INSTITUTO DE CONSERVACAO E DESENVOLVIMENTO SUSTENTAVEL
+								17200221,   // INSTITUTO MANEJO E CERTICACAO FLOREST AGRICIMAFLORA
+								18206941,   // FUNDACAO BRASILEIRA PARA O DESENVOLVIMENTO SUSTENTAVEL
+								14209321    // FUNDACAO BANCO DO BRASIL
+							];		
+
+		const subCreditoCliente       = subCreditos[0];
+		const subCreditoAnotherClient = subCreditos[1];
 
 		const bndesAddr         = accounts[0];
 		const clientAddr        = accounts[1];

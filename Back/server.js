@@ -1,21 +1,20 @@
 // Set up
-var express = require('express');
-var app = express();                               // create our app w/ express
-//var mongoose = require('mongoose');                     // mongoose for mongodb
-var bodyParser = require('body-parser');    // pull information from HTML POST (express4)
-var methodOverride = require('method-override'); // simulate DELETE and PUT (express4)
-var cors = require('cors');
-var Promise = require('bluebird');
-var config = require('./config.json');
-var sql = require("mssql");
+const express = require('express');
+const app = express();                               // create our app w/ express
+//const mongoose = require('mongoose');                     // mongoose for mongodb
+const bodyParser = require('body-parser');    // pull information from HTML POST (express4)
+const methodOverride = require('method-override'); // simulate DELETE and PUT (express4)
+const cors = require('cors');
+const Promise = require('bluebird');
+const config = require('./config.json');
+const sql = require("mssql");
 const fs 		= require('fs');
 const keccak256 = require('keccak256'); 
 
 
 
-var multer = require('multer');
-var upload = multer({ dest: 'declaracao/' });
-var fs = require('fs');
+const multer = require('multer');
+const upload = multer({ dest: 'declaracao/' });
 
 
 // Configuration

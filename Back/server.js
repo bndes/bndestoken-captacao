@@ -10,6 +10,11 @@ var config = require('./config.json');
 var sql = require("mssql");
 
 
+var multer = require('multer');
+var upload = multer({ dest: 'declaracao/' });
+var fs = require('fs');
+
+
 // Configuration
 //mongoose.connect(config.infra.addr_bd);
 
@@ -223,6 +228,31 @@ function buscaPJs(req, res) {
 			console.log("erro ao buscar pjs");
 		});
 }
+
+
+
+app.post('/api/declaracao', upload.single('declaracao'), function (req, res)
+{
+    var tmp_path = req.file.path;
+    var target_path = config.infra.caminho_raiz_declaracoes + '/' + req.file.originalname;
+
+
+    /** A better way to copy the uploaded file. **/
+    var src = fs.createReadStream(tmp_path);
+    var dest = fs.createWriteStream(target_path);
+    src.pipe(dest);
+    src.on('end', function ()
+    {
+        return res.json({sucesso: true});
+    });
+    src.on('error', function (err)
+    {
+        return res.json({sucesso: false,mensagem: "Não foi possível salvar a declaracao."});
+    });
+
+});
+
+
 
 
 // listen (start app with node server.js) ======================================

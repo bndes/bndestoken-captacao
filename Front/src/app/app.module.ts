@@ -47,9 +47,10 @@ import { DashboardTransferenciasComponent } from './dashboard-transferencias/das
 /* Services */
 import { Web3Service } from './Web3Service';
 import { PessoaJuridicaService } from './pessoa-juridica.service';
+import { FileHandleService } from './file-handle.service';
 import { ConstantesService } from './ConstantesService';
 import { GoogleMapsService } from './shared/google-maps.service';
-import { UploadService } from './shared/upload.service';
+
 
 import { MetamsgComponent } from './shared/metamsg/metamsg.component';
 import { AssinadorComponent } from './shared/assinador/assinador.component';
@@ -127,7 +128,7 @@ export const optionsMaskCurrencyBND: CurrencyMaskConfig = {
     FileUploadModule,
     NgbModule.forRoot()
   ],
-  providers: [PessoaJuridicaService, Web3Service, ConstantesService, GoogleMapsService, UploadService,
+  providers: [PessoaJuridicaService, Web3Service, ConstantesService, GoogleMapsService, FileHandleService,
     { provide: CURRENCY_MASK_CONFIG, useValue: optionsMaskCurrencyBND }
   ],
   bootstrap: [AppComponent]

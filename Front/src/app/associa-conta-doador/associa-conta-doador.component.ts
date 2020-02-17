@@ -178,8 +178,6 @@ export class AssociaContaDoadorComponent implements OnInit {
       Utils.criarAlertaAcaoUsuario( self.bnAlertsService, 
                                   "Confirme a operação no metamask e aguarde a confirmação da associação da conta." )         
 
-    } 
-
 
   }
 

@@ -8,6 +8,9 @@ var cors = require('cors');
 var Promise = require('bluebird');
 var config = require('./config.json');
 var sql = require("mssql");
+const fs 		= require('fs');
+const keccak256 = require('keccak256'); 
+
 
 
 var multer = require('multer');
@@ -106,6 +109,24 @@ console.log("endereco do contrato BNDESRegistry=" + addrContratoBNDESRegistry);
 app.get('/api/abi', function (req, res) {
 	res.json(contratoJson);
 })
+
+app.get('/api/hash/:filename', async function (req, res) {
+	const filename = req.params.filename;		
+		
+	res.writeHead(200, { 'Content-Type': 'text/html' });
+	res.write(filename);	
+	res.write("<br/>");	
+	const hashedResult = await calculaHash(filename);
+	res.write(hashedResult);
+	res.end();
+	
+})
+
+async function calculaHash(filename) {
+	const input = fs.readFileSync("uploads/"+filename);	
+	let hashedResult = keccak256(input).toString('hex');	
+	return hashedResult;				
+}
 
 //recupera constantes front
 app.post('/api/constantesFront', function (req, res) {

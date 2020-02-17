@@ -127,7 +127,7 @@ export class AssociaContaDoadorComponent implements OnInit {
       })
   }
 
-  associaContaDoador() {
+  async associaContaDoador() {
 
     let self = this
 
@@ -143,50 +143,44 @@ export class AssociaContaDoadorComponent implements OnInit {
     }
 
 
-    console.log("this.hashdeclaracao = " + this.hashdeclaracao );
+    let isContaDisponivel = await this.web3Service.isContaDisponivelSync(this.selectedAccount);
+    if (!isContaDisponivel) {
+      let msg = "A conta "+ this.selectedAccount +" não está disponível para associação"; 
+      Utils.criarAlertaErro( self.bnAlertsService, "Conta não disponível para associação", msg);  
+      return;
+    }
 
+    let estaCadastrado = await this.web3Service.isDoadorJaCadastrado(parseInt(this.doador.cnpj));
+    if (estaCadastrado) {
+      let s = "Já existe uma conta cadastrada para esse cnpj";
+      this.bnAlertsService.criarAlerta("error", "Erro", s, 2)
+      return;
+    }
 
-
-    this.web3Service.isContaDisponivel(this.selectedAccount, 
     
-      (result) => {
+      this.web3Service.cadastra(parseInt(this.doador.cnpj), 0, this.hashdeclaracao,
 
-        if (!result) {
-          
-          let msg = "A conta "+ this.selectedAccount +" não está disponível para associação"; 
-          Utils.criarAlertaErro( self.bnAlertsService, "Conta não disponível para associação", msg);  
-        }
+      (txHash) => {
 
-        else {
-
-          this.web3Service.cadastra(parseInt(this.doador.cnpj), 0, this.hashdeclaracao,
-
-          (txHash) => {
- 
-           Utils.criarAlertasAvisoConfirmacao( txHash, 
-                                               self.web3Service, 
-                                               self.bnAlertsService, 
-                                               "Associação do cnpj " + self.doador.cnpj + "  enviada. Aguarde a confirmação.", 
-                                               "A associação de conta foi confirmada na blockchain.", 
-                                               self.zone)    
-            self.router.navigate(['sociedade/dash-empresas']);
-           }        
-         ,(error) => {
-           Utils.criarAlertaErro( self.bnAlertsService, 
-                                  "Erro ao associar na blockchain.", 
-                                  error )
-          });
-          Utils.criarAlertaAcaoUsuario( self.bnAlertsService, 
-                                      "Confirme a operação no metamask e aguarde a confirmação da associação da conta." )         
-
-        } 
-
-      }, (error) => {
+        Utils.criarAlertasAvisoConfirmacao( txHash, 
+                                            self.web3Service, 
+                                            self.bnAlertsService, 
+                                            "Associação do cnpj " + self.doador.cnpj + "  enviada. Aguarde a confirmação.", 
+                                            "A associação de conta foi confirmada na blockchain.", 
+                                            self.zone)    
+        self.router.navigate(['sociedade/dash-empresas']);
+        }        
+      ,(error) => {
         Utils.criarAlertaErro( self.bnAlertsService, 
-          "Erro ao verificar se conta está disponível", 
-          error);
-
+                              "Erro ao associar na blockchain.", 
+                              error )
       });
+      Utils.criarAlertaAcaoUsuario( self.bnAlertsService, 
+                                  "Confirme a operação no metamask e aguarde a confirmação da associação da conta." )         
+
+    } 
+
+
   }
 
 

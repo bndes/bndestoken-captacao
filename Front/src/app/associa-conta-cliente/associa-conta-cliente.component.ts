@@ -217,6 +217,7 @@ export class AssociaContaClienteComponent implements OnInit {
 
         else {
 
+
           this.web3Service.cadastra(parseInt(self.cliente.cnpj), self.subcreditoSelecionado, self.hashdeclaracao,
 
             (txHash) => {

@@ -316,6 +316,14 @@ export class Web3Service {
             });
     }
 
+    async isDoadorJaCadastrado(cnpj: number) {
+        let contaBlockchain = await this.getContaBlockchainFromDoadorSync(cnpj+"");
+        let contaBlockchainAsNumber = +contaBlockchain;
+        console.log("contaBlockchainAsNumber " + contaBlockchainAsNumber);
+        if (contaBlockchainAsNumber!=0) return true;
+        else return false;
+    }
+
     public getContaBlockchainFromDoadorSync(cnpj:string) {
         let self = this;
         return new Promise(function(resolve, reject) {

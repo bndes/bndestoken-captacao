@@ -24,7 +24,7 @@ export class DashboardTransferenciasComponent implements OnInit {
     dataTable: [
       ['tipo', 'valores'],
       ['Liberação', 0],
-      ['Ordem de pagamento', 0],
+//      ['Ordem de pagamento', 0],
       ['Solicitação de Resgate', 0]
     ],
     options: { 'title': 'Tipos de Transações', 'pieSliceText': 'value' },
@@ -305,7 +305,7 @@ export class DashboardTransferenciasComponent implements OnInit {
             self.contadorResgate++;
             self.volumeResgate += self.web3Service.converteInteiroParaDecimal(parseInt(eventoResgate.args.amount));
 
-            self.pieChartData.dataTable[3][1] = self.contadorResgate;
+            self.pieChartData.dataTable[2][1] = self.contadorResgate;
             self.barChartData.dataTable[2][1] = self.volumeResgate;
 
             self.atualizaGrafico();

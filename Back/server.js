@@ -265,16 +265,12 @@ function trataUpload(req, res, next) {
 			}  
 			else {
 				// No error occured.			
-				//console.log("req.body");
-				//this.form.get('another_field').value
-				
+				let cnpj     = req.body.cnpj;
+				let contrato = req.body.contrato;	
 
-				//console.log(req.body);	
-				console.log(req.body.cnpj);	
-				console.log(req.body.contrato);	
 				const tmp_path = req.file.path;
 				const hashedResult = await calculaHash(tmp_path);								
-				const target_path = config.infra.caminhoDeclaracao + '/' +  'cnpj-contrato-' + hashedResult + '.PDF';
+				const target_path = config.infra.caminhoDeclaracao + '/' +  cnpj + '_' + contrato + '_' +  hashedResult + '.PDF';
 
 				// A better way to copy the uploaded file. 
 				const src  = fs.createReadStream(tmp_path);

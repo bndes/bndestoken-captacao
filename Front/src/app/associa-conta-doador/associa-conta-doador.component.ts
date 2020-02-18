@@ -18,7 +18,7 @@ export class AssociaContaDoadorComponent implements OnInit {
 
   doador: Doador
 
-  uploader: FileUploader = new FileUploader({ url: ConstantesService.serverUrl + "upload", itemAlias: "arquivo"});
+  uploader: FileUploader;
   filename: any;
 
   contaEstaValida: boolean;
@@ -26,13 +26,14 @@ export class AssociaContaDoadorComponent implements OnInit {
 
   maskCnpj: any;
 
+  CONTRATO_DOADOR = 0;
 
   constructor(private pessoaJuridicaService: PessoaJuridicaService, protected bnAlertsService: BnAlertsService,
     private web3Service: Web3Service, private router: Router, private zone: NgZone, private ref: ChangeDetectorRef) { 
 
-      let self = this;
-      this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
-      //this.uploader.autoUpload = true;
+      let self = this;      
+      
+      this.atualizaUploaderComponent("", this.CONTRATO_DOADOR);
 
       setInterval(function () {
         self.recuperaContaSelecionada(), 1000});
@@ -68,11 +69,24 @@ export class AssociaContaDoadorComponent implements OnInit {
     else {
       this.inicializaDadosDerivadosPessoaJuridica();
     }  
+    this.atualizaUploaderComponent(this.doador.cnpj, this.CONTRATO_DOADOR);
+  }
+
+  atualizaUploaderComponent(_cnpj, _contrato) {
+    this.uploader = new FileUploader({ 
+                          url: ConstantesService.serverUrl + "upload",                          
+                          additionalParameter: {
+                                cnpj: _cnpj,
+                                contrato: _contrato
+                              },
+                          
+                          itemAlias:  "arquivo"});
+    this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
   }
 
     chamaUpload() {
       let self = this
-      this.uploader.uploadAll()
+      this.uploader.uploadAll()           
       console.log("chamaUpload() - this.uploader")
       console.log(this.uploader)
   }

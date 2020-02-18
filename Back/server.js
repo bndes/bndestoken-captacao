@@ -264,7 +264,14 @@ function trataUpload(req, res, next) {
 				return res.status(422).send("an Error occured")
 			}  
 			else {
-				// No error occured.				
+				// No error occured.			
+				//console.log("req.body");
+				//this.form.get('another_field').value
+				
+
+				//console.log(req.body);	
+				console.log(req.body.cnpj);	
+				console.log(req.body.contrato);	
 				const tmp_path = req.file.path;
 				const hashedResult = await calculaHash(tmp_path);								
 				const target_path = config.infra.caminhoDeclaracao + '/' +  'cnpj-contrato-' + hashedResult + '.PDF';

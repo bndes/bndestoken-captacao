@@ -1,11 +1,11 @@
 <div class="form-group" *ngIf="selectedAccount">
 <div class="title-loading">
-  <h2 class="page-header">Dashboard Transações</h2>
+  <h2 class="page-header">Dashboard de Liberações e Resgates</h2>
   <app-bn-loading class="loading" *ngIf="estadoLista === 'undefined'"></app-bn-loading>
 </div>
 
 <div *ngIf="estadoLista === 'vazia'">
-  <p>Não foi encontrada nenhuma transação na Blockchain!</p>
+  <p>Não foi encontrado nenhum evento na Blockchain!</p>
 </div>
 
 <div *ngIf="estadoLista === 'cheia'">

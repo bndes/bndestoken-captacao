@@ -4,12 +4,30 @@ config.json
 
 # dependencies
 /node_modules
-/uploads/*.pdf
-/uploads/*.txt
-/uploads/*.jpg
-/uploads/*.png
-/uploads/*.gif
-/uploads/*.csv
-/uploads/*.xls
-/uploads/*.doc
+/arquivos/*.pdf
+/arquivos/*.txt
+/arquivos/*.jpg
+/arquivos/*.png
+/arquivos/*.gif
+/arquivos/*.csv
+/arquivos/*.xls
+/arquivos/*.doc
+
+/arquivos/declaracao/*.pdf
+/arquivos/declaracao/*.txt
+/arquivos/declaracao/*.jpg
+/arquivos/declaracao/*.png
+/arquivos/declaracao/*.gif
+/arquivos/declaracao/*.csv
+/arquivos/declaracao/*.xls
+/arquivos/declaracao/*.doc
+
+/arquivos/upload/*.pdf
+/arquivos/upload/*.txt
+/arquivos/upload/*.jpg
+/arquivos/upload/*.png
+/arquivos/upload/*.gif
+/arquivos/upload/*.csv
+/arquivos/upload/*.xls
+/arquivos/upload/*.doc
 

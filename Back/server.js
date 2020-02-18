@@ -11,16 +11,14 @@ const sql = require("mssql");
 const fs 		= require('fs');
 const keccak256 = require('keccak256'); 
 
-
-
 const multer = require('multer');
-const upload = multer({ dest: 'declaracao/' });
-
+const DIR = config.infra.caminhoUpload;
+const uploadMiddleware = multer({ dest: DIR }).single('arquivo');
 
 // Configuration
 //mongoose.connect(config.infra.addr_bd);
 
-app.use(bodyParser.urlencoded({ 'extended': 'true' }));            // parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ 'extended': 'true' }));         // parse application/x-www-form-urlencoded
 app.use(bodyParser.json());                                     // parse application/json
 app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse application/vnd.api+json as json
 app.use(methodOverride());
@@ -115,14 +113,14 @@ app.get('/api/hash/:filename', async function (req, res) {
 	res.writeHead(200, { 'Content-Type': 'text/html' });
 	res.write(filename);	
 	res.write("<br/>");	
-	const hashedResult = await calculaHash(filename);
+	const hashedResult = await calculaHash(config.infra.caminhoUpload + '/' + filename);
 	res.write(hashedResult);
 	res.end();
 	
 })
 
 async function calculaHash(filename) {
-	const input = fs.readFileSync("uploads/"+filename);	
+	const input = fs.readFileSync(filename);	
 	let hashedResult = keccak256(input).toString('hex');	
 	return hashedResult;				
 }
@@ -250,29 +248,44 @@ function buscaPJs(req, res) {
 }
 
 
+//upload.single('arquivo')
+app.post('/api/upload', trataUpload);
 
-app.post('/api/declaracao', upload.single('declaracao'), function (req, res)
-{
-    var tmp_path = req.file.path;
-    var target_path = config.infra.caminho_raiz_declaracoes + '/' + req.file.originalname;
+function trataUpload(req, res, next) {
 
+	console.log("trataUpload - uploadMiddleware ")
+	console.log(uploadMiddleware);
+	
+  	//calls the uploadMiddleware function to process the upload
+	uploadMiddleware(req, res, async function (err) {
+			if (err) {
+				// An error occurred when uploading
+				console.log(err);
+				return res.status(422).send("an Error occured")
+			}  
+			else {
+				// No error occured.				
+				const tmp_path = req.file.path;
+				const hashedResult = await calculaHash(tmp_path);								
+				const target_path = config.infra.caminhoDeclaracao + '/' +  'cnpj-contrato-' + hashedResult + '.PDF';
 
-    /** A better way to copy the uploaded file. **/
-    var src = fs.createReadStream(tmp_path);
-    var dest = fs.createWriteStream(target_path);
-    src.pipe(dest);
-    src.on('end', function ()
-    {
-        return res.json({sucesso: true});
-    });
-    src.on('error', function (err)
-    {
-        return res.json({sucesso: false,mensagem: "Não foi possível salvar a declaracao."});
-    });
-
-});
-
-
+				// A better way to copy the uploaded file. 
+				const src  = fs.createReadStream(tmp_path);
+				const dest = fs.createWriteStream(target_path);
+				src.pipe(dest);
+				src.on('end', function ()
+				{
+					console.log("Upload Completed from "+ tmp_path + ", original name " + req.file.originalname + ", copied to " + target_path); 
+				});
+				src.on('error', function (err)
+				{
+					console.log("Upload ERROR! from "+ tmp_path + ", original name " + req.file.originalname + ", copied to " + target_path); 
+				});		
+				return res.send("Upload Completed from "+ tmp_path + ", original name " + req.file.originalname + ", copied to " + target_path); 
+			}
+		}
+	);
+}
 
 
 // listen (start app with node server.js) ======================================

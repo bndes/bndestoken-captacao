@@ -1,6 +1,8 @@
 import { Component, OnInit, NgZone, ChangeDetectorRef } from '@angular/core'
 import { Router, ActivatedRoute } from '@angular/router'
 import { BnAlertsService } from 'bndes-ux4'
+import { FileUploader } from 'ng2-file-upload';
+import { ConstantesService } from '../ConstantesService';
 
 import { Doador } from './Doador'
 import { PessoaJuridicaService } from '../pessoa-juridica.service'
@@ -16,7 +18,8 @@ export class AssociaContaDoadorComponent implements OnInit {
 
   doador: Doador
 
-  hashdeclaracao: string;
+  uploader: FileUploader = new FileUploader({ url: ConstantesService.serverUrl + "upload", itemAlias: "arquivo"});
+  filename: any;
 
   contaEstaValida: boolean;
   selectedAccount: any;
@@ -28,6 +31,9 @@ export class AssociaContaDoadorComponent implements OnInit {
     private web3Service: Web3Service, private router: Router, private zone: NgZone, private ref: ChangeDetectorRef) { 
 
       let self = this;
+      this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
+      //this.uploader.autoUpload = true;
+
       setInterval(function () {
         self.recuperaContaSelecionada(), 1000});
 
@@ -38,6 +44,11 @@ export class AssociaContaDoadorComponent implements OnInit {
      this.maskCnpj = Utils.getMaskCnpj(); 
     this.inicializaDadosDerivadosPessoaJuridica();
     this.recuperaContaSelecionada();
+
+    this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+      console.log("upload feito.", item, status, response);
+    }
+    
   }
 
 
@@ -59,6 +70,12 @@ export class AssociaContaDoadorComponent implements OnInit {
     }  
   }
 
+    chamaUpload() {
+      let self = this
+      this.uploader.uploadAll()
+      console.log("chamaUpload() - this.uploader")
+      console.log(this.uploader)
+  }
 
   cancelar() {
     this.doador = new Doador();
@@ -131,12 +148,12 @@ export class AssociaContaDoadorComponent implements OnInit {
 
     let self = this
 
-    if (this.hashdeclaracao==undefined || this.hashdeclaracao==null) {
+    if (this.uploader==undefined || this.uploader==null) {
       let s = "O Hash da declaração é um Campo Obrigatório";
       this.bnAlertsService.criarAlerta("error", "Erro", s, 2)
       return
     }  
-    else if (!Utils.isValidHash(this.hashdeclaracao)) {
+    else if (!Utils.isValidHash(this.uploader)) {
       let s = "O Hash da declaração está preenchido com valor inválido";
       this.bnAlertsService.criarAlerta("error", "Erro", s, 2)
       return;
@@ -158,7 +175,7 @@ export class AssociaContaDoadorComponent implements OnInit {
     }
 
     
-      this.web3Service.cadastra(parseInt(this.doador.cnpj), 0, this.hashdeclaracao,
+      this.web3Service.cadastra(parseInt(this.doador.cnpj), 0, this.uploader.toString(),
 
       (txHash) => {
 

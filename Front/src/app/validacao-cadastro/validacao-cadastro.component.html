@@ -17,7 +17,7 @@
           <th>Contrato Financeiro</th>
           <th>Conta Blockchain</th>
           <th>Status</th>
-          <th>HashDeclaração</th>
+          <th>Arquivo</th>
         </tr>
       </thead>
 
@@ -28,7 +28,9 @@
           <td>{{pj.idSubcredito}}</td>
           <td><input name="pj.contaBlockchain" (keyup)="recuperaClientePorContaBlockchain(pj.contaBlockchain)" [(ngModel)]="pj.contaBlockchain" class="form-control"></td>     
           <td>{{pj.status}}</td>
-          <td><input name="hashDeclaracaoDigitado" [(ngModel)]="hashDeclaracaoDigitado" maxlength="64" class="form-control"></td>
+          <td><a target="_blank" href="http://localhost:8080/arquivos/declaracao/BILLETE.pdf">
+            Declaração
+          </a></td>
         </tr>
       </tbody>
     </table>

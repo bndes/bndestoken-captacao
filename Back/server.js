@@ -264,10 +264,13 @@ function trataUpload(req, res, next) {
 				return res.status(422).send("an Error occured")
 			}  
 			else {
-				// No error occured.				
+				// No error occured.			
+				let cnpj     = req.body.cnpj;
+				let contrato = req.body.contrato;	
+
 				const tmp_path = req.file.path;
 				const hashedResult = await calculaHash(tmp_path);								
-				const target_path = config.infra.caminhoDeclaracao + '/' +  'cnpj-contrato-' + hashedResult + '.PDF';
+				const target_path = config.infra.caminhoDeclaracao + '/' +  cnpj + '_' + contrato + '_' +  hashedResult + '.PDF';
 
 				// A better way to copy the uploaded file. 
 				const src  = fs.createReadStream(tmp_path);

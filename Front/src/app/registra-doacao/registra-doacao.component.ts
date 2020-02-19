@@ -158,7 +158,7 @@ async registrarDoacao() {
     }
   );
   Utils.criarAlertaAcaoUsuario( self.bnAlertsService, 
-                                "Confirme a operação no metamask e aguarde a confirmação do resgate." )    
+                                "Confirme a operação no metamask e aguarde a confirmação do registro." )    
 
 }
 

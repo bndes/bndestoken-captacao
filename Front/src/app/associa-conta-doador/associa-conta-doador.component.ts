@@ -72,7 +72,7 @@ export class AssociaContaDoadorComponent implements OnInit {
 
     chamaUpload() {
       let self = this
-      this.uploader.uploadAll()
+      this.uploader.uploadAll();
       console.log("chamaUpload() - this.uploader")
       console.log(this.uploader)
   }

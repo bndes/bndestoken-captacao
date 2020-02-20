@@ -34,7 +34,7 @@ export class AssociaContaDoadorComponent implements OnInit {
 
       let self = this;      
       
-      this.atualizaUploaderComponent("", this.CONTRATO_DOADOR);
+      this.atualizaUploaderComponent("", this.CONTRATO_DOADOR, this.selectedAccount);
 
       setInterval(function () {
         self.recuperaContaSelecionada(), 1000});
@@ -59,6 +59,7 @@ export class AssociaContaDoadorComponent implements OnInit {
   changeCnpj() { 
     this.doador.cnpj = Utils.removeSpecialCharacters(this.doador.cnpjWithMask);
     let cnpj = this.doador.cnpj;
+    this.hashdeclaracao = undefined;
 
     if ( cnpj.length == 14 ) {
       console.log (" Buscando o CNPJ do doador (14 digitos fornecidos)...  " + cnpj)
@@ -67,17 +68,18 @@ export class AssociaContaDoadorComponent implements OnInit {
     else {
       this.inicializaDadosDerivadosPessoaJuridica();
     }  
-    this.atualizaUploaderComponent(this.doador.cnpj, this.CONTRATO_DOADOR);
+    this.atualizaUploaderComponent(this.doador.cnpj, this.CONTRATO_DOADOR, this.selectedAccount);
   }
 
 
-  atualizaUploaderComponent(_cnpj, _contrato) {
+  atualizaUploaderComponent(_cnpj, _contrato, _contaBlockchain) {
     let self = this;
     this.uploader = new FileUploader({ 
                           url: ConstantesService.serverUrl + "upload",                          
                           additionalParameter: {
-                                cnpj: _cnpj,
-                                contrato: _contrato
+                                cnpj:             _cnpj,
+                                contrato:         _contrato,
+                                contaBlockchain:  _contaBlockchain
                               },
                           
                           itemAlias:  "arquivo"});

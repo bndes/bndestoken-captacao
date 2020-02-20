@@ -51,7 +51,9 @@
                 (baixar Modelo da Declaração)
               </a></label>              
               <input ng2FileSelect id="arquivo" type="file" accept=".pdf" [uploader]="uploader" (change)="chamaUpload()" /> 
-              <input  name="hashdeclaracao" [(ngModel)]="hashdeclaracao"  class="form-control form-control-sm" required readonly disabled size="45" />
+              <div class="msg-conta-invalida" *ngIf="hashdeclaracao">
+              Hash da Declaração: {{hashdeclaracao}}
+              </div>
         </div>          
       </div>
 

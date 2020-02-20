@@ -35,7 +35,7 @@ app.use(function (req, res, next) {
 app.use(express.static('arquivos'));
 
 //Serves all the request which includes /declaracao in the url from declaracao folder
-app.use('/declaracao', express.static('/declaracao'));
+app.use('/'+config.infra.caminhoDeclaracaoFront, express.static('/' + config.infra.caminhoDeclaracaoFront));
 
 
 
@@ -271,8 +271,11 @@ function trataUpload(req, res, next) {
 				let conta    = req.body.contaBlockchain;
 
 				const tmp_path = req.file.path;
-				const hashedResult = await calculaHash(tmp_path);								
-				const target_path = config.infra.caminhoDeclaracao + '/' +  cnpj + '_' + contrato + '_' +  conta + '.PDF';
+				const hashedResult = await calculaHash(tmp_path);
+				
+				let fileName = montaNomeArquivo(cnpj, contrato, conta);	
+
+				const target_path = config.infra.caminhoDeclaracao + '/' +  fileName;
 
 				// A better way to copy the uploaded file. 
 				const src  = fs.createReadStream(tmp_path);
@@ -296,12 +299,6 @@ function trataUpload(req, res, next) {
 
 app.post('/api/fileinfo', buscaFileInfo);
 
-function montaNomeArquivo(cnpj, contrato, blockchainAccount) {
-
-	return (cnpj + '_' + contrato + '_' + blockchainAccount + '.PDF');
-
-}
-
 async function buscaFileInfo(req, res) {
 
 	try {
@@ -312,7 +309,7 @@ async function buscaFileInfo(req, res) {
 
 		let fileName = montaNomeArquivo(cnpj, contrato, blockchainAccount);	
 
-		let filePathAndNameToFront = 'declaracao/' + fileName;
+		let filePathAndNameToFront = config.infra.caminhoDeclaracaoFront + '/' + fileName;
 		let targetPath = config.infra.caminhoDeclaracao + '/' + fileName;
 		const hashedResult = await calculaHash(targetPath);
 
@@ -333,9 +330,9 @@ async function buscaFileInfo(req, res) {
 
 }
 
-
-
-
+function montaNomeArquivo(cnpj, contrato, blockchainAccount) {
+	return (cnpj + '_' + contrato + '_' + blockchainAccount + '.PDF');
+}
 
 // listen (start app with node server.js) ======================================
 app.listen(8080, "0.0.0.0");

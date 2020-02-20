@@ -237,6 +237,7 @@ export class ValidacaoCadastroComponent implements OnInit {
     self.pj.idSubcredito = "";
     self.pj.status = "";
     self.pj.hashDeclaracao = "";
+    self.pj.filePathAndName="";
   }
 
 

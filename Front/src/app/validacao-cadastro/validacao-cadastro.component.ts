@@ -7,6 +7,7 @@ import { PessoaJuridica } from '../PessoaJuridica';
 import { BnAlertsService } from 'bndes-ux4';
 import { Router } from '@angular/router';
 import { Utils } from '../shared/utils';
+import { ConstantesService } from '../ConstantesService';
 
 @Component({
   selector: 'app-validacao-cadastro',
@@ -17,7 +18,6 @@ export class ValidacaoCadastroComponent implements OnInit {
 
   pj: PessoaJuridica;
   isHashInvalido: boolean = false;
-  hashDeclaracaoDigitado: string;
   selectedAccount: any;
   contaBuscadaENaoAssociada: boolean = false;
   urlArquivo = "";
@@ -85,8 +85,8 @@ export class ValidacaoCadastroComponent implements OnInit {
 
               this.fileHandleService.buscaFileInfo(self.pj.cnpj, self.pj.idSubcredito, self.pj.contaBlockchain).subscribe(
                 result => {
-                  if (result && result.filePathAndName) {
-                    self.pj.filePathAndName=result.pathAndName;
+                  if (result && result.pathAndName) {
+                    self.pj.filePathAndName=ConstantesService.serverUrlRoot+result.pathAndName;
                     self.pj.hashDeclaracao=result.hash;
                   }
                   else {
@@ -132,15 +132,6 @@ export class ValidacaoCadastroComponent implements OnInit {
     }
   }
 
-  isHashDigitadoIgualAHashDeclaracao() {
-    if (this.pj && this.pj.hashDeclaracao == this.hashDeclaracaoDigitado) {
-      return true;
-    }
-    else {
-      return false;
-    }
-  }
-
   async recuperaContaSelecionada() {
     
     let self = this;
@@ -165,7 +156,7 @@ export class ValidacaoCadastroComponent implements OnInit {
       return;
     }
 
-    if (this.hashDeclaracaoDigitado === undefined) {
+    if (this.pj.hashDeclaracao === undefined) {
       let s = "O hash da declaração é um Campo Obrigatório";
       this.bnAlertsService.criarAlerta("error", "Erro", s, 2);
       return;
@@ -182,9 +173,9 @@ export class ValidacaoCadastroComponent implements OnInit {
   
 
     let self = this;
-    console.log("validarConta(): " + self.pj.contaBlockchain + " - " + self.hashDeclaracaoDigitado);
+    console.log("validarConta(): " + self.pj.contaBlockchain + " - " + self.pj.hashDeclaracao);
 
-    let booleano = this.web3Service.validarCadastro(self.pj.contaBlockchain, self.hashDeclaracaoDigitado, 
+    let booleano = this.web3Service.validarCadastro(self.pj.contaBlockchain, self.pj.hashDeclaracao, 
 
       
          (txHash) => {
@@ -246,7 +237,6 @@ export class ValidacaoCadastroComponent implements OnInit {
     self.pj.idSubcredito = "";
     self.pj.status = "";
     self.pj.hashDeclaracao = "";
-    self.hashDeclaracaoDigitado = "";
   }
 
 

@@ -123,7 +123,7 @@ app.get('/api/hash/:filename', async function (req, res) {
 async function calculaHash(filename) {
 	const input = fs.readFileSync(filename);	
 	let hashedResult = keccak256(input).toString('hex');	
-	return hashedResult;				
+	return hashedResult;					
 }
 
 //recupera constantes front
@@ -296,32 +296,44 @@ function trataUpload(req, res, next) {
 
 app.post('/api/fileinfo', buscaFileInfo);
 
-async function buscaFileInfo(req, res) {
-
-	console.log("buscar filepath");
-	let cnpj     = req.body.cnpj;
-	let contrato = req.body.contrato;
-	let blockchainAccount = req.body.blockchainAccount;
-	let filename = montaNomeArquivo(cnpj, contrato, blockchainAccount);
-	let filePathAndName = "./declaracao/" + filename;
-
-	const hashedResult = await calculaHash(filePathAndName);
-	console.log("calculou o hash");
-
-	let respJson = {
-		pathAndName: filePathAndName,
-		hash: hashedResult
-	};
-
-	return respJson;
-
-}
-
 function montaNomeArquivo(cnpj, contrato, blockchainAccount) {
 
-	return cnpj + "-" + contrato + "-" + blockchainAccount;
+	return (cnpj + '_' + contrato + '_' + blockchainAccount + '.PDF');
 
 }
+
+async function buscaFileInfo(req, res) {
+
+	try {
+
+		let cnpj     = req.body.cnpj;
+		let contrato = req.body.contrato;
+		let blockchainAccount = req.body.blockchainAccount;
+
+		let fileName = montaNomeArquivo(cnpj, contrato, blockchainAccount);	
+
+		let filePathAndNameToFront = 'declaracao/' + fileName;
+		let targetPath = config.infra.caminhoDeclaracao + '/' + fileName;
+		const hashedResult = await calculaHash(targetPath);
+
+		let respJson = {
+			pathAndName: filePathAndNameToFront,
+			hash: hashedResult
+		};
+
+		console.log(respJson);
+		res.json(respJson);
+
+	}
+	catch (err) {
+		console.log("Erro buscar informações do arquivo. Provavelmente ao ler o arquivo ou calcular o hash");
+		console.log(err)
+		res.sendStatus(500);
+	}
+
+}
+
+
 
 
 

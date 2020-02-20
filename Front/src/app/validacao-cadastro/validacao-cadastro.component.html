@@ -28,9 +28,9 @@
           <td>{{pj.idSubcredito}}</td>
           <td><input name="pj.contaBlockchain" (keyup)="recuperaClientePorContaBlockchain(pj.contaBlockchain)" [(ngModel)]="pj.contaBlockchain" class="form-control"></td>     
           <td>{{pj.status}}</td>
-          <td><a target="_blank" href="{{pj.filePathAndName}}">
+          <td><span *ngIf="pj.filePathAndName"><a target="_blank" href="{{pj.filePathAndName}}">
             Declaração
-          </a></td>
+          </a></span></td>
         </tr>
       </tbody>
     </table>
@@ -41,10 +41,7 @@
     </div>
     <div class="msg-conta-invalida" *ngIf="contaBuscadaENaoAssociada">
       Conta não associada a uma empresa
-    </div>
-      <div class="msg-conta-invalida" *ngIf="!contaBuscadaENaoAssociada && pj.cnpj && hashDeclaracaoDigitado && !isHashDigitadoIgualAHashDeclaracao()">
-      Hash digitado é diferente do hash da declaração
-      </div>          
+    </div>          
 
 
 

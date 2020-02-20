@@ -45,7 +45,6 @@ export class FileHandleService {
       str_cnpj = Utils.completarCnpjComZero(str_cnpj)
     }
     return this.http.post<Object>(this.serverUrl + 'fileinfo', { cnpj: str_cnpj, contrato: contrato, blockchainAccount: blockchainAccount })
-      //.do(pessoaJuridica => self.formatPJ(pessoaJuridica))
       .catch(this.handleError);
 
   }

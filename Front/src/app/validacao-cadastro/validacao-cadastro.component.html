@@ -28,7 +28,7 @@
           <td>{{pj.idSubcredito}}</td>
           <td><input name="pj.contaBlockchain" (keyup)="recuperaClientePorContaBlockchain(pj.contaBlockchain)" [(ngModel)]="pj.contaBlockchain" class="form-control"></td>     
           <td>{{pj.status}}</td>
-          <td><a target="_blank" href="http://localhost:8080/arquivos/declaracao/BILLETE.pdf">
+          <td><a target="_blank" href="{{pj.filePathAndName}}">
             Declaração
           </a></td>
         </tr>

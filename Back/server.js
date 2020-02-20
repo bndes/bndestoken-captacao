@@ -13,7 +13,7 @@ const keccak256 = require('keccak256');
 
 const multer = require('multer');
 const DIR = config.infra.caminhoUpload;
-const uploadMiddleware = multer({ dest: DIR }).single('arquivo');
+const uploadMiddleware = multer({ dest: DIR, limits: {fileSize: 1000000} }).single('arquivo');
 
 // Configuration
 //mongoose.connect(config.infra.addr_bd);
@@ -116,14 +116,8 @@ app.get('/api/abi', function (req, res) {
 
 app.get('/api/hash/:filename', async function (req, res) {
 	const filename = req.params.filename;		
-		
-	res.writeHead(200, { 'Content-Type': 'text/html' });
-	res.write(filename);	
-	res.write("<br/>");	
 	const hashedResult = await calculaHash(config.infra.caminhoUpload + '/' + filename);
-	res.write(hashedResult);
-	res.end();
-	
+	return res.json(hashedResult);
 })
 
 async function calculaHash(filename) {
@@ -274,10 +268,11 @@ function trataUpload(req, res, next) {
 				// No error occured.			
 				let cnpj     = req.body.cnpj;
 				let contrato = req.body.contrato;	
+				let conta    = req.body.contaBlockchain;
 
 				const tmp_path = req.file.path;
 				const hashedResult = await calculaHash(tmp_path);								
-				const target_path = config.infra.caminhoDeclaracao + '/' +  cnpj + '_' + contrato + '_' +  hashedResult + '.PDF';
+				const target_path = config.infra.caminhoDeclaracao + '/' +  cnpj + '_' + contrato + '_' +  conta + '.PDF';
 
 				// A better way to copy the uploaded file. 
 				const src  = fs.createReadStream(tmp_path);
@@ -290,8 +285,8 @@ function trataUpload(req, res, next) {
 				src.on('error', function (err)
 				{
 					console.log("Upload ERROR! from "+ tmp_path + ", original name " + req.file.originalname + ", copied to " + target_path); 
-				});		
-				return res.send("Upload Completed from "+ tmp_path + ", original name " + req.file.originalname + ", copied to " + target_path); 
+				});	
+				res.json(hashedResult);
 			}
 		}
 	);

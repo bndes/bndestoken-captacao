@@ -18,8 +18,9 @@ export class AssociaContaDoadorComponent implements OnInit {
 
   doador: Doador
 
-  uploader: FileUploader;
+  uploader: FileUploader;  
   filename: any;
+  hashdeclaracao: string;
 
   contaEstaValida: boolean;
   selectedAccount: any;
@@ -33,7 +34,7 @@ export class AssociaContaDoadorComponent implements OnInit {
 
       let self = this;      
       
-      this.atualizaUploaderComponent("", this.CONTRATO_DOADOR);
+      this.atualizaUploaderComponent("", this.CONTRATO_DOADOR, this.selectedAccount);
 
       setInterval(function () {
         self.recuperaContaSelecionada(), 1000});
@@ -45,10 +46,7 @@ export class AssociaContaDoadorComponent implements OnInit {
      this.maskCnpj = Utils.getMaskCnpj(); 
     this.inicializaDadosDerivadosPessoaJuridica();
     this.recuperaContaSelecionada();
-
-    this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-      console.log("upload feito.", item, status, response);
-    }
+ 
     
   }
 
@@ -61,6 +59,7 @@ export class AssociaContaDoadorComponent implements OnInit {
   changeCnpj() { 
     this.doador.cnpj = Utils.removeSpecialCharacters(this.doador.cnpjWithMask);
     let cnpj = this.doador.cnpj;
+    this.hashdeclaracao = undefined;
 
     if ( cnpj.length == 14 ) {
       console.log (" Buscando o CNPJ do doador (14 digitos fornecidos)...  " + cnpj)
@@ -69,22 +68,32 @@ export class AssociaContaDoadorComponent implements OnInit {
     else {
       this.inicializaDadosDerivadosPessoaJuridica();
     }  
-    this.atualizaUploaderComponent(this.doador.cnpj, this.CONTRATO_DOADOR);
+    this.atualizaUploaderComponent(this.doador.cnpj, this.CONTRATO_DOADOR, this.selectedAccount);
   }
 
-  atualizaUploaderComponent(_cnpj, _contrato) {
+
+  atualizaUploaderComponent(_cnpj, _contrato, _contaBlockchain) {
+    let self = this;
     this.uploader = new FileUploader({ 
                           url: ConstantesService.serverUrl + "upload",                          
                           additionalParameter: {
-                                cnpj: _cnpj,
-                                contrato: _contrato
+                                cnpj:             _cnpj,
+                                contrato:         _contrato,
+                                contaBlockchain:  _contaBlockchain
                               },
                           
                           itemAlias:  "arquivo"});
-    this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
+    this.uploader.onAfterAddingFile = (fileItem) => 
+    { fileItem.withCredentials = false;      
+    };
+
+    this.uploader.onCompleteItem = (item:any, response:any, status:any, headers:any) => {
+             console.log("upload feito.", item, status, response);
+             self.hashdeclaracao = response.toString().replace('\"','').replace('\"','');
+        };
   }
 
-    chamaUpload() {
+  chamaUpload() {
       let self = this
       this.uploader.uploadAll();
       console.log("chamaUpload() - this.uploader")
@@ -162,12 +171,12 @@ export class AssociaContaDoadorComponent implements OnInit {
 
     let self = this
 
-    if (this.uploader==undefined || this.uploader==null) {
+    if (this.hashdeclaracao==undefined || this.hashdeclaracao==null) {
       let s = "O Hash da declaração é um Campo Obrigatório";
       this.bnAlertsService.criarAlerta("error", "Erro", s, 2)
       return
     }  
-    else if (!Utils.isValidHash(this.uploader)) {
+    else if (!Utils.isValidHash(this.hashdeclaracao)) {
       let s = "O Hash da declaração está preenchido com valor inválido";
       this.bnAlertsService.criarAlerta("error", "Erro", s, 2)
       return;
@@ -189,7 +198,7 @@ export class AssociaContaDoadorComponent implements OnInit {
     }
 
     
-      this.web3Service.cadastra(parseInt(this.doador.cnpj), 0, this.uploader.toString(),
+      this.web3Service.cadastra(parseInt(this.doador.cnpj), 0, this.hashdeclaracao.toString(),
 
       (txHash) => {
 

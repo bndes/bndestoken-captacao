@@ -8,6 +8,7 @@ export class PessoaJuridica {
     agencia: number;
     contaCorrente: string;
   }
+  filePathAndName: string;
   contaBlockchain: string;
   hashDeclaracao: string;
   status: string;

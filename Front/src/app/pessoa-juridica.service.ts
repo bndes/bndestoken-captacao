@@ -61,7 +61,7 @@ export class PessoaJuridicaService {
   }
 
 
-  recuperaEmpresaPorCnpj(cnpj: string): Observable<any> {
+  recuperaEmpresaPorCnpj(cnpj: string, ): Observable<any> {
     let str_cnpj = new String(cnpj)
 
     if (str_cnpj.length < 14) {

@@ -32,6 +32,13 @@ app.use(function (req, res, next) {
 	next();
 });
 
+app.use(express.static('arquivos'));
+
+//Serves all the request which includes /declaracao in the url from declaracao folder
+app.use('/declaracao', express.static('/declaracao'));
+
+
+
 //Promise.promisifyAll(mongoose); // key part - promisification
 
 
@@ -284,6 +291,38 @@ function trataUpload(req, res, next) {
 		}
 	);
 }
+
+
+
+app.post('/api/fileinfo', buscaFileInfo);
+
+async function buscaFileInfo(req, res) {
+
+	console.log("buscar filepath");
+	let cnpj     = req.body.cnpj;
+	let contrato = req.body.contrato;
+	let blockchainAccount = req.body.blockchainAccount;
+	let filename = montaNomeArquivo(cnpj, contrato, blockchainAccount);
+	let filePathAndName = "./declaracao/" + filename;
+
+	const hashedResult = await calculaHash(filePathAndName);
+	console.log("calculou o hash");
+
+	let respJson = {
+		pathAndName: filePathAndName,
+		hash: hashedResult
+	};
+
+	return respJson;
+
+}
+
+function montaNomeArquivo(cnpj, contrato, blockchainAccount) {
+
+	return cnpj + "-" + contrato + "-" + blockchainAccount;
+
+}
+
 
 
 // listen (start app with node server.js) ======================================

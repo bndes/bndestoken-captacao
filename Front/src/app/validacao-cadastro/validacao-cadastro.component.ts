@@ -1,12 +1,11 @@
 import { Component, OnInit, NgZone  } from '@angular/core';
 import { ChangeDetectorRef } from '@angular/core';
-import { DashboardPessoaJuridica } from '../dashboard-id-empresa/DashboardPessoaJuridica';
+import {FileHandleService} from "../file-handle.service";
 import { Web3Service } from './../Web3Service';
 import { PessoaJuridicaService } from '../pessoa-juridica.service';
 import { PessoaJuridica } from '../PessoaJuridica';
-import { LogSol } from '../LogSol';
 import { BnAlertsService } from 'bndes-ux4';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { Utils } from '../shared/utils';
 
 @Component({
@@ -21,8 +20,11 @@ export class ValidacaoCadastroComponent implements OnInit {
   hashDeclaracaoDigitado: string;
   selectedAccount: any;
   contaBuscadaENaoAssociada: boolean = false;
+  urlArquivo = "";
 
-  constructor(private pessoaJuridicaService: PessoaJuridicaService, protected bnAlertsService: BnAlertsService, private web3Service: Web3Service,
+  constructor(private pessoaJuridicaService: PessoaJuridicaService, 
+      private fileHandleService: FileHandleService,
+      protected bnAlertsService: BnAlertsService, private web3Service: Web3Service,
       private router: Router, private ref: ChangeDetectorRef, private zone: NgZone) {
 
         let self = this;
@@ -39,6 +41,7 @@ export class ValidacaoCadastroComponent implements OnInit {
       idSubcredito: "",
       contaBlockchain: "",
       hashDeclaracao: "",
+      filePathAndName: "",
       dadosBancarios: undefined,
       status: status
    };
@@ -63,7 +66,7 @@ export class ValidacaoCadastroComponent implements OnInit {
               self.pj.hashDeclaracao = result.hashDeclaracao;
               self.pj.status = self.web3Service.getEstadoContaAsStringByCodigo(result.status);
 
-              this.pessoaJuridicaService.recuperaEmpresaPorCnpj(result.cnpj).subscribe(
+              this.pessoaJuridicaService.recuperaEmpresaPorCnpj(self.pj.cnpj).subscribe(
                 empresa => {
                   if (empresa && empresa.dadosCadastrais) {
                     self.pj.razaoSocial = empresa.dadosCadastrais.razaoSocial;
@@ -80,6 +83,24 @@ export class ValidacaoCadastroComponent implements OnInit {
                 Utils.criarAlertaErro( this.bnAlertsService, texto,error);
               }) //fecha busca PJInfo
 
+              this.fileHandleService.buscaFileInfo(self.pj.cnpj, self.pj.idSubcredito, self.pj.contaBlockchain).subscribe(
+                result => {
+                  if (result && result.filePathAndName) {
+                    self.pj.filePathAndName=result.pathAndName;
+                    self.pj.hashDeclaracao=result.hash;
+                  }
+                  else {
+                    let texto = "Não foi possível encontrar informações associadas ao arquivo desse cadastro.";
+                    console.log(texto);
+                    Utils.criarAlertaAcaoUsuario( this.bnAlertsService, texto);       
+                  }                  
+                }, 
+                error => {
+                  let texto = "Erro ao buscar dados de arquivo";
+                  console.log(texto);
+                  Utils.criarAlertaErro( this.bnAlertsService, texto,error);
+                }) //fecha busca fileInfo
+  
 
            } //fecha if de PJ valida
 

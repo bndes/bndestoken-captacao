@@ -4,6 +4,8 @@ import { Observable } from 'rxjs/Observable';
 import { ConstantesService } from './ConstantesService';
 import { FileUploader } from 'ng2-file-upload';
 
+import { Utils } from './shared/utils';
+
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/do';
@@ -36,16 +38,17 @@ export class FileHandleService {
   }
 
 
-  cadastraDeclaracao(dadosArquivo, declaracao) : void {
+  buscaFileInfo(cnpj: string, contrato: string, blockchainAccount: string): Observable<any> {
 
-    let formData:FormData = new FormData();
-    formData.append('declaracao', declaracao, declaracao.name);
-    formData.append('pasta', dadosArquivo.nome_tecnico + '-' + dadosArquivo._id);
+    let str_cnpj = new String(cnpj);
 
-    this.http.post<Object>(this.serverUrl + 'declaracao', formData)
+    if (str_cnpj.length < 14) {
+      str_cnpj = Utils.completarCnpjComZero(str_cnpj)
+    }
+    return this.http.post<Object>(this.serverUrl + 'fileinfo', { cnpj: str_cnpj, contrato: contrato, blockchainAccount: blockchainAccount })
+      //.do(pessoaJuridica => self.formatPJ(pessoaJuridica))
       .catch(this.handleError);
-    
-  };
+  }
 
   atualizaUploaderComponent(_cnpj, _contrato, _contaBlockchain, componenteComDeclaracao) {
     let self = this;

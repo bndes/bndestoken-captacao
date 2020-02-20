@@ -53,6 +53,7 @@ export class FileHandleService {
     let self = this;
     this.uploader = new FileUploader({ 
                           url: ConstantesService.serverUrl + "upload",                          
+                          maxFileSize: 1024*1024,
                           additionalParameter: {
                                 cnpj:             _cnpj,
                                 contrato:         _contrato,

@@ -7,6 +7,8 @@ import { Cliente, Subcredito } from './Cliente';
 import { PessoaJuridicaService } from '../pessoa-juridica.service';
 import { Web3Service } from './../Web3Service';
 import { Utils } from '../shared/utils';
+import { DeclarationComponentInterface } from '../shared/declaration-component.interface';
+import { FileHandleService } from '../file-handle.service';
 
 
 
@@ -15,7 +17,7 @@ import { Utils } from '../shared/utils';
   templateUrl: './associa-conta-cliente.component.html',
   styleUrls: ['./associa-conta-cliente.component.css']
 })
-export class AssociaContaClienteComponent implements OnInit {
+export class AssociaContaClienteComponent implements OnInit, DeclarationComponentInterface {
 
   cliente: Cliente;
   subcreditoSelecionado: number;
@@ -28,9 +30,13 @@ export class AssociaContaClienteComponent implements OnInit {
 
 
   constructor(private pessoaJuridicaService: PessoaJuridicaService, protected bnAlertsService: BnAlertsService,
-    private web3Service: Web3Service, private router: Router, private zone: NgZone, private ref: ChangeDetectorRef) {       
+    private web3Service: Web3Service, private router: Router, private zone: NgZone, private ref: ChangeDetectorRef,
+    private fileHandleService: FileHandleService) {       
 
       let self = this;
+
+      fileHandleService.atualizaUploaderComponent("", this.subcreditoSelecionado, this.selectedAccount, this);
+
       setInterval(function () {
         self.recuperaContaSelecionada(), 
         1000});
@@ -58,6 +64,9 @@ export class AssociaContaClienteComponent implements OnInit {
       console.log (" Buscando o CNPJ do cliente (14 digitos fornecidos)...  " + cnpj)
       this.recuperaClientePorCNPJ(cnpj);
     } 
+
+    this.fileHandleService.atualizaUploaderComponent(this.cliente.cnpj, this.subcreditoSelecionado, this.selectedAccount, this);
+
   }
 
   cancelar() { 

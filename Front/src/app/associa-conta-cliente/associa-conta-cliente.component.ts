@@ -64,9 +64,12 @@ export class AssociaContaClienteComponent implements OnInit, DeclarationComponen
       console.log (" Buscando o CNPJ do cliente (14 digitos fornecidos)...  " + cnpj)
       this.recuperaClientePorCNPJ(cnpj);
     } 
+  }
 
-    this.fileHandleService.atualizaUploaderComponent(this.cliente.cnpj, this.subcreditoSelecionado, this.selectedAccount, this);
-
+  preparaUpload() {
+    console.log("preparaUpload");
+    this.fileHandleService.atualizaUploaderComponent(this.cliente.cnpj, 
+                          this.subcreditoSelecionado, this.selectedAccount, this)
   }
 
   cancelar() { 
@@ -165,8 +168,9 @@ export class AssociaContaClienteComponent implements OnInit, DeclarationComponen
   
         if (pjInfo.isAssociavel) { 
 
-            self.includeIfNotExists(self.cliente.subcreditos, sub);
+            self.includeIfNotExists(self.cliente.subcreditos, sub);            
             self.subcreditoSelecionado = self.cliente.subcreditos[0].numero;
+            
         }
   
       },

@@ -2,6 +2,8 @@ import { Component, OnInit, ChangeDetectorRef, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { BnAlertsService } from 'bndes-ux4';
+import { FileHandleService } from '../file-handle.service';
+import { DeclarationComponentInterface } from '../shared/declaration-component.interface';
 
 import { Cliente, Subcredito } from './../associa-conta-cliente/Cliente';
 import { PessoaJuridicaService } from '../pessoa-juridica.service';
@@ -25,9 +27,13 @@ export class RecuperaAcessoClienteComponent implements OnInit {
 
 
   constructor(private pessoaJuridicaService: PessoaJuridicaService, protected bnAlertsService: BnAlertsService,
-    private web3Service: Web3Service, private ref: ChangeDetectorRef, private zone: NgZone, private router: Router) {
+    private web3Service: Web3Service, private ref: ChangeDetectorRef, private zone: NgZone, private router: Router,
+    private fileHandleService: FileHandleService) {
 
       let self = this;
+
+      fileHandleService.atualizaUploaderComponent("", this.numeroSubcreditoSelecionado, this.selectedAccount, this);
+
       setInterval(function () {
         self.recuperaContaSelecionada(), 1000});
 
@@ -58,9 +64,13 @@ export class RecuperaAcessoClienteComponent implements OnInit {
     if ( cnpj.length == 14 ) { 
       console.log (" Buscando o CNPJ do cliente (14 digitos fornecidos)...  " + cnpj)
       this.recuperaClientePorCNPJ(cnpj);
-    } 
+    }         
   }
-
+  
+  preparaUpload() {
+    this.fileHandleService.atualizaUploaderComponent(this.cliente.cnpj, 
+                          this.numeroSubcreditoSelecionado, this.selectedAccount, this)
+  }
 
   cancelar() {
     this.cliente = new Cliente();
@@ -163,7 +173,7 @@ export class RecuperaAcessoClienteComponent implements OnInit {
             this.includeIfNotExists(this.cliente.subcreditos, sub);
             this.numeroSubcreditoSelecionado = this.cliente.subcreditos[0].numero;
             this.recuperaContaBlockchainCliente();
-
+            this.preparaUpload();
         }
   
       },

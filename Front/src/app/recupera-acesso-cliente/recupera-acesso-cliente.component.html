@@ -39,7 +39,7 @@
           <app-input-validation errorMessage="Campo Obrigatório">
             <label class="required">Contrato Financeiro:</label>
             <select name="numeroSubcreditoSelecionado" class="form-control form-control-sm" [disabled]="numeroSubcreditoSelecionado === undefined"
-            [(ngModel)]="numeroSubcreditoSelecionado" (ngModelChange)="recuperaContaBlockchainCliente()" required>
+            [(ngModel)]="numeroSubcreditoSelecionado" (ngModelChange)="recuperaContaBlockchainCliente()" required (change)="this.preparaUpload()">
               <option *ngFor="let subcredito of cliente.subcreditos" [attr.value]="subcredito.numero">{{subcredito.numero}}</option>
             </select>            
           </app-input-validation>
@@ -79,10 +79,14 @@
 
       <div class="row">
           <div class="form-group col-md-6 col-sm-6 ">
-              <label>Hash da Declaração:<a target="_blank" href="https://github.com/bndes/bndestoken/tree/master/Docs-Declaracao/Modelo">
+              <label>Declaração:<a target="_blank" href="https://github.com/bndes/bndestoken-captacao/blob/master/Docs-Declaracao/Modelo/ModeloContaCliente.docx?raw=true">
                 (baixar Modelo da Declaração)
-              </a></label>
-              <input  name="hashdeclaracao" [(ngModel)]="hashdeclaracao" maxlength="64" class="form-control form-control-sm" required/>
+              </a></label>              
+              <input ng2FileSelect id="arquivo" type="file" accept=".pdf" [uploader]="this.fileHandleService.uploader" 
+              (change)="this.fileHandleService.chamaUpload()" /> 
+              <div class="msg-conta-invalida" *ngIf="hashdeclaracao">
+                Hash da Declaração: {{hashdeclaracao}}
+              </div>
           </div>          
       </div>
 

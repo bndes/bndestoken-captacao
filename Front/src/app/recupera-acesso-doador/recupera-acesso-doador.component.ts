@@ -2,6 +2,8 @@ import { Component, OnInit, ChangeDetectorRef, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { BnAlertsService } from 'bndes-ux4';
+import { FileHandleService } from '../file-handle.service';
+import { DeclarationComponentInterface } from '../shared/declaration-component.interface';
 
 import { Doador } from './Doador'
 import { PessoaJuridicaService } from '../pessoa-juridica.service';
@@ -13,7 +15,7 @@ import { Utils } from '../shared/utils';
   templateUrl: './recupera-acesso-doador.component.html',
   styleUrls: ['./recupera-acesso-doador.component.css']
 })
-export class RecuperaAcessoDoadorComponent implements OnInit {
+export class RecuperaAcessoDoadorComponent implements OnInit, DeclarationComponentInterface  {
 
   doador: Doador;
   contaBlockchainAssociada: string
@@ -21,12 +23,18 @@ export class RecuperaAcessoDoadorComponent implements OnInit {
   selectedAccount: any;
   maskCnpj: any;
   hashdeclaracao: string;
+
+  CONTRATO_DOADOR = 0;
   
 
   constructor(private pessoaJuridicaService: PessoaJuridicaService, protected bnAlertsService: BnAlertsService,
-    private web3Service: Web3Service, private ref: ChangeDetectorRef, private zone: NgZone, private router: Router) { 
+    private web3Service: Web3Service, private ref: ChangeDetectorRef, private zone: NgZone, private router: Router,
+    private fileHandleService: FileHandleService) { 
 
       let self = this;
+
+      fileHandleService.atualizaUploaderComponent("", this.CONTRATO_DOADOR, this.selectedAccount, this);
+
       setInterval(function () {
         self.recuperaContaSelecionada(), 1000});
 
@@ -59,6 +67,7 @@ export class RecuperaAcessoDoadorComponent implements OnInit {
     else {
       this.inicializaDadosTroca();
     } 
+    this.fileHandleService.atualizaUploaderComponent(this.doador.cnpj, this.CONTRATO_DOADOR, this.selectedAccount, this);
 
   }
 

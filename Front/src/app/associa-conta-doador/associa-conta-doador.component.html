@@ -50,9 +50,9 @@
               <label>Declaração:<a target="_blank" href="https://github.com/bndes/bndestoken/blob/master/Docs-Declaracao/Modelo/ModeloContaFornecedor.docx?raw=true">
                 (baixar Modelo da Declaração)
               </a></label>              
-              <input ng2FileSelect id="arquivo" type="file" accept=".pdf" [uploader]="uploader" (change)="chamaUpload()" /> 
+              <input ng2FileSelect id="arquivo" type="file" accept=".pdf" [uploader]="this.fileHandleService.uploader" (change)="this.fileHandleService.chamaUpload()" /> 
               <div class="msg-conta-invalida" *ngIf="hashdeclaracao">
-              Hash da Declaração: {{hashdeclaracao}}
+                Hash da Declaração: {{hashdeclaracao}}
               </div>
         </div>          
       </div>

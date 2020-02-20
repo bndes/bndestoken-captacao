@@ -64,7 +64,10 @@
               <label>Hash da Declaração:<a target="_blank" href="https://github.com/bndes/bndestoken/tree/master/Docs-Declaracao/Modelo">
                 (baixar Modelo da Declaração)
               </a></label>
-              <input  name="hashdeclaracao" [(ngModel)]="hashdeclaracao" maxlength="64" class="form-control form-control-sm" required/>
+              <input ng2FileSelect id="arquivo" type="file" accept=".pdf" [uploader]="this.fileHandleService.uploader" (change)="this.fileHandleService.chamaUpload()" /> 
+              <div class="msg-conta-invalida" *ngIf="hashdeclaracao">
+                Hash da Declaração: {{hashdeclaracao}}
+              </div>
           </div>          
       </div>
     </div>

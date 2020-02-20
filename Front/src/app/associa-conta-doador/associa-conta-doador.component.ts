@@ -1,26 +1,28 @@
 import { Component, OnInit, NgZone, ChangeDetectorRef } from '@angular/core'
 import { Router, ActivatedRoute } from '@angular/router'
 import { BnAlertsService } from 'bndes-ux4'
-import { FileUploader } from 'ng2-file-upload';
-import { ConstantesService } from '../ConstantesService';
 
-import { Doador } from './Doador'
-import { PessoaJuridicaService } from '../pessoa-juridica.service'
-import { Web3Service } from '../Web3Service'
+import { ConstantesService } from '../ConstantesService';
+import { FileHandleService } from '../file-handle.service';
+import { DeclarationComponentInterface } from '../shared/declaration-component.interface';
+
+import { Doador } from './Doador';
+import { PessoaJuridicaService } from '../pessoa-juridica.service';
+import { Web3Service } from '../Web3Service';
 import { Utils } from '../shared/utils';
 
-@Component({
+@Component({ 
   selector: 'app-associa-conta-doador',
   templateUrl: './associa-conta-doador.component.html',
   styleUrls: ['./associa-conta-doador.component.css']
 })
-export class AssociaContaDoadorComponent implements OnInit {
+
+export class AssociaContaDoadorComponent implements OnInit, DeclarationComponentInterface {
 
   doador: Doador
-
-  uploader: FileUploader;  
+  
   filename: any;
-  hashdeclaracao: string;
+  hashdeclaracao: string;      
 
   contaEstaValida: boolean;
   selectedAccount: any;
@@ -30,11 +32,12 @@ export class AssociaContaDoadorComponent implements OnInit {
   CONTRATO_DOADOR = 0;
 
   constructor(private pessoaJuridicaService: PessoaJuridicaService, protected bnAlertsService: BnAlertsService,
-    private web3Service: Web3Service, private router: Router, private zone: NgZone, private ref: ChangeDetectorRef) { 
+    private web3Service: Web3Service, private router: Router, private zone: NgZone, private ref: ChangeDetectorRef,
+    private fileHandleService: FileHandleService) { 
 
       let self = this;      
       
-      this.atualizaUploaderComponent("", this.CONTRATO_DOADOR, this.selectedAccount);
+      fileHandleService.atualizaUploaderComponent("", this.CONTRATO_DOADOR, this.selectedAccount, this);
 
       setInterval(function () {
         self.recuperaContaSelecionada(), 1000});
@@ -68,37 +71,11 @@ export class AssociaContaDoadorComponent implements OnInit {
     else {
       this.inicializaDadosDerivadosPessoaJuridica();
     }  
-    this.atualizaUploaderComponent(this.doador.cnpj, this.CONTRATO_DOADOR, this.selectedAccount);
+    this.fileHandleService.atualizaUploaderComponent(this.doador.cnpj, this.CONTRATO_DOADOR, this.selectedAccount, this);
   }
 
 
-  atualizaUploaderComponent(_cnpj, _contrato, _contaBlockchain) {
-    let self = this;
-    this.uploader = new FileUploader({ 
-                          url: ConstantesService.serverUrl + "upload",                          
-                          additionalParameter: {
-                                cnpj:             _cnpj,
-                                contrato:         _contrato,
-                                contaBlockchain:  _contaBlockchain
-                              },
-                          
-                          itemAlias:  "arquivo"});
-    this.uploader.onAfterAddingFile = (fileItem) => 
-    { fileItem.withCredentials = false;      
-    };
 
-    this.uploader.onCompleteItem = (item:any, response:any, status:any, headers:any) => {
-             console.log("upload feito.", item, status, response);
-             self.hashdeclaracao = response.toString().replace('\"','').replace('\"','');
-        };
-  }
-
-  chamaUpload() {
-      let self = this
-      this.uploader.uploadAll();
-      console.log("chamaUpload() - this.uploader")
-      console.log(this.uploader)
-  }
 
   cancelar() {
     this.doador = new Doador();

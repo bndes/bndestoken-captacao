@@ -47,7 +47,7 @@
           <app-input-validation errorMessage="Campo Obrigatório">
             <label class="required">Contrato Financeiro:</label>
             <select name="subcreditoSelecionado" class="form-control form-control-sm" [disabled]="subcreditoSelecionado === undefined"
-              [(ngModel)]="subcreditoSelecionado" required>
+              [(ngModel)]="subcreditoSelecionado" required (change)="this.preparaUpload()">
               <option *ngFor="let subcredito of cliente.subcreditos" [attr.value]="subcredito.numero">{{subcredito.numero}}</option>
             </select>
           </app-input-validation>

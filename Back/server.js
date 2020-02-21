@@ -13,7 +13,7 @@ const keccak256 = require('keccak256');
 
 const multer = require('multer');
 const DIR = config.infra.caminhoUpload;
-const uploadMiddleware = multer({ dest: DIR, limits: {fileSize: 1000000} }).single('arquivo');
+const uploadMiddleware = multer({ dest: DIR, limits: {fileSize: 1024*1024} }).single('arquivo');
 
 // Configuration
 //mongoose.connect(config.infra.addr_bd);

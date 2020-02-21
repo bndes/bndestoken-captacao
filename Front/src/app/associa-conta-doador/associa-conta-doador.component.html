@@ -7,7 +7,7 @@
     <div class="conteudo form-group" >
       <div class="row">
         <div class="form-group col-md-12 col-sm-12">
-          <h6>Dados Cadastrais:</h6>
+          <p>Dados Cadastrais</p>
         </div>
       </div>
 
@@ -30,34 +30,66 @@
 
       <div class="row">
         <div class="form-group col-md-12 col-sm-12">
-          <h6>Associação de contas:</h6>
+          <p>Associação entre Conta Blockchain e Cadastro</p>
         </div>
       </div>
 
       <div class="row">
-        <div class="form-group col-md-5 col-sm-5">
-          <label>Conta Blockchain Selecionada:</label>
+        <div class="form-group col-md-10 col-sm-10">
+          <label>Selecione a conta blockchain desejada no Metamask. A conta deve aparecer no estado "Disponível".</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-5 col-sm-5">        
           <input name="contaBlockchain" class="form-control form-control-sm" type="text" [ngModel]="selectedAccount" readonly disabled size="45">
             <div class="msg-conta-invalida" >
               {{contaEstaValida}}
             </div>
         </div>
-
       </div>
-
-      <div class="row">
-          <div class="form-group col-md-6 col-sm-6 ">
-              <label>Declaração:<a target="_blank" href="https://github.com/bndes/bndestoken-captacao/blob/master/Docs-Declaracao/Modelo/ModeloContaBlockchain.docx?raw=true">
-                (baixar Modelo da Declaração)
-              </a></label>              
+    </div>
+    <div class="conteudo form-group" *ngIf="doador.dadosCadastrais">
+        <div class="row">
+          <div class="form-group col-md-12 col-sm-12">
+            <p>Upload de Declaração</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-10 col-sm-10 ">
+              <label>Upload da declaração de propriedade e responsabilidade sobre conta blockchain, assinada com o e-CNPJ.</label>
+              <label> 1. Clique <a target="_blank" href="https://github.com/bndes/bndestoken-captacao/blob/master/Docs-Declaracao/Modelo/ModeloContaBlockchain.docx?raw=true">aqui</a> baixar o Modelo de Declaração  (documento Word)</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-10 col-sm-10">
+            <label>2. Preencha a declaração no Word com os dados da sua instituição e salve o documento como PDF</label>
+          </div>
+        </div>  
+        <div class="row">
+          <div class="form-group col-md-10 col-sm-10">
+            <label>3. Clique <a target="_blank" href="https://github.com/bndes/bndestoken-captacao/blob/master/Docs-Declaracao/Modelo/ModeloContaBlockchain.docx?raw=true">aqui</a> para baixar o Roteiro para Assinatura Digital</label>
+          </div>
+        </div>       
+        <div class="row">
+          <div class="form-group col-md-10 col-sm-10">
+            <label>4. Siga as instruções para assinar o PDF da declaração com seu e-CNPJ, e gerar um novo PDF assinado digitalmente</label>
+          </div>
+        </div>       
+        <div class="row">
+          <div class="form-group col-md-10 col-sm-10">
+            <label>5. Faça upload do PDF da Declaração assinado digitalmente</label>
+          </div>
+        </div>                                         
+        <div class="row">                 
+          <div class="form-group col-md-10 col-sm-10">
               <input ng2FileSelect id="arquivo" type="file" accept=".pdf" [uploader]="this.fileHandleService.uploader" (change)="this.fileHandleService.chamaUpload()" /> 
-              <div class="msg-conta-invalida" *ngIf="hashdeclaracao">
+              <div class="msg-hash-declaracao" *ngIf="hashdeclaracao">
                 Hash da Declaração: {{hashdeclaracao}}
               </div>
+          </div>              
         </div>          
       </div>
 
-    </div>
 
     <div class="form-group" *ngIf="doador.dadosCadastrais">
       <button type="button" class="btn btn-success btn-cabecalho" placement="bottom" ngbTooltip="Salvar" (click)="associaContaDoador()">

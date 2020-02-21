@@ -132,6 +132,13 @@ li div ul {
   color: red;
 }
 
+.msg-hash-declaracao {
+  margin-top: 8px;
+  margin-bottom: 20px;
+  font-size: 13px;
+  color: blue;
+}
+
 .msg-aviso {
   margin-top: 8px;
   margin-bottom: 20px;

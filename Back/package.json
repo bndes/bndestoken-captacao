@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "ethers": "^4.0.45",
     "express": "^4.16.3",
     "file-system": "^2.2.2",
     "formidable": "^1.2.1",

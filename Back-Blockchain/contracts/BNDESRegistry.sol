@@ -18,12 +18,12 @@ contract BNDESRegistry is Ownable() {
     enum BlockchainAccountState {AVAILABLE,WAITING_VALIDATION,VALIDATED,INVALIDATED_BY_VALIDATOR,INVALIDATED_BY_CHANGE} 
     BlockchainAccountState blockchainState; //Not used. Defined to create the enum type.
 
-    address responsibleForSettlement;
-    address responsibleForRegistryValidation;
-    address responsibleForDonationConfirmation;
-    address responsibleForDisbursement;
-    address redemptionAddress;
-    address tokenAddress;
+    public address responsibleForSettlement;
+    public address responsibleForRegistryValidation;
+    public address responsibleForDonationConfirmation;
+    public address responsibleForDisbursement;
+    public address redemptionAddress;
+    public address tokenAddress;
 
     /**
         Describes the Legal Entity - clients or donors
@@ -94,6 +94,8 @@ contract BNDESRegistry is Ownable() {
         require (isAvailableAccount(addr), "Endereço não pode ter sido cadastrado anteriormente");
 
         require (isValidHash(idProofHash), "O hash da declaração é inválido");
+
+        require (isChangeAccountEnabled(addr), "A conta informada não está habilitada para cadastro");
 
         legalEntitiesInfo[addr] = LegalEntityInfo(cnpj, idFinancialSupportAgreement, idProofHash, BlockchainAccountState.WAITING_VALIDATION);
         
@@ -289,9 +291,6 @@ contract BNDESRegistry is Ownable() {
             return true;
         }
         return false;
-    }
-    function isOwner(address addr) view public returns (bool) {
-        return owner()==addr;
     }
 
     function isDonor(address addr) view public returns (bool) {

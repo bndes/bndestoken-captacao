@@ -18,12 +18,12 @@ contract BNDESRegistry is Ownable() {
     enum BlockchainAccountState {AVAILABLE,WAITING_VALIDATION,VALIDATED,INVALIDATED_BY_VALIDATOR,INVALIDATED_BY_CHANGE} 
     BlockchainAccountState blockchainState; //Not used. Defined to create the enum type.
 
-    public address responsibleForSettlement;
-    public address responsibleForRegistryValidation;
-    public address responsibleForDonationConfirmation;
-    public address responsibleForDisbursement;
-    public address redemptionAddress;
-    public address tokenAddress;
+    address public responsibleForSettlement;
+    address public responsibleForRegistryValidation;
+    address public responsibleForDonationConfirmation;
+    address public responsibleForDisbursement;
+    address public redemptionAddress;
+    address public tokenAddress;
 
     /**
         Describes the Legal Entity - clients or donors
@@ -44,7 +44,7 @@ contract BNDESRegistry is Ownable() {
         Links Legal Entity to Ethereum address. 
         cnpj => (idFinancialSupportAgreement => address)
      */
-    mapping(uint64 => mapping(uint64 => address)) cnpjFSAddr; 
+    mapping(uint64 => mapping(uint64 => address)) public cnpjFSAddr; 
 
 
     /**
@@ -284,7 +284,8 @@ contract BNDESRegistry is Ownable() {
 
     function isReservedAccount(address addr) view public returns (bool) {
 
-        if (isOwner(addr) || isResponsibleForSettlement(addr) 
+        if (owner()==addr
+                           || isResponsibleForSettlement(addr) 
                            || isResponsibleForRegistryValidation(addr)
                            || isResponsibleForDisbursement(addr)
                            || isRedemptionAddress(addr) ) {

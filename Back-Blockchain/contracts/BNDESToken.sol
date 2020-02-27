@@ -220,7 +220,7 @@ contract BNDESToken is Pausable {
         _;
     }
     modifier onlyOwner() {
-        require(registry.isOwner(msg.sender));
+        require(registry.isOwner());
         _;
     }    
 }

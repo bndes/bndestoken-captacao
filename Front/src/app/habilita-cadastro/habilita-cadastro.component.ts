@@ -97,7 +97,7 @@ export class HabilitaCadastroComponent implements OnInit {
   
              else {
               self.pj.cnpj = "0";
-              self.pj.idSubcredito = "N/A";
+              self.pj.idSubcredito = "0";
               self.pj.status = "N/A";
               self.pj.razaoSocial = "N/A";
              }

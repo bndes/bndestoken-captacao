@@ -111,6 +111,8 @@ contract BNDESRegistry is Ownable() {
         
         cnpjFSAddr[cnpj][idFinancialSupportAgreement] = addr;
 
+        legalEntitiesChangeAccount[addr] = false;
+
         emit AccountRegistration(addr, cnpj, idFinancialSupportAgreement, idProofHash);
     }
 
@@ -153,6 +155,8 @@ contract BNDESRegistry is Ownable() {
 
         // Aponta mapping CNPJ e Subcredito para newAddr
         cnpjFSAddr[cnpj][idFinancialSupportAgreement] = newAddr;
+
+        legalEntitiesChangeAccount[oldAddr] = false;
 
         emit AccountChange(oldAddr, newAddr, cnpj, idFinancialSupportAgreement, idProofHash); 
 
@@ -212,7 +216,7 @@ contract BNDESRegistry is Ownable() {
     */
     function setResponsibleForDonationConfirmation(address rs) onlyOwner public {
         responsibleForDonationConfirmation = rs;
-    }    
+    }
 
    /**
     * By default, the owner is also the Responsible for Validation. 

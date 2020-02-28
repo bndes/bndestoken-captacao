@@ -45,7 +45,14 @@ export class FileHandleService {
     if (str_cnpj.length < 14) {
       str_cnpj = Utils.completarCnpjComZero(str_cnpj)
     }
-    return this.http.post<Object>(this.serverUrl + 'fileinfo', { cnpj: str_cnpj, contrato: contrato, blockchainAccount: blockchainAccount })
+
+    let str_contrato = new String(contrato);
+    if (str_contrato.length > 1 && str_contrato.length < 8) {
+      str_contrato = Utils.completarContratoComZero(str_contrato)
+    }
+
+
+    return this.http.post<Object>(this.serverUrl + 'fileinfo', { cnpj: str_cnpj, contrato: str_contrato, blockchainAccount: blockchainAccount })
       .catch(this.handleError);
   }
 

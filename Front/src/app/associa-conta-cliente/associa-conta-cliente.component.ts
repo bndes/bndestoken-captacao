@@ -35,8 +35,6 @@ export class AssociaContaClienteComponent implements OnInit, DeclarationComponen
 
       let self = this;
 
-      fileHandleService.atualizaUploaderComponent("", this.subcreditoSelecionado, this.selectedAccount, this);
-
       setInterval(function () {
         self.recuperaContaSelecionada(), 
         1000});
@@ -66,11 +64,21 @@ export class AssociaContaClienteComponent implements OnInit, DeclarationComponen
     } 
   }
 
-  preparaUpload() {
-    console.log("preparaUpload");
-    this.fileHandleService.atualizaUploaderComponent(this.cliente.cnpj, 
-                          this.subcreditoSelecionado, this.selectedAccount, this)
+  changeContrato() {
+    this.preparaUpload(this.cliente.cnpj, this.subcreditoSelecionado, this.selectedAccount, this);
   }
+
+  preparaUpload(cnpj, contrato, selectedAccount, self) {
+
+    console.log("preapra upload");
+    console.log("cnpj=" + cnpj);
+    console.log("contrato=" + contrato);
+    console.log("selectedAccount=" + selectedAccount);
+
+    if (cnpj && contrato &&  selectedAccount) {
+      this.fileHandleService.atualizaUploaderComponent(cnpj, contrato, selectedAccount, self);
+    }
+  }  
 
   cancelar() { 
     this.cliente = new Cliente();
@@ -88,6 +96,7 @@ export class AssociaContaClienteComponent implements OnInit, DeclarationComponen
       this.selectedAccount = newSelectedAccount;
       console.log("selectedAccount=" + this.selectedAccount);
       this.verificaEstadoContaBlockchainSelecionada(this.selectedAccount); 
+      this.preparaUpload(this.cliente.cnpj, this.subcreditoSelecionado, this.selectedAccount, this);      
     }
 
   }
@@ -167,10 +176,12 @@ export class AssociaContaClienteComponent implements OnInit, DeclarationComponen
       (pjInfo) => {
   
         if (pjInfo.isAssociavel) { 
-
             self.includeIfNotExists(self.cliente.subcreditos, sub);            
-            self.subcreditoSelecionado = self.cliente.subcreditos[0].numero;
-            
+
+            if (!self.subcreditoSelecionado) {
+              self.subcreditoSelecionado = self.cliente.subcreditos[0].numero;
+              self.preparaUpload(self.cliente.cnpj, self.subcreditoSelecionado, self.selectedAccount, self); 
+            }
         }
   
       },

@@ -1,8 +1,11 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { ChangeDetectorRef } from '@angular/core';
 import { DashboardPessoaJuridica } from './DashboardPessoaJuridica';
+import {FileHandleService} from "../file-handle.service";
 import { Web3Service } from './../Web3Service';
 import { PessoaJuridicaService } from '../pessoa-juridica.service';
+import { Utils } from '../shared/utils';
+import { ConstantesService } from '../ConstantesService';
 
 
 import { BnAlertsService } from 'bndes-ux4';
@@ -28,7 +31,9 @@ export class DashboardIdEmpresaComponent implements OnInit {
 
     selectedAccount: any;
 
-    constructor(private pessoaJuridicaService: PessoaJuridicaService, protected bnAlertsService: BnAlertsService, private web3Service: Web3Service,
+    constructor(private pessoaJuridicaService: PessoaJuridicaService, 
+        private fileHandleService: FileHandleService,
+        protected bnAlertsService: BnAlertsService, private web3Service: Web3Service,
         private ref: ChangeDetectorRef, private zone: NgZone) {
 
             let self = this;
@@ -112,13 +117,15 @@ export class DashboardIdEmpresaComponent implements OnInit {
                     hashDeclaracao: eventoCadastro.args.idProofHash,
                     nomeConta: eventoCadastro.args.idFinancialSupportAgreement,
                     status: "Conta Cadastrada",
+                    filePathAndName: "",
                     perfil: ""
                 }
 
-
+                
                 self.includeIfNotExists(transacaoPJ);
                 self.recuperaInfoDerivadaPorCnpj(self, transacaoPJ);
                 self.recuperaDataHora(self, event, transacaoPJ);
+                self.recuperaFilePathAndName(self,transacaoPJ);
 
 
             } else {
@@ -155,13 +162,14 @@ export class DashboardIdEmpresaComponent implements OnInit {
                     hashDeclaracao: eventoTroca.args.idProofHash,
                     nomeConta: eventoTroca.args.idFinancialSupportAgreement,
                     status: "Conta Inativada por Troca",
+                    filePathAndName: "",                    
                     perfil: ""
                 };
 
                 self.includeIfNotExists(transacaoPJContaInativada);
                 self.recuperaInfoDerivadaPorCnpj(self, transacaoPJContaInativada);
                 self.recuperaDataHora(self, event, transacaoPJContaInativada);
-  
+                self.recuperaFilePathAndName(self,transacaoPJ);
 
 
                 transacaoPJ = {
@@ -174,6 +182,7 @@ export class DashboardIdEmpresaComponent implements OnInit {
                     hashDeclaracao: eventoTroca.args.idProofHash,
                     nomeConta: eventoTroca.args.idFinancialSupportAgreement,
                     status: "Conta Associada por Troca",
+                    filePathAndName: "",                    
                     perfil: ""
                 };
 
@@ -181,6 +190,7 @@ export class DashboardIdEmpresaComponent implements OnInit {
                 self.includeIfNotExists(transacaoPJ);
                 self.recuperaInfoDerivadaPorCnpj(self, transacaoPJ);
                 self.recuperaDataHora(self, event, transacaoPJ);
+                self.recuperaFilePathAndName(self,transacaoPJ);                
             }    
 
         });        
@@ -211,11 +221,13 @@ export class DashboardIdEmpresaComponent implements OnInit {
                     hashDeclaracao: "",
                     nomeConta: event.args.idFinancialSupportAgreement,
                     status: "Conta Validada",
+                    filePathAndName: "",                    
                     perfil: ""
                 }
                 self.includeIfNotExists(transacaoPJ);
                 self.recuperaInfoDerivadaPorCnpj(self, transacaoPJ);
                 self.recuperaDataHora(self, event, transacaoPJ);
+                self.recuperaFilePathAndName(self,transacaoPJ);                
 
             } else {
                 console.log("Erro no registro de eventos de validacao");
@@ -250,11 +262,13 @@ export class DashboardIdEmpresaComponent implements OnInit {
                     hashDeclaracao: "",
                     nomeConta: event.args.idFinancialSupportAgreement,
                     status: "Conta Invalidada por Validador",
+                    filePathAndName: "",                    
                     perfil: ""
                 }
                 self.includeIfNotExists(transacaoPJ);
                 self.recuperaInfoDerivadaPorCnpj(self, transacaoPJ);                
                 self.recuperaDataHora(self, event, transacaoPJ);
+                self.recuperaFilePathAndName(self,transacaoPJ);                
 
 
             } else {
@@ -308,7 +322,7 @@ export class DashboardIdEmpresaComponent implements OnInit {
             transacaoPJ.perfil="Cliente";            
         }
         else {
-            transacaoPJ.nomeConta="-";
+            //transacaoPJ.nomeConta="-";
             transacaoPJ.perfil="Doador";
         }
 
@@ -327,6 +341,35 @@ export class DashboardIdEmpresaComponent implements OnInit {
                     console.error(error);
                 }
         });
+
+    }
+
+    recuperaFilePathAndName(self,transacaoPJ) {
+
+        console.log("************* recuperaFilePathAndName")
+        console.log("transacaoPJ.cnpj=" + transacaoPJ.cnpj);
+        console.log("transacaoPJ.nomeConta=" + transacaoPJ.nomeConta);
+
+        self.fileHandleService.buscaFileInfo(transacaoPJ.cnpj, transacaoPJ.nomeConta, transacaoPJ.contaBlockchain).subscribe(
+            result => {
+              if (result && result.pathAndName) {
+                transacaoPJ.filePathAndName=ConstantesService.serverUrlRoot+result.pathAndName;
+              }
+              else {
+                let texto = "Não foi possível encontrar informações associadas ao arquivo desse cadastro.";
+                console.log(texto);
+                Utils.criarAlertaAcaoUsuario( self.bnAlertsService, texto);       
+              }                  
+            }, 
+            error => {
+              let texto = "Erro ao buscar dados de arquivo";
+              console.log(texto);
+              console.log("cnpj=" + transacaoPJ.cnpj);
+              console.log("nomeConta=" + transacaoPJ.nomeConta);
+              console.log("contaBlockchain=" + transacaoPJ.contaBlockchain);
+              Utils.criarAlertaErro( self.bnAlertsService, texto,error);
+            }) //fecha busca fileInfo
+
 
     }
 

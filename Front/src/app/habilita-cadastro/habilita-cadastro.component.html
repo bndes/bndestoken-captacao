@@ -1,0 +1,50 @@
+<div class="form-group" *ngIf="selectedAccount">
+
+  <div class="title-loading">
+    <h2 class="page-header">Habilita Cadastro</h2>
+  </div>
+  
+  
+  <form #registerForm="ngForm">
+  <div>
+  
+
+    <div class="table-responsive-md">
+      <table class="table table-striped table-bordered table-sm">
+        <thead>
+          <tr >
+            <th>Razão Social</th>
+            <th>CNPJ</th>
+            <th>Contrato Financeiro</th>
+            <th>Conta Blockchain</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+  
+        <tbody>
+          <tr>
+            <td>{{pj.razaoSocial}}</td>
+            <td>{{pj.cnpj | cnpjMask}}</td>
+            <td>{{pj.idSubcredito}}</td>
+            <td><input name="pj.contaBlockchain" (keyup)="recuperaClientePorContaBlockchain(pj.contaBlockchain)" [(ngModel)]="pj.contaBlockchain" class="form-control"></td>     
+            <td>{{pj.status}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+
+    <div class="text-center">
+        <button type="submit" (click)="habilitarCadastro()" class="btn btn-success btn-cabecalho" placement="bottom" ngbTooltip="Habilitar" >
+          <i class="fa fa-floppy-o" aria-hidden="true"></i> Habilitar
+        </button>
+    </div>
+
+  
+  </div>
+  
+  </form>
+  
+  </div>
+  <app-metamsg *ngIf="!selectedAccount"></app-metamsg>
+  

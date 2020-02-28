@@ -1,6 +1,9 @@
 ﻿# embora digam para colocar no source repository, decidimos não colocar
 package-lock.json
 config.json
+arquivos/declaracao
+arquivos/upload
+
 
 # dependencies
 /node_modules

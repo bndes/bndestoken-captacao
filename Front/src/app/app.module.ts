@@ -58,12 +58,14 @@ import { InputValidationComponent } from './shared/input-validation/input-valida
 
 import { Utils } from './shared/utils';
 import { CnpjPipe } from './pipes/cnpj.pipe'
+import { ContratoPipe } from './pipes/contrato.pipe'
 import { HashPipe } from './pipes/hash.pipe'
 import { registerLocaleData } from '@angular/common';
 import localePT from '@angular/common/locales/pt';
 
 import { FileUploadModule } from 'ng2-file-upload';
 import { ValidacaoCadastroComponent } from './validacao-cadastro/validacao-cadastro.component';
+import { HabilitaCadastroComponent } from './habilita-cadastro/habilita-cadastro.component';
 
 
 
@@ -106,11 +108,13 @@ export const optionsMaskCurrencyBND: CurrencyMaskConfig = {
     AssinadorComponent,
     InputValidationComponent,
     CnpjPipe,
+    ContratoPipe,
     HashPipe,
     ValidacaoCadastroComponent,
     DashboardDoacaoComponent,
     RegistraDoacaoComponent,
     ConfirmaDoacaoComponent,
+    HabilitaCadastroComponent,
   ],
   imports: [
     BrowserModule,

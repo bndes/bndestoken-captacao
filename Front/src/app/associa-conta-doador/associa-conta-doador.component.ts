@@ -37,8 +37,6 @@ export class AssociaContaDoadorComponent implements OnInit, DeclarationComponent
 
       let self = this;      
       
-      fileHandleService.atualizaUploaderComponent("", this.CONTRATO_DOADOR, this.selectedAccount, this);
-
       setInterval(function () {
         self.recuperaContaSelecionada(), 1000});
 
@@ -67,20 +65,19 @@ export class AssociaContaDoadorComponent implements OnInit, DeclarationComponent
     if ( cnpj.length == 14 ) {
       console.log (" Buscando o CNPJ do doador (14 digitos fornecidos)...  " + cnpj)
       this.recuperaDoadorPorCNPJ(cnpj);
+      this.preparaUpload(this.doador.cnpj, this.selectedAccount, this);
     }   
     else {
       this.inicializaDadosDerivadosPessoaJuridica();
     }  
-    this.fileHandleService.atualizaUploaderComponent(this.doador.cnpj, this.CONTRATO_DOADOR, this.selectedAccount, this);
+    
   }
-
-
-
 
   cancelar() {
     this.doador = new Doador();
     this.inicializaDadosDerivadosPessoaJuridica();    
   }
+
 
   async recuperaContaSelecionada() {
     
@@ -92,9 +89,17 @@ export class AssociaContaDoadorComponent implements OnInit, DeclarationComponent
 
       this.selectedAccount = newSelectedAccount;
       console.log("selectedAccount=" + this.selectedAccount);
-      this.verificaEstadoContaBlockchainSelecionada(this.selectedAccount); 
+      this.verificaEstadoContaBlockchainSelecionada(this.selectedAccount);
+      this.preparaUpload(this.doador.cnpj, this.selectedAccount, this);
     }
   }
+
+  preparaUpload(cnpj, selectedAccount, self) {
+    if (cnpj &&  selectedAccount) {
+      this.fileHandleService.atualizaUploaderComponent(cnpj, this.CONTRATO_DOADOR, selectedAccount, self);
+    }
+  }
+
 
   verificaEstadoContaBlockchainSelecionada(contaBlockchainSelecionada) {
 

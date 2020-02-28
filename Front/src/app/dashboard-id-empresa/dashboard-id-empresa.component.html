@@ -52,9 +52,9 @@
         <tr *ngFor="let transacaoPJ of listaTransacoesPJ | orderBy: order: reverse: 'caseInsensitive':customComparator | filter:filter | paginate: { itemsPerPage: 10, currentPage: p } ; let i = index">
           <td>{{transacaoPJ.razaoSocial}}</td>
           <td>{{transacaoPJ.cnpj | cnpjMask}}</td>
-          <td>{{transacaoPJ.nomeConta}}</td>
+          <td>{{transacaoPJ.nomeConta | contratoMask}}</td>
           <td>{{transacaoPJ.perfil}}</td>
-          <td class="tooltipCaixa"><a target="_blank" href="https://github.com/bndes/bndestoken/tree/master/Docs-Declaracao/{{transacaoPJ.cnpj}}-{{transacaoPJ.hashDeclaracao}}.pdf">
+          <td class="tooltipCaixa"><a target="_blank" href="{{transacaoPJ.filePathAndName}}">
             {{transacaoPJ.hashDeclaracao | hashMask}}
           </a><span class="tooltiptext" style="width: 520px;" *ngIf="transacaoPJ.hashDeclaracao">{{transacaoPJ.hashDeclaracao}}</span></td>
           <td>{{transacaoPJ.dataHora | date: 'dd/MM/yyyy hh:mm a' }}</td>

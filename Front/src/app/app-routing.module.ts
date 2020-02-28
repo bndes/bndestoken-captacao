@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 /* BNDES */
 import { LiberacaoComponent } from './liberacao/liberacao.component';
 import { LiquidacaoResgateComponent } from './liquidacao-resgate/liquidacao-resgate.component';
+import { HabilitaCadastroComponent } from './habilita-cadastro/habilita-cadastro.component';
 import { ValidacaoCadastroComponent } from './validacao-cadastro/validacao-cadastro.component';
 
 /* Cliente */
@@ -32,6 +33,7 @@ const routes: Routes = [
   { path: 'sociedade', component: HomeComponent },
   { path: 'bndes/confirma-doacao', component:ConfirmaDoacaoComponent },
   { path: 'bndes/liberacao', component: LiberacaoComponent },
+  { path: 'bndes/habilita-cadastro', component: HabilitaCadastroComponent},
   { path: 'bndes/val-cadastro', component: ValidacaoCadastroComponent},
   { path: 'bndes/liquidar/:solicitacaoResgateId', component: LiquidacaoResgateComponent},
   { path: 'cliente/associa-conta-cliente', component: AssociaContaClienteComponent },

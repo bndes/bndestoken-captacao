@@ -10,6 +10,16 @@
 			"topo": true,
 			"subitem": [
 				{
+					"titulo": "Habilitar Cadastro",
+					"url": "bndes/habilita-cadastro",
+					"separador": false
+				},
+				{
+					"titulo": "Validar Cadastro",
+					"url": "bndes/val-cadastro",
+					"separador": true
+				},				
+				{
 					"titulo": "Confirmar Recebimento de Doação",
 					"url": "/bndes/confirma-doacao",
 					"separador": false
@@ -17,11 +27,6 @@
 				{
 					"titulo": "Liberar",
 					"url": "/bndes/liberacao",
-					"separador": false
-				},
-				{
-					"titulo": "Validar Cadastro",
-					"url": "bndes/val-cadastro",
 					"separador": false
 				}
 			]

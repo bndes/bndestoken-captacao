@@ -22,6 +22,10 @@ export class Utils {
         return ("00000000000000" + cnpj).slice(-14)
      }
 
+     static completarContratoComZero(cnpj){
+      return ("00000000" + cnpj).slice(-8)
+   }
+
      static criarAlertasAvisoConfirmacao(txHash, web3Service, bnAlertsService, warningMsg, confirmationMsg, zoneUpdate) {        
           bnAlertsService.criarAlerta("info", "Aviso", warningMsg, 5);
           console.log(warningMsg);

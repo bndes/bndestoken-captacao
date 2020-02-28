@@ -737,7 +737,19 @@ export class Web3Service {
             });
         })
     }
-     
+
+    async habilitarCadastro(address: string, fSuccess: any, fError: any) {
+        
+        let contaBlockchain = await this.getCurrentAccountSync();    
+
+        this.bndesRegistrySmartContract.enableChangeAccount(address,
+            { from: contaBlockchain, gas: 500000 },
+            (error, result) => {
+                if(error) { fError(error); return false; }
+                else { fSuccess(result); return true; }
+            });
+    }
+    
 
     async validarCadastro(address: string, hashTentativa: string, fSuccess: any, fError: any) {
         

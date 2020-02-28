@@ -274,7 +274,7 @@ contract BNDESRegistry is Ownable() {
     }
     function isResponsibleForDonationConfirmation(address addr) view public returns (bool) {
         return (addr == responsibleForDonationConfirmation);
-    }    
+    }
     function isResponsibleForDisbursement(address addr) view public returns (bool) {
         return (addr == responsibleForDisbursement);
     }
@@ -285,7 +285,7 @@ contract BNDESRegistry is Ownable() {
     function isReservedAccount(address addr) view public returns (bool) {
 
         if (owner()==addr
-                           || isResponsibleForSettlement(addr) 
+                           || isResponsibleForSettlement(addr)
                            || isResponsibleForRegistryValidation(addr)
                            || isResponsibleForDisbursement(addr)
                            || isRedemptionAddress(addr) ) {

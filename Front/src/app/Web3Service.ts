@@ -369,6 +369,18 @@ export class Web3Service {
             });
     }
 
+
+    isAccountEnabled(addr: string, fSuccess: any, fError: any): number {
+        let self = this;
+        return this.bndesRegistrySmartContract.isChangeAccountEnabled(addr,
+            (error, result) => {
+                if (error) fError(error);
+                else {
+                    fSuccess(result);
+                }
+            });
+    }
+
     getPJInfoByCnpj(cnpj:string, idSubcredito: number, fSuccess: any, fError: any): number {
  
         let self = this;

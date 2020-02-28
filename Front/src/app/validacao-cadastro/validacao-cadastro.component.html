@@ -25,7 +25,7 @@
         <tr>
           <td>{{pj.razaoSocial}}</td>
           <td>{{pj.cnpj | cnpjMask}}</td>
-          <td>{{pj.idSubcredito}}</td>
+          <td>{{pj.idSubcredito | contratoMask}}</td>
           <td><input name="pj.contaBlockchain" (keyup)="recuperaClientePorContaBlockchain(pj.contaBlockchain)" [(ngModel)]="pj.contaBlockchain" class="form-control"></td>     
           <td>{{pj.status}}</td>
           <td><span *ngIf="pj.filePathAndName"><a target="_blank" href="{{pj.filePathAndName}}">

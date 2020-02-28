@@ -17,6 +17,7 @@ export class HabilitaCadastroComponent implements OnInit {
   pj: PessoaJuridica;
   isHashInvalido: boolean = false;
   selectedAccount: any;
+  contaHabilitada: boolean=false;
 
 
   constructor(private pessoaJuridicaService: PessoaJuridicaService, 
@@ -49,6 +50,19 @@ export class HabilitaCadastroComponent implements OnInit {
       if ( conta != undefined && conta != "" && conta.length == 42 ) {
   
         console.log("#### conta a recuperar PJInfo " + conta);      
+
+        self.web3Service.isAccountEnabled(conta,
+          (result) => {
+
+            if (result) self.contaHabilitada=true;
+            else self.contaHabilitada=false;
+          },
+          (error) => {
+              console.warn("Erro ao buscar info de habilitada")
+          })
+
+
+
         self.web3Service.getPJInfo(conta,
             (result) => {
   

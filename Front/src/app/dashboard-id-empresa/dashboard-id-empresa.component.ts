@@ -322,7 +322,6 @@ export class DashboardIdEmpresaComponent implements OnInit {
             transacaoPJ.perfil="Cliente";            
         }
         else {
-            //transacaoPJ.nomeConta="-";
             transacaoPJ.perfil="Doador";
         }
 
@@ -345,10 +344,6 @@ export class DashboardIdEmpresaComponent implements OnInit {
     }
 
     recuperaFilePathAndName(self,transacaoPJ) {
-
-        console.log("************* recuperaFilePathAndName")
-        console.log("transacaoPJ.cnpj=" + transacaoPJ.cnpj);
-        console.log("transacaoPJ.nomeConta=" + transacaoPJ.nomeConta);
 
         self.fileHandleService.buscaFileInfo(transacaoPJ.cnpj, transacaoPJ.nomeConta, transacaoPJ.contaBlockchain).subscribe(
             result => {

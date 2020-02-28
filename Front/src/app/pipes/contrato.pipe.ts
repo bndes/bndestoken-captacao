@@ -8,7 +8,7 @@ export class ContratoPipe implements PipeTransform {
         if (value) {
             value = value.toString();
 
-            if(value === "0"){
+            if(!value){
                 return "-";
             }
 

@@ -292,7 +292,8 @@ contract BNDESRegistry is Ownable() {
                            || isResponsibleForSettlement(addr)
                            || isResponsibleForRegistryValidation(addr)
                            || isResponsibleForDisbursement(addr)
-                           || isRedemptionAddress(addr) ) {
+                           || isResponsibleForDonationConfirmation(addr)
+                           || isRedemptionAddress(addr)  ) {
             return true;
         }
         return false;

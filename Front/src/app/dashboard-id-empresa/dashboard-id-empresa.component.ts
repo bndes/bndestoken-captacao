@@ -345,7 +345,7 @@ export class DashboardIdEmpresaComponent implements OnInit {
 
     recuperaFilePathAndName(self,transacaoPJ) {
 
-        self.fileHandleService.buscaFileInfo(transacaoPJ.cnpj, transacaoPJ.nomeConta, transacaoPJ.contaBlockchain).subscribe(
+        self.fileHandleService.buscaFileInfo(transacaoPJ.cnpj, transacaoPJ.nomeConta, transacaoPJ.contaBlockchain, transacaoPJ.hashDeclaracao).subscribe(
             result => {
               if (result && result.pathAndName) {
                 transacaoPJ.filePathAndName=ConstantesService.serverUrlRoot+result.pathAndName;

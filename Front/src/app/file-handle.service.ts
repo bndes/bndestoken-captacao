@@ -38,7 +38,7 @@ export class FileHandleService {
   }
 
 
-  buscaFileInfo(cnpj: string, contrato: string, blockchainAccount: string): Observable<any> {
+  buscaFileInfo(cnpj: string, contrato: string, blockchainAccount: string, hashFile: string): Observable<any> {
 
     let str_cnpj = new String(cnpj);
 
@@ -52,7 +52,8 @@ export class FileHandleService {
     }
 
 
-    return this.http.post<Object>(this.serverUrl + 'fileinfo', { cnpj: str_cnpj, contrato: str_contrato, blockchainAccount: blockchainAccount })
+    return this.http.post<Object>(this.serverUrl + 'fileinfo', { cnpj: str_cnpj, contrato: str_contrato, 
+      blockchainAccount: blockchainAccount, hashFile: hashFile })
       .catch(this.handleError);
   }
 

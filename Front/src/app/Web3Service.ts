@@ -592,6 +592,27 @@ export class Web3Service {
     }
     
 
+    isReservedAccount(address: string, fSuccess: any, fError: any): boolean {
+        return this.bndesRegistrySmartContract.isReservedAccount(address,
+            (error, result) => {
+                if (error) fError(error);
+                else fSuccess(result);
+            });
+    }
+
+    isReservedAccountSync(address: string) {
+        let self = this;
+
+        return new Promise (function(resolve) {
+            self.isReservedAccount(address, function(result) {
+                resolve(result);
+            }, function(reject) {
+                console.log("ERRO IS reserved account SYNC");
+                reject(false);
+            });
+        })
+    }    
+
     isResponsibleForSettlement(address: string, fSuccess: any, fError: any): boolean {
         return this.bndesRegistrySmartContract.isResponsibleForSettlement(address,
             (error, result) => {
@@ -726,6 +747,20 @@ export class Web3Service {
                 if(error) fError(error);
                 else fSuccess(result);
             });
+    }
+
+    public isContaAguardandoValidacaoSync(address: string) {
+        
+        let self = this;
+
+        return new Promise (function(resolve) {
+            self.isContaAguardandoValidacao(address, function(result) {
+                resolve(result);
+            }, function(reject) {
+                console.log("ERRO IS CONTA AGUARDANDO VALIDACAO SYNC");
+                reject(false);
+            });
+        })
     }
 
     isContaValidada(address: string, fSuccess: any, fError: any): boolean {

@@ -83,11 +83,11 @@ export class ValidacaoCadastroComponent implements OnInit {
                 Utils.criarAlertaErro( this.bnAlertsService, texto,error);
               }) //fecha busca PJInfo
 
-              this.fileHandleService.buscaFileInfo(self.pj.cnpj, self.pj.idSubcredito, self.pj.contaBlockchain).subscribe(
+              this.fileHandleService.buscaFileInfo(self.pj.cnpj, self.pj.idSubcredito, self.pj.contaBlockchain,
+                self.pj.hashDeclaracao).subscribe(
                 result => {
                   if (result && result.pathAndName) {
                     self.pj.filePathAndName=ConstantesService.serverUrlRoot+result.pathAndName;
-                    self.pj.hashDeclaracao=result.hash;
                   }
                   else {
                     let texto = "Não foi possível encontrar informações associadas ao arquivo desse cadastro.";

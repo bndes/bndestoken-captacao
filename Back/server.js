@@ -273,7 +273,7 @@ function trataUpload(req, res, next) {
 				const tmp_path = req.file.path;
 				const hashedResult = await calculaHash(tmp_path);
 				
-				let fileName = montaNomeArquivo(cnpj, contrato, conta);	
+				let fileName = montaNomeArquivo(cnpj, contrato, conta, hashedResult);	
 
 				const target_path = config.infra.caminhoDeclaracao + '/' +  fileName;
 
@@ -306,16 +306,13 @@ async function buscaFileInfo(req, res) {
 		let cnpj     = req.body.cnpj;
 		let contrato = req.body.contrato;
 		let blockchainAccount = req.body.blockchainAccount;
+		let hashFile = req.body.hashFile;
 
-		let fileName = montaNomeArquivo(cnpj, contrato, blockchainAccount);	
-
+		let fileName = montaNomeArquivo(cnpj, contrato, blockchainAccount, hashFile);
 		let filePathAndNameToFront = config.infra.caminhoDeclaracaoFront + '/' + fileName;
-		let targetPath = config.infra.caminhoDeclaracao + '/' + fileName;
-		const hashedResult = await calculaHash(targetPath);
 
 		let respJson = {
-			pathAndName: filePathAndNameToFront,
-			hash: hashedResult
+			pathAndName: filePathAndNameToFront
 		};
 
 		console.log(respJson);
@@ -323,15 +320,15 @@ async function buscaFileInfo(req, res) {
 
 	}
 	catch (err) {
-		console.log("Erro buscar informações do arquivo. Provavelmente ao ler o arquivo ou calcular o hash");
+		console.log("Erro buscar informações do arquivo.");
 		console.log(err)
 		res.sendStatus(500);
 	}
 
 }
 
-function montaNomeArquivo(cnpj, contrato, blockchainAccount) {
-	return (cnpj + '_' + contrato + '_' + blockchainAccount + '.PDF');
+function montaNomeArquivo(cnpj, contrato, blockchainAccount, hashFile) {
+	return (cnpj + '_' + contrato + '_' + blockchainAccount + '_' + hashFile +  '.PDF');
 }
 
 // listen (start app with node server.js) ======================================

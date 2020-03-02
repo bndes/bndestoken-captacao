@@ -17,7 +17,7 @@ export class HabilitaCadastroComponent implements OnInit {
   pj: PessoaJuridica;
   isHashInvalido: boolean = false;
   selectedAccount: any;
-  contaHabilitada: boolean=false;
+  contaHabilitada: boolean=false;  
 
 
   constructor(private pessoaJuridicaService: PessoaJuridicaService, 
@@ -146,9 +146,27 @@ export class HabilitaCadastroComponent implements OnInit {
           this.bnAlertsService.criarAlerta("error", "Erro", s, 5);
           return;
       }
-    
-  
+
       let self = this;
+
+      let bRA = await this.web3Service.isReservedAccountSync(self.pj.contaBlockchain);
+      if (bRA) 
+      {
+          let s = "Conta digitada é reservada e não pode ser habilitada.";
+          this.bnAlertsService.criarAlerta("error", "Erro", s, 5);
+          return;
+      }  
+
+      let bContaDisponivel = await this.web3Service.isContaDisponivelSync(self.pj.contaBlockchain);
+      let bContaAguardandoAprovacao = await this.web3Service.isContaAguardandoValidacaoSync(self.pj.contaBlockchain);
+      let bValidada = await this.web3Service.isContaValidadaSync(self.pj.contaBlockchain);            
+
+      if (!(bContaDisponivel || bContaAguardandoAprovacao || bValidada)) {
+        let s = "Conta digitada não pode mais ser habilitada por causa de seu status.";
+        this.bnAlertsService.criarAlerta("error", "Erro", s, 5);
+        return;
+      }
+  
       console.log("habilitarCadastro(): " + self.pj.contaBlockchain);
   
       let booleano = this.web3Service.habilitarCadastro(self.pj.contaBlockchain,  
@@ -161,7 +179,8 @@ export class HabilitaCadastroComponent implements OnInit {
                                                 "Habilitação de conta enviada. Aguarde a confirmação.", 
                                                 "A habilitação da conta foi confirmada na blockchain.", 
                                                 self.zone)
-            self.router.navigate(['sociedade/dash-empresas']);                             
+            self.pj.contaBlockchain="";
+            self.apagaCamposDaEstrutura();
             }        
           ,(error) => {
             Utils.criarAlertaErro( self.bnAlertsService, 

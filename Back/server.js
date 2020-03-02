@@ -13,7 +13,10 @@ const keccak256 = require('keccak256');
 
 const multer = require('multer');
 const DIR = config.infra.caminhoUpload;
-const uploadMiddleware = multer({ dest: DIR, limits: {fileSize: 1024*1024} }).single('arquivo');
+const MAX_FILE_SIZE = config.negocio.maxFileSize;
+
+const uploadMiddleware = multer({ dest: DIR, limits: {fileSize: MAX_FILE_SIZE} }).single('arquivo');
+
 
 // Configuration
 //mongoose.connect(config.infra.addr_bd);
@@ -144,7 +147,9 @@ app.post('/api/constantesFrontPJ', function (req, res) {
 	console.log("mockMongoPJ=" + config.negocio.mockMongoPJ)
 	res.json({ operationAPIURL: config.infra.operationAPIURL,  
 		mockMongoClient: config.negocio.mockMongoClient, 
-		mockMongoPJ: config.negocio.mockMongoPJ});
+		mockMongoPJ: config.negocio.mockMongoPJ,
+		maxFileSize: MAX_FILE_SIZE		
+	});
 });
 
 

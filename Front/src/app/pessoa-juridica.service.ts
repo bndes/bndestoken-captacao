@@ -17,6 +17,7 @@ export class PessoaJuridicaService {
   operationAPIURL: string;
   mockMongoClient: boolean;
   mockMongoPJ: boolean;
+  maxFileSize: number;
 
   constructor(private http: HttpClient, private constantes: ConstantesService) {
 
@@ -29,6 +30,10 @@ export class PessoaJuridicaService {
         this.operationAPIURL = data["operationAPIURL"];
         this.mockMongoClient = data["mockMongoClient"];
         this.mockMongoPJ = data["mockMongoPJ"];
+        this.maxFileSize = data["maxFileSize"];
+
+        console.log("****************** this.maxFileSize=")
+        console.log(this.maxFileSize)
 
       },
       error => {

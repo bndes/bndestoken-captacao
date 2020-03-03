@@ -76,6 +76,7 @@ export class FileHandleService {
     this.uploader.onCompleteItem = (item:any, response:any, status:any, headers:any) => {
              console.log("upload feito.", item, status, response);
              componenteComDeclaracao.hashdeclaracao = response.toString().replace('\"','').replace('\"','');
+             componenteComDeclaracao.flagUploadConcluido = true;
         };
   }
 

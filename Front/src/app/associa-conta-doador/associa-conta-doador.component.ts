@@ -23,7 +23,7 @@ export class AssociaContaDoadorComponent implements OnInit, DeclarationComponent
   
   filename: any;
   hashdeclaracao: string;      
-
+  flagUploadConcluido: boolean;
   contaEstaValida: boolean;
   selectedAccount: any;
 
@@ -44,7 +44,7 @@ export class AssociaContaDoadorComponent implements OnInit, DeclarationComponent
 
   ngOnInit() {
     this.doador = new Doador()
-     this.maskCnpj = Utils.getMaskCnpj(); 
+    this.maskCnpj = Utils.getMaskCnpj();     
     this.inicializaDadosDerivadosPessoaJuridica();
     this.recuperaContaSelecionada();
  
@@ -55,6 +55,7 @@ export class AssociaContaDoadorComponent implements OnInit, DeclarationComponent
   inicializaDadosDerivadosPessoaJuridica() {
     this.doador.cnpj = ""
     this.doador.dadosCadastrais = undefined
+    this.flagUploadConcluido = false;
   }
 
   changeCnpj() { 
@@ -81,17 +82,22 @@ export class AssociaContaDoadorComponent implements OnInit, DeclarationComponent
 
   async recuperaContaSelecionada() {
     
-    let self = this;
-    
+        
+    let self = this;    
     let newSelectedAccount = await this.web3Service.getCurrentAccountSync();
-
     if ( !self.selectedAccount || (newSelectedAccount !== self.selectedAccount && newSelectedAccount)) {
-
-      this.selectedAccount = newSelectedAccount;
-      console.log("selectedAccount=" + this.selectedAccount);
-      this.verificaEstadoContaBlockchainSelecionada(this.selectedAccount);
-      this.preparaUpload(this.doador.cnpj, this.selectedAccount, this);
+        if ( this.flagUploadConcluido == false ) {
+          this.selectedAccount = newSelectedAccount;
+          console.log("selectedAccount=" + this.selectedAccount);
+          this.verificaEstadoContaBlockchainSelecionada(this.selectedAccount);
+          this.preparaUpload(this.doador.cnpj, this.selectedAccount, this);
+        }
+        else {
+          console.log( "Upload has already made! You should not change your account. Reseting... " );
+          this.cancelar();
+        }
     }
+    
   }
 
   preparaUpload(cnpj, selectedAccount, self) {

@@ -14,7 +14,9 @@ RUN npm install
 
 EXPOSE 8080
 
-VOLUME ["/app/config.json"]
+VOLUME ["/backend/Back/config.json"]
+VOLUME ["/backend/Back/arquivos/declaracao"]
+VOLUME ["/backend/Back/arquivos/modelo_declaracao"]
 
 ENTRYPOINT ["npm","start"]
 

@@ -160,7 +160,7 @@ export class ConfirmaDoacaoComponent implements OnInit {
       }
   
   
-      this.web3Service.receberDoacao(this.doacao.cnpj, this.doacao.valor,
+      this.web3Service.receberDoacao(this.doacao.cnpj, this.doacao.valor, "docHash", //FIXME:docHash
   
           (txHash) => {
           Utils.criarAlertasAvisoConfirmacao( txHash, 

@@ -84,7 +84,7 @@ export class ConfirmaDoacaoComponent implements OnInit {
   
           }
           else {
-            let texto = "Nenhuma empresa encontrada";
+            let texto = "CNPJ não identificado";
             console.log(texto);
             Utils.criarAlertaAcaoUsuario( this.bnAlertsService, texto);
           }

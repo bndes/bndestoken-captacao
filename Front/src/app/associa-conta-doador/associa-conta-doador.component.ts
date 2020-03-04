@@ -142,7 +142,7 @@ export class AssociaContaDoadorComponent implements OnInit, DeclarationComponent
 
         }
         else {
-          let texto = "Nenhuma empresa encontrada";
+          let texto = "CNPJ não identificado";
           console.log(texto);
           Utils.criarAlertaAcaoUsuario( this.bnAlertsService, texto);
         }

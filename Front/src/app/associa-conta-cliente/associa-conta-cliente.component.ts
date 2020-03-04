@@ -161,7 +161,7 @@ export class AssociaContaClienteComponent implements OnInit, DeclarationComponen
         }
         else {
           //Do no clean fields to better UX
-          let texto = "Nenhum cliente encontrado";
+          let texto = "CNPJ não identificado";
           console.log(texto);
           Utils.criarAlertaAcaoUsuario(this.bnAlertsService, texto);
 

@@ -475,7 +475,7 @@ export class Web3Service {
         
     }
 
-    async receberDoacao(cnpj: string, amount: number, fSuccess: any, fError: any) {
+    async receberDoacao(cnpj: string, amount: number, docHash: string, fSuccess: any, fError: any) {
 
         let contaSelecionada = await this.getCurrentAccountSync();    
         
@@ -488,7 +488,7 @@ export class Web3Service {
         console.log("cnpj=" + cnpj);
         console.log("contaBlockchain=" + contaBlockchain);
 
-        this.bndesTokenSmartContract.confirmDonation(contaBlockchain, amount, { from: contaSelecionada, gas: 500000 },
+        this.bndesTokenSmartContract.confirmDonation(contaBlockchain, amount, docHash, { from: contaSelecionada, gas: 500000 },
             (error, result) => {
                 if (error) fError(error);
                 else fSuccess(result);

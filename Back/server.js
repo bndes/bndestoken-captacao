@@ -306,29 +306,47 @@ app.post('/api/fileinfo', buscaFileInfo);
 
 async function buscaFileInfo(req, res) {
 
+	let filePathAndNameToFront;
+	let hashedResult;
+	let hashFile;
+
 	try {
 
 		let cnpj     = req.body.cnpj;
 		let contrato = req.body.contrato;
 		let blockchainAccount = req.body.blockchainAccount;
-		let hashFile = req.body.hashFile;
+		hashFile = req.body.hashFile;
 
 		let fileName = montaNomeArquivo(cnpj, contrato, blockchainAccount, hashFile);
-		let filePathAndNameToFront = config.infra.caminhoDeclaracaoFront + '/' + fileName;
+		filePathAndNameToFront = config.infra.caminhoDeclaracaoFront + '/' + fileName;
 
-		let respJson = {
-			pathAndName: filePathAndNameToFront
-		};
-
-		console.log(respJson);
-		res.json(respJson);
+		//verifica integridade do arquivo
+		let targetPath = config.infra.caminhoDeclaracao + '/' + fileName;
+		hashedResult = await calculaHash(targetPath);
 
 	}
 	catch (err) {
 		console.log("Erro buscar informações do arquivo.");
 		console.log(err)
 		res.sendStatus(500);
+		return;
 	}
+
+	if (hashedResult!=hashFile) {
+		console.log("Erro conferir o hash do arquivo.");
+		res.sendStatus(506);
+		return;
+	}
+	else {
+		console.log("Hash correto");
+	}
+
+	let respJson = {
+		pathAndName: filePathAndNameToFront
+	};
+
+	console.log(respJson);
+	res.json(respJson);
 
 }
 

@@ -203,7 +203,7 @@ export class DashboardTransferenciasComponent implements OnInit {
             liberacao = {
               deRazaoSocial: self.razaoSocialBNDES,
               deCnpj: "BNDES",
-              deConta: "-",
+              deConta: "0",
               paraRazaoSocial: "Erro: Não encontrado",
               paraCnpj: eventoLiberacao.args.cnpj,
               paraConta: eventoLiberacao.args.idFinancialSupportAgreement,
@@ -285,7 +285,7 @@ export class DashboardTransferenciasComponent implements OnInit {
               deConta: eventoResgate.args.idFinancialSupportAgreement,
               paraRazaoSocial: self.razaoSocialBNDES,
               paraCnpj: "BNDES",
-              paraConta: "-",
+              paraConta: "0",
               valor: self.web3Service.converteInteiroParaDecimal(parseInt(eventoResgate.args.amount)),
               tipo: "Solicitação de Resgate",
               hashID: eventoResgate.transactionHash,

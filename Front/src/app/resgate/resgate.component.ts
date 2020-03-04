@@ -78,6 +78,7 @@ export class ResgateComponent implements OnInit {
 
               console.log(result);
               self.resgate.cnpjOrigem = result.cnpj;
+              self.resgate.contratoFinanceiro = result.idSubcredito;
               self.recuperaSaldoOrigem(contaBlockchain);
 
               this.pessoaJuridicaService.recuperaEmpresaPorCnpj(self.resgate.cnpjOrigem).subscribe(

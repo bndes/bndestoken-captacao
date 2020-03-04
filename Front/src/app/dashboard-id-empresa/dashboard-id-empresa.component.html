@@ -54,9 +54,20 @@
           <td>{{transacaoPJ.cnpj | cnpjMask}}</td>
           <td>{{transacaoPJ.nomeConta | contratoMask}}</td>
           <td>{{transacaoPJ.perfil}}</td>
-          <td class="tooltipCaixa"><a target="_blank" href="{{transacaoPJ.filePathAndName}}">
+          <td class="tooltipCaixa">
+            <a target="_blank" href="{{transacaoPJ.filePathAndName}}">
+              {{transacaoPJ.hashDeclaracao | hashMask}}
+            </a>          
+
+<!--
+          <a *ngIf="transacaoPJ.filePathAndName" target="_blank" href="{{transacaoPJ.filePathAndName}}">
             {{transacaoPJ.hashDeclaracao | hashMask}}
-          </a><span class="tooltiptext" style="width: 520px;" *ngIf="transacaoPJ.hashDeclaracao">{{transacaoPJ.hashDeclaracao}}</span></td>
+          </a>          
+          <span *ngIf="!transacaoPJ.filePathAndName">{{transacaoPJ.hashDeclaracao | hashMask}}</span>          
+          <span class="tooltiptext" style="width: 520px;" *ngIf="transacaoPJ.hashDeclaracao">{{transacaoPJ.hashDeclaracao}}</span>
+        -->        
+        
+        </td>
           <td>{{transacaoPJ.dataHora | date: 'dd/MM/yyyy hh:mm a' }}</td>
           <td>{{transacaoPJ.contaBlockchain}}</td>
           <td>{{transacaoPJ.status}}</td>

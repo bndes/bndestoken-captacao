@@ -125,7 +125,7 @@ export class DashboardIdEmpresaComponent implements OnInit {
                 self.includeIfNotExists(transacaoPJ);
                 self.recuperaInfoDerivadaPorCnpj(self, transacaoPJ);
                 self.recuperaDataHora(self, event, transacaoPJ);
-                self.recuperaFilePathAndName(self,transacaoPJ);
+                self.recuperaFilePathAndName(self,transacaoPJ); 
 
 
             } else {
@@ -227,7 +227,8 @@ export class DashboardIdEmpresaComponent implements OnInit {
                 self.includeIfNotExists(transacaoPJ);
                 self.recuperaInfoDerivadaPorCnpj(self, transacaoPJ);
                 self.recuperaDataHora(self, event, transacaoPJ);
-                self.recuperaFilePathAndName(self,transacaoPJ);                
+//nao tem hash para recuperar arquivo
+//                self.recuperaFilePathAndName(self,transacaoPJ);                
 
             } else {
                 console.log("Erro no registro de eventos de validacao");
@@ -268,7 +269,8 @@ export class DashboardIdEmpresaComponent implements OnInit {
                 self.includeIfNotExists(transacaoPJ);
                 self.recuperaInfoDerivadaPorCnpj(self, transacaoPJ);                
                 self.recuperaDataHora(self, event, transacaoPJ);
-                self.recuperaFilePathAndName(self,transacaoPJ);                
+//nao tem hash para recuperar arquivo
+//                self.recuperaFilePathAndName(self,transacaoPJ);                
 
 
             } else {
@@ -362,7 +364,7 @@ export class DashboardIdEmpresaComponent implements OnInit {
               console.log("cnpj=" + transacaoPJ.cnpj);
               console.log("nomeConta=" + transacaoPJ.nomeConta);
               console.log("contaBlockchain=" + transacaoPJ.contaBlockchain);
-              Utils.criarAlertaErro( self.bnAlertsService, texto,error);
+//              Utils.criarAlertaErro( self.bnAlertsService, texto,error);
             }) //fecha busca fileInfo
 
 

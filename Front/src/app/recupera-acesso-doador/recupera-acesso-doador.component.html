@@ -15,7 +15,7 @@
           <div class="form-group col-md-4 col-sm-4">
             <label>CNPJ do Doador:</label>
             <input name="cnpjWithMask" [(ngModel)]="doador.cnpjWithMask" class="form-control form-control-sm"  (input)="changeCnpj()" 
-            [textMask]="{mask: maskCnpj}"  required/>
+            [textMask]="{mask: maskCnpj}"  required [disabled]="this.flagUploadConcluido"/>
           </div>
 
           <div class="form-group col-md-6 col-sm-6" *ngIf="doador.dadosCadastrais">

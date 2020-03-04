@@ -15,7 +15,7 @@
         <div class="form-group col-md-4 col-sm-4">
           <label>CNPJ do Cliente:</label>
           <input name="cnpjWithMask" [(ngModel)]="cliente.cnpjWithMask"  class="form-control form-control-sm" (input)="changeCnpj()" 
-          [textMask]="{mask: maskCnpj}" required/>
+          [textMask]="{mask: maskCnpj}" required [disabled]="this.flagUploadConcluido"/>
         </div>        
 
         <div class="form-group col-md-6 col-sm-6" *ngIf="cliente.dadosCadastrais">
@@ -38,7 +38,7 @@
         <div class="form-group col-md-4 col-sm-4">
           <app-input-validation errorMessage="Campo Obrigatório">
             <label class="required">Contrato Financeiro:</label>
-            <select name="numeroSubcreditoSelecionado" class="form-control form-control-sm" [disabled]="numeroSubcreditoSelecionado === undefined"
+            <select name="numeroSubcreditoSelecionado" class="form-control form-control-sm" [disabled]="numeroSubcreditoSelecionado === undefined || this.flagUploadConcluido"
             [(ngModel)]="numeroSubcreditoSelecionado" (ngModelChange)="recuperaContaBlockchainCliente()" required (change)="this.preparaUpload()">
               <option *ngFor="let subcredito of cliente.subcreditos" [attr.value]="subcredito.numero">{{subcredito.numero}}</option>
             </select>            

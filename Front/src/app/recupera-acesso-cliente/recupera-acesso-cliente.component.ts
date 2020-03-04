@@ -15,7 +15,7 @@ import { Utils } from '../shared/utils';
   templateUrl: './recupera-acesso-cliente.component.html',
   styleUrls: ['./recupera-acesso-cliente.component.css']
 })
-export class RecuperaAcessoClienteComponent implements OnInit {
+export class RecuperaAcessoClienteComponent implements OnInit, DeclarationComponentInterface {
 
   cliente: Cliente;
   numeroSubcreditoSelecionado: number;
@@ -24,6 +24,7 @@ export class RecuperaAcessoClienteComponent implements OnInit {
   selectedAccount: any;
   maskCnpj: any;
   hashdeclaracao: string;
+  flagUploadConcluido: boolean;
 
 
   constructor(private pessoaJuridicaService: PessoaJuridicaService, protected bnAlertsService: BnAlertsService,
@@ -51,6 +52,7 @@ export class RecuperaAcessoClienteComponent implements OnInit {
     this.numeroSubcreditoSelecionado = undefined;
     this.contaBlockchainAssociada = undefined;    
     this.hashdeclaracao = "";
+    this.flagUploadConcluido = false;
 
   }
 
@@ -83,10 +85,14 @@ export class RecuperaAcessoClienteComponent implements OnInit {
     let newSelectedAccount = await this.web3Service.getCurrentAccountSync();
 
     if ( !this.selectedAccount || (newSelectedAccount !== this.selectedAccount && newSelectedAccount)) {
-
-      this.selectedAccount = newSelectedAccount;
-      console.log("selectedAccount=" + this.selectedAccount);
-      this.verificaContaBlockchainSelecionada(this.selectedAccount); 
+      if ( this.flagUploadConcluido == false ) {
+        this.selectedAccount = newSelectedAccount;
+        console.log("selectedAccount=" + this.selectedAccount);
+        this.verificaContaBlockchainSelecionada(this.selectedAccount); 
+      } else {
+        console.log( "Upload has already made! You should not change your account. Reseting... " );
+        this.cancelar();
+      }        
     }
 
   }

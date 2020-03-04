@@ -23,6 +23,7 @@ export class RecuperaAcessoDoadorComponent implements OnInit, DeclarationCompone
   selectedAccount: any;
   maskCnpj: any;
   hashdeclaracao: string;
+  flagUploadConcluido: boolean;
 
   CONTRATO_DOADOR = 0;
   
@@ -49,7 +50,8 @@ export class RecuperaAcessoDoadorComponent implements OnInit, DeclarationCompone
   inicializaDadosTroca() {
     this.doador.cnpj = "";
     this.doador.dadosCadastrais = undefined;
-    this.hashdeclaracao = "";    
+    this.hashdeclaracao = "";   
+    this.flagUploadConcluido = false; 
   }
 
   
@@ -83,10 +85,15 @@ export class RecuperaAcessoDoadorComponent implements OnInit, DeclarationCompone
     let newSelectedAccount = await this.web3Service.getCurrentAccountSync();
 
     if ( !this.selectedAccount || (newSelectedAccount !== this.selectedAccount && newSelectedAccount)) {
-
-      this.selectedAccount = newSelectedAccount;
-      console.log("selectedAccount=" + this.selectedAccount);
-      this.verificaContaBlockchainSelecionada(this.selectedAccount); 
+      if ( this.flagUploadConcluido == false ) {
+        this.selectedAccount = newSelectedAccount;
+        console.log("selectedAccount=" + this.selectedAccount);
+        this.verificaContaBlockchainSelecionada(this.selectedAccount); 
+      }
+      else {
+        console.log( "Upload has already made! You should not change your account. Reseting... " );
+        this.cancelar();
+      }        
     }
 
   }

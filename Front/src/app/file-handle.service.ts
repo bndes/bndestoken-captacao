@@ -16,6 +16,7 @@ export class FileHandleService {
 
   serverUrl: string;
   operationAPIURL: string;
+  maxFileSize : number;
   public uploader: FileUploader;  
 
   constructor(private http: HttpClient, private constantes: ConstantesService) {
@@ -27,6 +28,7 @@ export class FileHandleService {
       data => {
 
         this.operationAPIURL = data["operationAPIURL"];
+        this.maxFileSize = data["maxFileSize"];
 
       },
       error => {
@@ -61,7 +63,7 @@ export class FileHandleService {
     let self = this;
     this.uploader = new FileUploader({ 
                           url: ConstantesService.serverUrl + "upload",                          
-                          maxFileSize: 1024*1024,
+                          maxFileSize: this.maxFileSize,
                           additionalParameter: {
                                 cnpj:             _cnpj,
                                 contrato:         _contrato,
@@ -73,9 +75,16 @@ export class FileHandleService {
     { fileItem.withCredentials = false;      
     };
 
+    this.uploader.onWhenAddingFileFailed = (fileItem) => {
+       console.log("fail upload: max file size exceeded! ", fileItem);
+       componenteComDeclaracao.hashdeclaracao = "ERRO! Arquivo muito grande! Tente enviar um arquivo menor.";
+        //this.failFlag = true;
+    }
+
     this.uploader.onCompleteItem = (item:any, response:any, status:any, headers:any) => {
              console.log("upload feito.", item, status, response);
              componenteComDeclaracao.hashdeclaracao = response.toString().replace('\"','').replace('\"','');
+             componenteComDeclaracao.flagUploadConcluido = true;
         };
   }
 

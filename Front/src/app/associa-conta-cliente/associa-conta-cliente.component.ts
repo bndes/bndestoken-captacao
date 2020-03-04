@@ -22,7 +22,7 @@ export class AssociaContaClienteComponent implements OnInit, DeclarationComponen
   cliente: Cliente;
   subcreditoSelecionado: number;
   hashdeclaracao: string;
-
+  flagUploadConcluido: boolean;
   contaEstaValida: string;
   selectedAccount: any;
 
@@ -42,6 +42,7 @@ export class AssociaContaClienteComponent implements OnInit, DeclarationComponen
 
   ngOnInit() {
     this.maskCnpj = Utils.getMaskCnpj(); 
+    this.flagUploadConcluido = false;
     this.cliente = new Cliente();
     this.cliente.subcreditos = new Array<Subcredito>();
   }
@@ -49,6 +50,8 @@ export class AssociaContaClienteComponent implements OnInit, DeclarationComponen
   inicializaDadosDerivadosPessoaJuridica() {
     this.cliente.dadosCadastrais = undefined;
     this.subcreditoSelecionado = undefined;
+    this.hashdeclaracao = undefined;    
+    this.flagUploadConcluido = false;
     this.cliente.subcreditos = new Array<Subcredito>();
   }
 
@@ -82,22 +85,26 @@ export class AssociaContaClienteComponent implements OnInit, DeclarationComponen
 
   cancelar() { 
     this.cliente = new Cliente();
+
     this.inicializaDadosDerivadosPessoaJuridica();
   }
 
   async recuperaContaSelecionada() {
 
-    let self = this;
-    
+    let self = this;      
     let newSelectedAccount = await this.web3Service.getCurrentAccountSync();
-
     if ( !self.selectedAccount || (newSelectedAccount !== self.selectedAccount && newSelectedAccount)) {
-
-      this.selectedAccount = newSelectedAccount;
-      console.log("selectedAccount=" + this.selectedAccount);
-      this.verificaEstadoContaBlockchainSelecionada(this.selectedAccount); 
-      this.preparaUpload(this.cliente.cnpj, this.subcreditoSelecionado, this.selectedAccount, this);      
-    }
+      if ( this.flagUploadConcluido == false ) {
+        this.selectedAccount = newSelectedAccount;
+        console.log("selectedAccount=" + this.selectedAccount);
+        this.verificaEstadoContaBlockchainSelecionada(this.selectedAccount); 
+        this.preparaUpload(this.cliente.cnpj, this.subcreditoSelecionado, this.selectedAccount, this);      
+      }
+      else {
+        console.log( "Upload has already made! You should not change your account. Reseting... " );
+        this.cancelar();
+      }        
+    }    
 
   }
 

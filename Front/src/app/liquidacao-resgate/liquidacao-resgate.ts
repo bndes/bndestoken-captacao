@@ -13,4 +13,6 @@ export class LiquidacaoResgate {
   isLiquidado: boolean;
   isSelectedAccountResponsibleForSettlement: boolean;
 
+  filePathAndName: string;  
+
 }

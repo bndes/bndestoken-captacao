@@ -9,4 +9,6 @@ export class DashboardTransferencia {
   tipo: string;
   hashID: string;
   dataHora: Date;
+
+
 }

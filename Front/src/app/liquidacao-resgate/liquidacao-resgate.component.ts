@@ -4,10 +4,12 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 import { Web3Service } from './../Web3Service'
 import { PessoaJuridicaService } from '../pessoa-juridica.service';
+import {FileHandleService} from "../file-handle.service";
 
 import { BnAlertsService } from 'bndes-ux4'
 
-import { LiquidacaoResgate } from './liquidacao-resgate'
+import { LiquidacaoResgate } from './liquidacao-resgate';
+import { ConstantesService } from '../ConstantesService';
 import { Utils } from '../shared/utils';
 
 @Component({
@@ -27,6 +29,7 @@ export class LiquidacaoResgateComponent implements OnInit {
 
 
   constructor(private pessoaJuridicaService: PessoaJuridicaService,
+    private fileHandleService: FileHandleService,    
     private bnAlertsService: BnAlertsService,
     private web3Service: Web3Service,
     private ref: ChangeDetectorRef,
@@ -141,7 +144,7 @@ export class LiquidacaoResgateComponent implements OnInit {
                 }
               });
 
-
+              self.recuperaFilePathAndName(self,self.liquidacaoResgate);
 
           }
 
@@ -161,6 +164,31 @@ export class LiquidacaoResgateComponent implements OnInit {
       this.liquidacaoResgate.isSelectedAccountResponsibleForSettlement = true;
     }
   }
+
+  recuperaFilePathAndName(self,transacao) {
+
+    self.fileHandleService.buscaFileInfo(transacao.cnpj, transacao.contratoFinanceiro, "0", transacao.hashComprovacao, "comp_liq").subscribe(
+        result => {
+          if (result && result.pathAndName) {
+            transacao.filePathAndName=ConstantesService.serverUrlRoot+result.pathAndName;
+          }
+          else {
+            let texto = "Não foi possível encontrar informações associadas ao arquivo.";
+            console.log(texto);
+            Utils.criarAlertaAcaoUsuario( self.bnAlertsService, texto);       
+          }                  
+        }, 
+        error => {
+          let texto = "Erro ao buscar dados de arquivo";
+          console.log(texto);
+          console.log("cnpj=" + transacao.cnpj);
+          console.log("contratoFinanceiro=" + transacao.contratoFinanceiro);          
+          console.log("hashComprovante=" + transacao.hashComprovacao);
+//              Utils.criarAlertaErro( self.bnAlertsService, texto,error);
+        }) //fecha busca fileInfo
+
+}
+
 
   async liquidar() {
     

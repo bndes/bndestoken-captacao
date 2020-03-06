@@ -46,12 +46,12 @@
           <th [class.active]="order === 'valor'" (click)="setOrder('valor')" scope="col">Valor em BNDESToken
             <i [hidden]="reverse" class="fa fa-caret-down"></i>
             <i [hidden]="!reverse" class="fa fa-caret-up"></i>
-          </th>
-          <th [class.active]="order === 'tipo'" (click)="setOrder('tipo')" scope="col">Tipo
+          </th>         
+          <th [class.active]="order === 'dataHora'" (click)="setOrder('dataHora')" scope="col">Data/Hora
             <i [hidden]="reverse" class="fa fa-caret-down"></i>
             <i [hidden]="!reverse" class="fa fa-caret-up"></i>
           </th>
-          <th [class.active]="order === 'dataHora'" (click)="setOrder('dataHora')" scope="col">Data/Hora
+          <th [class.active]="order === 'tipo'" (click)="setOrder('tipo')" scope="col">Tipo
             <i [hidden]="reverse" class="fa fa-caret-down"></i>
             <i [hidden]="!reverse" class="fa fa-caret-up"></i>
           </th>
@@ -73,8 +73,9 @@
           </td>
           <td>{{transferencia.paraConta | contratoMask}}</td>
           <td>{{transferencia.valor | currency:'BND':'symbol':'1.2-2':'pt' }}</td>
-          <td>{{transferencia.tipo}}</td>
+          
           <td>{{transferencia.dataHora | date: 'dd/MM/yyyy hh:mm a' }}</td>
+          <td>{{transferencia.tipo}}</td>
           <td class="text-center">
               <button type="button" class="btn btn-success btn-cabecalho" *ngIf="transferencia.tipo=='Solicitação de Resgate'"
                ngbTooltip="Entrar" (click)="routeToLiquidacaoResgate(transferencia.hashID)">

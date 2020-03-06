@@ -65,35 +65,29 @@
         
 
       <div class="conteudo form-group" *ngIf="!liquidacaoResgate.isLiquidado && liquidacaoResgate.isSelectedAccountResponsibleForSettlement">
-        <div class="row">
-          <div class="form-group col-md-12 col-sm-12">
-            <p>Upload de Comprovante do Resgate</p>
-          </div>
-        </div>   
-        <div class="row">
-          <div class="form-group col-md-10 col-sm-10">
-            <label>Faça upload do comprovante do resgate</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="form-group col-md-10 col-sm-10">
-              <input ng2FileSelect id="arquivo" type="file" accept=".pdf" [uploader]="this.fileHandleService.uploader" (change)="this.fileHandleService.chamaUpload()" /> 
-              <div class="msg-hash-declaracao" *ngIf="hashdeclaracao">
-                Hash da Declaração: {{hashdeclaracao}}
+              <div class="row">
+                <div class="form-group col-md-12 col-sm-12">
+                  <p>Upload de Comprovante do Resgate</p>
+                </div>
+              </div>   
+              <div class="row">
+                <div class="form-group col-md-10 col-sm-10">
+                  <label>Faça upload do comprovante do resgate</label>
+                </div>
               </div>
-<<<<<<< HEAD
-          </div>
-        </div>
-=======
-            </div>
+              <div class="row">
+                <div class="form-group col-md-10 col-sm-10">
+                    <input ng2FileSelect id="arquivo" type="file" accept=".pdf" [uploader]="this.fileHandleService.uploader" (change)="this.fileHandleService.chamaUpload()" /> 
+                    <div class="msg-hash-declaracao" *ngIf="hashdeclaracao">
+                      Hash do Comprovante: {{hashdeclaracao}}
+                    </div>
+                </div>
+              </div>
+       </div>
       
    
             <div class="row">
   
-                <div class="form-group col-md-6 col-sm-6 ">
-                    <label>Hash do Comprovante de Pagamento:</label>
-                    <input name="hashComprovacao" [(ngModel)]="liquidacaoResgate.hashComprovacao" maxlength="64" class="form-control form-control-sm" required [disabled]="liquidacaoResgate.isLiquidado">
-                </div>          
   
                 <div class="form-group col-md-6 col-sm-6 " *ngIf="liquidacaoResgate.isLiquidado">
                     <label>Data e hora:</label>
@@ -120,8 +114,7 @@
 
            </div>            
 
->>>>>>> 991fe12cc81a7e4b141b54c5987dbb09a4c2c4f0
-      </div>
+
                 
         <div class="form-group" >
           <button type="button" class="btn btn-success btn-cabecalho" placement="bottom" ngbTooltip="Liquidar" 

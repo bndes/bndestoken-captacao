@@ -4,14 +4,8 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { FileHandleService } from '../file-handle.service';
 import { Web3Service } from './../Web3Service'
 import { PessoaJuridicaService } from '../pessoa-juridica.service';
-<<<<<<< HEAD
 import { DeclarationComponentInterface } from '../shared/declaration-component.interface';
-=======
-import {FileHandleService} from "../file-handle.service";
->>>>>>> 991fe12cc81a7e4b141b54c5987dbb09a4c2c4f0
-
 import { BnAlertsService } from 'bndes-ux4'
-
 import { LiquidacaoResgate } from './liquidacao-resgate';
 import { ConstantesService } from '../ConstantesService';
 import { Utils } from '../shared/utils';
@@ -38,8 +32,7 @@ export class LiquidacaoResgateComponent implements OnInit, DeclarationComponentI
     private bnAlertsService: BnAlertsService,
     private web3Service: Web3Service,
     private ref: ChangeDetectorRef,
-    private zone: NgZone, private router: Router, private route: ActivatedRoute,
-    private fileHandleService: FileHandleService ) { }
+    private zone: NgZone, private router: Router, private route: ActivatedRoute ) { }
 
   ngOnInit() {
 

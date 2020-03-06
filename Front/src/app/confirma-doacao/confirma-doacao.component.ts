@@ -51,18 +51,34 @@ export class ConfirmaDoacaoComponent implements OnInit, DeclarationComponentInte
     this.flagUploadConcluido = false;     
   }
 
-  async recuperaContaSelecionada() {
-
-    let self = this;
+    async recuperaContaSelecionada() {
     
+        
+    let self = this;    
     let newSelectedAccount = await this.web3Service.getCurrentAccountSync();
-
     if ( !self.selectedAccount || (newSelectedAccount !== self.selectedAccount && newSelectedAccount)) {
-
-      this.selectedAccount = newSelectedAccount;
-      console.log("selectedAccount=" + this.selectedAccount);
+        if ( this.flagUploadConcluido == false ) {
+          this.selectedAccount = newSelectedAccount;
+          console.log("selectedAccount=" + this.selectedAccount);
+          //this.verificaEstadoContaBlockchainSelecionada(this.selectedAccount);
+          this.preparaUpload(this.doacao.cnpj, this.selectedAccount, this);
+        }
+        else {
+          console.log( "Upload has already made! You should not change your account. Reseting... " );
+          this.cancelar();
+        }
     }
-  }  
+    
+  }
+
+  preparaUpload(cnpj, selectedAccount, self) {
+
+    const tipo = "comp_doacao";
+
+    if (cnpj &&  selectedAccount) {
+      this.fileHandleService.atualizaUploaderComponent(cnpj, this.CONTRATO_DOADOR, selectedAccount, tipo, self);
+    }
+  }
 
     changeCnpj() {
 
@@ -172,7 +188,7 @@ export class ConfirmaDoacaoComponent implements OnInit, DeclarationComponentInte
       }
   
   
-      this.web3Service.receberDoacao(this.doacao.cnpj, this.doacao.valor, "docHash", //FIXME:docHash
+      this.web3Service.receberDoacao(this.doacao.cnpj, this.doacao.valor, this.hashdeclaracao,
   
           (txHash) => {
           Utils.criarAlertasAvisoConfirmacao( txHash, 

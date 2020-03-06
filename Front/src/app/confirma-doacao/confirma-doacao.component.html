@@ -26,7 +26,7 @@
       </div>
 
       <div class="form-group col-md-4 col-sm-4" *ngIf="doacao.cnpjWithMask">
-        <label>Saldo:</label>
+        <label>Saldo de doações a confirmar:</label>
         <input currencyMask type="text" class="form-control form-control-sm" [ngModel]="doacao.saldo" readonly disabled/>
       </div>
     </div>
@@ -45,7 +45,7 @@
     <div class="row">
       <div class="form-group col-md-4 col-sm-4">
         <app-input-validation errorMessage="Campo Obrigatório">
-          <label class="required">Valor da doação a confirmar (em Reais):</label>
+          <label class="required">Confirmação do valor recebido (em R$):</label>
           <input currencyMask [options]="{ prefix: 'R$ '}" [(ngModel)]="doacao.valor" class="form-control form-control-sm" required [disabled]="this.flagUploadConcluido"/>
         </app-input-validation>
       </div>
@@ -59,7 +59,7 @@
 
   </div>
 
-    <div class="conteudo form-group" >
+    <div class="conteudo form-group" *ngIf="doacao.dadosCadastrais">
 
         <div class="row">
           <div class="form-group col-md-12 col-sm-12">

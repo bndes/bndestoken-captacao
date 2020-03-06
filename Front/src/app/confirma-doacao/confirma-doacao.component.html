@@ -15,7 +15,7 @@
       <div class="form-group col-md-4 col-sm-4">
         <label>CNPJ do Doador:</label>
         <input  #cnpj name="cnpjWithMask"  [(ngModel)]="doacao.cnpjWithMask" class="form-control form-control-sm" (input)="changeCnpj()"
-        [textMask]="{mask: maskCnpj}" required/>
+        [textMask]="{mask: maskCnpj}" required [disabled]="this.flagUploadConcluido"/>
       </div>
     </div>
 
@@ -46,7 +46,7 @@
       <div class="form-group col-md-4 col-sm-4">
         <app-input-validation errorMessage="Campo Obrigatório">
           <label class="required">Valor da doação a confirmar (em Reais):</label>
-          <input currencyMask [options]="{ prefix: 'R$ '}" [(ngModel)]="doacao.valor" class="form-control form-control-sm" required/>
+          <input currencyMask [options]="{ prefix: 'R$ '}" [(ngModel)]="doacao.valor" class="form-control form-control-sm" required [disabled]="this.flagUploadConcluido"/>
         </app-input-validation>
       </div>
 
@@ -70,21 +70,21 @@
           <div class="form-group col-md-10 col-sm-10">
             <label>Faça upload do comprovante do pagamento do boleto de doação</label>
           </div>
-        </div>                                         
+        </div>
         <div class="row">
           <div class="form-group col-md-10 col-sm-10">
               <input ng2FileSelect id="arquivo" type="file" accept=".pdf" [uploader]="this.fileHandleService.uploader" (change)="this.fileHandleService.chamaUpload()" /> 
               <div class="msg-hash-declaracao" *ngIf="hashdeclaracao">
                 Hash da Declaração: {{hashdeclaracao}}
               </div>
-          </div>              
-        </div>    
+          </div>
+        </div>
 
     </div>
 
 
   <div class="form-group">
-    <button type="button" class="btn btn-success btn-cabecalho" placement="bottom" ngbTooltip="Enviar" (click)="receberDoacao()">
+    <button type="button" class="btn btn-success btn-cabecalho" placement="bottom" ngbTooltip="Salvar" (click)="receberDoacao()">
       <i class="fa fa-floppy-o" aria-hidden="true"></i> Enviar
     </button> 
 

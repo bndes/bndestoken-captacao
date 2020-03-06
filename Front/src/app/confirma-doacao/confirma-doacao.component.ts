@@ -1,7 +1,7 @@
 import { Component, OnInit, NgZone, ChangeDetectorRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BnAlertsService } from 'bndes-ux4';
-
+import { FileHandleService } from '../file-handle.service';
 import { DeclarationComponentInterface } from '../shared/declaration-component.interface';
 
 import { Doacao } from "./Doacao";
@@ -24,8 +24,11 @@ export class ConfirmaDoacaoComponent implements OnInit, DeclarationComponentInte
   hashdeclaracao      : string;
   flagUploadConcluido : boolean;
 
+  CONTRATO_DOADOR = 0;  
+
   constructor(private pessoaJuridicaService: PessoaJuridicaService, protected bnAlertsService: BnAlertsService,
-    private web3Service: Web3Service, private router: Router, private zone: NgZone, private ref: ChangeDetectorRef) {       
+    private web3Service: Web3Service, private router: Router, private zone: NgZone, private ref: ChangeDetectorRef,
+    private fileHandleService: FileHandleService) {       
 
       let self = this;
       setInterval(function () {
@@ -70,10 +73,13 @@ export class ConfirmaDoacaoComponent implements OnInit, DeclarationComponentInte
         console.log (" Buscando o CNPJ do doador (14 digitos fornecidos)...  " + cnpj)
         this.recuperaDoadorPorCNPJ(cnpj);
       } 
+
+      this.fileHandleService.atualizaUploaderComponent(this.doacao.cnpj, this.CONTRATO_DOADOR, this.selectedAccount, "comp_doacao", this);
     }
   
     cancelar() { 
       this.doacao = new Doacao();
+      this.inicializaDoacao();
     }
 
     recuperaDoadorPorCNPJ(cnpj) {

@@ -34,3 +34,11 @@ arquivos/upload
 /arquivos/upload/*.xls
 /arquivos/upload/*.doc
 
+/arquivos/comprovante_doacao/*.pdf
+/arquivos/comprovante_doacao/*.txt
+/arquivos/comprovante_doacao/*.jpg
+/arquivos/comprovante_doacao/*.png
+/arquivos/comprovante_doacao/*.gif
+/arquivos/comprovante_doacao/*.csv
+/arquivos/comprovante_doacao/*.xls
+/arquivos/comprovante_doacao/*.doc

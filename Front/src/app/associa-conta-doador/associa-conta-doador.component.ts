@@ -101,8 +101,11 @@ export class AssociaContaDoadorComponent implements OnInit, DeclarationComponent
   }
 
   preparaUpload(cnpj, selectedAccount, self) {
+
+    const tipo = "declaracao";
+
     if (cnpj &&  selectedAccount) {
-      this.fileHandleService.atualizaUploaderComponent(cnpj, this.CONTRATO_DOADOR, selectedAccount, self);
+      this.fileHandleService.atualizaUploaderComponent(cnpj, this.CONTRATO_DOADOR, selectedAccount, tipo, self);
     }
   }
 

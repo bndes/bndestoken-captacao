@@ -83,8 +83,8 @@ export class ValidacaoCadastroComponent implements OnInit {
                 Utils.criarAlertaErro( this.bnAlertsService, texto,error);
               }) //fecha busca PJInfo
 
-              this.fileHandleService.buscaFileInfo(self.pj.cnpj, self.pj.idSubcredito, self.pj.contaBlockchain,
-                self.pj.hashDeclaracao).subscribe(
+              this.fileHandleService.buscaFileInfo(self.pj.cnpj, self.pj.idSubcredito, self.pj.contaBlockchain, 
+                self.pj.hashDeclaracao, "declaracao").subscribe(
                 result => {
                   if (result && result.pathAndName) {
                     self.pj.filePathAndName=ConstantesService.serverUrlRoot+result.pathAndName;

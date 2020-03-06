@@ -33,8 +33,6 @@ export class RecuperaAcessoClienteComponent implements OnInit, DeclarationCompon
 
       let self = this;
 
-      fileHandleService.atualizaUploaderComponent("", this.numeroSubcreditoSelecionado, this.selectedAccount, this);
-
       setInterval(function () {
         self.recuperaContaSelecionada(), 1000});
 
@@ -70,8 +68,10 @@ export class RecuperaAcessoClienteComponent implements OnInit, DeclarationCompon
   }
   
   preparaUpload() {
+    const tipo = "declaracao";      
+
     this.fileHandleService.atualizaUploaderComponent(this.cliente.cnpj, 
-                          this.numeroSubcreditoSelecionado, this.selectedAccount, this)
+                          this.numeroSubcreditoSelecionado, this.selectedAccount, tipo, this)
   }
 
   cancelar() {

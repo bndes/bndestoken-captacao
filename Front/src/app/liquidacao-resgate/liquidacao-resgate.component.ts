@@ -115,9 +115,10 @@ export class LiquidacaoResgateComponent implements OnInit, DeclarationComponentI
 
         if (self.liquidacaoResgate.hashResgate == eventoResgate.transactionHash) {
 
-          self.liquidacaoResgate.cnpj = eventoResgate.args.cnpj;
-          self.liquidacaoResgate.contratoFinanceiro = eventoResgate.args.idFinancialSupportAgreement;
+          self.liquidacaoResgate.cnpj = Utils.completarCnpjComZero(eventoResgate.args.cnpj);
+          self.liquidacaoResgate.contratoFinanceiro = Utils.completarContratoComZero(eventoResgate.args.idFinancialSupportAgreement);
           self.liquidacaoResgate.valorResgate = self.web3Service.converteInteiroParaDecimal(parseInt(eventoResgate.args.amount)),
+          self.preparaUpload(self.liquidacaoResgate.cnpj, self.liquidacaoResgate.contratoFinanceiro, self);
       
           self.web3Service.getBlockTimestamp(eventoResgate.blockHash,
             function (error, result) {

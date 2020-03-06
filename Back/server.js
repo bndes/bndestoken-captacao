@@ -296,6 +296,12 @@ function trataUpload(req, res, next) {
 				if (tipo=="declaracao") {					
 					target_path = DIR_CAMINHO_DECLARACAO + fileName;
 				}
+				else if (tipo=="comp_doacao") {
+					target_path = DIR_CAMINHO_COMPROVANTE_DOACAO + fileName;
+				}
+				else if (tipo=="comp_liq") {
+					target_path = DIR_CAMINHO_COMPROVANTE_LIQUIDACAO + fileName;
+				}		
 				else {
 					throw "erro tipo desconhecido para download de arquivo";
 				}
@@ -342,15 +348,19 @@ async function buscaFileInfo(req, res) {
 
 		if (tipo=="declaracao") {
 			filePathAndNameToFront = config.infra.caminhoDeclaracao + fileName;
-			console.log(filePathAndNameToFront);
-
 			targetPathToCalculateHash = DIR_CAMINHO_DECLARACAO + fileName;	
-			console.log(targetPathToCalculateHash);			
 		}		
+		else if (tipo=="comp_doacao") {
+			filePathAndNameToFront = config.infra.caminhoComprovanteDoacao + fileName;
+			targetPathToCalculateHash = DIR_CAMINHO_COMPROVANTE_DOACAO + fileName;	
+		}
+		else if (tipo=="comp_liq") {
+			filePathAndNameToFront = config.infra.caminhoComprovanteLiquidacao + fileName;
+			targetPathToCalculateHash = DIR_CAMINHO_COMPROVANTE_LIQUIDACAO + fileName;	
+		}
 		else {
 			throw "erro tipo desconhecido para buscar arquivo";
 		}
-
 
 		//verifica integridade do arquivo
 		hashedResult = await calculaHash(targetPathToCalculateHash);

@@ -79,8 +79,7 @@ app.use('/'+config.infra.caminhoDeclaracao, express.static('/' + config.infra.ca
 //Configuracao de acesso ao BD
 let configAcessoBDPJ = config.infra.acesso_BD_PJ;
 configAcessoBDPJ.password = process.env.BNC_BD_PJ_PASSWORD;
-console.info("configAcessoBDPJ=");
-console.info(configAcessoBDPJ);
+
 
 
 var contrato_json_BNDESToken = require(config.infra.contrato_json_BNDESToken);

@@ -33,8 +33,7 @@ export class RecuperaAcessoDoadorComponent implements OnInit, DeclarationCompone
     private fileHandleService: FileHandleService) { 
 
       let self = this;
-
-      fileHandleService.atualizaUploaderComponent("", this.CONTRATO_DOADOR, this.selectedAccount, this);
+      const tipo = "declaracao";
 
       setInterval(function () {
         self.recuperaContaSelecionada(), 1000});
@@ -69,7 +68,7 @@ export class RecuperaAcessoDoadorComponent implements OnInit, DeclarationCompone
     else {
       this.inicializaDadosTroca();
     } 
-    this.fileHandleService.atualizaUploaderComponent(this.doador.cnpj, this.CONTRATO_DOADOR, this.selectedAccount, this);
+    this.fileHandleService.atualizaUploaderComponent(this.doador.cnpj, this.CONTRATO_DOADOR, this.selectedAccount, "declaracao", this);
 
   }
 

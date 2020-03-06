@@ -9,7 +9,7 @@ export class ContratoPipe implements PipeTransform {
             value = value.toString();
 
             if(!value){
-                return "-";
+                return "0";
             }
 
             if(value.length < 8) {

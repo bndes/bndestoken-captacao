@@ -77,9 +77,10 @@ export class AssociaContaClienteComponent implements OnInit, DeclarationComponen
     console.log("cnpj=" + cnpj);
     console.log("contrato=" + contrato);
     console.log("selectedAccount=" + selectedAccount);
+    const tipo = "declaracao";
 
     if (cnpj && contrato &&  selectedAccount) {
-      this.fileHandleService.atualizaUploaderComponent(cnpj, contrato, selectedAccount, self);
+      this.fileHandleService.atualizaUploaderComponent(cnpj, contrato, selectedAccount, tipo, self);
     }
   }  
 

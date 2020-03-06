@@ -88,7 +88,7 @@ export class HabilitaCadastroComponent implements OnInit {
                 },
                 error => {
                   let texto = "Erro ao buscar dados da empresa";
-                  console.log(texto);
+                  console.log(texto);                
                   Utils.criarAlertaErro( this.bnAlertsService, texto,error);
                 }) //fecha busca PJInfo
      
@@ -96,6 +96,9 @@ export class HabilitaCadastroComponent implements OnInit {
              } //fecha if de PJ valida
   
              else {
+
+              console.log("Não encontrou PJ para essa conta");
+
               self.pj.cnpj = "0";
               self.pj.idSubcredito = "0";
               self.pj.status = "N/A";
@@ -105,6 +108,7 @@ export class HabilitaCadastroComponent implements OnInit {
             },
             (error) => {
               self.apagaCamposDaEstrutura();
+              console.log(error);
               console.warn("Erro ao buscar dados da conta na blockchain")
             })
       } 

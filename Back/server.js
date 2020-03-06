@@ -12,10 +12,18 @@ const fs 		= require('fs');
 const keccak256 = require('keccak256'); 
 
 const multer = require('multer');
-const DIR = config.infra.caminhoUpload;
+
+const DIR_UPLOAD = config.infra.caminhoArquivos + config.infra.caminhoUpload;
+const DIR_CAMINHO_DECLARACAO = config.infra.caminhoArquivos + config.infra.caminhoDeclaracao;
+const DIR_CAMINHO_COMPROVANTE_DOACAO = config.infra.caminhoArquivos + config.infra.caminhoComprovanteDoacao;
+const DIR_CAMINHO_COMPROVANTE_LIQUIDACAO = config.infra.caminhoArquivos + config.infra.caminhoComprovanteLiquidacao;
+
 const MAX_FILE_SIZE = config.negocio.maxFileSize;
 
-const uploadMiddleware = multer({ dest: DIR, limits: {fileSize: MAX_FILE_SIZE} }).single('arquivo');
+const uploadMiddleware = multer({ dest: DIR_UPLOAD, limits: {fileSize: MAX_FILE_SIZE} }).single('arquivo');
+
+
+
 
 
 // Configuration
@@ -38,7 +46,7 @@ app.use(function (req, res, next) {
 app.use(express.static('arquivos'));
 
 //Serves all the request which includes /declaracao in the url from declaracao folder
-app.use('/'+config.infra.caminhoDeclaracaoFront, express.static('/' + config.infra.caminhoDeclaracaoFront));
+app.use('/'+config.infra.caminhoDeclaracao, express.static('/' + config.infra.caminhoDeclaracao));
 
 
 
@@ -119,7 +127,7 @@ app.get('/api/abi', function (req, res) {
 
 app.get('/api/hash/:filename', async function (req, res) {
 	const filename = req.params.filename;		
-	const hashedResult = await calculaHash(config.infra.caminhoUpload + '/' + filename);
+	const hashedResult = await calculaHash(config.infra.caminhoUpload + filename);
 	return res.json(hashedResult);
 })
 
@@ -274,14 +282,24 @@ function trataUpload(req, res, next) {
 				let cnpj     = req.body.cnpj;
 				let contrato = req.body.contrato;	
 				let conta    = req.body.contaBlockchain;
+				let tipo     = req.body.tipo;
+
+				console.log("tipo=");
+				console.log(tipo);				
 
 				const tmp_path = req.file.path;
-				const hashedResult = await calculaHash(tmp_path);
-				
-				let fileName = montaNomeArquivo(cnpj, contrato, conta, hashedResult);	
+				const hashedResult = await calculaHash(tmp_path);			
 
-				const target_path = config.infra.caminhoDeclaracao + '/' +  fileName;
+				let fileName = montaNomeArquivo(cnpj, contrato, conta, hashedResult);
+				let target_path = "";
 
+				if (tipo=="declaracao") {					
+					target_path = DIR_CAMINHO_DECLARACAO + fileName;
+				}
+				else {
+					throw "erro tipo desconhecido para download de arquivo";
+				}
+								
 				// A better way to copy the uploaded file. 
 				const src  = fs.createReadStream(tmp_path);
 				const dest = fs.createWriteStream(target_path);
@@ -309,20 +327,33 @@ async function buscaFileInfo(req, res) {
 	let filePathAndNameToFront;
 	let hashedResult;
 	let hashFile;
+	let targetPathToCalculateHash;
 
 	try {
 
 		let cnpj     = req.body.cnpj;
 		let contrato = req.body.contrato;
 		let blockchainAccount = req.body.blockchainAccount;
-		hashFile = req.body.hashFile;
+		let tipo     = req.body.tipo;
+		console.log("tipo=" + tipo);
 
+		hashFile = req.body.hashFile;
 		let fileName = montaNomeArquivo(cnpj, contrato, blockchainAccount, hashFile);
-		filePathAndNameToFront = config.infra.caminhoDeclaracaoFront + '/' + fileName;
+
+		if (tipo=="declaracao") {
+			filePathAndNameToFront = config.infra.caminhoDeclaracao + fileName;
+			console.log(filePathAndNameToFront);
+
+			targetPathToCalculateHash = DIR_CAMINHO_DECLARACAO + fileName;	
+			console.log(targetPathToCalculateHash);			
+		}		
+		else {
+			throw "erro tipo desconhecido para buscar arquivo";
+		}
+
 
 		//verifica integridade do arquivo
-		let targetPath = config.infra.caminhoDeclaracao + '/' + fileName;
-		hashedResult = await calculaHash(targetPath);
+		hashedResult = await calculaHash(targetPathToCalculateHash);
 
 	}
 	catch (err) {

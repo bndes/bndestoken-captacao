@@ -40,7 +40,7 @@ export class FileHandleService {
   }
 
 
-  buscaFileInfo(cnpj: string, contrato: string, blockchainAccount: string, hashFile: string): Observable<any> {
+  buscaFileInfo(cnpj: string, contrato: string, blockchainAccount: string, hashFile: string, tipo: string): Observable<any> {
 
     let str_cnpj = new String(cnpj);
 
@@ -55,11 +55,11 @@ export class FileHandleService {
 
 
     return this.http.post<Object>(this.serverUrl + 'fileinfo', { cnpj: str_cnpj, contrato: str_contrato, 
-      blockchainAccount: blockchainAccount, hashFile: hashFile })
+      blockchainAccount: blockchainAccount, hashFile: hashFile, tipo: tipo })
       .catch(this.handleError);
   }
 
-  atualizaUploaderComponent(_cnpj, _contrato, _contaBlockchain, componenteComDeclaracao) {
+  atualizaUploaderComponent(_cnpj, _contrato, _contaBlockchain, _tipo, componenteComDeclaracao) {
     let self = this;
     this.uploader = new FileUploader({ 
                           url: ConstantesService.serverUrl + "upload",                          
@@ -67,7 +67,8 @@ export class FileHandleService {
                           additionalParameter: {
                                 cnpj:             _cnpj,
                                 contrato:         _contrato,
-                                contaBlockchain:  _contaBlockchain
+                                contaBlockchain:  _contaBlockchain,
+                                tipo: _tipo
                               },
                           
                           itemAlias:  "arquivo"});

@@ -1,9 +1,10 @@
 import { Component, OnInit, NgZone } from '@angular/core'
 import { ChangeDetectorRef } from '@angular/core'
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-
+import { FileHandleService } from '../file-handle.service';
 import { Web3Service } from './../Web3Service'
 import { PessoaJuridicaService } from '../pessoa-juridica.service';
+import { DeclarationComponentInterface } from '../shared/declaration-component.interface';
 
 import { BnAlertsService } from 'bndes-ux4'
 
@@ -15,7 +16,7 @@ import { Utils } from '../shared/utils';
   templateUrl: './liquidacao-resgate.component.html',
   styleUrls: ['./liquidacao-resgate.component.css']
 })
-export class LiquidacaoResgateComponent implements OnInit {
+export class LiquidacaoResgateComponent implements OnInit, DeclarationComponentInterface {
 
   liquidacaoResgate: LiquidacaoResgate;
 
@@ -24,13 +25,15 @@ export class LiquidacaoResgateComponent implements OnInit {
   solicitacaoResgateId: string;
   maskCnpj: any;  
   blockchainNetworkPrefix: string;  
-
+  hashdeclaracao      : string;
+  flagUploadConcluido : boolean;
 
   constructor(private pessoaJuridicaService: PessoaJuridicaService,
     private bnAlertsService: BnAlertsService,
     private web3Service: Web3Service,
     private ref: ChangeDetectorRef,
-    private zone: NgZone, private router: Router, private route: ActivatedRoute ) { }
+    private zone: NgZone, private router: Router, private route: ActivatedRoute,
+    private fileHandleService: FileHandleService ) { }
 
   ngOnInit() {
 
@@ -47,11 +50,14 @@ export class LiquidacaoResgateComponent implements OnInit {
 
     self.recuperaStatusResgate();
     self.recuperaStatusLiquidacaoResgate();    
+    
+    this.flagUploadConcluido = false;     
+    this.hashdeclaracao = "";   
 
   }
 
 
-
+/*
   async recuperaContaSelecionada() {
     
     let self = this;
@@ -65,7 +71,40 @@ export class LiquidacaoResgateComponent implements OnInit {
       this.atualizaIsResponsibleForSettlement()
     }
   }  
+*/
+  async recuperaContaSelecionada() {
+            
+    let self = this;    
+    let newSelectedAccount = await this.web3Service.getCurrentAccountSync();
+    if ( !self.selectedAccount || (newSelectedAccount !== self.selectedAccount && newSelectedAccount)) {
+        if ( this.flagUploadConcluido == false ) {
+          this.selectedAccount = newSelectedAccount;
+          console.log("selectedAccount=" + this.selectedAccount);          
+          //this.preparaUpload(self.liquidacaoResgate.cnpj, this.selectedAccount, this);
+          this.fileHandleService.atualizaUploaderComponent(self.liquidacaoResgate.cnpj, self.liquidacaoResgate.contratoFinanceiro, this.selectedAccount, "comp_liq", this);
+          this.atualizaIsResponsibleForSettlement();
+        }
+        else {
+          console.log( "Upload has already made! You should not change your account. Reseting... " );
+          this.cancelar();
+        }
+    }
+    
+  }
 
+  preparaUpload(cnpj, selectedAccount, self) {
+
+    const tipo = "comp_liq";
+
+    if (cnpj &&  selectedAccount) {
+      this.fileHandleService.atualizaUploaderComponent(cnpj, self.liquidacaoResgate.contratoFinanceiro, selectedAccount, tipo, self);
+    }
+  }
+
+  cancelar() { 
+    this.liquidacaoResgate = new LiquidacaoResgate();    
+    this.flagUploadConcluido = false;     
+  }
 
   recuperaStatusResgate() {
 
@@ -163,7 +202,7 @@ export class LiquidacaoResgateComponent implements OnInit {
   }
 
   async liquidar() {
-    
+this.liquidacaoResgate.hashComprovacao = this.hashdeclaracao ;
     console.log("Liquidando o resgate..");
     console.log("hashResgate" + this.liquidacaoResgate.hashResgate);
     console.log("hashComprovacao" + this.liquidacaoResgate.hashComprovacao);    

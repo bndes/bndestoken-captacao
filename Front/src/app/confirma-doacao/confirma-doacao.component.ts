@@ -52,8 +52,7 @@ export class ConfirmaDoacaoComponent implements OnInit, DeclarationComponentInte
   }
 
     async recuperaContaSelecionada() {
-    
-        
+            
     let self = this;    
     let newSelectedAccount = await this.web3Service.getCurrentAccountSync();
     if ( !self.selectedAccount || (newSelectedAccount !== self.selectedAccount && newSelectedAccount)) {

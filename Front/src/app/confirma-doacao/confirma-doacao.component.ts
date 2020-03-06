@@ -2,6 +2,8 @@ import { Component, OnInit, NgZone, ChangeDetectorRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BnAlertsService } from 'bndes-ux4';
 
+import { DeclarationComponentInterface } from '../shared/declaration-component.interface';
+
 import { Doacao } from "./Doacao";
 import { PessoaJuridicaService } from '../pessoa-juridica.service';
 import { Web3Service } from './../Web3Service';
@@ -12,13 +14,15 @@ import { Utils } from '../shared/utils';
   templateUrl: './confirma-doacao.component.html',
   styleUrls: ['./confirma-doacao.component.css']
 })
-export class ConfirmaDoacaoComponent implements OnInit {
+export class ConfirmaDoacaoComponent implements OnInit, DeclarationComponentInterface {
 
   doacao: Doacao = new Doacao();
 
   selectedAccount: any;
 
-  maskCnpj: any;
+  maskCnpj            : any;
+  hashdeclaracao      : string;
+  flagUploadConcluido : boolean;
 
   constructor(private pessoaJuridicaService: PessoaJuridicaService, protected bnAlertsService: BnAlertsService,
     private web3Service: Web3Service, private router: Router, private zone: NgZone, private ref: ChangeDetectorRef) {       
@@ -40,6 +44,8 @@ export class ConfirmaDoacaoComponent implements OnInit {
     this.doacao.cnpj = "";
     this.doacao.saldo = undefined;
     this.doacao.valor = 0;
+    this.hashdeclaracao = "";   
+    this.flagUploadConcluido = false;     
   }
 
   async recuperaContaSelecionada() {

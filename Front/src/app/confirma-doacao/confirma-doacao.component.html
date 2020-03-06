@@ -59,6 +59,30 @@
 
   </div>
 
+    <div class="conteudo form-group" >
+
+        <div class="row">
+          <div class="form-group col-md-12 col-sm-12">
+            <p>Upload de Comprovante da Doação</p>
+          </div>
+        </div>   
+        <div class="row">
+          <div class="form-group col-md-10 col-sm-10">
+            <label>Faça upload do comprovante do pagamento do boleto de doação</label>
+          </div>
+        </div>                                         
+        <div class="row">
+          <div class="form-group col-md-10 col-sm-10">
+              <input ng2FileSelect id="arquivo" type="file" accept=".pdf" [uploader]="this.fileHandleService.uploader" (change)="this.fileHandleService.chamaUpload()" /> 
+              <div class="msg-hash-declaracao" *ngIf="hashdeclaracao">
+                Hash da Declaração: {{hashdeclaracao}}
+              </div>
+          </div>              
+        </div>    
+
+    </div>
+
+
   <div class="form-group">
     <button type="button" class="btn btn-success btn-cabecalho" placement="bottom" ngbTooltip="Enviar" (click)="receberDoacao()">
       <i class="fa fa-floppy-o" aria-hidden="true"></i> Enviar

@@ -27,6 +27,7 @@
             <i [hidden]="reverse" class="fa fa-caret-down"></i>
             <i [hidden]="!reverse" class="fa fa-caret-up"></i>
           </th>
+          <th>Comprovante</th>          
           <th [class.active]="order === 'dataHora'" (click)="setOrder('dataHora')">Data/Hora
             <i [hidden]="reverse" class="fa fa-caret-down"></i>
             <i [hidden]="!reverse" class="fa fa-caret-up"></i>
@@ -44,6 +45,10 @@
           <td>{{transacao.razaoSocial}}</td>
           <td>{{transacao.cnpj | cnpjMask}}</td>
           <td>{{transacao.valor | currency:"BRL":"symbol":'1.2-2':'pt' }}</td>   
+          <td class="tooltipCaixa">
+            <a target="_blank" href="{{transacao.filePathAndName}}">
+              {{transacao.hashComprovante | hashMask}}
+            </a>      
           <td>{{transacao.dataHora | date: 'dd/MM/yyyy hh:mm a' }}</td>
           <td>{{transacao.tipo}}</td>
           <td class="text-center">

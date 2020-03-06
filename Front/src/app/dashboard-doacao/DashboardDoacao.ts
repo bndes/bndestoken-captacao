@@ -6,5 +6,6 @@ export class DashboardDoacao {
     tipo: string;
     hashID: string;
     uniqueIdentifier: string;
-
+    hashComprovante: string;
+    filePathAndName: string;
   }

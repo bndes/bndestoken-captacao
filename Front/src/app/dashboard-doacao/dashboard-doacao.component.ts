@@ -4,7 +4,9 @@ import { ChangeDetectorRef } from '@angular/core';
 import { Web3Service } from './../Web3Service';
 import { PessoaJuridicaService } from '../pessoa-juridica.service';
 import { BnAlertsService } from 'bndes-ux4';
-
+import { ConstantesService } from '../ConstantesService';
+import { Utils } from '../shared/utils';
+import {FileHandleService} from "../file-handle.service";
 import {DashboardDoacao} from "./DashboardDoacao";
 
 @Component({
@@ -26,8 +28,10 @@ export class DashboardDoacaoComponent implements OnInit {
 
   selectedAccount: any;
 
-  constructor(private pessoaJuridicaService: PessoaJuridicaService, protected bnAlertsService: BnAlertsService, private web3Service: Web3Service,
-      private ref: ChangeDetectorRef, private zone: NgZone) {
+  constructor(private pessoaJuridicaService: PessoaJuridicaService, 
+    private fileHandleService: FileHandleService,
+    protected bnAlertsService: BnAlertsService, private web3Service: Web3Service,
+    private ref: ChangeDetectorRef, private zone: NgZone) {
 
           let self = this;
           self.recuperaContaSelecionada();
@@ -102,7 +106,9 @@ export class DashboardDoacaoComponent implements OnInit {
                 dataHora: null,
                 tipo: "Intenção Registrada",
                 hashID: event.transactionHash,
-                uniqueIdentifier: event.transactionHash
+                uniqueIdentifier: event.transactionHash,
+                hashComprovante: "",
+                filePathAndName: ""
             }
 
             self.includeIfNotExists(transacao);
@@ -140,13 +146,15 @@ export class DashboardDoacaoComponent implements OnInit {
                 dataHora: null,
                 tipo: "Doação Confirmada",
                 hashID: event.transactionHash,
-                uniqueIdentifier: event.transactionHash
+                uniqueIdentifier: event.transactionHash,
+                hashComprovante: event.args.docHash,
+                filePathAndName: ""                
             }
 
             self.includeIfNotExists(transacao);
             self.recuperaInfoDerivadaPorCnpj(self, transacao);
             self.recuperaDataHora(self, event, transacao);
-
+            self.recuperaFilePathAndName(self,transacao);
 
         } else {
             console.log("Erro no registro de eventos de cadastro");
@@ -216,6 +224,28 @@ recuperaDataHora(self, event, transacaoPJ) {
 
 }
 
-  
+recuperaFilePathAndName(self,transacao) {
+
+    self.fileHandleService.buscaFileInfo(transacao.cnpj, "0", "0", transacao.hashComprovante, "comp_doacao").subscribe(
+        result => {
+          if (result && result.pathAndName) {
+            transacao.filePathAndName=ConstantesService.serverUrlRoot+result.pathAndName;
+          }
+          else {
+            let texto = "Não foi possível encontrar informações associadas ao arquivo.";
+            console.log(texto);
+            Utils.criarAlertaAcaoUsuario( self.bnAlertsService, texto);       
+          }                  
+        }, 
+        error => {
+          let texto = "Erro ao buscar dados de arquivo";
+          console.log(texto);
+          console.log("cnpj=" + transacao.cnpj);
+          console.log("hashComprovante=" + transacao.hashComprovante);
+//              Utils.criarAlertaErro( self.bnAlertsService, texto,error);
+        }) //fecha busca fileInfo
+
+}
+
 
 }

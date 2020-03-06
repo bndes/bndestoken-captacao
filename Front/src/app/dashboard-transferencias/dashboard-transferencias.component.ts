@@ -10,6 +10,9 @@ import { PessoaJuridicaService } from '../pessoa-juridica.service';
 import { GoogleMapsService, Marcador, MarcadorLinha } from '../shared/google-maps.service';
 
 import { BnAlertsService } from 'bndes-ux4';
+import { Utils } from '../shared/utils';
+import { ConstantesService } from '../ConstantesService';
+import {FileHandleService} from "../file-handle.service";
 
 
 @Component({
@@ -77,7 +80,9 @@ export class DashboardTransferenciasComponent implements OnInit {
   selectedAccount: any;  
   blockchainNetworkPrefix: string;  
 
-  constructor(private pessoaJuridicaService: PessoaJuridicaService, protected bnAlertsService: BnAlertsService,
+  constructor(private pessoaJuridicaService: PessoaJuridicaService, 
+    private fileHandleService: FileHandleService,
+    protected bnAlertsService: BnAlertsService,
     private web3Service: Web3Service, private ref: ChangeDetectorRef, private zone: NgZone, 
     private router: Router, private mapa: GoogleMapsService) { 
 

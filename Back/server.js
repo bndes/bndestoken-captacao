@@ -289,17 +289,19 @@ function trataUpload(req, res, next) {
 
 				const tmp_path = req.file.path;
 				const hashedResult = await calculaHash(tmp_path);			
-
-				let fileName = montaNomeArquivo(cnpj, contrato, conta, hashedResult);
+				
 				let target_path = "";
 
 				if (tipo=="declaracao") {					
+					let fileName = montaNomeArquivoDeclaracao(cnpj, contrato, conta, hashedResult);
 					target_path = DIR_CAMINHO_DECLARACAO + fileName;
 				}
 				else if (tipo=="comp_doacao") {
+					let fileName = montaNomeArquivoComprovanteDoacao(cnpj, hashedResult);
 					target_path = DIR_CAMINHO_COMPROVANTE_DOACAO + fileName;
 				}
 				else if (tipo=="comp_liq") {
+					let fileName = montaNomeArquivoComprovanteLiquidacao(cnpj, contrato, hashedResult);
 					target_path = DIR_CAMINHO_COMPROVANTE_LIQUIDACAO + fileName;
 				}		
 				else {
@@ -343,18 +345,20 @@ async function buscaFileInfo(req, res) {
 		let tipo     = req.body.tipo;
 		console.log("tipo=" + tipo);
 
-		hashFile = req.body.hashFile;
-		let fileName = montaNomeArquivo(cnpj, contrato, blockchainAccount, hashFile);
+		hashFile = req.body.hashFile;		
 
 		if (tipo=="declaracao") {
+			let fileName = montaNomeArquivoDeclaracao(cnpj, contrato, blockchainAccount, hashFile);
 			filePathAndNameToFront = config.infra.caminhoDeclaracao + fileName;
 			targetPathToCalculateHash = DIR_CAMINHO_DECLARACAO + fileName;	
 		}		
 		else if (tipo=="comp_doacao") {
+			let fileName = montaNomeArquivoComprovanteDoacao(cnpj, hashFile);			
 			filePathAndNameToFront = config.infra.caminhoComprovanteDoacao + fileName;
 			targetPathToCalculateHash = DIR_CAMINHO_COMPROVANTE_DOACAO + fileName;	
 		}
 		else if (tipo=="comp_liq") {
+			let fileName = montaNomeArquivoComprovanteLiquidacao(cnpj, contrato, hashFile);						
 			filePathAndNameToFront = config.infra.caminhoComprovanteLiquidacao + fileName;
 			targetPathToCalculateHash = DIR_CAMINHO_COMPROVANTE_LIQUIDACAO + fileName;	
 		}
@@ -391,8 +395,16 @@ async function buscaFileInfo(req, res) {
 
 }
 
-function montaNomeArquivo(cnpj, contrato, blockchainAccount, hashFile) {
-	return (cnpj + '_' + contrato + '_' + blockchainAccount + '_' + hashFile +  '.PDF');
+function montaNomeArquivoDeclaracao(cnpj, contrato, blockchainAccount, hashFile) {
+	return ("DECL" + "_" + cnpj + '_' + contrato + '_' + blockchainAccount + '_' + hashFile +  '.PDF');
+}
+
+function montaNomeArquivoComprovanteDoacao(cnpj, hashFile) {
+	return ("COMP_DOACAO" + "_" + cnpj + '_' + hashFile +  '.PDF');
+}
+
+function montaNomeArquivoComprovanteLiquidacao(cnpj, contrato, hashFile) {
+	return ("COMP_LIQ" + "_" + cnpj + '_' + contrato + '_' + hashFile +  '.PDF');
 }
 
 // listen (start app with node server.js) ======================================

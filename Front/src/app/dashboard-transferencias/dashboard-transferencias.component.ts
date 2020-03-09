@@ -346,7 +346,7 @@ export class DashboardTransferenciasComponent implements OnInit {
  
 } 
 
-}
+
 
 /* Necessario rever
   selecionaTransacao(position: number, transferencia: DashboardTransferencia) {

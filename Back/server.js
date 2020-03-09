@@ -46,7 +46,7 @@ app.use(function (req, res, next) {
 app.use(express.static('arquivos'));
 
 //Serves all the request which includes /declaracao in the url from declaracao folder
-app.use('/'+config.infra.caminhoDeclaracao, express.static('/' + config.infra.caminhoDeclaracao));
+app.use('./arquivos/'+config.infra.caminhoDeclaracao, express.static('./arquivos/' + config.infra.caminhoDeclaracao));
 
 
 

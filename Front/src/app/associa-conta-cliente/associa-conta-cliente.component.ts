@@ -214,7 +214,7 @@ export class AssociaContaClienteComponent implements OnInit, DeclarationComponen
 
 
 
-  associarContaCliente() {
+  async associarContaCliente() {
 
     let self = this;
 
@@ -234,8 +234,14 @@ export class AssociaContaClienteComponent implements OnInit, DeclarationComponen
       this.bnAlertsService.criarAlerta("error", "Erro", s, 2)
       return;
     }
-    
+    let bChangeAccountSync = await this.web3Service.isChangeAccountEnabledSync(this.selectedAccount);
+    if (!bChangeAccountSync) {
+      let s = "A conta não está habilitada para troca. Contacte o BNDES";
+      this.bnAlertsService.criarAlerta("error", "Erro", s, 5);
+      return;
+    }
 
+    
 
     this.web3Service.isContaDisponivel(this.selectedAccount, 
     

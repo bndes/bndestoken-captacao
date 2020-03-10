@@ -43,13 +43,13 @@ app.use(function (req, res, next) {
 	next();
 });
 
-//app.use(express.static('arquivos'));
+app.use(express.static('arquivos'));
 
 //Serves all the request which includes /declaracao in the url from declaracao folder
 //app.use('/'+config.infra.caminhoDeclaracao, express.static('./arquivos/' + config.infra.caminhoDeclaracao));
-app.use('/declaracao', express.static(DIR_CAMINHO_DECLARACAO));
-app.use('/comprovante_doacao', express.static(DIR_CAMINHO_COMPROVANTE_DOACAO));
-app.use('/comprovante_liquidacao', express.static(DIR_CAMINHO_COMPROVANTE_LIQUIDACAO));
+//app.use('/declaracao', express.static(DIR_CAMINHO_DECLARACAO));
+//app.use('/comprovante_doacao', express.static(DIR_CAMINHO_COMPROVANTE_DOACAO));
+//app.use('/comprovante_liquidacao', express.static(DIR_CAMINHO_COMPROVANTE_LIQUIDACAO));
 
 
 

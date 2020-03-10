@@ -43,14 +43,10 @@ app.use(function (req, res, next) {
 	next();
 });
 
-app.use(express.static('arquivos'));
+console.log(config.infra.caminhoPastaPublica);
 
-//Serves all the request which includes /declaracao in the url from declaracao folder
-//app.use('/'+config.infra.caminhoDeclaracao, express.static('./arquivos/' + config.infra.caminhoDeclaracao));
-//app.use('/declaracao', express.static(DIR_CAMINHO_DECLARACAO));
-//app.use('/comprovante_doacao', express.static(DIR_CAMINHO_COMPROVANTE_DOACAO));
-//app.use('/comprovante_liquidacao', express.static(DIR_CAMINHO_COMPROVANTE_LIQUIDACAO));
-
+//https://expressjs.com/pt-br/starter/static-files.html
+app.use(express.static(config.infra.caminhoPastaPublica));
 
 
 //Promise.promisifyAll(mongoose); // key part - promisification

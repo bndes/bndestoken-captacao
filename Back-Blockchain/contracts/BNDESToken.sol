@@ -18,10 +18,12 @@ contract BNDESToken is Pausable {
     uint256 public confirmedTotalSupply;
     /* Number of decimals stored in balance's mappings */
     uint8 public decimals;
+    /* BNDES Fee percentage */
+    uint256 public bndesFee;
     
     /* Higher level events */
     event DonationBooked      (uint64 cnpj, uint256 amount);
-    event DonationConfirmed   (uint64 cnpj, uint256 amount, string docHash);
+    event DonationConfirmed   (uint64 cnpj, uint256 amount, uint256 tokenMinted, string docHash);
     event Disbursement        (uint64 cnpj, uint256 amount, uint64 idFinancialSupportAgreement);
     event RedemptionRequested (uint64 cnpj, uint256 amount, uint64 idFinancialSupportAgreement);
     event RedemptionSettlement(string redemptionTransactionHash, string  receiptHash);
@@ -32,9 +34,10 @@ contract BNDESToken is Pausable {
     
     BNDESRegistry registry;
     
-    constructor (BNDESRegistry _registry, uint8 _decimals) public {
+    constructor (BNDESRegistry _registry, uint8 _decimals, uint256 _bndesFee) public {
         registry = BNDESRegistry(_registry);
         decimals = _decimals;
+        bndesFee = _bndesFee;
     }
     
     /* Donor books a donation */
@@ -47,14 +50,17 @@ contract BNDESToken is Pausable {
     }
     
     /* BNDES confirms the donor's donation */
-    function confirmDonation(address account, uint256 amount, string memory docHash) public whenNotPaused onlyResponsibleForDonationConfirmation {
-        bookedTotalSupply = bookedTotalSupply.sub(amount);
-        confirmedTotalSupply = confirmedTotalSupply.add(amount);
-        
-        bookedBalances[account] = bookedBalances[account].sub(amount);
-        confirmedBalances[registry.getResponsibleForDisbursement()] = confirmedBalances[registry.getResponsibleForDisbursement()].add(amount);
+    function confirmDonation(address account, uint256 amount, string memory docHash) public whenNotPaused onlyResponsibleForDonationConfirmation {       
+        uint256 tokenMinted = amount.sub(amount.mul(bndesFee).div(100));
+
+        bookedTotalSupply    = bookedTotalSupply.sub( amount );
+        confirmedTotalSupply = confirmedTotalSupply.add( tokenMinted );
+
+        bookedBalances[account] = bookedBalances[account].sub( amount );
+        confirmedBalances[registry.getResponsibleForDisbursement()] = 
+                confirmedBalances[registry.getResponsibleForDisbursement()].add( tokenMinted );
         uint64 cnpj = registry.getCNPJ(account);
-        emit DonationConfirmed(cnpj, amount, docHash);
+        emit DonationConfirmed(cnpj, amount, tokenMinted, docHash);
     }
     
     /* BNDES disbursement - transfer donations to a client */

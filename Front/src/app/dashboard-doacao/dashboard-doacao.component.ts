@@ -98,11 +98,15 @@ export class DashboardDoacaoComponent implements OnInit {
             console.log("Evento Registrar Doacao");
             console.log(event);
 
+            let txAdm = self.web3Service.converteInteiroParaDecimal(parseInt(event.args.amount)) -
+            self.web3Service.converteInteiroParaDecimal(parseInt(event.args.tokenMinted));
                  
             transacao = {
                 cnpj: event.args.cnpj,
                 razaoSocial: "",
-                valor: self.web3Service.converteInteiroParaDecimal(parseInt(event.args.amount)),
+                valor: self.web3Service.converteInteiroParaDecimal(parseInt(event.args.amount)),                
+                tokenMinted: self.web3Service.converteInteiroParaDecimal(parseInt(event.args.tokenMinted)),                
+                txAdm: txAdm,
                 dataHora: null,
                 tipo: "Intenção Registrada",
                 hashID: event.transactionHash,
@@ -138,11 +142,15 @@ export class DashboardDoacaoComponent implements OnInit {
             console.log("Evento Receber Doacao");
             console.log(event);
 
+            let txAdm = self.web3Service.converteInteiroParaDecimal(parseInt(event.args.amount)) -
+                    self.web3Service.converteInteiroParaDecimal(parseInt(event.args.tokenMinted));
                  
             transacao = {
                 cnpj: event.args.cnpj,
                 razaoSocial: "",
-                valor: self.web3Service.converteInteiroParaDecimal(parseInt(event.args.amount)),
+                valor      : self.web3Service.converteInteiroParaDecimal(parseInt(event.args.amount)),
+                tokenMinted: self.web3Service.converteInteiroParaDecimal(parseInt(event.args.tokenMinted)),
+                txAdm: txAdm,
                 dataHora: null,
                 tipo: "Doação Confirmada",
                 hashID: event.transactionHash,

@@ -23,10 +23,22 @@
             <i [hidden]="reverse" class="fa fa-caret-down"></i>
             <i [hidden]="!reverse" class="fa fa-caret-up"></i>
           </th>
-          <th [class.active]="order === 'valor'" (click)="setOrder('valor')" scope="col">Valor em Reais
+          
+          <th [class.active]="order === 'valor'" (click)="setOrder('valor')" scope="col">Valor doado
             <i [hidden]="reverse" class="fa fa-caret-down"></i>
             <i [hidden]="!reverse" class="fa fa-caret-up"></i>
           </th>
+
+          <th [class.active]="order === 'valor'" (click)="setOrder('valor')" scope="col">Taxa Administração
+            <i [hidden]="reverse" class="fa fa-caret-down"></i>
+            <i [hidden]="!reverse" class="fa fa-caret-up"></i>
+          </th>
+
+          <th [class.active]="order === 'valor'" (click)="setOrder('valor')" scope="col">Tokens Emitidos
+            <i [hidden]="reverse" class="fa fa-caret-down"></i>
+            <i [hidden]="!reverse" class="fa fa-caret-up"></i>
+          </th>
+
           <th>Comprovante</th>          
           <th [class.active]="order === 'dataHora'" (click)="setOrder('dataHora')">Data/Hora
             <i [hidden]="reverse" class="fa fa-caret-down"></i>
@@ -45,6 +57,8 @@
           <td>{{transacao.razaoSocial}}</td>
           <td>{{transacao.cnpj | cnpjMask}}</td>
           <td>{{transacao.valor | currency:"BRL":"symbol":'1.2-2':'pt' }}</td>   
+          <td>{{transacao.txAdm | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>                       
+          <td>{{transacao.tokenMinted | currency:'BND':'symbol':'1.2-2':'pt' }}</td>                       
           <td class="tooltipCaixa">
             <a target="_blank" href="{{transacao.filePathAndName}}">
               {{transacao.hashComprovante | hashMask}}

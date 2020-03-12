@@ -139,7 +139,7 @@ contract BNDESRegistry is Ownable() {
 
         require(isAvailableAccount(newAddr), "Novo endereço não está disponível");
 
-        require (isChangeAccountEnabled(oldAddr), "A conta atual não está habilitada para troca");
+        require (isChangeAccountEnabled(newAddr), "A conta nova não está habilitada para troca");
 
         require (isValidHash(idProofHash), "O hash da declaração é inválido");        
 

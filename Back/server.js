@@ -10,6 +10,7 @@ const config = require('./config.json');
 const sql = require("mssql");
 const fs 		= require('fs');
 const keccak256 = require('keccak256'); 
+const https = require ('https');
 
 const multer = require('multer');
 
@@ -22,7 +23,7 @@ const MAX_FILE_SIZE = config.negocio.maxFileSize;
 
 const uploadMiddleware = multer({ dest: DIR_UPLOAD, limits: {fileSize: MAX_FILE_SIZE} }).single('arquivo');
 
-
+const mockPJ = config.negocio.mockPJ;
 
 
 
@@ -43,7 +44,7 @@ app.use(function (req, res, next) {
 	next();
 });
 
-console.log(config.infra.caminhoPastaPublica);
+//console.log(config.infra.caminhoPastaPublica);
 
 //https://expressjs.com/pt-br/starter/static-files.html
 app.use(express.static(config.infra.caminhoPastaPublica));
@@ -150,15 +151,15 @@ console.log("operationAPIURL=" + config.infra.operationAPIURL);
 app.post('/api/constantesFrontPJ', function (req, res) {
 	console.log("operationAPIURL=" + config.infra.operationAPIURL);
 	console.log("mockMongoClient=" + config.negocio.mockMongoClient)
-	console.log("mockMongoPJ=" + config.negocio.mockMongoPJ)
+	console.log("mockPJ=" + mockPJ)
 	res.json({ operationAPIURL: config.infra.operationAPIURL,  
 		mockMongoClient: config.negocio.mockMongoClient, 
-		mockMongoPJ: config.negocio.mockMongoPJ,
+		mockPJ: mockPJ,
 		maxFileSize: MAX_FILE_SIZE		
 	});
 });
 
-
+/*
 //criei como post porque o cnpj estah salvo com o caracter '/'
 app.post('/api/pj-por-cnpj-mock', buscaPJPorCnpjMock);
 
@@ -185,7 +186,7 @@ function buscaPJPorCnpjMock(req, res, next) {
 		})
 		.finally(next);
 }
-
+*/
 
 app.post('/api/pj-por-cnpj', buscaPJPorCnpj);
 
@@ -198,43 +199,81 @@ app.post('/api/pj-por-cnpj', buscaPJPorCnpj);
 			res.status(200).json({});
 		}
 
-		new sql.ConnectionPool(configAcessoBDPJ).connect().then(pool => {
-			return pool.request()
-								 .input('cnpj', sql.VarChar(14), cnpjRecebido)
-								 .query(config.negocio.query_cnpj)
-			
-			}).then(result => {
-				let rows = result.recordset
 
-				if (!rows[0]) {
-					res.status(200).json({});
-					return;
-				}
+		if (mockPJ) {
 
-				let pj = 	
-				{
-					cnpj: rows[0]["CNPJ_EMPRESA"],
-					dadosCadastrais: {
-						razaoSocial: rows[0]["NOME_EMPRESARIAL"]
+			console.log("mock PJ ON!");
+			https.get('https://www.receitaws.com.br/v1/cnpj/' + cnpjRecebido, (resp) => {
+				let data = '';
+
+				resp.on('data', (chunk) => {
+					data += chunk;
+				  });
+
+				resp.on('end', () => {
+					jsonData = JSON.parse(data);
+					console.log(jsonData);
+
+					let pj = 	
+					{
+						cnpj: cnpjRecebido,
+						dadosCadastrais: {
+							razaoSocial: jsonData.nome
+						}
 					}
-				}
+					console.log("pj=");
+					console.log(pj);
+					res.status(200).json(pj);				
 
-				console.log("pj do QSA");				
-				console.log(pj);
+				});
+			}).on("error", (err) => {
+				console.log("Erro ao buscar mock da API: " + err.message);
+			  });
 
-				res.status(200).json(pj);				
-				sql.close();
+		}
+		else {
 
+			new sql.ConnectionPool(configAcessoBDPJ).connect().then(pool => {
+				return pool.request()
+									 .input('cnpj', sql.VarChar(14), cnpjRecebido)
+									 .query(config.negocio.query_cnpj)
+				
+				}).then(result => {
+					let rows = result.recordset
+	
+					if (!rows[0]) {
+						res.status(200).json({});
+						return;
+					}
+	
+					let pj = 	
+					{
+						cnpj: rows[0]["CNPJ_EMPRESA"],
+						dadosCadastrais: {
+							razaoSocial: rows[0]["NOME_EMPRESARIAL"]
+						}
+					}
+	
+					console.log("pj do QSA");				
+					console.log(pj);
+	
+					res.status(200).json(pj);				
+					sql.close();
+	
+	
+				}).catch(err => {
+					console.log(err);
+					res.status(500).send({ message: "${err}"})
+					sql.close();
+				});
+	
 
-			}).catch(err => {
-				console.log(err);
-				res.status(500).send({ message: "${err}"})
-				sql.close();
-			});
+		}
+
 
 	}	
 
-
+/*
 
 // Recupera pjs
 app.get('/api/pjs', buscaPJs);
@@ -258,7 +297,7 @@ function buscaPJs(req, res) {
 			console.log("erro ao buscar pjs");
 		});
 }
-
+*/
 
 //upload.single('arquivo')
 app.post('/api/upload', trataUpload);

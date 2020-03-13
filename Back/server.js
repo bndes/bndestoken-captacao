@@ -18,13 +18,32 @@ const DIR_CAMINHO_DECLARACAO = config.infra.caminhoArquivos + config.infra.camin
 const DIR_CAMINHO_COMPROVANTE_DOACAO = config.infra.caminhoArquivos + config.infra.caminhoComprovanteDoacao;
 const DIR_CAMINHO_COMPROVANTE_LIQUIDACAO = config.infra.caminhoArquivos + config.infra.caminhoComprovanteLiquidacao;
 
-const MAX_FILE_SIZE = config.negocio.maxFileSize;
+const MAX_FILE_SIZE = Number( config.negocio.maxFileSize );
 
-const uploadMiddleware = multer({ dest: DIR_UPLOAD, limits: {fileSize: MAX_FILE_SIZE} }).single('arquivo');
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, DIR_UPLOAD);
+  },
+  filename: (req, file, cb) => {
+    const fileName = file.originalname.toLowerCase().split(' ').join('-');
+    cb(null, fileName)
+  }
+});
 
-
-
-
+const uploadMiddleware = multer(
+								{ 
+									limits: {fileSize: MAX_FILE_SIZE},								
+									storage: storage,
+									fileFilter: (req, file, cb) => {
+										if (file.mimetype == "application/pdf") {
+											cb(null, true);
+										} else {
+											cb(null, false);
+											return cb(new Error('Only .pdf format allowed!'));
+										}
+									}
+								}
+							   ).single('arquivo');
 
 // Configuration
 //mongoose.connect(config.infra.addr_bd);

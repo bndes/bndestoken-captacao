@@ -19,7 +19,12 @@ const DIR_CAMINHO_DECLARACAO = config.infra.caminhoArquivos + config.infra.camin
 const DIR_CAMINHO_COMPROVANTE_DOACAO = config.infra.caminhoArquivos + config.infra.caminhoComprovanteDoacao;
 const DIR_CAMINHO_COMPROVANTE_LIQUIDACAO = config.infra.caminhoArquivos + config.infra.caminhoComprovanteLiquidacao;
 
+const CAMINHO_MODELO_DECLARACAO_CONTA_DIGITAL = config.infra.caminhoModeloDeclaracaoContaBlockchain;
+const CAMINHO_ROTEIRO_ASSINATURA_DIGITAL = config.infra.caminhoRoteiroAssinaturaDigital;
+
 const MAX_FILE_SIZE = Number( config.negocio.maxFileSize );
+
+const mockPJ = config.negocio.mockPJ;
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -171,11 +176,19 @@ app.post('/api/constantesFrontPJ', function (req, res) {
 	console.log("operationAPIURL=" + config.infra.operationAPIURL);
 	console.log("mockMongoClient=" + config.negocio.mockMongoClient)
 	console.log("mockPJ=" + mockPJ)
-	res.json({ operationAPIURL: config.infra.operationAPIURL,  
+
+	let consts = { operationAPIURL: config.infra.operationAPIURL,  
 		mockMongoClient: config.negocio.mockMongoClient, 
 		mockPJ: mockPJ,
-		maxFileSize: MAX_FILE_SIZE		
-	});
+		maxFileSize: MAX_FILE_SIZE,
+		CAMINHO_MODELO_DECLARACAO_CONTA_DIGITAL: CAMINHO_MODELO_DECLARACAO_CONTA_DIGITAL,
+		CAMINHO_ROTEIRO_ASSINATURA_DIGITAL: CAMINHO_ROTEIRO_ASSINATURA_DIGITAL		
+	}
+
+	res.json(consts);
+
+	console.log(consts);
+
 });
 
 

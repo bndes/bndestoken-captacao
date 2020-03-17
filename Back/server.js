@@ -205,7 +205,7 @@ app.post('/api/pj-por-cnpj', buscaPJPorCnpj);
 
 
 		if (mockPJ) {
-
+			
 			console.log("mock PJ ON!");
 			https.get('https://www.receitaws.com.br/v1/cnpj/' + cnpjRecebido, (resp) => {
 				let data = '';
@@ -215,6 +215,19 @@ app.post('/api/pj-por-cnpj', buscaPJPorCnpj);
 				  });
 
 				resp.on('end', () => {
+					if (data=="Too many requests, please try again later.") {
+
+						console.log(data)
+						let pj = 	
+						{
+							cnpj: "00000000000000",
+							dadosCadastrais: {
+								razaoSocial: "Serviço da Receita Indisponível"
+							}
+						}
+						res.status(200).json(pj);
+						return;
+					}
 					jsonData = JSON.parse(data);
 					console.log(jsonData);
 

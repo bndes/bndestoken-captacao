@@ -347,6 +347,14 @@ export class DashboardIdEmpresaComponent implements OnInit {
 
     recuperaFilePathAndName(self,transacaoPJ) {
 
+        if ( transacaoPJ == undefined || 
+            (transacaoPJ.cnpj == undefined || transacaoPJ.cnpj == "" ) || ( transacaoPJ.hashDeclaracao == undefined || transacaoPJ.hashDeclaracao == "") || 
+             (transacaoPJ.contaBlockchain == undefined || transacaoPJ.contaBlockchain == "" ) || ( transacaoPJ.nomeConta == undefined || transacaoPJ.nomeConta == "")
+           ) {
+            console.log("Transacao incompleta no recuperaFilePathAndName do dashboard-empresa");
+            return;
+        }
+
         self.fileHandleService.buscaFileInfo(transacaoPJ.cnpj, transacaoPJ.nomeConta, 
             transacaoPJ.contaBlockchain, transacaoPJ.hashDeclaracao, "declaracao").subscribe(
             result => {

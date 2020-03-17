@@ -234,6 +234,11 @@ recuperaDataHora(self, event, transacaoPJ) {
 
 recuperaFilePathAndName(self,transacao) {
 
+    if ( transacao == undefined ||  (transacao.cnpj == undefined || transacao.cnpj == "" ) || ( transacao.hashComprovante == undefined || transacao.hashComprovante == "") ) {
+        console.log("Transacao incompleta no recuperaFilePathAndName do dashboard-doacao");
+        return;
+    }
+
     self.fileHandleService.buscaFileInfo(transacao.cnpj, "0", "0", transacao.hashComprovante, "comp_doacao").subscribe(
         result => {
           if (result && result.pathAndName) {

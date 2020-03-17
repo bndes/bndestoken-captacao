@@ -203,6 +203,13 @@ export class LiquidacaoResgateComponent implements OnInit, DeclarationComponentI
 
   recuperaFilePathAndName(self,transacao) {
 
+    
+    if ( transacao == undefined ||  (transacao.cnpj == undefined || transacao.cnpj == "" ) || ( transacao.hashComprovante == undefined || transacao.hashComprovante == "") 
+        || transacao.contratoFinanceiro == undefined || transacao.contratoFinanceiro == "" ) {
+      console.log("Transacao incompleta no recuperaFilePathAndName do dashboard-resgate");
+      return;
+    }
+
     self.fileHandleService.buscaFileInfo(transacao.cnpj, transacao.contratoFinanceiro, "0", transacao.hashComprovacao, "comp_liq").subscribe(
         result => {
           if (result && result.pathAndName) {

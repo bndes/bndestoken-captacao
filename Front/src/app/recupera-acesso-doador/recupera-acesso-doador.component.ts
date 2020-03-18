@@ -198,7 +198,7 @@ export class RecuperaAcessoDoadorComponent implements OnInit, DeclarationCompone
     }
 
 
-    let bChangeAccountSync = await this.web3Service.isChangeAccountEnabledSync(this.contaBlockchainAssociada);
+    let bChangeAccountSync = await this.web3Service.isChangeAccountEnabledSync(this.selectedAccount);
     if (!bChangeAccountSync) {
       let s = "A conta não está habilitada para troca. Contacte o BNDES";
       this.bnAlertsService.criarAlerta("error", "Erro", s, 5);

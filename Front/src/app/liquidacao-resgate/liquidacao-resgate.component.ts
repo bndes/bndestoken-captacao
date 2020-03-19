@@ -204,7 +204,7 @@ export class LiquidacaoResgateComponent implements OnInit, DeclarationComponentI
   recuperaFilePathAndName(self,transacao) {
 
     
-    if ( transacao == undefined ||  (transacao.cnpj == undefined || transacao.cnpj == "" ) || ( transacao.hashComprovante == undefined || transacao.hashComprovante == "") 
+    if ( transacao == undefined ||  (transacao.cnpj == undefined || transacao.cnpj == "" ) || ( transacao.hashComprovacao == undefined || transacao.hashComprovacao == "") 
         || transacao.contratoFinanceiro == undefined || transacao.contratoFinanceiro == "" ) {
       console.log("Transacao incompleta no recuperaFilePathAndName do dashboard-resgate");
       return;
@@ -226,7 +226,7 @@ export class LiquidacaoResgateComponent implements OnInit, DeclarationComponentI
           console.log(texto);
           console.log("cnpj=" + transacao.cnpj);
           console.log("contratoFinanceiro=" + transacao.contratoFinanceiro);          
-          console.log("hashComprovante=" + transacao.hashComprovacao);
+          console.log("hashComprovacao=" + transacao.hashComprovacao);
 //              Utils.criarAlertaErro( self.bnAlertsService, texto,error);
         }) //fecha busca fileInfo
 

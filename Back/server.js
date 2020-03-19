@@ -227,20 +227,27 @@ app.post('/api/pj-por-cnpj', buscaPJPorCnpj);
 						}
 						res.status(200).json(pj);
 						return;
-					}
-					jsonData = JSON.parse(data);
-					console.log(jsonData);
+					} 
+					else {
+						try {
+							jsonData = JSON.parse(data);
+						} catch (e) {
+							res.status(200).json(pj);
+							return;	
+						}						
+						console.log(jsonData);
 
-					let pj = 	
-					{
-						cnpj: cnpjRecebido,
-						dadosCadastrais: {
-							razaoSocial: jsonData.nome
+						let pj = 	
+						{
+							cnpj: cnpjRecebido,
+							dadosCadastrais: {
+								razaoSocial: jsonData.nome
+							}
 						}
+						console.log("pj=");
+						console.log(pj);
+						res.status(200).json(pj);				
 					}
-					console.log("pj=");
-					console.log(pj);
-					res.status(200).json(pj);				
 
 				});
 			}).on("error", (err) => {

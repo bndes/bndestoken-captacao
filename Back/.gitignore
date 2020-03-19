@@ -42,3 +42,12 @@ arquivos/upload
 /arquivos/comprovante_doacao/*.csv
 /arquivos/comprovante_doacao/*.xls
 /arquivos/comprovante_doacao/*.doc
+
+/arquivos/comprovante_liquidacao/*.pdf
+/arquivos/comprovante_liquidacao/*.txt
+/arquivos/comprovante_liquidacao/*.jpg
+/arquivos/comprovante_liquidacao/*.png
+/arquivos/comprovante_liquidacao/*.gif
+/arquivos/comprovante_liquidacao/*.csv
+/arquivos/comprovante_liquidacao/*.xls
+/arquivos/comprovante_liquidacao/*.doc

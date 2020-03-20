@@ -260,6 +260,7 @@ contract BNDESRegistry is Ownable() {
     */
     function enableChangeAccount (address rs) public {
         require(isResponsibleForRegistryValidation(msg.sender), "Somente o responsável pela validação pode habilitar a troca de conta");
+        require(legalEntitiesChangeAccount[rs] == false, "Should not enable the already enabled account");
         legalEntitiesChangeAccount[rs] = true;
     }
 

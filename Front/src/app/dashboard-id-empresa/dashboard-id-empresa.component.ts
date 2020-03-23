@@ -169,7 +169,7 @@ export class DashboardIdEmpresaComponent implements OnInit {
                 self.includeIfNotExists(transacaoPJContaInativada);
                 self.recuperaInfoDerivadaPorCnpj(self, transacaoPJContaInativada);
                 self.recuperaDataHora(self, event, transacaoPJContaInativada);
-                self.recuperaFilePathAndName(self,transacaoPJ);
+                self.recuperaFilePathAndName(self,transacaoPJContaInativada);
 
 
                 transacaoPJ = {

@@ -46,6 +46,7 @@ export class HabilitaCadastroComponent implements OnInit {
   
     recuperaClientePorContaBlockchain(conta) {
       let self = this;    
+      self.contaHabilitada=false;
   
       if ( conta != undefined && conta != "" && conta.length == 42 ) {
   

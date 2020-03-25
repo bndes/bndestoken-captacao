@@ -157,7 +157,7 @@ export class ValidacaoCadastroComponent implements OnInit {
     }
 
     if (this.pj.hashDeclaracao === undefined) {
-      let s = "O hash da declaração é um Campo Obrigatório";
+      let s = "O envio da declaração é obrigatório";
       this.bnAlertsService.criarAlerta("error", "Erro", s, 2);
       return;
     }

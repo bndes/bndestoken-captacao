@@ -163,7 +163,7 @@ export class AssociaContaDoadorComponent implements OnInit, DeclarationComponent
     let self = this
 
     if (this.hashdeclaracao==undefined || this.hashdeclaracao==null) {
-      let s = "O Hash da declaração é um Campo Obrigatório";
+      let s = "O envio da declaração é obrigatório";
       this.bnAlertsService.criarAlerta("error", "Erro", s, 2)
       return
     }  

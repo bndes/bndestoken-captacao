@@ -49,8 +49,8 @@ export class Web3Service {
                 this.ABIBndesToken = data['abiBNDESToken'];
                 this.ABIBndesRegistry = data['abiBNDESRegistry'];
 
-                console.log("abis");
-                console.log(this.ABIBndesRegistry);
+              //  console.log("abis");
+              //  console.log(this.ABIBndesRegistry);
 
                 this.intializeWeb3();
                 this.inicializaQtdDecimais();
@@ -99,10 +99,10 @@ export class Web3Service {
 
         if (typeof window['web3'] !== 'undefined') {
             this.ethereum =  window['ethereum'];
-            console.log("ethereum=");
-            console.log(this.ethereum);
+//            console.log("ethereum=");
+//            console.log(this.ethereum);
             this.web3 = new this.Web3(window['web3'].currentProvider);
-            console.log("Conectado com noh");
+//            console.log("Conectado com noh");
     
         } else {
             console.log('Using HTTP node --- nao suportado');
@@ -112,19 +112,19 @@ export class Web3Service {
         this.bndesTokenSmartContract = this.web3.eth.contract(this.ABIBndesToken).at(this.addrContratoBNDESToken);
         this.bndesRegistrySmartContract = this.web3.eth.contract(this.ABIBndesRegistry).at(this.addrContratoBNDESRegistry);
 
-        console.log("INICIALIZOU O WEB3 - bndesTokenContract abaixo");
-        console.log("BNDESToken=");
-        console.log(this.bndesTokenSmartContract);        
-        console.log("BNDESRegistry=");
-        console.log(this.bndesRegistrySmartContract);
+//        console.log("INICIALIZOU O WEB3 - bndesTokenContract abaixo");
+//        console.log("BNDESToken=");
+//        console.log(this.bndesTokenSmartContract);        
+//        console.log("BNDESRegistry=");
+//        console.log(this.bndesRegistrySmartContract);
 
         let self = this;
 
         this.getAddressOwner(function (addrOwner) {
-            console.log("Owner Addr =" + addrOwner);
+//            console.log("Owner Addr =" + addrOwner);
             self.addressOwner = addrOwner;
         }, function (error) {
-            console.log("Erro ao buscar owner=" + error);
+//            console.log("Erro ao buscar owner=" + error);
         });
 
 }
@@ -191,12 +191,10 @@ export class Web3Service {
     }
 
     registraEventosRegistrarDoacao(callback) {
-        console.log("web3-registraEventosRegistrarDoacao");
         this.eventoDoacao = this.bndesTokenSmartContract.DonationBooked({}, { fromBlock: 0, toBlock: 'latest' });
         this.eventoDoacao.watch(callback);
     }
     registraEventosRecebimentoDoacao(callback) {
-        console.log("web3-registraEventosRecebimentoDoacao");        
         this.eventoDoacao = this.bndesTokenSmartContract.DonationConfirmed({}, { fromBlock: 0, toBlock: 'latest' });
         this.eventoDoacao.watch(callback);
     }

@@ -23920,7 +23920,7 @@
           "name": "DonationBooked",
           "type": "event"
         },
-        "0x615a043310baf52f45f7786effd0e0f2c6f8671adf687de0840c22665ef5461c": {
+        "0xcb03d9227a979eafaf266c92988c709a8e181d9f18d48ae1051d822cafe2e4a9": {
           "anonymous": false,
           "inputs": [
             {
@@ -23933,6 +23933,12 @@
               "indexed": false,
               "internalType": "uint256",
               "name": "amount",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "tokenMinted",
               "type": "uint256"
             },
             {
@@ -24103,74 +24109,6 @@
           ],
           "name": "Unpaused",
           "type": "event"
-        },
-        "0xf8f7ec39dcfcfa826ed4c5e957e6632367f173004253ba7dbc525654a73e37aa": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": false,
-              "internalType": "uint64",
-              "name": "cnpj",
-              "type": "uint64"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "amount",
-              "type": "uint256"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "feeAmount",
-              "type": "uint256"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "remainingAmount",
-              "type": "uint256"
-            },
-            {
-              "indexed": false,
-              "internalType": "string",
-              "name": "docHash",
-              "type": "string"
-            }
-          ],
-          "name": "DonationConfirmed",
-          "type": "event"
-        },
-        "0xcb03d9227a979eafaf266c92988c709a8e181d9f18d48ae1051d822cafe2e4a9": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": false,
-              "internalType": "uint64",
-              "name": "cnpj",
-              "type": "uint64"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "amount",
-              "type": "uint256"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "tokenMinted",
-              "type": "uint256"
-            },
-            {
-              "indexed": false,
-              "internalType": "string",
-              "name": "docHash",
-              "type": "string"
-            }
-          ],
-          "name": "DonationConfirmed",
-          "type": "event"
         }
       },
       "links": {},
@@ -24179,7 +24117,7 @@
     }
   },
   "schemaVersion": "3.0.23",
-  "updatedAt": "2020-03-13T19:15:25.396Z",
+  "updatedAt": "2020-03-17T17:29:02.138Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {

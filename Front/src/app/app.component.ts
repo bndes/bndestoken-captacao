@@ -2,7 +2,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import { BnAlertsService } from 'bndes-ux4';
-import { Web3Service } from './Web3Service';
 
 @Component({
   selector: 'app-root',
@@ -27,7 +26,7 @@ export class AppComponent implements OnInit {
     }
   };
 
-  constructor(private web3Service: Web3Service, protected bnAlertsService: BnAlertsService) {
+  constructor(protected bnAlertsService: BnAlertsService) {
     var path = window.location.pathname
 
     if (path.indexOf("/bndes") != -1) {

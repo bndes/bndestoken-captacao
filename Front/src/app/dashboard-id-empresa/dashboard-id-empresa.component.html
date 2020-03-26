@@ -4,6 +4,7 @@
   <app-bn-loading class="loading" *ngIf="estadoLista === 'undefined'"></app-bn-loading>
 </div>
 
+<!--
 <div *ngIf="estadoLista === 'vazia'">
   <p>Não foi encontrado nenhum Cadastro na Blockchain!</p>
 </div>
@@ -57,16 +58,7 @@
           <td class="tooltipCaixa">
             <a target="_blank" href="{{transacaoPJ.filePathAndName}}">
               {{transacaoPJ.hashDeclaracao | hashMask}}
-            </a>          
-
-<!--
-          <a *ngIf="transacaoPJ.filePathAndName" target="_blank" href="{{transacaoPJ.filePathAndName}}">
-            {{transacaoPJ.hashDeclaracao | hashMask}}
-          </a>          
-          <span *ngIf="!transacaoPJ.filePathAndName">{{transacaoPJ.hashDeclaracao | hashMask}}</span>          
-          <span class="tooltiptext" style="width: 520px;" *ngIf="transacaoPJ.hashDeclaracao">{{transacaoPJ.hashDeclaracao}}</span>
-        -->        
-        
+            </a>                
         </td>
           <td>{{transacaoPJ.dataHora | date: 'dd/MM/yyyy hh:mm a' }}</td>
           <td>{{transacaoPJ.contaBlockchain}}</td>
@@ -85,7 +77,20 @@
     <pagination-controls (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Próximo" class="paginacao"></pagination-controls>
   </div>
 </div>
-
+-->
+<!--
+<ag-grid-angular
+style="width: 100%; height: 500px;"
+class="ag-theme-alpine"
+[rowData]="listaTransacoesJson | async "
+[columnDefs]="columnDefs">
+</ag-grid-angular>
 </div>
+-->
+
+<div id="myGrid" style="height: 150px;width: 600px" class="ag-theme-balham"></div>
+
+
+
 <app-metamsg *ngIf="!selectedAccount"></app-metamsg>
 

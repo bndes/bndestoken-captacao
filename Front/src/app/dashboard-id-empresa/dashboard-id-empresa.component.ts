@@ -1,12 +1,18 @@
 import { Component, OnInit, NgZone } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectorRef } from '@angular/core';
 import { DashboardPessoaJuridica } from './DashboardPessoaJuridica';
 import {FileHandleService} from "../file-handle.service";
 import { Web3Service } from './../Web3Service';
+import { EventsService } from './../EventsService';
 import { PessoaJuridicaService } from '../pessoa-juridica.service';
 import { Utils } from '../shared/utils';
 import { ConstantesService } from '../ConstantesService';
 
+
+import {Grid, GridOptions} from "@ag-grid-community/all-modules";
+import "@ag-grid-community/all-modules/dist/styles/ag-grid.css";
+import "@ag-grid-community/all-modules/dist/styles/ag-theme-balham.css";
 
 import { BnAlertsService } from 'bndes-ux4';
 
@@ -21,6 +27,8 @@ import { BnAlertsService } from 'bndes-ux4';
 export class DashboardIdEmpresaComponent implements OnInit {
 
     listaTransacoesPJ: DashboardPessoaJuridica[] = undefined;
+    listaTransacoesJson = [];
+
     blockchainNetworkPrefix: string;
 
     estadoLista: string = "undefined";
@@ -31,18 +39,60 @@ export class DashboardIdEmpresaComponent implements OnInit {
 
     selectedAccount: any;
 
+    private gridOptions: GridOptions = <GridOptions>{};
+
+    //https://www.ag-grid.com/angular-grid/
+
+    columnDefs = [
+        {headerName: 'Razão Social', field: 'razaoSocial', sortable: true, filter: true},
+        {headerName: 'CNPJ', field: 'cnpj', sortable: true, filter: true},
+        {headerName: 'Contrato Financeiro', field: 'nomeConta', sortable: true, filter: true},
+        {headerName: 'Perfil', field: 'perfil', sortable: true, filter: true},
+        {headerName: 'Data/Hora', field: 'dataHora', sortable: true, filter: true},
+        {headerName: 'Conta Blockchain', field: 'contaBlockchain', sortable: true, filter: true},
+        {headerName: 'Status', field: 'status', sortable: true, filter: true},
+        {headerName: 'Link Etherscan', field: 'linkEtherscan', sortable: true, filter: true}
+    ];
+
+    transacaoPJ: any = {
+    cnpj: 123456789,
+    razaoSocial: "",
+    contaBlockchain: "conta",
+    hashID: "",
+    uniqueIdentifier: "",
+    dataHora: null,
+    hashDeclaracao: "hashDeclaracao que preciso alterar",
+    nomeConta: "nomeconta",
+    status: "Conta Cadastrada",
+    filePathAndName: "",
+    perfil: ""
+    }
+
+//https://www.ag-grid.com/javascript-grid-api/
+
+
     constructor(private pessoaJuridicaService: PessoaJuridicaService, 
         private fileHandleService: FileHandleService,
         protected bnAlertsService: BnAlertsService, private web3Service: Web3Service,
+        private eventsService: EventsService,
         private ref: ChangeDetectorRef, private zone: NgZone) {
 
             let self = this;
             self.recuperaContaSelecionada();
+            this.listaTransacoesJson.push(this.transacaoPJ);
+
                         
             setInterval(function () {
               self.recuperaContaSelecionada(), 
               1000}); 
-              
+
+
+              this.gridOptions = {
+                columnDefs: this.columnDefs,
+                rowData: this.listaTransacoesJson
+            };
+    
+
     }
 
     ngOnInit() {
@@ -51,12 +101,19 @@ export class DashboardIdEmpresaComponent implements OnInit {
             console.log("Zerou lista de transacoes");
 
             this.registrarExibicaoEventos();
+
         }, 1500)
 
         setTimeout(() => {
             this.estadoLista = this.estadoLista === "undefined" ? "vazia" : "cheia"
             this.ref.detectChanges()
         }, 2300)
+    }
+
+    ngAfterViewInit() {
+        let eGridDiv:HTMLElement = <HTMLElement>document.querySelector('#myGrid');
+        new Grid(eGridDiv, this.gridOptions);
+
     }
 
     async recuperaContaSelecionada() {
@@ -75,67 +132,127 @@ export class DashboardIdEmpresaComponent implements OnInit {
 
     registrarExibicaoEventos() {
 
-        this.blockchainNetworkPrefix = this.web3Service.getInfoBlockchainNetwork().blockchainNetworkPrefix;
+        this.blockchainNetworkPrefix = this.eventsService.getInfoBlockchainNetwork().blockchainNetworkPrefix;
 
-        this.estadoLista = "vazia"
+        console.log("blockchainNetworkPrefix abaixo");
+        console.log(this.blockchainNetworkPrefix);
 
-        console.log("*** Executou o metodo de registrar exibicao eventos");
+//        this.estadoLista = "vazia"
+
+
+
 
         this.registraEventosCadastro();
 
-        this.registraEventosTroca();
+//       this.registraEventosTroca();
 
-        this.registraEventosValidacao();
+//        this.registraEventosValidacao();
 
-        this.registraEventosInvalidacao();
+//        this.registraEventosInvalidacao();
         
     }
-
 
     registraEventosCadastro() {
 
         console.log("*** Executou o metodo de registrar eventos CADASTRO");
+/*
+        let tc = function trataCadastro (address, cnpj) {
 
-        let self = this;        
+            console.log("##### ESTOU DENTRO DE TRATA CADASTRO");
+            console.log(address);
+        }
+*/
+        this.eventsService.registraEventosCadatro(
+            
+        (address,cnpj,idFinancialSupportAgreement,idProofHash) => {
+            
+            let transacaoPJ: any;
+            transacaoPJ = {
+                cnpj: 123456789,
+                razaoSocial: "",
+                contaBlockchain: address,
+                hashID: address,
+                uniqueIdentifier: address,
+                dataHora: null,
+                hashDeclaracao: "hashDeclaracao que preciso alterar",
+                nomeConta: idFinancialSupportAgreement,
+                status: "Conta Cadastrada",
+                filePathAndName: "",
+                perfil: ""
+            }
+
+            console.log("##### ESTOU DENTRO DE TRATA CADASTRO com arrow e events simplificado");           
+            console.log(transacaoPJ);
+
+            this.listaTransacoesJson.push(transacaoPJ);
+
+        });
+    }
+
+
+
+    /*
+    registraEventosCadastro() {
+
+        console.log("*** Executou o metodo de registrar eventos CADASTRO");
+
+        let tc = function trataCadastro (address, cnpj) {
+
+            console.log("##### ESTOU DENTRO DE TRATA CADASTRO");
+            console.log(address);
+        }
+
+        this.eventsService.registraEventosCadatro(tc);
+
+    //                self.listaTransacoesJson.push(transacaoPJ);   
+            
+    //                self.includeIfNotExists(transacaoPJ);
+    //                self.recuperaInfoDerivadaPorCnpj(self, transacaoPJ);
+    //                self.recuperaDataHora(self, event, transacaoPJ);
+    //                self.recuperaFilePathAndName(self,transacaoPJ); 
+ 
+    }
+
+*/
+/*
+    registraEventosCadastro() {
+
+        console.log("*** Executou o metodo de registrar eventos CADASTRO");
+
+        let self = this;
         this.web3Service.registraEventosCadastro(function (error, event) {
+            
+//            (event) => {
+            
+                console.log("##Evento Cadastro");
+                console.log(event);
 
-            if (!error) {
-
-                let transacaoPJ: DashboardPessoaJuridica;
-                let eventoCadastro = event
-
-                console.log("Evento Cadastro");
-                console.log(eventoCadastro);
-
+                let transacaoPJ: any;
                 transacaoPJ = {
-                    cnpj: eventoCadastro.args.cnpj,
+                    cnpj: event.args.cnpj,
                     razaoSocial: "",
-                    contaBlockchain: eventoCadastro.args.addr,
-                    hashID: eventoCadastro.transactionHash,
-                    uniqueIdentifier: eventoCadastro.transactionHash,
+                    contaBlockchain: event.args.addr,
+                    hashID: event.transactionHash,
+                    uniqueIdentifier: event.transactionHash,
                     dataHora: null,
-                    hashDeclaracao: eventoCadastro.args.idProofHash,
-                    nomeConta: eventoCadastro.args.idFinancialSupportAgreement,
+                    hashDeclaracao: event.args.idProofHash,
+                    nomeConta: event.args.idFinancialSupportAgreement,
                     status: "Conta Cadastrada",
                     filePathAndName: "",
                     perfil: ""
                 }
 
-                
-                self.includeIfNotExists(transacaoPJ);
-                self.recuperaInfoDerivadaPorCnpj(self, transacaoPJ);
-                self.recuperaDataHora(self, event, transacaoPJ);
-                self.recuperaFilePathAndName(self,transacaoPJ); 
-
-
-            } else {
-                console.log("Erro no registro de eventos de cadastro");
-                console.log(error);
+    //                self.listaTransacoesJson.push(transacaoPJ);   
+            
+    //                self.includeIfNotExists(transacaoPJ);
+    //                self.recuperaInfoDerivadaPorCnpj(self, transacaoPJ);
+    //                self.recuperaDataHora(self, event, transacaoPJ);
+    //                self.recuperaFilePathAndName(self,transacaoPJ); 
             }
-        });
+        );
     }
-
-
+*/
+/*
     registraEventosTroca() {
 
         console.log("*** Executou o metodo de registrar eventos TROCA");
@@ -196,6 +313,7 @@ export class DashboardIdEmpresaComponent implements OnInit {
         });        
     }
 
+/*    
     registraEventosValidacao() {
 
         console.log("*** Executou o metodo de registrar eventos VALIDACAO");        
@@ -248,7 +366,7 @@ export class DashboardIdEmpresaComponent implements OnInit {
 
             if (!error) {
 
-                let transacaoPJ: DashboardPessoaJuridica;
+                let transacaoPJ: any;
 
                 console.log("Evento invalidacao");
                 console.log(event);
@@ -266,6 +384,7 @@ export class DashboardIdEmpresaComponent implements OnInit {
                     filePathAndName: "",                    
                     perfil: ""
                 }
+
                 self.includeIfNotExists(transacaoPJ);
                 self.recuperaInfoDerivadaPorCnpj(self, transacaoPJ);                
                 self.recuperaDataHora(self, event, transacaoPJ);
@@ -281,12 +400,14 @@ export class DashboardIdEmpresaComponent implements OnInit {
         
     }
 
+    //fixme para listatransacoesJson
     includeIfNotExists(transacaoPJ) {
         let result = this.listaTransacoesPJ.find(tr => tr.uniqueIdentifier == transacaoPJ.uniqueIdentifier);
         if (!result) this.listaTransacoesPJ.push(transacaoPJ);        
+
     }
-
-
+*/
+/*
     setOrder(value: string) {
         if (this.order === value) {
             this.reverse = !this.reverse;
@@ -298,7 +419,9 @@ export class DashboardIdEmpresaComponent implements OnInit {
     customComparator(itemA, itemB) {
         return itemB - itemA;
     }
+*/
 
+/*
     recuperaInfoDerivadaPorCnpj(self, transacaoPJ) {
         self.pessoaJuridicaService.recuperaEmpresaPorCnpj(transacaoPJ.cnpj).subscribe(
             data => {
@@ -365,10 +488,9 @@ export class DashboardIdEmpresaComponent implements OnInit {
               console.log("cnpj=" + transacaoPJ.cnpj);
               console.log("nomeConta=" + transacaoPJ.nomeConta);
               console.log("contaBlockchain=" + transacaoPJ.contaBlockchain);
-//              Utils.criarAlertaErro( self.bnAlertsService, texto,error);
             }) //fecha busca fileInfo
 
 
     }
-
+*/
 }

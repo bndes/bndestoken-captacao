@@ -1,4 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
+
+@import "../node_modules/ag-grid-community/src/styles/ag-grid.scss";
+@import "../node_modules/ag-grid-community/src/styles/ag-theme-alpine/sass/ag-theme-alpine-mixin.scss";
+
+.ag-theme-alpine {
+    @include ag-theme-alpine();
+}
 
 .container {
   margin-top: 20px;
@@ -173,3 +179,5 @@ li div ul {
 .tituloDash {
   float: left;
 }*/
+
+

@@ -188,7 +188,7 @@ export class HabilitaCadastroComponent implements OnInit {
             }        
           ,(error) => {
             Utils.criarAlertaErro( self.bnAlertsService, 
-                                   "Erro ao validar habilitar cadastro na blockchain", 
+                                   "Erro ao habilitar cadastro na blockchain", 
                                    error )  
           }
         );

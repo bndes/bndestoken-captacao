@@ -39,7 +39,7 @@ export class FileHandleService {
           console.log("**** Erro ao buscar constantes do front");
       });
 
-    console.log("FileServiceService.ts :: Selecionou URL = " + this.serverUrl);
+//    console.log("FileServiceService.ts :: Selecionou URL = " + this.serverUrl);
 
   }
 

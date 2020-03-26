@@ -1,3 +1,5 @@
+import { AgGridModule } from 'ag-grid-angular';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -8,6 +10,7 @@ import { AppRoutingModule } from './/app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { BndesUx4 } from 'bndes-ux4';
+
 import { Ng2GoogleChartsModule } from 'ng2-google-charts';
 
 import { OrderModule, OrderPipe } from 'ngx-order-pipe';
@@ -46,6 +49,7 @@ import { DashboardTransferenciasComponent } from './dashboard-transferencias/das
 
 /* Services */
 import { Web3Service } from './Web3Service';
+import { EventsService } from './EventsService';
 import { PessoaJuridicaService } from './pessoa-juridica.service';
 import { FileHandleService } from './file-handle.service';
 import { ConstantesService } from './ConstantesService';
@@ -123,6 +127,7 @@ export const optionsMaskCurrencyBND: CurrencyMaskConfig = {
     AppRoutingModule,
     HttpClientModule,
     BndesUx4.forRoot(bndesUxConfig),
+    [AgGridModule.withComponents([])],
     Ng2GoogleChartsModule,
     Ng2SearchPipeModule,
     OrderModule,
@@ -132,7 +137,7 @@ export const optionsMaskCurrencyBND: CurrencyMaskConfig = {
     FileUploadModule,
     NgbModule.forRoot()
   ],
-  providers: [PessoaJuridicaService, Web3Service, ConstantesService, GoogleMapsService, FileHandleService,
+  providers: [PessoaJuridicaService, Web3Service, EventsService, ConstantesService, GoogleMapsService, FileHandleService,
     { provide: CURRENCY_MASK_CONFIG, useValue: optionsMaskCurrencyBND }
   ],
   bootstrap: [AppComponent]

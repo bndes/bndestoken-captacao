@@ -67,11 +67,11 @@
           <td class="tooltipCaixa">{{transferencia.deRazaoSocial}}
               <span class="tooltiptext">CNPJ: {{transferencia.deCnpj | cnpjMask}}</span>
           </td>
-          <td>{{transferencia.deConta | contratoMask }}</td>
+          <td><span *ngIf="transferencia.deConta>='00000000'">{{transferencia.deConta | contratoMask }}</span></td>
           <td class="tooltipCaixa">{{transferencia.paraRazaoSocial}}
               <span class="tooltiptext">CNPJ: {{transferencia.paraCnpj | cnpjMask}}</span>
           </td>
-          <td>{{transferencia.paraConta | contratoMask}}</td>
+          <td><span *ngIf="transferencia.paraConta>='00000000'">{{transferencia.paraConta | contratoMask}}</span></td>
           <td>{{transferencia.valor | currency:'BND':'symbol':'1.2-2':'pt' }}</td>
           
           <td>{{transferencia.dataHora | date: 'dd/MM/yyyy hh:mm a' }}</td>

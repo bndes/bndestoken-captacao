@@ -311,7 +311,7 @@ function trataUpload(req, res, next) {
 			if (err) {
 				// An error occurred when uploading
 				console.log(err);
-				return res.status(422).send("an Error occured")
+				return res.status(422).send("Um erro ocorreu. Somente são aceitos arquivos do tipo PDF.")
 			}  
 			else {
 				// No error occured.			

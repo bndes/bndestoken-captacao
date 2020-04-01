@@ -19,32 +19,6 @@ import { BnAlertsService } from 'bndes-ux4';
 })
 export class DashboardTransferenciasComponent implements OnInit {
 
-  public pieChartData: any = {
-    chartType: 'PieChart',
-    dataTable: [
-      ['tipo', 'valores'],
-      ['Liberação', 0],
-//      ['Ordem de pagamento', 0],
-      ['Solicitação de Resgate', 0]
-    ],
-    options: { 'title': 'Tipos de Transações', 'pieSliceText': 'value' },
-    
-  };
-
-  public barChartData: any = {
-    chartType: 'Bar',
-    data: {},
-    dataTable: [
-      ['Tipo', 'Volume'],
-      ['Liberação', 0],
-      //['Pagamento', 0],
-      ['Solicitação de Resgate', 0]      
-    ],
-
-  };
-
-
-
   public contadorLiberacao: number;
   public contadorResgate: number;
   public contadorTransferencia: number;
@@ -69,9 +43,6 @@ export class DashboardTransferenciasComponent implements OnInit {
   isActive: boolean[] = []
   mapaEstaAtivo: boolean = false
   labelMap: string[] = ["A", "B"]
-
-  @ViewChild('pieChart') pieChart;
-  @ViewChild('barChart') barChart;
 
   razaoSocialBNDES: string = "Banco Nacional De Desenvolvimento Econômico E Social";
   selectedAccount: any;  
@@ -135,29 +106,9 @@ export class DashboardTransferenciasComponent implements OnInit {
 
   }  
 
-  atualizaGrafico() {
-    if (this.pieChart != undefined && this.barChart != undefined) {
-      if (this.pieChart.wrapper != undefined && this.barChart != undefined) {
-        let pieDataTable = this.pieChart.wrapper.getDataTable();
-        let barDataTable = this.barChart.wrapper.getDataTable();
-
-        pieDataTable.setValue(0, 1, this.contadorLiberacao)
-        //pieDataTable.setValue(1, 1, this.contadorTransferencia)
-        pieDataTable.setValue(1, 1, this.contadorResgate)
-
-        barDataTable.setValue(0, 1, this.volumeLiberacao)
-        //barDataTable.setValue(1, 1, this.volumeTransferencia)
-        barDataTable.setValue(1, 1, this.volumeResgate)
-
-        this.pieChart.redraw();
-        this.barChart.redraw();
-      }
-    }
-  }
-
   registrarExibicaoEventos() {
 
-    let self = this;
+    let self = this; 
 
     this.blockchainNetworkPrefix = this.web3Service.getInfoBlockchainNetwork().blockchainNetworkPrefix;
 
@@ -226,11 +177,6 @@ export class DashboardTransferenciasComponent implements OnInit {
 
             self.contadorLiberacao++;
             self.volumeLiberacao += self.web3Service.converteInteiroParaDecimal(parseInt(eventoLiberacao.args.amount));
-
-            self.pieChartData.dataTable[1][1] = self.contadorLiberacao;
-            self.barChartData.dataTable[1][1] = self.volumeLiberacao;
-
-            self.atualizaGrafico();
 
             console.log("inseriu liberacao " + liberacao.hashID);
             console.log("contador liberacao " + self.contadorLiberacao);
@@ -305,11 +251,6 @@ export class DashboardTransferenciasComponent implements OnInit {
 
             self.contadorResgate++;
             self.volumeResgate += self.web3Service.converteInteiroParaDecimal(parseInt(eventoResgate.args.amount));
-
-            self.pieChartData.dataTable[2][1] = self.contadorResgate;
-            self.barChartData.dataTable[2][1] = self.volumeResgate;
-
-            self.atualizaGrafico();
 
             console.log("inseriu resg " + resgate.hashID);
             console.log("contador resg " + self.contadorResgate);

@@ -150,7 +150,17 @@ li div ul {
   display: inline !important;
 }
 
+.titulo-dash {
+  font-size: 10px;
+  white-space: nowrap;
+  color: #336699;
+}
 
+.numero-dash {
+  font-size: 20px;
+  color: #336699;
+  font-weight: bold;  
+}
 
 
 /* 

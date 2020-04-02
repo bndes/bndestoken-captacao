@@ -25,7 +25,7 @@ export class DashboardTransferenciasComponent implements OnInit {
 
   public volumeLiberacao: number;
   public volumeResgate: number;
-  public volumeLiquidacaoResgate: number;
+  //public volumeLiquidacaoResgate: number;
   
   public confirmedTotalSupply : number;
 
@@ -72,7 +72,7 @@ export class DashboardTransferenciasComponent implements OnInit {
 
     this.volumeLiberacao = 0;
     this.volumeResgate = 0;
-    this.volumeLiquidacaoResgate = 0;
+    //this.volumeLiquidacaoResgate = 0;
 
     this.confirmedTotalSupply = 0;
 
@@ -147,7 +147,7 @@ export class DashboardTransferenciasComponent implements OnInit {
     console.log("antes de atualizar - contador solicitacao resgate " + self.contadorSolicitacaoResgate);
 
     console.log("antes de atualizar - volume liberacao " + self.volumeLiberacao);
-    console.log("antes de atualizar - volume transferencia " + self.volumeLiquidacaoResgate);
+    //console.log("antes de atualizar - volume transferencia " + self.volumeLiquidacaoResgate);
     console.log("antes de atualizar - volume resgate " + self.volumeResgate);
 
   }
@@ -246,9 +246,9 @@ export class DashboardTransferenciasComponent implements OnInit {
         let liberacao: DashboardTransferencia;
         let eventoLiquidacaoResgate = event
         console.log("contador liberacao " + self.contadorLiquidacaoResgate);
-        console.log("volume liberacao " + self.volumeLiquidacaoResgate);    
+        //console.log("volume liberacao " + self.volumeLiquidacaoResgate);    
         self.contadorLiquidacaoResgate++;
-        self.volumeLiquidacaoResgate += self.web3Service.converteInteiroParaDecimal(parseInt(eventoLiquidacaoResgate.args.amount));            
+        //self.volumeLiquidacaoResgate += self.web3Service.converteInteiroParaDecimal(parseInt(eventoLiquidacaoResgate.args.amount));            
 /** * 
         self.pessoaJuridicaService.recuperaEmpresaPorCnpj(eventoLiquidacaoResgate.args.cnpj).subscribe(
           data => {

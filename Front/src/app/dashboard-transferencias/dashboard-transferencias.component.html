@@ -12,81 +12,81 @@
 
   <div class="container">
     <div class="row">
-      <div class="col-md-2 col-sm-2 border border-dark rounded">
+      <div class="col-md-3 col-sm-3 border border-dark rounded">
         <div class="">
           <div class="row">
-            <div class="col-md-3 col-sm-3">
-              <div>
-                <div class="row">
+             
+              <div >
+                <div >
                   <div class="col-md-12 col-sm-12 titulo-dash">
                     Tokens emitidos em doação
                   </div>
                 </div>    
-                <div class="row">
+                <div >
                   <div class="col-md-12 col-sm-12 numero-dash">
-                    #BND100
-                    R$100
+                    {{volumeResgate+confirmedTotalSupply | currency:'BND':'symbol':'1.2-2':'pt'}}
+                    {{volumeResgate+confirmedTotalSupply | currency:'=R$':'symbol':'1.2-2':'pt'}}
                   </div>
                 </div>    
               </div>                
-            </div>
+             
           </div>
         </div>
       </div>
-      <div class="col-md-10 col-sm-10">
+      <div class="col-md-9 col-sm-9">
         <div class="">
           <div class="row">
-            <div class="col-md-3 col-sm-3 border border-dark rounded titulo-dash">          
+            <div class="col-md-6 col-sm-6 border border-dark rounded titulo-dash">          
               <div>
                 <div class="row">
-                  <div class="col-md-12 col-sm-12 titulo-dash">
-                    Tokens disponíveis em apoio a projetos
+                  <div class="col-md-12 col-sm-12 titulo-dash-green">
+                    Tokens disponíveis (doações-liberações)
                   </div>
                 </div>    
                 <div class="row">
-                  <div class="col-md-12 col-sm-12 numero-dash">
-                    #5
+                  <div class="col-md-12 col-sm-12 numero-dash-green">
+                    {{volumeResgate+confirmedTotalSupply-volumeLiberacao | currency:'BND':'symbol':'1.2-2':'pt'}}
                   </div>
                 </div>    
               </div>               
             </div>
-            <div class="col-md-3 col-sm-3 border border-dark rounded titulo-dash">
+            <div class="col-md-2 col-sm-2 border border-dark rounded titulo-dash">
               <div>
                 <div class="row">
-                  <div class="col-md-12 col-sm-12 titulo-dash">
+                  <div class="col-md-12 col-sm-12 titulo-dash-orange">
                     Nº de Liberações
                   </div>
                 </div>    
                 <div class="row">
-                  <div class="col-md-12 col-sm-12 numero-dash">
+                  <div class="col-md-12 col-sm-12 numero-dash-orange">
                     {{contadorLiberacao}}
                   </div>
                 </div>    
               </div>              
             </div>
-            <div class="col-md-3 col-sm-3 border border-dark rounded titulo-dash">
+            <div class="col-md-2 col-sm-2 border border-dark rounded titulo-dash">
               <div>
                 <div class="row">
-                  <div class="col-md-12 col-sm-12 titulo-dash">
-                    Nº de Solicitações de Resgates
+                  <div class="col-md-12 col-sm-12 titulo-dash-yellow">
+                    Nº de Resgates
                   </div>
                 </div>    
                 <div class="row">
-                  <div class="col-md-12 col-sm-12 numero-dash">
+                  <div class="col-md-12 col-sm-12 numero-dash-yellow">
                     {{contadorSolicitacaoResgate}}
                   </div>
                 </div>    
               </div>                             
             </div>
-            <div class="col-md-3 col-sm-3 border border-dark rounded titulo-dash">
+            <div class="col-md-2 col-sm-2 border border-dark rounded titulo-dash">
               <div>
                 <div class="row">
-                  <div class="col-md-12 col-sm-12 titulo-dash">
-                    Nº de Liquidações de Resgates
+                  <div class="col-md-12 col-sm-12 titulo-dash-gray">
+                    Nº de Liquidações
                   </div>
                 </div>    
                 <div class="row">
-                  <div class="col-md-12 col-sm-12 numero-dash">
+                  <div class="col-md-12 col-sm-12 numero-dash-gray">
                     {{contadorLiquidacaoResgate}}
                   </div>
                 </div>    
@@ -97,41 +97,57 @@
             <div class="col-md-4 col-sm-4 border border-dark rounded titulo-dash">          
               <div>
                 <div class="row">
-                  <div class="col-md-12 col-sm-12 titulo-dash">
-                    Tokens liberados em apoio a projetos
+                  <div class="col-md-12 col-sm-12 titulo-dash-orange">
+                    Tokens liberados em apoio a projetos (liberações)
                   </div>
                 </div>    
                 <div class="row">
-                  <div class="col-md-12 col-sm-12 numero-dash">
-                    #35
+                  <div class="col-md-12 col-sm-12 numero-dash-orange">
+                    {{ volumeLiberacao | currency:'BND':'symbol':'1.2-2':'pt' }}
                   </div>
                 </div>    
               </div>               
             </div>
               <div class="col-md-4 col-sm-4 border border-dark rounded titulo-dash">          
-                <div>
-                  <div class="row">
-                    <div class="col-md-12 col-sm-12 titulo-dash">
-                      Token Circulação(doações-sol.resgates)
-                    </div>
-                  </div>    
-                  <div class="row">
-                    <div class="col-md-12 col-sm-12 numero-dash">
-                      {{confirmedTotalSupply}}
-                    </div>
-                  </div>    
-                </div>               
+                <div class="row">
+                  <div>
+                    <div >
+                      <div class="col-md-12 col-sm-12 titulo-dash-yellow">                        
+                        Tokens solicitados para Resgate ("burned")
+                      </div>
+                    </div>    
+                    <div >
+                      <div class="col-md-12 col-sm-12 numero-dash-yellow">
+                        {{volumeResgate | currency:'BND':'symbol':'1.2-2':'pt'}}
+                      </div>
+                    </div>    
+                  </div> 
+                </div>
+                <div class="row">
+                  <div>
+                    <div >
+                      <div class="col-md-12 col-sm-12 titulo-dash-yellow">                        
+                        Token em Circulação (doações - "burned")
+                      </div>
+                    </div>    
+                    <div >
+                      <div class="col-md-12 col-sm-12 numero-dash-yellow">
+                        {{confirmedTotalSupply | currency:'BND':'symbol':'1.2-2':'pt'}}
+                      </div>
+                    </div>    
+                  </div>  
+                </div>
               </div>              
               <div class="col-md-4 col-sm-4 border border-dark rounded titulo-dash">          
                 <div>
                   <div class="row">
-                    <div class="col-md-12 col-sm-12 titulo-dash">
-                      Indicador 2
+                    <div class="col-md-12 col-sm-12 titulo-dash-gray">
+                      Tokens a Liquidar (liberações - "burned")
                     </div>
                   </div>    
                   <div class="row">
-                    <div class="col-md-12 col-sm-12 numero-dash">
-                      #50
+                    <div class="col-md-12 col-sm-12 numero-dash-gray">
+                      {{volumeLiberacao-volumeResgate | currency:'BND':'symbol':'1.2-2':'pt'}}
                     </div>
                   </div>    
                 </div>               

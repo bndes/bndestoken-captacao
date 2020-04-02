@@ -152,13 +152,56 @@ li div ul {
 
 .titulo-dash {
   font-size: 10px;
-  white-space: nowrap;
   color: #336699;
 }
 
 .numero-dash {
   font-size: 20px;
   color: #336699;
+  font-weight: bold;  
+}
+
+.titulo-dash-orange {
+  font-size: 10px;
+  color: #996633;
+}
+
+.numero-dash-orange {
+  font-size: 20px;
+  color: #996633;
+  font-weight: bold;  
+}
+
+.titulo-dash-yellow {
+  font-size: 10px;
+  color: #999933;
+}
+
+.numero-dash-yellow {
+  font-size: 20px;
+  color: #999933;
+  font-weight: bold;  
+}
+
+.titulo-dash-green {
+  font-size: 10px;
+  color: #669933;
+}
+
+.numero-dash-green {
+  font-size: 20px;
+  color: #669933;
+  font-weight: bold;  
+}
+
+.titulo-dash-gray {
+  font-size: 10px;
+  color: #666666;
+}
+
+.numero-dash-gray {
+  font-size: 20px;
+  color: #666666;
   font-weight: bold;  
 }
 

@@ -20,12 +20,14 @@ import { BnAlertsService } from 'bndes-ux4';
 export class DashboardTransferenciasComponent implements OnInit {
 
   public contadorLiberacao: number;
-  public contadorResgate: number;
-  public contadorTransferencia: number;
+  public contadorSolicitacaoResgate: number;
+  public contadorLiquidacaoResgate: number;
 
   public volumeLiberacao: number;
   public volumeResgate: number;
-  public volumeTransferencia: number;
+  public volumeLiquidacaoResgate: number;
+  
+  public confirmedTotalSupply : number;
 
   listaTransferencias: DashboardTransferencia[] = undefined;
   estadoLista: string = "undefined"
@@ -64,19 +66,22 @@ export class DashboardTransferenciasComponent implements OnInit {
   ngOnInit() {
 
     this.contadorLiberacao = 0;
-    this.contadorResgate = 0;
-    this.contadorTransferencia = 0;
+    this.contadorSolicitacaoResgate = 0;
+    this.contadorLiquidacaoResgate = 0;
 
 
     this.volumeLiberacao = 0;
     this.volumeResgate = 0;
-    this.volumeTransferencia = 0;
+    this.volumeLiquidacaoResgate = 0;
+
+    this.confirmedTotalSupply = 0;
 
     this.listaTransferencias = [];
 
 
     setTimeout(() => {
       this.registrarExibicaoEventos();
+      this.getConfirmedTotalSupply();
     }, 1500)
 
     setTimeout(() => {
@@ -106,24 +111,43 @@ export class DashboardTransferenciasComponent implements OnInit {
 
   }  
 
+  getConfirmedTotalSupply() {
+    let self = this;
+
+    this.web3Service.getConfirmedTotalSupply(
+
+      function (result) {
+        console.log("getConfirmedTotalSupply eh " + result);
+        self.confirmedTotalSupply = result;
+      },
+      function (error) {
+        console.log("Erro ao ler getConfirmedTotalSupply ");
+        console.log(error);
+      });
+
+  }
+
   registrarExibicaoEventos() {
 
     let self = this; 
-
+    
     this.blockchainNetworkPrefix = this.web3Service.getInfoBlockchainNetwork().blockchainNetworkPrefix;
 
     // EVENTOS LIBERAÇÃO
     this.registrarExibicaoEventosLiberacao()
 
-    // EVENTOS RESGATE
-    this.registrarExibicaoEventosResgate()
+    // EVENTOS SOLICITACAO DE RESGATE
+    this.registrarExibicaoEventosSolicitacaoResgate()
+
+    // EVENTOS LIQUIDACAO DE RESGATE
+    this.registrarExibicaoEventosLiquidacaoResgate()
 
     console.log("antes de atualizar - contador liberacao " + self.contadorLiberacao);
-    console.log("antes de atualizar - contador transferencia " + self.contadorTransferencia);
-    console.log("antes de atualizar - contador resgate " + self.contadorResgate);
+    console.log("antes de atualizar - contador liquidacao resgate " + self.contadorLiquidacaoResgate);
+    console.log("antes de atualizar - contador solicitacao resgate " + self.contadorSolicitacaoResgate);
 
     console.log("antes de atualizar - volume liberacao " + self.volumeLiberacao);
-    console.log("antes de atualizar - volume transferencia " + self.volumeTransferencia);
+    console.log("antes de atualizar - volume transferencia " + self.volumeLiquidacaoResgate);
     console.log("antes de atualizar - volume resgate " + self.volumeResgate);
 
   }
@@ -214,8 +238,85 @@ export class DashboardTransferenciasComponent implements OnInit {
     });
   }
 
+  registrarExibicaoEventosLiquidacaoResgate() {
+    let self = this
 
-  registrarExibicaoEventosResgate() {
+    this.web3Service.registraEventosLiquidacaoResgate(function (error, event) {
+      if (!error) {
+        let liberacao: DashboardTransferencia;
+        let eventoLiquidacaoResgate = event
+        console.log("contador liberacao " + self.contadorLiquidacaoResgate);
+        console.log("volume liberacao " + self.volumeLiquidacaoResgate);    
+        self.contadorLiquidacaoResgate++;
+        self.volumeLiquidacaoResgate += self.web3Service.converteInteiroParaDecimal(parseInt(eventoLiquidacaoResgate.args.amount));            
+/** * 
+        self.pessoaJuridicaService.recuperaEmpresaPorCnpj(eventoLiquidacaoResgate.args.cnpj).subscribe(
+          data => {
+
+            liberacao = {
+              deRazaoSocial: self.razaoSocialBNDES,
+              deCnpj: "BNDES",
+              deConta: "0",
+              paraRazaoSocial: "Erro: Não encontrado",
+              paraCnpj: eventoLiquidacaoResgate.args.cnpj,
+              paraConta: eventoLiquidacaoResgate.args.idFinancialSupportAgreement,
+              valor: self.web3Service.converteInteiroParaDecimal(parseInt(eventoLiquidacaoResgate.args.amount)),
+              tipo: "Liberação",
+              hashID: eventoLiquidacaoResgate.transactionHash,
+              dataHora: null
+            };
+
+            if (data && data.dadosCadastrais) {
+              liberacao.paraRazaoSocial = data.dadosCadastrais.razaoSocial;
+            }
+
+            // Colocar dentro da zona do Angular para ter a atualização de forma correta
+            self.zone.run(() => {
+              self.includeIfNotExists(liberacao);              
+              self.estadoLista = "cheia"
+            });
+
+            self.contadorLiberacao++;
+            self.volumeLiberacao += self.web3Service.converteInteiroParaDecimal(parseInt(eventoLiquidacaoResgate.args.amount));
+
+            console.log("inseriu liberacao " + liberacao.hashID);
+            console.log("contador liberacao " + self.contadorLiberacao);
+            console.log("volume liberacao " + self.volumeLiberacao);
+
+            self.web3Service.getBlockTimestamp(eventoLiquidacaoResgate.blockHash,
+              function (error, result) {
+                if (!error) {
+                  liberacao.dataHora = new Date(result.timestamp * 1000);
+                  console.log("data hora:" + liberacao.dataHora);
+                  self.ref.detectChanges();
+                  //TODO: adicionar tratamento para o grafico de barras
+                }
+                else {
+                  console.log("Erro ao recuperar data e hora do bloco");
+                  console.error(error);
+                }
+              });
+
+              self.isActive = new Array(self.listaTransferencias.length).fill(false)
+
+              console.log("Chegou no final da função");
+          },
+          error => {
+            console.log("Erro ao recuperar empresa por CNPJ do evento liberação")
+          }
+        )
+/**/
+      }
+      else {
+        console.log("Erro no registro de eventos de liquidacao de resgate");
+        console.log(error);
+      }
+
+    });
+  }  
+
+
+  registrarExibicaoEventosSolicitacaoResgate() {
     let self = this
 
     this.web3Service.registraEventosResgate(function (error, event) {
@@ -248,12 +349,12 @@ export class DashboardTransferenciasComponent implements OnInit {
               self.includeIfNotExists(resgate); 
               self.estadoLista = "cheia"
             });
-
-            self.contadorResgate++;
+ 
+            self.contadorSolicitacaoResgate++;
             self.volumeResgate += self.web3Service.converteInteiroParaDecimal(parseInt(eventoResgate.args.amount));
 
             console.log("inseriu resg " + resgate.hashID);
-            console.log("contador resg " + self.contadorResgate);
+            console.log("contador resg " + self.contadorSolicitacaoResgate);
             console.log("volume resg " + self.volumeResgate);
 
             self.web3Service.getBlockTimestamp(eventoResgate.blockHash,

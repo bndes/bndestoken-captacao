@@ -275,13 +275,14 @@ export class Web3Service {
     }
 
 
-    getTotalSupply(fSuccess: any, fError: any): number {
-        console.log("vai recuperar o totalsupply. " );
+    getConfirmedTotalSupply(fSuccess: any, fError: any): number {
+        console.log("vai recuperar o confirmedtotalsupply. " );
         let self = this;
-        return this.bndesTokenSmartContract.getTotalSupply(
-            (error, totalSupply) => {
+        return this.bndesTokenSmartContract.getConfirmedTotalSupply(
+            (error, confirmedTotalSupply) => {
                 if (error) fError(error);
-                else fSuccess( self.converteInteiroParaDecimal(  parseInt ( totalSupply ) ) );
+                console.log( "confirmedTotalSupply = " + confirmedTotalSupply)
+                else fSuccess( self.converteInteiroParaDecimal(  parseInt ( confirmedTotalSupply ) ) );
             });
     }
 

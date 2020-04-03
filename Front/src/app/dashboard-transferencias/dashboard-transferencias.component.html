@@ -57,7 +57,7 @@
                 </div>    
               </div>               
             </div>
-            <div class="col-md-2 col-sm-2 border border-dark rounded titulo-dash">
+            <div class="col-md-3 col-sm-3 border border-dark rounded titulo-dash">
               <div>
                 <div class="row">
                   <div class="col-md-12 col-sm-12 titulo-dash-orange">
@@ -71,7 +71,7 @@
                 </div>    
               </div>              
             </div>
-            <div class="col-md-2 col-sm-2 border border-dark rounded titulo-dash">
+            <div class="col-md-3 col-sm-3 border border-dark rounded titulo-dash">
               <div>
                 <div class="row">
                   <div class="col-md-12 col-sm-12 titulo-dash-yellow">
@@ -85,23 +85,10 @@
                 </div>    
               </div>                             
             </div>
-            <div class="col-md-2 col-sm-2 border border-dark rounded titulo-dash">
-              <div>
-                <div class="row">
-                  <div class="col-md-12 col-sm-12 titulo-dash-gray">
-                    Nº de Liquidações
-                  </div>
-                </div>    
-                <div class="row">
-                  <div class="col-md-12 col-sm-12 numero-dash-gray">
-                    {{contadorLiquidacaoResgate}}
-                  </div>
-                </div>    
-              </div>                
-            </div>
+
           </div>
           <div class="row">
-            <div class="col-md-4 col-sm-4 border border-dark rounded titulo-dash">          
+            <div class="col-md-6 col-sm-6 border border-dark rounded titulo-dash">          
               <div>
                 <div class="row">
                   <div class="col-md-12 col-sm-12 titulo-dash-orange">
@@ -115,7 +102,7 @@
                 </div>    
               </div>               
             </div>
-              <div class="col-md-4 col-sm-4 border border-dark rounded titulo-dash">          
+              <div class="col-md-6 col-sm-6 border border-dark rounded titulo-dash">          
                 <div class="row">
                   <div>
                     <div >
@@ -134,31 +121,18 @@
                   <div>
                     <div >
                       <div class="col-md-12 col-sm-12 titulo-dash-yellow">                        
-                        Token em Circulação (doações - "burned")
+                        Token em Circulação (liberações - "burned")
                       </div>
                     </div>    
                     <div >
                       <div class="col-md-12 col-sm-12 numero-dash-yellow">
-                        {{confirmedTotalSupply | currency:'BND':'symbol':'1.2-2':'pt'}}
+                        {{volumeLiberacao-volumeResgate | currency:'BND':'symbol':'1.2-2':'pt'}}
                       </div>
                     </div>    
                   </div>  
                 </div>
               </div>              
-              <div class="col-md-4 col-sm-4 border border-dark rounded titulo-dash">          
-                <div>
-                  <div class="row">
-                    <div class="col-md-12 col-sm-12 titulo-dash-gray">
-                      Tokens a Liquidar (liberações - "burned")
-                    </div>
-                  </div>    
-                  <div class="row">
-                    <div class="col-md-12 col-sm-12 numero-dash-gray">
-                      {{volumeLiberacao-volumeResgate | currency:'BND':'symbol':'1.2-2':'pt'}}
-                    </div>
-                  </div>    
-                </div>               
-              </div>               
+                      
           </div>
         </div>
       </div>

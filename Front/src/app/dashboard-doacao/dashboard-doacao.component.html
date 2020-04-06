@@ -15,40 +15,44 @@
     <table class="table table-striped table-bordered table-sm">
       <thead>
         <tr *ngIf="listaDoacoes.length > 0">
-          <th [class.active]="order === 'razaoSocial'" (click)="setOrder('razaoSocial')">Razão Social
+          <td [class.active]="order === 'razaoSocial'" (click)="setOrder('razaoSocial')">Razão Social
             <i [hidden]="reverse" class="fa fa-caret-down"></i>
             <i [hidden]="!reverse" class="fa fa-caret-up"></i>
-          </th>
-          <th class="cnpj-table-cell" [class.active]="order === 'cnpj'" (click)="setOrder('cnpj')">CNPJ
+          </td>
+          <td class="cnpj-table-cell" [class.active]="order === 'cnpj'" (click)="setOrder('cnpj')">CNPJ
             <i [hidden]="reverse" class="fa fa-caret-down"></i>
             <i [hidden]="!reverse" class="fa fa-caret-up"></i>
-          </th>
+          </td>
           
-          <th [class.active]="order === 'valor'" (click)="setOrder('valor')" scope="col">Valor doado
+          <td [class.active]="order === 'valor'" (click)="setOrder('valor')" scope="col">Valor doado
             <i [hidden]="reverse" class="fa fa-caret-down"></i>
             <i [hidden]="!reverse" class="fa fa-caret-up"></i>
-          </th>
+          </td>
 
-          <th [class.active]="order === 'valor'" (click)="setOrder('valor')" scope="col">Recursos para Custeio
+          <td [class.active]="order === 'valor'" (click)="setOrder('valor')" scope="col">Recursos para Custeio
             <i [hidden]="reverse" class="fa fa-caret-down"></i>
             <i [hidden]="!reverse" class="fa fa-caret-up"></i>
-          </th>
+          </td>
 
-          <th [class.active]="order === 'valor'" (click)="setOrder('valor')" scope="col">Tokens Emitidos
+          <td [class.active]="order === 'valor'" (click)="setOrder('valor')" scope="col">Tokens Emitidos
             <i [hidden]="reverse" class="fa fa-caret-down"></i>
             <i [hidden]="!reverse" class="fa fa-caret-up"></i>
-          </th>
+          </td>
 
-          <th>Comprovante</th>          
-          <th [class.active]="order === 'dataHora'" (click)="setOrder('dataHora')">Data/Hora
+          <td [class.active]="order === 'comprovante'" (click)="setOrder('comprovante')" scope="col">Comprovante
             <i [hidden]="reverse" class="fa fa-caret-down"></i>
             <i [hidden]="!reverse" class="fa fa-caret-up"></i>
-          </th>
-          <th [class.active]="order === 'tipo'" (click)="setOrder('tipo')" scope="col">Tipo
+          </td>
+
+          <td [class.active]="order === 'dataHora'" (click)="setOrder('dataHora')">Data/Hora
             <i [hidden]="reverse" class="fa fa-caret-down"></i>
             <i [hidden]="!reverse" class="fa fa-caret-up"></i>
-          </th>
-          <th>Link Etherscan</th>
+          </td>
+          <td [class.active]="order === 'tipo'" (click)="setOrder('tipo')" scope="col">Tipo
+            <i [hidden]="reverse" class="fa fa-caret-down"></i>
+            <i [hidden]="!reverse" class="fa fa-caret-up"></i>
+          </td>
+          <td>Link Etherscan</td>
         </tr>
       </thead>
 
@@ -60,7 +64,7 @@
           <td>{{transacao.txAdm | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>                       
           <td>{{transacao.tokenMinted | currency:'BND':'symbol':'1.2-2':'pt' }}</td>                       
           <td class="tooltipCaixa">
-            <a target="_blank" href="{{transacao.filePathAndName}}">
+            <a *ngIf="transacao.hashComprovante.length > 1" target="_blank" href="{{transacao.filePathAndName}}">
               {{transacao.hashComprovante | hashMask}}
             </a>
           </td>  

@@ -15,36 +15,39 @@
     <table class="table table-striped table-bordered table-sm">
       <thead>
         <tr *ngIf="listaTransacoesPJ.length > 0">
-          <th [class.active]="order === 'razaoSocial'" (click)="setOrder('razaoSocial')">Razão Social
+          <td [class.active]="order === 'razaoSocial'" (click)="setOrder('razaoSocial')">Razão Social
             <i [hidden]="reverse" class="fa fa-caret-down"></i>
             <i [hidden]="!reverse" class="fa fa-caret-up"></i>
-          </th>
-          <th class="cnpj-table-cell" [class.active]="order === 'cnpj'" (click)="setOrder('cnpj')">CNPJ
+          </td>
+          <td class="cnpj-table-cell" [class.active]="order === 'cnpj'" (click)="setOrder('cnpj')">CNPJ
             <i [hidden]="reverse" class="fa fa-caret-down"></i>
             <i [hidden]="!reverse" class="fa fa-caret-up"></i>
-          </th>
-          <th [class.active]="order === 'nomeConta'" (click)="setOrder('nomeConta')">Contrato Financeiro
+          </td>
+          <td [class.active]="order === 'nomeConta'" (click)="setOrder('nomeConta')">Contrato Financeiro
               <i [hidden]="reverse" class="fa fa-caret-down"></i>
               <i [hidden]="!reverse" class="fa fa-caret-up"></i>
-            </th>
-            <th [class.active]="order === 'Perfil'" (click)="setOrder('perfil')">Perfil
+            </td>
+            <td [class.active]="order === 'perfil'" (click)="setOrder('perfil')">Perfil
               <i [hidden]="reverse" class="fa fa-caret-down"></i>
               <i [hidden]="!reverse" class="fa fa-caret-up"></i>
-            </th>
-            <th>Declaração</th>
-          <th [class.active]="order === 'dataHora'" (click)="setOrder('dataHora')">Data/Hora
+            </td>
+            <td [class.active]="order === 'declaracao'" (click)="setOrder('declaracao')">Declaração
+              <i [hidden]="reverse" class="fa fa-caret-down"></i>
+              <i [hidden]="!reverse" class="fa fa-caret-up"></i>
+            </td>            
+          <td [class.active]="order === 'dataHora'" (click)="setOrder('dataHora')">Data/Hora
             <i [hidden]="reverse" class="fa fa-caret-down"></i>
             <i [hidden]="!reverse" class="fa fa-caret-up"></i>
-          </th>
-          <th [class.active]="order === 'contaBlockchain'" (click)="setOrder('contaBlockchain')">Conta Blockchain
+          </td>
+          <td [class.active]="order === 'contaBlockchain'" (click)="setOrder('contaBlockchain')">Conta Blockchain
             <i [hidden]="reverse" class="fa fa-caret-down"></i>
             <i [hidden]="!reverse" class="fa fa-caret-up"></i>
-          </th>
-          <th [class.active]="order === 'status'" (click)="setOrder('status')">Status
+          </td>
+          <td [class.active]="order === 'status'" (click)="setOrder('status')">Status
             <i [hidden]="reverse" class="fa fa-caret-down"></i>
             <i [hidden]="!reverse" class="fa fa-caret-up"></i>
-          </th>
-          <th>Link Etherscan</th>
+          </td>
+          <td>Link Etherscan</td>
         </tr>
       </thead>
 

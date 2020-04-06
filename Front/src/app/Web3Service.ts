@@ -281,7 +281,6 @@ export class Web3Service {
         return this.bndesTokenSmartContract.getConfirmedTotalSupply(
             (error, confirmedTotalSupply) => {
                 if (error) fError(error);
-                console.log( "confirmedTotalSupply = " + confirmedTotalSupply)
                 else fSuccess( self.converteInteiroParaDecimal(  parseInt ( confirmedTotalSupply ) ) );
             });
     }

@@ -1,16 +1,13 @@
-declare var google: any;
-
-import { Component, OnInit, NgZone, ViewChild } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { ChangeDetectorRef } from '@angular/core';
-import { Router } from '@angular/router';
-import { DashboardTransferencia } from './DashboardTransferencia';
+
 import { Web3Service } from './../Web3Service';
 import { PessoaJuridicaService } from '../pessoa-juridica.service';
-
-import { GoogleMapsService, Marcador, MarcadorLinha } from '../shared/google-maps.service';
-
 import { BnAlertsService } from 'bndes-ux4';
+import { Router } from '@angular/router';
 
+
+import { DashboardTransferencia } from './DashboardTransferencia';
 
 @Component({
   selector: 'app-dashboard-transferencias',
@@ -33,30 +30,21 @@ export class DashboardTransferenciasComponent implements OnInit {
   estadoLista: string = "undefined"
 
   p: number = 1;
-  order: string = 'dataHora';
+  order: string = 'valor';
   reverse: boolean = false;
-
-  marcadores: Marcador[] = []
-  marcadoresLinha: MarcadorLinha[] = []
-  latitudeInicial: number = -15.7942287;
-  longitudeInicial: number = -47.8821658;
-  zoom: number = 6;
-
-  isActive: boolean[] = []
-  mapaEstaAtivo: boolean = false
-  labelMap: string[] = ["A", "B"]
 
   razaoSocialBNDES: string = "Banco Nacional De Desenvolvimento Econômico E Social";
   selectedAccount: any;  
   blockchainNetworkPrefix: string;  
 
   constructor(private pessoaJuridicaService: PessoaJuridicaService, 
-    protected bnAlertsService: BnAlertsService,
-    private web3Service: Web3Service, private ref: ChangeDetectorRef, private zone: NgZone, 
-    private router: Router, private mapa: GoogleMapsService) { 
+    private router: Router,
+    protected bnAlertsService: BnAlertsService, private web3Service: Web3Service,
+    private ref: ChangeDetectorRef, private zone: NgZone) {
 
       let self = this;
       self.recuperaContaSelecionada();
+      
       setInterval(function () {
         self.recuperaContaSelecionada(), 
         1000}); 
@@ -220,7 +208,6 @@ export class DashboardTransferenciasComponent implements OnInit {
                 }
               });
 
-              self.isActive = new Array(self.listaTransferencias.length).fill(false)
 
               console.log("Chegou no final da função");
           },
@@ -368,8 +355,6 @@ export class DashboardTransferenciasComponent implements OnInit {
                   console.error(error);
                 }
               });
-
-              self.isActive = new Array(self.listaTransferencias.length).fill(false)
           })
       }
       else {

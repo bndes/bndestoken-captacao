@@ -173,6 +173,17 @@ export class ConfirmaDoacaoComponent implements OnInit, DeclarationComponentInte
         this.bnAlertsService.criarAlerta("error", "Erro", s, 5);
         return;
       }
+      if (this.hashdeclaracao==undefined || this.hashdeclaracao==null || this.hashdeclaracao == "") {
+        let s = "O envio da declaração é obrigatório";
+        this.bnAlertsService.criarAlerta("error", "Erro", s, 2)
+        return
+      } 
+      else if (!Utils.isValidHash(this.hashdeclaracao)) {
+        let s = "O Hash do comprovante está preenchido com valor inválido";
+        this.bnAlertsService.criarAlerta("error", "Erro", s, 2)
+        return;
+      }
+  
   
         
       //Multipliquei por 1 para a comparacao ser do valor (e nao da string)

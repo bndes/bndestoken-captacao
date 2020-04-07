@@ -25,6 +25,7 @@ import { RecuperaAcessoDoadorComponent } from './recupera-acesso-doador/recupera
 import { DashboardIdEmpresaComponent } from './dashboard-id-empresa/dashboard-id-empresa.component';
 import { DashboardDoacaoComponent } from './dashboard-doacao/dashboard-doacao.component';
 import { DashboardTransferenciasComponent } from './dashboard-transferencias/dashboard-transferencias.component';
+import {DashboardManualComponent } from './dashboard-manual/dashboard-manual.component';
 
 const routes: Routes = [
   { path: 'bndes', component: HomeComponent },
@@ -45,6 +46,7 @@ const routes: Routes = [
   { path: 'sociedade/dash-empresas', component: DashboardIdEmpresaComponent },
   { path: 'sociedade/dash-doacao', component: DashboardDoacaoComponent },
   { path: 'sociedade/dash-transf', component: DashboardTransferenciasComponent },
+  { path: 'sociedade/dash-manuais', component: DashboardManualComponent },
   { path: '', redirectTo: '/sociedade', pathMatch: 'full' },
 ];
 

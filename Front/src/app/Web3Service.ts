@@ -200,7 +200,13 @@ export class Web3Service {
         this.eventoDoacao = this.bndesTokenSmartContract.DonationConfirmed({}, { fromBlock: 0, toBlock: 'latest' });
         this.eventoDoacao.watch(callback);
     }
+    registraEventosIntervencaoManual(callback) {
+        console.log("web3-registraEventosIntervencaoManual");        
+        this.eventoDoacao = this.bndesTokenSmartContract.ManualIntervention({}, { fromBlock: 0, toBlock: 'latest' });
+        this.eventoDoacao.watch(callback);
+    }
 
+    
 
     registraWatcherEventosLocal(txHashProcurado, callback) {
         let self = this;
@@ -308,6 +314,17 @@ export class Web3Service {
 
     }
 
+    getDisbursementAddressBalance(fSuccess: any, fError: any): number {
+        console.log("disbursementAddress");
+        
+        let self = this;
+        return this.bndesTokenSmartContract.getDisbursementAddressBalance(
+            (error, valorSaldo) => {
+                if (error) fError(error);
+                else fSuccess( self.converteInteiroParaDecimal( parseInt ( valorSaldo ) ) );
+            });
+    }
+
     getCNPJ(addr: string, fSuccess: any, fError: any): number {
         return this.bndesRegistrySmartContract.getCNPJ(addr,
             (error, result) => {
@@ -404,6 +421,16 @@ export class Web3Service {
 
     getAddressOwner(fSuccess: any, fError: any): number {
         return this.bndesRegistrySmartContract.owner(
+            (error, result) => {
+                if (error) fError(error);
+                else fSuccess(result);
+            });
+    }
+
+
+    getDisbursementAddress(fSuccess: any, fError: any): string {
+        
+        return this.bndesTokenSmartContract.getDisbursementAddress(
             (error, result) => {
                 if (error) fError(error);
                 else fSuccess(result);

@@ -171,6 +171,14 @@ export class HabilitaCadastroComponent implements OnInit {
         this.bnAlertsService.criarAlerta("error", "Erro", s, 5);
         return;
       }
+
+      let bChangeAccountSync = await this.web3Service.isChangeAccountEnabledSync(self.pj.contaBlockchain);
+      if (bChangeAccountSync) {
+        let s = "Essa conta já está habilitada.";
+        this.bnAlertsService.criarAlerta("error", "Erro", s, 5);
+        return;
+      }
+  
   
       console.log("habilitarCadastro(): " + self.pj.contaBlockchain);
   
@@ -189,7 +197,7 @@ export class HabilitaCadastroComponent implements OnInit {
             }        
           ,(error) => {
             Utils.criarAlertaErro( self.bnAlertsService, 
-                                   "Erro ao validar habilitar cadastro na blockchain", 
+                                   "Erro ao habilitar cadastro na blockchain", 
                                    error )  
           }
         );

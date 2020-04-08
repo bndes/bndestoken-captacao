@@ -75,8 +75,7 @@ async recuperaSaldoBNDESToken() {
 
   let self = this;
 
-  this.web3Service.getConfirmedBalanceOf(this.selectedAccount+"",
-
+  this.web3Service.getDisbursementAddressBalance(
     function (result) {
       console.log("Saldo eh " + result);
       self.liberacao.saldoBNDESToken = result;
@@ -248,6 +247,15 @@ async recuperaSaldoBNDESToken() {
       this.bnAlertsService.criarAlerta("error", "Erro", s, 5);
       console.log(s);
     }
+
+      //Multipliquei por 1 para a comparacao ser do valor (e nao da string)
+    else if ((this.liberacao.valor * 1) > (this.liberacao.saldoBNDESToken * 1)) {
+    
+        let s = "Não é possível liberar um valor maior do que o saldo de BNDESToken.";
+        this.bnAlertsService.criarAlerta("error", "Erro", s, 5);
+        return;
+    }
+
     else {
       console.log(this.liberacao.contaBlockchainCNPJ);
       console.log(this.liberacao.valor);

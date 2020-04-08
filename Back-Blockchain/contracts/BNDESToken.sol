@@ -30,7 +30,7 @@ contract BNDESToken is Pausable {
     
     event TransferBookedBalance(address from, address to, uint256 amount);    
     event TransferConfirmedBalance(address from, address to, uint256 amount);    
-    event ManualIntervention(string description);
+    event ManualIntervention(address account, uint256 amount, string description, uint8 eventType);
     
     BNDESRegistry registry;
     
@@ -50,22 +50,23 @@ contract BNDESToken is Pausable {
     }
     
     /* BNDES confirms the donor's donation */
-    function confirmDonation(address account, uint256 amount, string memory docHash) public whenNotPaused onlyResponsibleForDonationConfirmation {       
+    function confirmDonation(address account, uint256 amount, string memory docHash) public whenNotPaused onlyResponsibleForDonationConfirmation {
+        require (registry.isValidHash(docHash), "O hash do recibo é inválido");
         uint256 tokenMinted = amount.sub(amount.mul(bndesFee).div(100));
 
         bookedTotalSupply    = bookedTotalSupply.sub( amount );
         confirmedTotalSupply = confirmedTotalSupply.add( tokenMinted );
 
         bookedBalances[account] = bookedBalances[account].sub( amount );
-        confirmedBalances[registry.getResponsibleForDisbursement()] = 
-                confirmedBalances[registry.getResponsibleForDisbursement()].add( tokenMinted );
+        confirmedBalances[registry.getDisbursementAddress()] = 
+                confirmedBalances[registry.getDisbursementAddress()].add( tokenMinted );
         uint64 cnpj = registry.getCNPJ(account);
         emit DonationConfirmed(cnpj, amount, tokenMinted, docHash);
     }
     
     /* BNDES disbursement - transfer donations to a client */
     function makeDisbursement(address client, uint256 amount) public whenNotPaused onlyResponsibleForDisbursement {
-        transferConfirmed(registry.getResponsibleForDisbursement(), client, amount);
+        transferConfirmed(registry.getDisbursementAddress(), client, amount);
         uint64 cnpj = registry.getCNPJ(client);
         uint64 idLegalFinancialAgreement = registry.getIdLegalFinancialAgreement(client);
         emit Disbursement(cnpj, amount, idLegalFinancialAgreement);
@@ -124,29 +125,29 @@ contract BNDESToken is Pausable {
         require(account != address(0), "ERC20: burn from the zero address");
         bookedBalances[account] = bookedBalances[account].add(amount);
         bookedTotalSupply = bookedTotalSupply.add(amount);
-        emit ManualIntervention(description);        
+        emit ManualIntervention(account, amount, description,1);        
     }        
     //These methods may be necessary to solve incidents.
     function burnBooked(address account, uint256 amount, string memory description) public onlyOwner {
         require(account != address(0), "ERC20: burn from the zero address");
         bookedBalances[account] = bookedBalances[account].sub(amount, "ERC20: burn amount exceeds balance");
         bookedTotalSupply = bookedTotalSupply.sub(amount);
-        emit ManualIntervention(description);        
+        emit ManualIntervention(account, amount, description,2);        
     }
     //These methods may be necessary to solve incidents.
     function mintConfirmed(address account, uint256 amount, string memory description) public onlyOwner {
         require(account != address(0), "ERC20: burn from the zero address");
         confirmedBalances[account] = confirmedBalances[account].add(amount);
         confirmedTotalSupply = confirmedTotalSupply.add(amount);
-        emit ManualIntervention(description);        
+        emit ManualIntervention(account, amount, description,3);        
     }
     //These methods may be necessary to solve incidents.
     function burnConfirmed(address account, uint256 amount, string memory description) public onlyOwner {
         require(account != address(0), "ERC20: burn from the zero address");
         confirmedBalances[account] = confirmedBalances[account].sub(amount, "ERC20: burn amount exceeds balance");
         confirmedTotalSupply = confirmedTotalSupply.sub(amount);
-        emit ManualIntervention(description);        
-    }   
+        emit ManualIntervention(account, amount, description,4);        
+    }
 
     function registryLegalEntity(uint64 cnpj, uint64 idFinancialSupportAgreement, string memory idProofHash) 
         public whenNotPaused { 
@@ -181,7 +182,11 @@ contract BNDESToken is Pausable {
 
     function confirmedBalanceOf(address client) public view returns (uint256) {
         return confirmedBalances[client];
-    }    
+    } 
+
+    function getDisbursementAddressBalance () public view returns (uint256) {
+        return confirmedBalanceOf(registry.getDisbursementAddress());
+    }   
 
     function bookedBalanceOf(address donor) public view returns (uint256) {
         return bookedBalances[donor];
@@ -226,9 +231,9 @@ contract BNDESToken is Pausable {
         _;
     }
     modifier onlyOwner() {
-        require(registry.isOwner());
+        require(registry.owner()==msg.sender);
         _;
-    }    
+    }
 }
 
 /** 

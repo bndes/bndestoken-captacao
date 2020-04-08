@@ -22,17 +22,9 @@ contract('BNDESToken', function (accounts) {
   var changeClientAddr         = accounts[5];
   var changeDonorAddr  = accounts[6];
   
-  it("[SETUP] should create a BNDESRegistry instance and run a simple call", async () => {
-
-    bndesRegistryInstance = await BNDESRegistry.new();
-    let redemptionAddress = await bndesRegistryInstance.getRedemptionAddress.call();
-    
-    assert.notEqual(redemptionAddress, "0x0", "Address should not be 0x0");
-    assert.notEqual(redemptionAddress, undefined, "Address should not be undefined");
-
-  });  
 
   it("[SETUP] should call the owner of BNDESRegistry instance", async () => {
+    bndesRegistryInstance = await BNDESRegistry.new();
     
     let ownerAddress = await bndesRegistryInstance.owner.call();
    

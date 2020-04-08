@@ -22,7 +22,7 @@ contract BNDESRegistry is Ownable() {
     address public responsibleForRegistryValidation;
     address public responsibleForDonationConfirmation;
     address public responsibleForDisbursement;
-    address public redemptionAddress;
+    address public disbursementAddress;
     address public tokenAddress;
 
     /**
@@ -72,7 +72,7 @@ contract BNDESRegistry is Ownable() {
         responsibleForSettlement = msg.sender;
         responsibleForRegistryValidation = msg.sender;
         responsibleForDisbursement = msg.sender;
-        redemptionAddress = msg.sender;
+        disbursementAddress = msg.sender;
         responsibleForDonationConfirmation = msg.sender;
     }
 
@@ -110,8 +110,6 @@ contract BNDESRegistry is Ownable() {
         }
         
         cnpjFSAddr[cnpj][idFinancialSupportAgreement] = addr;
-
-        legalEntitiesChangeAccount[addr] = false;
 
         emit AccountRegistration(addr, cnpj, idFinancialSupportAgreement, idProofHash);
     }
@@ -155,8 +153,6 @@ contract BNDESRegistry is Ownable() {
 
         // Aponta mapping CNPJ e Subcredito para newAddr
         cnpjFSAddr[cnpj][idFinancialSupportAgreement] = newAddr;
-
-        legalEntitiesChangeAccount[oldAddr] = false;
 
         emit AccountChange(oldAddr, newAddr, cnpj, idFinancialSupportAgreement, idProofHash); 
 
@@ -237,14 +233,13 @@ contract BNDESRegistry is Ownable() {
     }
 
    /**
-    * The donor reedems the BNDESToken by transfering the tokens to a specific address, 
-    * called Redemption address. 
-    * By default, the redemption address is the address of the owner. 
-    * The owner can change the redemption address using this function. 
-    * @param rs new Redemption address
+    * The account where the token is stored to futher disbursement. 
+    * By default, the disbursement address is the address of the owner. 
+    * The owner can change the disbursement address using this function. 
+    * @param rs new Disbursement address
     */
-    function setRedemptionAddress(address rs) onlyOwner public {
-        redemptionAddress = rs;
+    function setDisbursementAddress(address rs) onlyOwner public {
+        disbursementAddress = rs;
     }
 
    /**
@@ -283,8 +278,8 @@ contract BNDESRegistry is Ownable() {
     function isResponsibleForDisbursement(address addr) view public returns (bool) {
         return (addr == responsibleForDisbursement);
     }
-    function isRedemptionAddress(address addr) view public returns (bool) {
-        return (addr == redemptionAddress);
+    function isDisbursementAddress(address addr) view public returns (bool) {
+        return (addr == disbursementAddress);
     }
 
     function isReservedAccount(address addr) view public returns (bool) {
@@ -294,7 +289,7 @@ contract BNDESRegistry is Ownable() {
                            || isResponsibleForRegistryValidation(addr)
                            || isResponsibleForDisbursement(addr)
                            || isResponsibleForDonationConfirmation(addr)
-                           || isRedemptionAddress(addr)  ) {
+                           || isDisbursementAddress(addr)  ) {
             return true;
         }
         return false;
@@ -361,8 +356,8 @@ contract BNDESRegistry is Ownable() {
     function getResponsibleForDonationConfirmation() view public returns (address) {
         return responsibleForDonationConfirmation;
     }    
-    function getRedemptionAddress() view public returns (address) {
-        return redemptionAddress;
+    function getDisbursementAddress() view public returns (address) {
+        return disbursementAddress;
     }
     function getCNPJ(address addr) view public returns (uint64) {
         return legalEntitiesInfo[addr].cnpj;

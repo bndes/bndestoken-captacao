@@ -45,7 +45,7 @@ export class DashboardManualComponent implements OnInit {
     ngOnInit() {
       setTimeout(() => {
           this.listaTransacoes = [];
-          console.log("Zerou lista de doacoes");
+          console.log("Zerou lista de transacoes");
 
           this.registrarExibicaoEventos();
       }, 1500)
@@ -71,7 +71,7 @@ export class DashboardManualComponent implements OnInit {
 
             let transacao: DashboardIntervencaoManual;
 
-            console.log("Evento Registrar Doacao");
+            console.log("Evento Manual");
             console.log(event);
 
             let txAdm = self.web3Service.converteInteiroParaDecimal(parseInt(event.args.amount)) -

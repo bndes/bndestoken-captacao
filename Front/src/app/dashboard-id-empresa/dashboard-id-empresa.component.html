@@ -58,7 +58,7 @@
           <td>{{transacaoPJ.nomeConta | contratoMask}}</td>
           <td>{{transacaoPJ.perfil}}</td>
           <td class="tooltipCaixa">
-            <a *ngIf="transacaoPJ.hashDeclaracao.length > 1" target="_blank" href="{{transacaoPJ.filePathAndName}}">
+            <a *ngIf="transacaoPJ.hashDeclaracao.length > 1 && transacaoPJ.filePathAndName.length > 1" target="_blank" href="{{transacaoPJ.filePathAndName}}">
               {{transacaoPJ.hashDeclaracao | hashMask}}
             </a>          
 

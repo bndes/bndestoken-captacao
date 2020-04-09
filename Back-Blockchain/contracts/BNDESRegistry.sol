@@ -59,6 +59,7 @@ contract BNDESRegistry is Ownable() {
     event AccountChange(address oldAddr, address newAddr, uint64 cnpj, uint64 idFinancialSupportAgreement, string idProofHash);
     event AccountValidation(address addr, uint64 cnpj, uint64 idFinancialSupportAgreement);
     event AccountInvalidation(address addr, uint64 cnpj, uint64 idFinancialSupportAgreement);
+    event ManualIntervention_RoleOrAddress(address account, uint8 eventType);
 
     /**
      * @dev Throws if called by any account other than the token address.
@@ -195,41 +196,12 @@ contract BNDESRegistry is Ownable() {
             legalEntitiesInfo[addr].idFinancialSupportAgreement);
     }
 
-
    /**
-    * By default, the owner is also the Responsible for Settlement. 
-    * The owner can assign other address to be the Responsible for Settlement. 
-    * @param rs Ethereum address to be assigned as Responsible for Settlement.
+    * @param rs Ethereum address to be assigned to the token address.
     */
-    function setResponsibleForSettlement(address rs) onlyOwner public {
-        responsibleForSettlement = rs;
-    }
-
-   /**
-    * By default, the owner is also the Responsible for Donation Confirmation. 
-    * The owner can assign other address to be the Responsible for Donation Confirmation. 
-    * @param rs Ethereum address to be assigned as Responsible for Donation Confirmation.
-    */
-    function setResponsibleForDonationConfirmation(address rs) onlyOwner public {
-        responsibleForDonationConfirmation = rs;
-    }
-
-   /**
-    * By default, the owner is also the Responsible for Validation. 
-    * The owner can assign other address to be the Responsible for Validation. 
-    * @param rs Ethereum address to be assigned as Responsible for Validation.
-    */
-    function setResponsibleForRegistryValidation(address rs) onlyOwner public {
-        responsibleForRegistryValidation = rs;
-    }
-
-   /**
-    * By default, the owner is also the Responsible for Disbursment. 
-    * The owner can assign other address to be the Responsible for Disbursment. 
-    * @param rs Ethereum address to be assigned as Responsible for Disbursment.
-    */
-    function setResponsibleForDisbursement(address rs) onlyOwner public {
-        responsibleForDisbursement = rs;
+    function setTokenAddress(address rs) onlyOwner public {
+        tokenAddress = rs;
+        emit ManualIntervention_RoleOrAddress(rs, 0);
     }
 
    /**
@@ -240,14 +212,49 @@ contract BNDESRegistry is Ownable() {
     */
     function setDisbursementAddress(address rs) onlyOwner public {
         disbursementAddress = rs;
+        emit ManualIntervention_RoleOrAddress(rs, 1);
     }
 
    /**
-    * @param rs Ethereum address to be assigned to the token address.
+    * By default, the owner is also the Responsible for Validation. 
+    * The owner can assign other address to be the Responsible for Validation. 
+    * @param rs Ethereum address to be assigned as Responsible for Validation.
     */
-    function setTokenAddress(address rs) onlyOwner public {
-        tokenAddress = rs;
+    function setResponsibleForRegistryValidation(address rs) onlyOwner public {
+        responsibleForRegistryValidation = rs;
+        emit ManualIntervention_RoleOrAddress(rs, 2);
     }
+
+   /**
+    * By default, the owner is also the Responsible for Donation Confirmation. 
+    * The owner can assign other address to be the Responsible for Donation Confirmation. 
+    * @param rs Ethereum address to be assigned as Responsible for Donation Confirmation.
+    */
+    function setResponsibleForDonationConfirmation(address rs) onlyOwner public {
+        responsibleForDonationConfirmation = rs;
+        emit ManualIntervention_RoleOrAddress(rs, 3);
+    }
+
+   /**
+    * By default, the owner is also the Responsible for Disbursment. 
+    * The owner can assign other address to be the Responsible for Disbursment. 
+    * @param rs Ethereum address to be assigned as Responsible for Disbursment.
+    */
+    function setResponsibleForDisbursement(address rs) onlyOwner public {
+        responsibleForDisbursement = rs;
+        emit ManualIntervention_RoleOrAddress(rs, 4);
+    }
+
+   /**
+    * By default, the owner is also the Responsible for Settlement. 
+    * The owner can assign other address to be the Responsible for Settlement. 
+    * @param rs Ethereum address to be assigned as Responsible for Settlement.
+    */
+    function setResponsibleForSettlement(address rs) onlyOwner public {
+        responsibleForSettlement = rs;
+        emit ManualIntervention_RoleOrAddress(rs, 5);
+    }
+
 
    /**
     * Enable the legal entity to change the account

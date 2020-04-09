@@ -4,11 +4,9 @@
   <app-bn-loading class="loading" *ngIf="estadoLista === 'undefined'"></app-bn-loading>
 </div>
 
-<div *ngIf="estadoLista === 'vazia'">
-  <p>Não foi encontrado nenhum evento na Blockchain!</p>
-</div>
 
-<div *ngIf="estadoLista === 'cheia'">
+
+
 
   <div class="container">
     <div class="row">
@@ -137,7 +135,8 @@
         </div>
       </div>
     </div>
-  
+
+<div *ngIf="estadoLista === 'cheia'"> 
   
   <input class="form-control barra-filtro" type="text" name="search" [(ngModel)]="filter" placeholder="Filtro">
     <table class="table table-striped table-bordered table-sm">

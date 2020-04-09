@@ -381,6 +381,10 @@ async function buscaFileInfo(req, res) {
 		let tipo     = req.body.tipo;
 		console.log("tipo=" + tipo);
 
+		console.log("antes: " + blockchainAccount);
+		blockchainAccount = blockchainAccount.toLowerCase();
+		console.log("depois: " + blockchainAccount);
+
 		hashFile = req.body.hashFile;		
 
 		if (tipo=="declaracao") {

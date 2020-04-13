@@ -68,7 +68,7 @@ export class RecuperaAcessoDoadorComponent implements OnInit, DeclarationCompone
     else {
       this.inicializaDadosTroca();
     } 
-    this.fileHandleService.atualizaUploaderComponent(this.doador.cnpj, this.CONTRATO_DOADOR, this.selectedAccount, "declaracao", this);
+    this.fileHandleService.atualizaUploaderComponent(cnpj, this.CONTRATO_DOADOR, this.selectedAccount, "declaracao", this);
 
   }
 

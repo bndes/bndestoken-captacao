@@ -10,6 +10,7 @@ export class HomeComponent implements OnInit {
 
   blockchainNetworkAsString: string;
   contractAddr: string;
+  registryAddr: string;
   selectedAccount: any; 
 
   constructor(private web3Service: Web3Service) {
@@ -24,6 +25,7 @@ export class HomeComponent implements OnInit {
     let infoBlockchainNetwork = this.web3Service.getInfoBlockchainNetwork();
     this.blockchainNetworkAsString = infoBlockchainNetwork.blockchainNetworkAsString;
     this.contractAddr = infoBlockchainNetwork.contractAddr;
+    this.registryAddr = infoBlockchainNetwork.registryAddr;
   }
 
   conectar () {

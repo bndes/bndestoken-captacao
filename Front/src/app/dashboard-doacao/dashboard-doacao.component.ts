@@ -74,7 +74,7 @@ export class DashboardDoacaoComponent implements OnInit {
 
       this.blockchainNetworkPrefix = this.web3Service.getInfoBlockchainNetwork().blockchainNetworkPrefix;
 
-      this.estadoLista = "vazia"
+//      this.estadoLista = "vazia"
 
       console.log("*** Executou o metodo de registrar exibicao eventos");
 

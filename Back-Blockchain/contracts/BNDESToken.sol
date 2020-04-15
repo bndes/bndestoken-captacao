@@ -30,11 +30,14 @@ contract BNDESToken is Pausable {
     
     event TransferBookedBalance(address from, address to, uint256 amount);    
     event TransferConfirmedBalance(address from, address to, uint256 amount);    
-    event ManualIntervention(address account, uint256 amount, string description, uint8 eventType);
+ 
+    event ManualIntervention_MintAndBurn(address account, uint256 amount, string description, uint8 eventType);
+    event ManualIntervention_Fee(uint256 percent, string description);
     
     BNDESRegistry registry;
     
     constructor (BNDESRegistry _registry, uint8 _decimals, uint256 _bndesFee) public {
+        require (bndesFee < 100, "Valor de Fee maior que 100%");
         registry = BNDESRegistry(_registry);
         decimals = _decimals;
         bndesFee = _bndesFee;
@@ -125,28 +128,34 @@ contract BNDESToken is Pausable {
         require(account != address(0), "ERC20: burn from the zero address");
         bookedBalances[account] = bookedBalances[account].add(amount);
         bookedTotalSupply = bookedTotalSupply.add(amount);
-        emit ManualIntervention(account, amount, description,1);        
+        emit ManualIntervention_MintAndBurn(account, amount, description,1);        
     }        
     //These methods may be necessary to solve incidents.
     function burnBooked(address account, uint256 amount, string memory description) public onlyOwner {
         require(account != address(0), "ERC20: burn from the zero address");
         bookedBalances[account] = bookedBalances[account].sub(amount, "ERC20: burn amount exceeds balance");
         bookedTotalSupply = bookedTotalSupply.sub(amount);
-        emit ManualIntervention(account, amount, description,2);        
+        emit ManualIntervention_MintAndBurn(account, amount, description,2);        
     }
     //These methods may be necessary to solve incidents.
     function mintConfirmed(address account, uint256 amount, string memory description) public onlyOwner {
         require(account != address(0), "ERC20: burn from the zero address");
         confirmedBalances[account] = confirmedBalances[account].add(amount);
         confirmedTotalSupply = confirmedTotalSupply.add(amount);
-        emit ManualIntervention(account, amount, description,3);        
+        emit ManualIntervention_MintAndBurn(account, amount, description,3);        
     }
     //These methods may be necessary to solve incidents.
     function burnConfirmed(address account, uint256 amount, string memory description) public onlyOwner {
         require(account != address(0), "ERC20: burn from the zero address");
         confirmedBalances[account] = confirmedBalances[account].sub(amount, "ERC20: burn amount exceeds balance");
         confirmedTotalSupply = confirmedTotalSupply.sub(amount);
-        emit ManualIntervention(account, amount, description,4);        
+        emit ManualIntervention_MintAndBurn(account, amount, description,4);
+    }
+
+    function setBNDESFee(uint256 newBndesFee, string memory description) public onlyOwner {
+        require (newBndesFee < 100, "Valor de Fee maior que 100%");
+        bndesFee = newBndesFee;
+        emit ManualIntervention_Fee(newBndesFee, description);
     }
 
     function registryLegalEntity(uint64 cnpj, uint64 idFinancialSupportAgreement, string memory idProofHash) 

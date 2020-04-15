@@ -201,9 +201,19 @@ export class Web3Service {
         this.eventoDoacao = this.bndesTokenSmartContract.DonationConfirmed({}, { fromBlock: 0, toBlock: 'latest' });
         this.eventoDoacao.watch(callback);
     }
-    registraEventosIntervencaoManual(callback) {
+    registraEventosIntervencaoManualMintBurn(callback) {
         console.log("web3-registraEventosIntervencaoManual");        
-        this.eventoDoacao = this.bndesTokenSmartContract.ManualIntervention({}, { fromBlock: 0, toBlock: 'latest' });
+        this.eventoDoacao = this.bndesTokenSmartContract.ManualIntervention_MintAndBurn({}, { fromBlock: 0, toBlock: 'latest' });
+        this.eventoDoacao.watch(callback);
+    }
+    registraEventosIntervencaoManualFee(callback) {
+        console.log("web3-registraEventosIntervencaoManualFee");        
+        this.eventoDoacao = this.bndesTokenSmartContract.ManualIntervention_Fee({}, { fromBlock: 0, toBlock: 'latest' });
+        this.eventoDoacao.watch(callback);
+    }
+    registraEventosIntervencaoManualRoleOrAddress(callback) {
+        console.log("web3-registraEventosIntervencaoManual-RoleOrAddress");        
+        this.eventoDoacao = this.bndesRegistrySmartContract.ManualIntervention_RoleOrAddress({}, { fromBlock: 0, toBlock: 'latest' });
         this.eventoDoacao.watch(callback);
     }
 

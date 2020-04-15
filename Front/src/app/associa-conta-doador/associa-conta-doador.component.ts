@@ -190,7 +190,7 @@ export class AssociaContaDoadorComponent implements OnInit, DeclarationComponent
 
     let bChangeAccountSync = await this.web3Service.isChangeAccountEnabledSync(this.selectedAccount);
     if (!bChangeAccountSync) {
-      let s = "A conta não está habilitada para troca. Contacte o BNDES";
+      let s = "A conta não está habilitada para associação. Contacte o BNDES";
       this.bnAlertsService.criarAlerta("error", "Erro", s, 5);
       return;
     }

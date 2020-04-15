@@ -180,7 +180,8 @@ export class RecuperaAcessoClienteComponent implements OnInit, DeclarationCompon
             this.includeIfNotExists(this.cliente.subcreditos, sub);
             this.numeroSubcreditoSelecionado = this.cliente.subcreditos[0].numero;
             this.recuperaContaBlockchainCliente();
-            this.preparaUpload();
+            this.preparaUpload(this.cliente.cnpj, 
+              this.numeroSubcreditoSelecionado, this.selectedAccount);
         }
   
       },

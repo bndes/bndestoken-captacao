@@ -67,11 +67,10 @@ export class RecuperaAcessoClienteComponent implements OnInit, DeclarationCompon
     }         
   }
   
-  preparaUpload() {
+  preparaUpload(_cnpj, _subcredito, _contaBlockchain) {
     const tipo = "declaracao";      
 
-    this.fileHandleService.atualizaUploaderComponent(this.cliente.cnpj, 
-                          this.numeroSubcreditoSelecionado, this.selectedAccount, tipo, this)
+    this.fileHandleService.atualizaUploaderComponent(_cnpj, _subcredito, _contaBlockchain, tipo, this)
   }
 
   cancelar() {
@@ -89,6 +88,8 @@ export class RecuperaAcessoClienteComponent implements OnInit, DeclarationCompon
         this.selectedAccount = newSelectedAccount;
         console.log("selectedAccount=" + this.selectedAccount);
         this.verificaContaBlockchainSelecionada(this.selectedAccount); 
+        this.preparaUpload(this.cliente.cnpj, 
+          this.numeroSubcreditoSelecionado, this.selectedAccount);
       } else {
         console.log( "Upload has already made! You should not change your account. Reseting... " );
         this.cancelar();
@@ -179,7 +180,8 @@ export class RecuperaAcessoClienteComponent implements OnInit, DeclarationCompon
             this.includeIfNotExists(this.cliente.subcreditos, sub);
             this.numeroSubcreditoSelecionado = this.cliente.subcreditos[0].numero;
             this.recuperaContaBlockchainCliente();
-            this.preparaUpload();
+            this.preparaUpload(this.cliente.cnpj, 
+              this.numeroSubcreditoSelecionado, this.selectedAccount);
         }
   
       },

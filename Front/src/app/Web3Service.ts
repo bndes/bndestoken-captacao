@@ -79,7 +79,8 @@ export class Web3Service {
             blockchainNetwork:this.blockchainNetwork,
             blockchainNetworkAsString:blockchainNetworkAsString,
             blockchainNetworkPrefix: blockchainNetworkPrefix,
-            contractAddr: this.addrContratoBNDESToken 
+            contractAddr: this.addrContratoBNDESToken,
+            registryAddr: this.addrContratoBNDESRegistry
         };
     }
 

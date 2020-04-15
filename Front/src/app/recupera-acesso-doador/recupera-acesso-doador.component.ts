@@ -68,7 +68,7 @@ export class RecuperaAcessoDoadorComponent implements OnInit, DeclarationCompone
     else {
       this.inicializaDadosTroca();
     } 
-    this.fileHandleService.atualizaUploaderComponent(cnpj, this.CONTRATO_DOADOR, this.selectedAccount, "declaracao", this);
+    this.preparaUpload(this.doador.cnpj, this.selectedAccount, this);
 
   }
 
@@ -88,6 +88,7 @@ export class RecuperaAcessoDoadorComponent implements OnInit, DeclarationCompone
         this.selectedAccount = newSelectedAccount;
         console.log("selectedAccount=" + this.selectedAccount);
         this.verificaContaBlockchainSelecionada(this.selectedAccount); 
+        this.preparaUpload(this.doador.cnpj, this.selectedAccount, this);
       }
       else {
         console.log( "Upload has already made! You should not change your account. Reseting... " );
@@ -95,6 +96,13 @@ export class RecuperaAcessoDoadorComponent implements OnInit, DeclarationCompone
       }        
     }
 
+  }
+
+  preparaUpload(_cnpj, _contaBlockchain, _this) {
+    const tipo = "declaracao";      
+
+    this.fileHandleService.atualizaUploaderComponent(_cnpj, 
+                          this.CONTRATO_DOADOR, _contaBlockchain, tipo, _this)
   }
 
 

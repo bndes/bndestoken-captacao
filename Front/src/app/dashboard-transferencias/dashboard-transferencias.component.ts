@@ -25,6 +25,7 @@ export class DashboardTransferenciasComponent implements OnInit {
   //public volumeLiquidacaoResgate: number;
   
   public confirmedTotalSupply : number;
+  public saldoBNDESToken: number;
 
   listaTransferencias: DashboardTransferencia[] = undefined;
   estadoLista: string = "undefined"
@@ -57,10 +58,8 @@ export class DashboardTransferenciasComponent implements OnInit {
     this.contadorSolicitacaoResgate = 0;
     this.contadorLiquidacaoResgate = 0;
 
-
     this.volumeLiberacao = 0;
     this.volumeResgate = 0;
-    //this.volumeLiquidacaoResgate = 0;
 
     this.confirmedTotalSupply = 0;
 
@@ -70,6 +69,7 @@ export class DashboardTransferenciasComponent implements OnInit {
     setTimeout(() => {
       this.registrarExibicaoEventos();
       this.getConfirmedTotalSupply();
+      this.recuperaSaldoBNDESToken();
     }, 1500)
 
     setTimeout(() => {
@@ -115,6 +115,23 @@ export class DashboardTransferenciasComponent implements OnInit {
 
   }
 
+  async recuperaSaldoBNDESToken() {
+
+    let self = this;
+  
+    this.web3Service.getDisbursementAddressBalance(
+      function (result) {
+        console.log("Saldo eh " + result);
+        self.saldoBNDESToken = result;
+        self.ref.detectChanges();
+      },
+      function (error) {
+        console.log("Erro ao ler o saldo do BNDES ");
+        console.log(error);
+        self.saldoBNDESToken = 0;
+      });
+  }  
+
   registrarExibicaoEventos() {
 
     let self = this; 
@@ -128,7 +145,7 @@ export class DashboardTransferenciasComponent implements OnInit {
     this.registrarExibicaoEventosSolicitacaoResgate()
 
     // EVENTOS LIQUIDACAO DE RESGATE
-    this.registrarExibicaoEventosLiquidacaoResgate()
+//    this.registrarExibicaoEventosLiquidacaoResgate()
 
     console.log("antes de atualizar - contador liberacao " + self.contadorLiberacao);
     console.log("antes de atualizar - contador liquidacao resgate " + self.contadorLiquidacaoResgate);
@@ -183,16 +200,19 @@ export class DashboardTransferenciasComponent implements OnInit {
 
             // Colocar dentro da zona do Angular para ter a atualização de forma correta
             self.zone.run(() => {
-              self.includeIfNotExists(liberacao);              
-              self.estadoLista = "cheia"
+              self.estadoLista = "cheia";
+              let incluiu = self.includeIfNotExists(liberacao);              
+              if (incluiu) {
+
+                self.contadorLiberacao++;
+                self.volumeLiberacao += self.web3Service.converteInteiroParaDecimal(parseInt(eventoLiberacao.args.amount));
+    
+                console.log("inseriu liberacao " + liberacao.hashID);
+                console.log("contador liberacao " + self.contadorLiberacao);
+                console.log("volume liberacao " + self.volumeLiberacao);    
+              }
             });
 
-            self.contadorLiberacao++;
-            self.volumeLiberacao += self.web3Service.converteInteiroParaDecimal(parseInt(eventoLiberacao.args.amount));
-
-            console.log("inseriu liberacao " + liberacao.hashID);
-            console.log("contador liberacao " + self.contadorLiberacao);
-            console.log("volume liberacao " + self.volumeLiberacao);
 
             self.web3Service.getBlockTimestamp(eventoLiberacao.blockHash,
               function (error, result) {
@@ -225,83 +245,6 @@ export class DashboardTransferenciasComponent implements OnInit {
     });
   }
 
-  registrarExibicaoEventosLiquidacaoResgate() {
-    let self = this
-
-    this.web3Service.registraEventosLiquidacaoResgate(function (error, event) {
-      if (!error) {
-        let liberacao: DashboardTransferencia;
-        let eventoLiquidacaoResgate = event
-        console.log("contador liberacao " + self.contadorLiquidacaoResgate);
-        //console.log("volume liberacao " + self.volumeLiquidacaoResgate);    
-        self.contadorLiquidacaoResgate++;
-        //self.volumeLiquidacaoResgate += self.web3Service.converteInteiroParaDecimal(parseInt(eventoLiquidacaoResgate.args.amount));            
-/** * 
-        self.pessoaJuridicaService.recuperaEmpresaPorCnpj(eventoLiquidacaoResgate.args.cnpj).subscribe(
-          data => {
-
-            liberacao = {
-              deRazaoSocial: self.razaoSocialBNDES,
-              deCnpj: "BNDES",
-              deConta: "0",
-              paraRazaoSocial: "Erro: Não encontrado",
-              paraCnpj: eventoLiquidacaoResgate.args.cnpj,
-              paraConta: eventoLiquidacaoResgate.args.idFinancialSupportAgreement,
-              valor: self.web3Service.converteInteiroParaDecimal(parseInt(eventoLiquidacaoResgate.args.amount)),
-              tipo: "Liberação",
-              hashID: eventoLiquidacaoResgate.transactionHash,
-              dataHora: null
-            };
-
-            if (data && data.dadosCadastrais) {
-              liberacao.paraRazaoSocial = data.dadosCadastrais.razaoSocial;
-            }
-
-            // Colocar dentro da zona do Angular para ter a atualização de forma correta
-            self.zone.run(() => {
-              self.includeIfNotExists(liberacao);              
-              self.estadoLista = "cheia"
-            });
-
-            self.contadorLiberacao++;
-            self.volumeLiberacao += self.web3Service.converteInteiroParaDecimal(parseInt(eventoLiquidacaoResgate.args.amount));
-
-            console.log("inseriu liberacao " + liberacao.hashID);
-            console.log("contador liberacao " + self.contadorLiberacao);
-            console.log("volume liberacao " + self.volumeLiberacao);
-
-            self.web3Service.getBlockTimestamp(eventoLiquidacaoResgate.blockHash,
-              function (error, result) {
-                if (!error) {
-                  liberacao.dataHora = new Date(result.timestamp * 1000);
-                  console.log("data hora:" + liberacao.dataHora);
-                  self.ref.detectChanges();
-                  //TODO: adicionar tratamento para o grafico de barras
-                }
-                else {
-                  console.log("Erro ao recuperar data e hora do bloco");
-                  console.error(error);
-                }
-              });
-
-              self.isActive = new Array(self.listaTransferencias.length).fill(false)
-
-              console.log("Chegou no final da função");
-          },
-          error => {
-            console.log("Erro ao recuperar empresa por CNPJ do evento liberação")
-          }
-        )
-/**/
-      }
-      else {
-        console.log("Erro no registro de eventos de liquidacao de resgate");
-        console.log(error);
-      }
-
-    });
-  }  
-
 
   registrarExibicaoEventosSolicitacaoResgate() {
     let self = this
@@ -333,16 +276,21 @@ export class DashboardTransferenciasComponent implements OnInit {
 
             // Colocar dentro da zona do Angular para ter a atualização de forma correta
             self.zone.run(() => {
-              self.includeIfNotExists(resgate); 
               self.estadoLista = "cheia"
+
+              let incluiu = self.includeIfNotExists(resgate); 
+              if (incluiu) {
+
+                self.contadorSolicitacaoResgate++;
+                self.volumeResgate += self.web3Service.converteInteiroParaDecimal(parseInt(eventoResgate.args.amount));
+    
+                console.log("inseriu resg " + resgate.hashID);
+                console.log("contador resg " + self.contadorSolicitacaoResgate);
+                console.log("volume resg " + self.volumeResgate);
+    
+              }
             });
  
-            self.contadorSolicitacaoResgate++;
-            self.volumeResgate += self.web3Service.converteInteiroParaDecimal(parseInt(eventoResgate.args.amount));
-
-            console.log("inseriu resg " + resgate.hashID);
-            console.log("contador resg " + self.contadorSolicitacaoResgate);
-            console.log("volume resg " + self.volumeResgate);
 
             self.web3Service.getBlockTimestamp(eventoResgate.blockHash,
               function (error, result) {
@@ -367,82 +315,92 @@ export class DashboardTransferenciasComponent implements OnInit {
 
   includeIfNotExists(transacaoPJ) {
     let result = this.listaTransferencias.find(tr => tr.hashID == transacaoPJ.hashID);
-    if (!result) this.listaTransferencias.push(transacaoPJ);        
+    if (!result) {
+        this.listaTransferencias.push(transacaoPJ);
+        return true;
+      }
+    return (false);        
  } 
  
+
+
+/** *
+ registrarExibicaoEventosLiquidacaoResgate() {
+  let self = this
+
+  this.web3Service.registraEventosLiquidacaoResgate(function (error, event) {
+    if (!error) {
+      let liberacao: DashboardTransferencia;
+      let eventoLiquidacaoResgate = event
+      console.log("contador liberacao " + self.contadorLiquidacaoResgate);
+      //console.log("volume liberacao " + self.volumeLiquidacaoResgate);    
+      self.contadorLiquidacaoResgate++;
+      //self.volumeLiquidacaoResgate += self.web3Service.converteInteiroParaDecimal(parseInt(eventoLiquidacaoResgate.args.amount));            
  
-} 
-
-
-
-/* Necessario rever
-  selecionaTransacao(position: number, transferencia: DashboardTransferencia) {
-
-    this.marcadores = []
-    this.marcadoresLinha = []
-
-    if (this.isActive[position]) {
-      this.isActive[position] = false
-      this.mapaEstaAtivo = false
-    } else {
-      scrollTo(0, 100000);
-
-      this.isActive = new Array(this.listaTransferencias.length).fill(false)
-      this.isActive[position] = true
-      this.mapaEstaAtivo = true
-
-      let cnpjOrigem = transferencia.deCnpj
-      let cnpjDestino = transferencia.paraCnpj
-
-      this.exibirTransferenciaNoMapa([transferencia.deCnpj, transferencia.paraCnpj])
-    }
-
-  }
-
-  
-  exibirTransferenciaNoMapa(listaCnpj: string[]) {
-
-    let self = this
-
-    for (var i = 0; i < listaCnpj.length; i++) {
-
-      this.pessoaJuridicaService.recuperaEmpresaPorCnpj(listaCnpj[i]).subscribe(
+      self.pessoaJuridicaService.recuperaEmpresaPorCnpj(eventoLiquidacaoResgate.args.cnpj).subscribe(
         data => {
-          console.log("EMPRESA RECUPERADA PELO CNPJ")
 
-          let cidade = data ? data.dadosCadastrais.cidade : "Rio de janeiro"
+          liberacao = {
+            deRazaoSocial: self.razaoSocialBNDES,
+            deCnpj: "BNDES",
+            deConta: "0",
+            paraRazaoSocial: "Erro: Não encontrado",
+            paraCnpj: eventoLiquidacaoResgate.args.cnpj,
+            paraConta: eventoLiquidacaoResgate.args.idFinancialSupportAgreement,
+            valor: self.web3Service.converteInteiroParaDecimal(parseInt(eventoLiquidacaoResgate.args.amount)),
+            tipo: "Liberação",
+            hashID: eventoLiquidacaoResgate.transactionHash,
+            dataHora: null
+          };
 
-          this.mapa.converteCidadeEmCoordenadas(cidade, (result) => {
+          if (data && data.dadosCadastrais) {
+            liberacao.paraRazaoSocial = data.dadosCadastrais.razaoSocial;
+          }
 
-            this.marcadores.push({
-              lat: result[0],
-              lng: result[1],
-              draggable: true,
-              info: data ? data.dadosCadastrais.razaoSocial : "Banco Nacional de Desenvolvimento Econômico e Social"
-            })
+          // Colocar dentro da zona do Angular para ter a atualização de forma correta
+          self.zone.run(() => {
+            self.includeIfNotExists(liberacao);              
+            self.estadoLista = "cheia"
+          });
 
-          })
+          self.contadorLiberacao++;
+          self.volumeLiberacao += self.web3Service.converteInteiroParaDecimal(parseInt(eventoLiquidacaoResgate.args.amount));
 
-          setTimeout(() => {
-            this.latitudeInicial = this.marcadores[0].lat
-            this.longitudeInicial = this.marcadores[0].lng
+          console.log("inseriu liberacao " + liberacao.hashID);
+          console.log("contador liberacao " + self.contadorLiberacao);
+          console.log("volume liberacao " + self.volumeLiberacao);
 
-            this.marcadoresLinha.push({
-              latA: this.marcadores[0].lat,
-              lngA: this.marcadores[0].lng,
-              latB: this.marcadores[1].lat,
-              lngB: this.marcadores[1].lng
-            })
+          self.web3Service.getBlockTimestamp(eventoLiquidacaoResgate.blockHash,
+            function (error, result) {
+              if (!error) {
+                liberacao.dataHora = new Date(result.timestamp * 1000);
+                console.log("data hora:" + liberacao.dataHora);
+                self.ref.detectChanges();
+                //TODO: adicionar tratamento para o grafico de barras
+              }
+              else {
+                console.log("Erro ao recuperar data e hora do bloco");
+                console.error(error);
+              }
+            });
 
-            this.ref.detectChanges()
-          }, 500)
+            self.isActive = new Array(self.listaTransferencias.length).fill(false)
 
+            console.log("Chegou no final da função");
         },
         error => {
-          console.log("Erro ao encontrar a empresa")
+          console.log("Erro ao recuperar empresa por CNPJ do evento liberação")
         }
       )
+
+    }
+    else {
+      console.log("Erro no registro de eventos de liquidacao de resgate");
+      console.log(error);
     }
 
-  }
+  });
+}  
 */
+ 
+} 

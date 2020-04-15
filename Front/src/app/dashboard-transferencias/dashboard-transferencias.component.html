@@ -45,12 +45,12 @@
               <div>
                 <div class="row">
                   <div class="col-md-12 col-sm-12 titulo-dash-green">
-                    Tokens disponíveis (doações-liberações)
+                    Tokens disponíveis para apoio a projetos (saldo não utilizado)
                   </div>
                 </div>    
                 <div class="row">
                   <div class="col-md-12 col-sm-12 numero-dash-green">
-                    {{volumeResgate+confirmedTotalSupply-volumeLiberacao | currency:'BND':'symbol':'1.2-2':'pt'}}
+                    {{saldoBNDESToken | currency:'BND':'symbol':'1.2-2':'pt'}}
                   </div>
                 </div>    
               </div>               
@@ -105,7 +105,7 @@
                   <div>
                     <div >
                       <div class="col-md-12 col-sm-12 titulo-dash-yellow">                        
-                        Tokens solicitados para Resgate ("burned")
+                        Tokens solicitados para Resgate
                       </div>
                     </div>    
                     <div >
@@ -115,20 +115,38 @@
                     </div>    
                   </div> 
                 </div>
+                
                 <div class="row">
                   <div>
                     <div >
                       <div class="col-md-12 col-sm-12 titulo-dash-yellow">                        
-                        Token em Circulação (liberações - "burned")
+                        Tokens em Circulação (liberações - resgates)
                       </div>
                     </div>    
                     <div >
                       <div class="col-md-12 col-sm-12 numero-dash-yellow">
-                        {{volumeLiberacao-volumeResgate | currency:'BND':'symbol':'1.2-2':'pt'}}
+                        {{confirmedTotalSupply - saldoBNDESToken | currency:'BND':'symbol':'1.2-2':'pt'}}
                       </div>
                     </div>    
                   </div>  
                 </div>
+
+                <div class="row" *ngIf="(confirmedTotalSupply - saldoBNDESToken + volumeResgate - volumeLiberacao) != 0">
+                  <div>
+                    <div >
+                      <div class="col-md-12 col-sm-12 titulo-dash-yellow">                        
+                        Saldo de ajustes extraordinários (<a class="titulo-dash" target="_blank" href="/sociedade/dash-manuais">ver detalhes</a>)
+                      </div>
+                    </div>    
+                    <div >
+                      <div class="col-md-12 col-sm-12 numero-dash-yellow">
+                        {{confirmedTotalSupply - saldoBNDESToken + volumeResgate - volumeLiberacao | currency:'BND':'symbol':'1.2-2':'pt'}}
+                      </div>
+                    </div>    
+                  </div>                      
+                </div>
+
+
               </div>              
                       
           </div>

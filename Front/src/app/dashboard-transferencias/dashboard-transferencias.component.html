@@ -131,7 +131,7 @@
                   </div>  
                 </div>
 
-                <div class="row" *ngIf="(confirmedTotalSupply - saldoBNDESToken + volumeResgate - volumeLiberacao) != 0">
+                <div class="row" *ngIf="(saldoAjustesExtraordinarios!=0)">
                   <div>
                     <div >
                       <div class="col-md-12 col-sm-12 titulo-dash-yellow">                        
@@ -140,9 +140,9 @@
                     </div>    
                     <div >
                       <div class="col-md-12 col-sm-12 numero-dash-yellow">
-                        {{confirmedTotalSupply - saldoBNDESToken + volumeResgate - volumeLiberacao | currency:'BND':'symbol':'1.2-2':'pt'}}
+                        {{ saldoAjustesExtraordinarios | currency:'BND':'symbol':'1.2-2':'pt'}}
                       </div>
-                    </div>    
+                    </div> 
                   </div>                      
                 </div>
 

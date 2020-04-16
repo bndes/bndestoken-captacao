@@ -210,7 +210,7 @@ export class DashboardTransferenciasComponent implements OnInit {
                 self.contadorLiberacao++;
                 self.volumeLiberacao += self.web3Service.converteInteiroParaDecimal(parseInt(eventoLiberacao.args.amount));
     
-                self.calculaSaldoAjustesExtraordinarios();
+                self.recalculaTokensESaldos();
 
                 console.log("inseriu liberacao " + liberacao.hashID);
                 console.log("contador liberacao " + self.contadorLiberacao);
@@ -288,7 +288,7 @@ export class DashboardTransferenciasComponent implements OnInit {
 
                 self.contadorSolicitacaoResgate++;
                 self.volumeResgate += self.web3Service.converteInteiroParaDecimal(parseInt(eventoResgate.args.amount));
-                self.calculaSaldoAjustesExtraordinarios();
+                self.recalculaTokensESaldos();
     
                 console.log("inseriu resg " + resgate.hashID);
                 console.log("contador resg " + self.contadorSolicitacaoResgate);
@@ -318,6 +318,14 @@ export class DashboardTransferenciasComponent implements OnInit {
 
     });
   }
+
+  recalculaTokensESaldos() {
+    this.getConfirmedTotalSupply();
+    this.recuperaSaldoBNDESToken();
+    this.calculaSaldoAjustesExtraordinarios();
+
+  }
+
 
   includeIfNotExists(transacaoPJ) {
     let result = this.listaTransferencias.find(tr => tr.hashID == transacaoPJ.hashID);

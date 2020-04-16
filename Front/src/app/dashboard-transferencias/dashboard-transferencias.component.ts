@@ -117,7 +117,7 @@ export class DashboardTransferenciasComponent implements OnInit {
       function (result) {
         console.log("getConfirmedTotalSupply eh " + result);
         self.confirmedTotalSupply = result;
-        this.calculaSaldos();
+        self.calculaSaldos();
         self.ref.detectChanges();
       },
       function (error) {
@@ -141,7 +141,7 @@ export class DashboardTransferenciasComponent implements OnInit {
       function (result) {
         console.log("Saldo eh " + result);
         self.saldoBNDESToken = result;
-        this.calculaSaldos();
+        self.calculaSaldos();
         self.ref.detectChanges();
       },
       function (error) {

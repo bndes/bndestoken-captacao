@@ -4,10 +4,6 @@
   <app-bn-loading class="loading" *ngIf="estadoLista === 'undefined'"></app-bn-loading>
 </div>
 
-
-
-
-
   <div class="container">
     <div class="row">
       <div class="col-md-3 col-sm-3 border border-dark rounded">
@@ -22,11 +18,11 @@
                 </div>    
                 <div >
                   <div class="col-md-12 col-sm-12 numero-dash">
-                    {{volumeResgate+confirmedTotalSupply | currency:'BND':'symbol':'1.2-2':'pt'}}
+                    {{ tokensEmitidosDoacao | currency:'BND':'symbol':'1.2-2':'pt'}}
                     <br>
                     = 
                     <br>
-                    {{volumeResgate+confirmedTotalSupply | currency:'R$':'symbol':'1.2-2':'pt'}}
+                    {{ tokensEmitidosDoacao | currency:'R$':'symbol':'1.2-2':'pt'}}
                     <br>
                     <a class="titulo-dash" target="_blank" href="/sociedade/dash-doacao">
                     ver detalhes
@@ -125,7 +121,7 @@
                     </div>    
                     <div >
                       <div class="col-md-12 col-sm-12 numero-dash-yellow">
-                        {{confirmedTotalSupply - saldoBNDESToken | currency:'BND':'symbol':'1.2-2':'pt'}}
+                        {{tokensEmCirculacao | currency:'BND':'symbol':'1.2-2':'pt'}}
                       </div>
                     </div>    
                   </div>  

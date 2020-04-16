@@ -27,6 +27,8 @@ export class DashboardTransferenciasComponent implements OnInit {
   public confirmedTotalSupply : number;
   public saldoBNDESToken: number;
 
+  public tokensEmitidosDoacao: number;
+  public tokensEmCirculacao: number;
   public saldoAjustesExtraordinarios: number;
 
   listaTransferencias: DashboardTransferencia[] = undefined;
@@ -64,6 +66,8 @@ export class DashboardTransferenciasComponent implements OnInit {
     this.volumeResgate = 0;
 
     this.confirmedTotalSupply = 0;
+    this.tokensEmitidosDoacao = 0;
+    this.tokensEmCirculacao = 0;
     this.saldoAjustesExtraordinarios = 0;
 
     this.listaTransferencias = [];
@@ -71,14 +75,17 @@ export class DashboardTransferenciasComponent implements OnInit {
 
     setTimeout(() => {
       this.registrarExibicaoEventos();
-      this.getConfirmedTotalSupply();
-      this.recuperaSaldoBNDESToken();
     }, 1500)
 
     setTimeout(() => {
       this.estadoLista = this.estadoLista === "undefined" ? "vazia" : "cheia"
       this.ref.detectChanges()
     }, 2300)
+
+    setInterval(() => {
+      this.getConfirmedTotalSupply();
+      this.recuperaSaldoBNDESToken();
+    }, 1000)
 
   }
 
@@ -110,6 +117,8 @@ export class DashboardTransferenciasComponent implements OnInit {
       function (result) {
         console.log("getConfirmedTotalSupply eh " + result);
         self.confirmedTotalSupply = result;
+        this.calculaSaldos();
+        self.ref.detectChanges();
       },
       function (error) {
         console.log("Erro ao ler getConfirmedTotalSupply ");
@@ -118,7 +127,9 @@ export class DashboardTransferenciasComponent implements OnInit {
 
   }
 
-  calculaSaldoAjustesExtraordinarios() {
+  calculaSaldos() {
+    this.tokensEmitidosDoacao = this.volumeResgate+this.confirmedTotalSupply;
+    this.tokensEmCirculacao = this.confirmedTotalSupply - this.saldoBNDESToken;
     this.saldoAjustesExtraordinarios = (this.confirmedTotalSupply + this.volumeResgate) - (this.saldoBNDESToken + this.volumeLiberacao);
   }
 
@@ -130,6 +141,7 @@ export class DashboardTransferenciasComponent implements OnInit {
       function (result) {
         console.log("Saldo eh " + result);
         self.saldoBNDESToken = result;
+        this.calculaSaldos();
         self.ref.detectChanges();
       },
       function (error) {
@@ -209,8 +221,6 @@ export class DashboardTransferenciasComponent implements OnInit {
 
                 self.contadorLiberacao++;
                 self.volumeLiberacao += self.web3Service.converteInteiroParaDecimal(parseInt(eventoLiberacao.args.amount));
-    
-                self.recalculaTokensESaldos();
 
                 console.log("inseriu liberacao " + liberacao.hashID);
                 console.log("contador liberacao " + self.contadorLiberacao);
@@ -288,7 +298,6 @@ export class DashboardTransferenciasComponent implements OnInit {
 
                 self.contadorSolicitacaoResgate++;
                 self.volumeResgate += self.web3Service.converteInteiroParaDecimal(parseInt(eventoResgate.args.amount));
-                self.recalculaTokensESaldos();
     
                 console.log("inseriu resg " + resgate.hashID);
                 console.log("contador resg " + self.contadorSolicitacaoResgate);
@@ -317,13 +326,6 @@ export class DashboardTransferenciasComponent implements OnInit {
       }
 
     });
-  }
-
-  recalculaTokensESaldos() {
-    this.getConfirmedTotalSupply();
-    this.recuperaSaldoBNDESToken();
-    this.calculaSaldoAjustesExtraordinarios();
-
   }
 
 

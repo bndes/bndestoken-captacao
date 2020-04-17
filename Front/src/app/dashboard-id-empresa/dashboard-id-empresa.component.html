@@ -15,37 +15,22 @@
     <table class="table table-striped table-bordered table-sm">
       <thead>
         <tr *ngIf="listaTransacoesPJ.length > 0">
-          <td [class.active]="order === 'razaoSocial'" (click)="setOrder('razaoSocial')">Razão Social
-            <i [hidden]="reverse" class="fa fa-caret-down"></i>
-            <i [hidden]="!reverse" class="fa fa-caret-up"></i>
+          <td>Razão Social
           </td>
-          <td class="cnpj-table-cell" [class.active]="order === 'cnpj'" (click)="setOrder('cnpj')">CNPJ
-            <i [hidden]="reverse" class="fa fa-caret-down"></i>
-            <i [hidden]="!reverse" class="fa fa-caret-up"></i>
+          <td >CNPJ
           </td>
-          <td [class.active]="order === 'nomeConta'" (click)="setOrder('nomeConta')">Contrato Financeiro
-              <i [hidden]="reverse" class="fa fa-caret-down"></i>
-              <i [hidden]="!reverse" class="fa fa-caret-up"></i>
+          <td>Contrato Financeiro
             </td>
-            <td [class.active]="order === 'perfil'" (click)="setOrder('perfil')">Perfil
-              <i [hidden]="reverse" class="fa fa-caret-down"></i>
-              <i [hidden]="!reverse" class="fa fa-caret-up"></i>
+            <td>Perfil
             </td>
-            <td [class.active]="order === 'declaracao'" (click)="setOrder('declaracao')">Declaração
-              <i [hidden]="reverse" class="fa fa-caret-down"></i>
-              <i [hidden]="!reverse" class="fa fa-caret-up"></i>
+            <td>Declaração
             </td>            
-          <td [class.active]="order === 'dataHora'" (click)="setOrder('dataHora')">Data/Hora
-            <i [hidden]="reverse" class="fa fa-caret-down"></i>
-            <i [hidden]="!reverse" class="fa fa-caret-up"></i>
+          <td>Data/Hora
           </td>
-          <td [class.active]="order === 'contaBlockchain'" (click)="setOrder('contaBlockchain')">Conta Blockchain
-            <i [hidden]="reverse" class="fa fa-caret-down"></i>
-            <i [hidden]="!reverse" class="fa fa-caret-up"></i>
+          <td>Conta Blockchain
+          
           </td>
-          <td [class.active]="order === 'status'" (click)="setOrder('status')">Status
-            <i [hidden]="reverse" class="fa fa-caret-down"></i>
-            <i [hidden]="!reverse" class="fa fa-caret-up"></i>
+          <td>Status
           </td>
           <td>Link Etherscan</td>
         </tr>
